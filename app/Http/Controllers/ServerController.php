@@ -11,7 +11,7 @@ class ServerController extends Controller
 {
     public function showPage()
     {
-        $servers = Server::orderBy('location')->orderBy('node_number')->get();
+        $servers = Server::orderBy('node_number')->orderBy('node_number')->get();
         $page = Page::where('slug', 'server-list')->first();
         return view('servers.show_page', compact('servers', 'page'));
     }

@@ -30,7 +30,7 @@
             <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <div class="logo-space">
-                        <i class="glyphicon glyphicon-unchecked"></i> Black Box
+                        <i class="fa fa-cube"></i> Black Box
                     </div>
                     <div class="right">
                         <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>
@@ -52,7 +52,7 @@
                         @foreach($chapters as $chapter)
                             <li{!! Request::segment(2) == $chapter->slug ? ' class="active"' : null !!}>
                                 <a href="/chapter/{{ $chapter->slug }}">
-                                    <i class="glyphicon glyphicon-book"></i>
+                                    <i class="fa fa-book"></i>
                                     <span class="nav-label">{{ $chapter->title }}</span>
                                     @if(!$chapter->pages->isEmpty())
                                         <span class="fa arrow"></span>
@@ -61,12 +61,15 @@
                                 @if(!$chapter->pages->isEmpty())
                                     <ul class="nav nav-second-level collapse">
                                         @foreach($chapter->pages as $page)
-                                            <li><a href="/chapter/{{ $chapter->slug }}/{{ $page->slug }}">{{ $page->title }}</a></li></li>
+                                            <li><a href="/chapter/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a></li></li>
                                         @endforeach
                                     </ul>
                                 @endif
                             </li>
                         @endforeach
+                        <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
+                            <a href="/"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Bookmarks</span></a>
+                        </li>
                     </ul>
 
                 </div>
@@ -74,7 +77,8 @@
         </div>
 
         <div class="row row-first-content">
-            @yield ('content')
+            <i class="glyphicon glyphicon-bookmark bookmark" title="Click to bookmark this page"></i>
+            @yield ('content') 
         </div>
 
     </div>
@@ -95,6 +99,14 @@
 
 <script>
     $(document).ready(function() {
+        $('.bookmark').click(function() {
+            if($(this).hasClass('active')) {
+                $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
+            }
+        });
+
         $('#top-search').easyAutocomplete({
             url: function(term) {
                     return "/search/" + term;

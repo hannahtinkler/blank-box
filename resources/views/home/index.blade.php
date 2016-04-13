@@ -6,7 +6,7 @@
 
 <hr>
 
-<p>Collated and curated guides and how-tos for new iaptus developers (and a reference for the veterans).
+<p>Collated and curated guides and how-tos written for new iaptus developers.</p>
 
 @stop
 
