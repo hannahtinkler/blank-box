@@ -8302,6 +8302,12 @@ thead td {
   font-size: 25px;
 }
 
+.logo-space a:active,
+.logo-space a:hover,
+.logo-space a:focus {
+  color:#656B6F !important;
+}
+
 .right {float:right}
 
 #top-search {box-shadow:none;}
