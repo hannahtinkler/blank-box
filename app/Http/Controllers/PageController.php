@@ -8,7 +8,7 @@ use App\Library\Models\Page;
 
 class PageController extends Controller
 {
-    public function show($chapterSlug, $pageSlug)
+    public function show($categorySlug, $chapterSlug, $pageSlug)
     {
         $page = Page::where('slug', $pageSlug)->first();
         return view('pages.show', compact('page'));

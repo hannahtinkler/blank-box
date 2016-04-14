@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>{{ $page->chapter->title }}</h1>
+<h1>{{ $page->chapter->category->title }} - {{ $page->chapter->title }}</h1>
 <h2>{{ $page->title }}</h2>
 
 <hr>

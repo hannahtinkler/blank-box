@@ -8,7 +8,7 @@ use App\Library\Models\Chapter;
 
 class ChapterController extends Controller
 {
-    public function show($chapterSlug)
+    public function show($categorySlug, $chapterSlug)
     {
         $chapter = Chapter::where('slug', $chapterSlug)->first();
         return view('chapters.show', compact('chapter'));

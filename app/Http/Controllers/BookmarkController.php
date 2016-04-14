@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Library\Models\Chapter;
 use App\Library\Models\Page;
 use App\Library\Models\Bookmark;
+use App\Library\Models\Category;
 
 class BookmarkController extends Controller
 {
@@ -16,8 +17,9 @@ class BookmarkController extends Controller
         return view('bookmarks.index', compact('bookmarks'));
     }
 
-    public function create($chapterId, $pageId = null)
+    public function create($categoryId, $chapterId, $pageId = null)
     {
+        $category = Category::where('id', $categoryId)->first();
         $chapter = Chapter::where('id', $chapterId)->first();
         $page = Page::where('id', $pageId)->first();
 
@@ -25,14 +27,16 @@ class BookmarkController extends Controller
             throw new \Exception("Invalid data received");
         }
 
-        $exists = Bookmark::where('chapter_id', $chapter->id)
-            ->where('page_id', is_object($page) ? $page->id : null)
+        $exists = Bookmark::where('category_id', $categoryId)
+            ->where('chapter_id', $chapterId)
+            ->where('page_id', is_object($page) ? $pageId : null)
             ->get();
 
         if ($exists->isEmpty()) {
             $exists = Bookmark::create([
-                'chapter_id' => $chapter->id,
-                'page_id' => is_object($page) ? $page->id : null
+                'category_id' => $categoryId,
+                'chapter_id' => $chapterId,
+                'page_id' => $pageId
             ]);
         }
 
@@ -43,8 +47,9 @@ class BookmarkController extends Controller
         ]);
     }
 
-    public function delete($chapterId, $pageId = null)
+    public function delete($categoryId, $chapterId, $pageId = null)
     {
+        $category = Category::where('id', $categoryId)->first();
         $chapter = Chapter::where('id', $chapterId)->first();
         $page = Page::where('id', $pageId)->first();
 
@@ -52,8 +57,9 @@ class BookmarkController extends Controller
             throw Exception("Invalid data received");
         }
 
-        $exists = Bookmark::where('chapter_id', $chapter->id)
-            ->where('page_id', is_object($page) ? $page->id : null)
+        $exists = Bookmark::where('category_id', $categoryId)
+            ->where('chapter_id', $chapterId)
+            ->where('page_id', $pageId)
             ->first();
 
         if (is_object($exists)) {

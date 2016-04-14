@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Library\Models\Chapter;
 use App\Library\Models\Bookmark;
 use App\Library\Models\Page;
+use App\Library\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,16 +17,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('layouts.master', function($view) {
-            $currentChapter = \Request::segment(1) == 'chapter' ? Chapter::where('slug', \Request::segment(2))->first() : null;
-            $currentPage = \Request::segment(1) == 'chapter' && \Request::segment(3) ? Page::where('slug', \Request::segment(3))->first() : null;
+        view()->composer('layouts.master', function ($view) {
 
-            $chapters = Chapter::orderBy('order')->get();
+            if (\Request::segment(1) == 'p') {
+                $current = [];
+                $current['category'] = Category::where('slug', \Request::segment(2))->first();
+                $current['chapter'] = Chapter::where('slug', \Request::segment(3))->first();
+                $current['page'] = Page::where('slug', \Request::segment(4))->first();
+            } else {
+                $current = null;
+            }
+
+            $categories = Category::orderBy('order')->get();
             $bookmarks = Bookmark::all()->count();
 
-            $view->with('chapters', $chapters)
-                ->with('currentPage', $currentPage)
-                ->with('currentChapter', $currentChapter)
+            $view->with('categories', $categories)
+                ->with('current', $current)
                 ->with('bookmarks', $bookmarks);
         });
     }

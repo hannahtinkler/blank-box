@@ -12,13 +12,13 @@
         <li>
         @if($bookmark->page_id != null)
             <h3>
-                <i class="glyphicon glyphicon-file"></i> <a target="_blank" href="/chapter/{{ $bookmark->page->chapter->slug }}/{{ $bookmark->page->slug }}">{{ $bookmark->chapter->title }} - {{ $bookmark->page->title }}</a>
+                <i class="glyphicon glyphicon-file"></i> <a target="_blank" href="/p/{{ $bookmark->category->slug }}/{{ $bookmark->chapter->slug }}/{{ $bookmark->page->slug }}">{{ $bookmark->chapter->category->title }}: {{ $bookmark->chapter->title }} - {{ $bookmark->page->title }}</a>
                 <span>Created {{ $bookmark->created_at->format('jS F Y H:ia') }}</span>
             </h3>
             <p>{!! substr($bookmark->page->description, 0, 500) . (strlen($bookmark->page->description) > 500 ? '...' : null)!!}</p>
         @else
             <h3>
-                <i class="fa fa-book"></i> <a target="_blank" href="/chapter/{{ $bookmark->chapter->slug }}">{{ $bookmark->chapter->title }}</a>
+                <i class="fa fa-folder-open-o"></i> <a target="_blank" href="/p/{{ $bookmark->category->slug }}/{{ $bookmark->chapter->slug }}">{{ $bookmark->chapter->category->title }}: {{ $bookmark->chapter->title }}</a>
                 <span>Created {{ $bookmark->created_at->format('jS F Y H:ia') }}</span>
             </h3>
             <p>{!! substr($bookmark->chapter->description, 0, 500) . (strlen($bookmark->chapter->description) > 500 ? '...' : null)!!}</p>

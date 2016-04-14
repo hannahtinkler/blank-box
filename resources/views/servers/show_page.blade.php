@@ -19,7 +19,7 @@
     </thead>
     <tbody>
         @foreach($servers as $server)
-            <tr id="{{ $server->id }}" {!! $server->id == Request::segment(4) ? ' class="highlight-row"' : null !!}>
+            <tr id="{{ $server->id }}" {!! $server->id == Request::segment(5) ? ' class="highlight-row"' : null !!}>
                 <td>{{ ucwords($server->name) }}</td>
                 <td>{{ ucwords($server->nickname) }}</td>
                 <td>{{ ucwords($server->location) }}</td>
@@ -37,7 +37,7 @@
 <script>
     $(window).load(function() {
         if(window.location.hash) {
-            var offset = $('{{ "#" . Request::segment(4) }}').offset().top - 100;
+            var offset = $('{{ "#" .  Request::segment(5) }}').offset().top - 100;
              $("html,body").animate({scrollTop: offset}, 300);
          }
     });

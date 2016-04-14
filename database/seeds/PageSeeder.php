@@ -13,9 +13,9 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        $serverChapter = Chapter::where('slug', 'mayden-servers')->first();
-        $serviceChapter = Chapter::where('slug', 'iaptus-services')->first();
-        $monitoringChapter = Chapter::where('slug', 'mayden-monitoring')->first();
+        $serverChapter = Chapter::where('slug', 'Servers')->first();
+        $serviceChapter = Chapter::where('slug', 'Services')->first();
+        $monitoringChapter = Chapter::where('slug', 'Monitoring')->first();
 
         Page::truncate();
 
@@ -34,6 +34,15 @@ class PageSeeder extends Seeder
             'description' => "A list of all iaptus clients, along with their service details and database locations.",
             'content' => null,
             'slug' => str_slug('Service List'),
+            'order' => 1
+        ]);
+
+        Page::create([
+            'chapter_id' => $serverChapter->id,
+            'title' => 'SSH Config Generator',
+            'description' => "Generate a SSH config file for the Mayden servers from your SSH key names.",
+            'content' => null,
+            'slug' => str_slug('SSH Config Generator'),
             'order' => 1
         ]);
 

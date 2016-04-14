@@ -17,13 +17,16 @@ Route::get('/random', 'HomeController@getRandomPage');
 Route::get('/search/{query}', 'SearchController@performSearch');
 
 Route::get('/bookmarks', 'BookmarkController@index');
-Route::get('/bookmarks/create/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
-Route::get('/bookmarks/delete/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
+Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
+Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
 
 //Data driven pages requiring controllers
-Route::get('/chapter/mayden-servers/server-list/{id?}', 'ServerController@showPage');
-Route::get('/chapter/iaptus-services/service-list/{id?}', 'ServiceController@showPage');
+Route::get('/p/mayden/servers/server-list/{id?}', 'ServerController@showPage');
+Route::get('/p/mayden/servers/ssh-config-generator', 'ServerController@configGenerator');
+Route::post('/p/mayden/servers/ssh-config-generator', 'ServerController@generateConfig');
+Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@showPage');
 
 //Static content pages - catch all
-Route::get('/chapter/{chapterSlug}', 'ChapterController@show');
-Route::get('/chapter/{chapterSlug}/{pageSlug}', 'PageController@show');
+Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
+Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
+Route::get('/p/{categorySlug}/', 'CategoryController@show');

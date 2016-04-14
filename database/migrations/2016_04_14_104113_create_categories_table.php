@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookmarksTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,12 @@ class CreateBookmarksTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookmarks', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->nullable();
-            $table->integer('category_id');
-            $table->integer('chapter_id');
-            $table->integer('page_id')->nullable();
+            $table->string('title');
+            $table->text('description');
+            $table->string('slug')->nullable();
+            $table->integer('order');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateBookmarksTable extends Migration
      */
     public function down()
     {
-        Schema::drop('bookmarks');
+        Schema::drop('categories');
     }
 }

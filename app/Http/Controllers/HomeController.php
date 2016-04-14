@@ -16,6 +16,6 @@ class HomeController extends Controller
     public function getRandomPage()
     {
         $page = Page::orderByRaw("RAND()")->first();
-        return redirect('/chapter/' . $page->chapter->slug . '/' . $page->slug);
+        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug);
     }
 }

@@ -52,19 +52,48 @@
                         <li{!! Request::is('/') ? ' class="active"' : null !!}>
                             <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                         </li>
-                        @foreach($chapters as $chapter)
-                            <li{!! Request::segment(2) == $chapter->slug ? ' class="active"' : null !!}>
-                                <a href="/chapter/{{ $chapter->slug }}">
+
+                        @foreach($categories as $category)
+                            @if($current['category'] != null)
+                                <li{!! $current['category']->id == $category->id ? ' class="active"' : null !!}>
+                            @else
+                                <li>
+                            @endif
+                                <a href="/p/{{ $category->slug }}">
                                     <i class="fa fa-book"></i>
-                                    <span class="nav-label">{{ $chapter->title }}</span>
-                                    @if(!$chapter->pages->isEmpty())
+                                    <span class="nav-label">{{ $category->title }}</span>
+                                    @if(is_object($category->chapters))
                                         <span class="fa arrow"></span>
                                     @endif
                                 </a>
-                                @if(!$chapter->pages->isEmpty())
+
+
+                                @if(is_object($category->chapters))
                                     <ul class="nav nav-second-level collapse">
-                                        @foreach($chapter->pages as $page)
-                                            <li><a href="/chapter/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a></li></li>
+                                        @foreach($category->chapters as $chapter)
+                                            @if($current['chapter'] != null)
+                                                <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>
+                                            @else
+                                                <li>
+                                            @endif
+                                                <a href="/p/{{ $category->slug }}/{{ $chapter->slug }}">
+                                                    <i class="fa fa-folder-open-o"></i>
+                                                    <span class="nav-label">{{ $chapter->title }}</span>
+                                                    @if(!$chapter->pages->isEmpty())
+                                                        <span class="fa arrow"></span>
+                                                    @endif
+                                                </a>
+                                            
+                                                @if(!$chapter->pages->isEmpty())
+                                                    <ul class="nav nav-third-level collapse">
+                                                        @foreach($chapter->pages as $page)
+                                                            <li>
+                                                                <a href="/p/{{ $category->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </li>
                                         @endforeach
                                     </ul>
                                 @endif
@@ -80,10 +109,10 @@
         </div>
 
         <div class="row row-first-content">
-            @if($currentPage != null)
-                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($currentPage->bookmarks) ? 'active' : null }}" title="Click to bookmark this page"></i>
-            @elseif($currentChapter != null)
-                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($currentChapter->bookmarks) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
+            @if($current['page'] != null)
+                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['page']->bookmarks) ? 'active' : null }}" title="Click to bookmark this page"></i>
+            @elseif($current['chapter'] != null)
+                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['chapter']->bookmarks) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
             @endif
             @yield ('content') 
         </div>
@@ -107,9 +136,10 @@
 <script>
     $(document).ready(function() {
 
-        @if(Request::segment(1) == 'chapter')
-            var chapter = {!! $currentChapter ? $currentChapter->id : '""' !!};
-            var page = {!! $currentPage ? $currentPage->id : '""' !!};
+        @if($current['chapter'] != null)
+            var category = {!! $current['category'] ? $current['category']->id : '""' !!};
+            var chapter = {!! $current['chapter'] ? $current['chapter']->id : '""' !!};
+            var page = {!! $current['page'] ? $current['page']->id : '""' !!};
 
             $('.bookmark').click(function() {
                 if($(this).hasClass('active')) {
@@ -121,7 +151,7 @@
 
             function addBookmark() {
                 $('.bookmark').addClass('active');
-                $.ajax('/bookmarks/create/' + chapter + '/' + page, {
+                $.ajax('/bookmarks/create/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
                     $('#bookmark-count').html(data.count);
@@ -135,7 +165,7 @@
 
             function removeBookmark() {
                 $('.bookmark').removeClass('active');
-                $.ajax('/bookmarks/delete/' + chapter + '/' + page, {
+                $.ajax('/bookmarks/delete/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
                     $('#bookmark-count').html(data.count);
