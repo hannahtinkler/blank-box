@@ -36,8 +36,10 @@
 @section('scripts')
 <script>
     $(window).load(function() {
-        var offset = $('{{ "#" . Request::segment(4) }}').offset().top - 100;
-         $("html,body").animate({scrollTop: offset}, 300);
+        if(window.location.hash) {
+            var offset = $('{{ "#" . Request::segment(4) }}').offset().top - 100;
+             $("html,body").animate({scrollTop: offset}, 300);
+         }
     });
 </script>
 @stop

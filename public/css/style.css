@@ -22,6 +22,7 @@ h2 {
 }
 h3 {
   font-size: 16px;
+  margin-bottom:0.4em;
 }
 h4 {
   font-size: 14px;
@@ -37,6 +38,14 @@ h4,
 h5 {
   margin-top: 5px;
   font-weight: 600;
+}
+
+h3 span {
+    font-style: italic;
+    font-size: 70%;
+    color: #8D8D8D;
+    font-weight: normal;
+    margin-left: 1em;
 }
 .nav > li > a {
   color: #a7b1c2;
@@ -167,7 +176,7 @@ h5 {
   transition: all 0.4s;
 }
 .nav > li.active {
-  border-left: 4px solid #19aa8d;
+  border-left: 4px solid #8db863;
   background: #293846;
 }
 .nav.nav-second-level > li.active {
@@ -8259,21 +8268,26 @@ thead td {
     padding-right: 0;
 }
 
+.chapter-list p {
+  font-style: italic;
+}
+
 .chapter-list {
   list-style: none;
   margin: 2em 0 0 0;
+  padding:0.2em 2em;
 }
 
 .chapter-list li {
-  margin:0;
+  margin:2em 0;
 }
 
 .highlight-row {background-color: #FFF5AA}
 
 .logo-space i {
   position: relative;
-  top: 1px;
-  font-size: 23px;
+  top: 2px;
+  font-size: 30px;
 }
 
 .logo-space {
@@ -8287,3 +8301,55 @@ thead td {
 .right {float:right}
 
 #top-search {box-shadow:none;}
+
+.top-offset-2 {margin-top:2em;}
+
+a {
+  color: #72A046;
+}
+
+a:active,
+a:focus,
+a:hover {
+  color: #8db863;
+}
+
+h3 i {
+  font-size: 80%;
+}
+
+nav ul ul li {
+    font-size: 90%;
+    position: relative;
+    top:1px;
+}
+
+i.bookmark {
+  position: fixed;
+  top:45px;
+  right:70px;
+  font-size: 7em;
+  -webkit-transform:scale(0.6, 1.0);
+  -moz-transform:scale(0.6, 1.0);
+  -ms-transform:scale(0.6, 1.0);
+  -o-transform:scale(0.6, 1.0);
+  transform:scale(0.6,1.0);
+  color:#EC7631;
+  opacity: 0.2;
+  text-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
+i.bookmark.active,
+i.bookmark:hover {
+  opacity:1;
+  cursor: pointer;
+}
+
+nav i.glyphicon-bookmark {
+  position: relative;
+  top:2px;
+}
+
+.topbar-icons {
+    font-size: 1.5em;
+    padding: 0.55em 0.8em;
+}

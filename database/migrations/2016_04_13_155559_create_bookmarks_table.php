@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateBookmarksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,11 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('bookmarks', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->nullable();
             $table->integer('chapter_id');
-            $table->string('title');
-            $table->text('description');
-            $table->text('content')->nullable();
-            $table->string('slug');
-            $table->integer('order');
+            $table->integer('page_id')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('pages');
+        Schema::drop('bookmarks');
     }
 }

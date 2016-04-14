@@ -10,7 +10,7 @@ class ChapterRepository implements Searchable
     public function getSearchResults($term)
     {
         $chapters = Chapter::select([
-                \DB::raw("CONCAT('Chapter: ', chapters.title, ' - ', SUBSTR(chapters.description, 0, 20)) as content"),
+                \DB::raw("CONCAT('Chapter: ', chapters.title, ' - ', SUBSTR(chapters.description, 1, 60), '...') as content"),
                 \DB::raw("CONCAT('/chapter/', chapters.slug) as url")
             ])
             ->where('title', 'LIKE', '%' . $term .'%')

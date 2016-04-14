@@ -41,6 +41,9 @@
                         </form>
                     </div>
                 </div>
+                <div class="right topbar-icons">
+                    <a href="/random" title="Take me to a random page"><i class="fa fa-random"></i></a>
+                </div>
             </nav>
 
             <nav class="navbar-default navbar-static-side" role="navigation">
@@ -68,7 +71,7 @@
                             </li>
                         @endforeach
                         <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
-                            <a href="/"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Bookmarks</span></a>
+                            <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
                         </li>
                     </ul>
 
@@ -77,7 +80,11 @@
         </div>
 
         <div class="row row-first-content">
-            <i class="glyphicon glyphicon-bookmark bookmark" title="Click to bookmark this page"></i>
+            @if($currentPage != null)
+                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($currentPage->bookmarks) ? 'active' : null }}" title="Click to bookmark this page"></i>
+            @elseif($currentChapter != null)
+                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($currentChapter->bookmarks) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
+            @endif
             @yield ('content') 
         </div>
 
@@ -99,13 +106,48 @@
 
 <script>
     $(document).ready(function() {
-        $('.bookmark').click(function() {
-            if($(this).hasClass('active')) {
-                $(this).removeClass('active');
-            } else {
-                $(this).addClass('active');
+
+        @if(Request::segment(1) == 'chapter')
+            var chapter = {!! $currentChapter ? $currentChapter->id : '""' !!};
+            var page = {!! $currentPage ? $currentPage->id : '""' !!};
+
+            $('.bookmark').click(function() {
+                if($(this).hasClass('active')) {
+                    removeBookmark();
+                } else {
+                    addBookmark();
+                }
+            });
+
+            function addBookmark() {
+                $('.bookmark').addClass('active');
+                $.ajax('/bookmarks/create/' + chapter + '/' + page, {
+                  success: function(data) {
+                    data = JSON.parse(data);
+                    $('#bookmark-count').html(data.count);
+                  },                  
+                  error: function() {
+                    $('.bookmark').removeClass('active');
+                    alert('Bookmark creation failed');
+                  }
+               });
             }
-        });
+
+            function removeBookmark() {
+                $('.bookmark').removeClass('active');
+                $.ajax('/bookmarks/delete/' + chapter + '/' + page, {
+                  success: function(data) {
+                    data = JSON.parse(data);
+                    $('#bookmark-count').html(data.count);
+                  },
+                  error: function() {
+                    $('.bookmark').addClass('active');
+                    alert('Bookmark removal failed');
+                  }
+               });
+            }
+
+        @endif
 
         $('#top-search').easyAutocomplete({
             url: function(term) {
@@ -117,6 +159,9 @@
                 fields: {
                     link: "url"
                 }
+            },
+            list: {
+                maxNumberOfElements: 10
             }
         });
     });

@@ -12,8 +12,13 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/random', 'HomeController@getRandomPage');
 
-Route::get('/search/{query}', 'HomeController@search');
+Route::get('/search/{query}', 'SearchController@performSearch');
+
+Route::get('/bookmarks', 'BookmarkController@index');
+Route::get('/bookmarks/create/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
+Route::get('/bookmarks/delete/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
 
 //Data driven pages requiring controllers
 Route::get('/chapter/mayden-servers/server-list/{id?}', 'ServerController@showPage');

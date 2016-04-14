@@ -4,17 +4,17 @@ namespace App\Library\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class Bookmark extends Model
 {
     public $guarded = [];
-    
+
     public function chapter()
     {
         return $this->belongsTo('App\Library\Models\Chapter');
     }
-    
-    public function bookmarks()
+
+    public function page()
     {
-        return $this->hasOne('App\Library\Models\Bookmark');
+        return $this->belongsTo('App\Library\Models\Page');
     }
 }

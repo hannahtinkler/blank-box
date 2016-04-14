@@ -18,7 +18,7 @@ class ServerSeeder extends Seeder
             'name' => 'Cloud4',
             'nickname' => 'Basement Server',
             'location' => 'Widcombe',
-            'node_number' => NULL,
+            'node_number' => 4,
             'type' => 'private'
         ]);
 
