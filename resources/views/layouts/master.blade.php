@@ -86,6 +86,7 @@
                                             
                                                 @if(!$chapter->pages->isEmpty())
                                                     <ul class="nav nav-third-level collapse">
+                                                        <li><a href="/p/{{ $category->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a></li>
                                                         @foreach($chapter->pages as $page)
                                                             <li>
                                                                 <a href="/p/{{ $category->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
