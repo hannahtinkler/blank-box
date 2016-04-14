@@ -30,7 +30,7 @@
             <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
                 <div class="navbar-header">
                     <div class="logo-space">
-                        <i class="fa fa-cube"></i> Black Box
+                        <a href="/"><i class="fa fa-cube"></i> Black Box</a>
                     </div>
                     <div class="right">
                         <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>

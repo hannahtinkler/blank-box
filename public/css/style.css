@@ -8291,6 +8291,10 @@ thead td {
 }
 
 .logo-space {
+  display: inline;
+}
+
+.logo-space a {
   width:250px;
   float:left;
   color:#4D5356;
