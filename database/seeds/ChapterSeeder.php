@@ -29,14 +29,6 @@ class ChapterSeeder extends Seeder
 
         Chapter::create([
             'category_id' => $mayden->id,
-            'title' => 'Vagrant Boxes',
-            'description' => 'An overview of the Mayden produced Vagrant boxes required to work on Mayden products.',
-            'order' => 3,
-            'slug' => str_slug('Vagrant Boxes')
-        ]);
-
-        Chapter::create([
-            'category_id' => $mayden->id,
             'title' => 'Monitoring',
             'description' => 'An overview of the monitoring systems used by Mayden, including Sensu, PCTI etc.',
             'order' => 2,
