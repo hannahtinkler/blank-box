@@ -21,10 +21,10 @@ Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'Bookma
 Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
 
 //Data driven pages requiring controllers
-Route::get('/p/mayden/servers/server-list/{id?}', 'ServerController@showPage');
+Route::get('/p/mayden/servers/server-details/{id?}', 'ServerController@showPage');
 Route::get('/p/mayden/servers/ssh-config-generator', 'ServerController@configGenerator');
 Route::post('/p/mayden/servers/ssh-config-generator', 'ServerController@generateConfig');
-Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@showPage');
+Route::get('/p/iaptus/services/service-details/{id?}', 'ServiceController@showPage');
 
 //Static content pages - catch all
 Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');

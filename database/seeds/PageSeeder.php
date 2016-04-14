@@ -21,19 +21,19 @@ class PageSeeder extends Seeder
 
         Page::create([
             'chapter_id' => $serverChapter->id,
-            'title' => 'Server List',
+            'title' => 'Server Details',
             'description' => "A list of iaptus servers, detailing their locations, nodes and type.",
             'content' => null,
-            'slug' => str_slug('Server List'),
+            'slug' => str_slug('Server Details'),
             'order' => 1
         ]);
 
         Page::create([
             'chapter_id' => $serviceChapter->id,
-            'title' => 'Service List',
+            'title' => 'Service Details',
             'description' => "A list of all iaptus clients, along with their service details and database locations.",
             'content' => null,
-            'slug' => str_slug('Service List'),
+            'slug' => str_slug('Service Details'),
             'order' => 1
         ]);
 
@@ -43,7 +43,7 @@ class PageSeeder extends Seeder
             'description' => "Generate a SSH config file for the Mayden servers from your SSH key names.",
             'content' => null,
             'slug' => str_slug('SSH Config Generator'),
-            'order' => 1
+            'order' => 3
         ]);
 
         Page::create([
