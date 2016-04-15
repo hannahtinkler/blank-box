@@ -14,7 +14,7 @@
 <ul class="chapter-list">
     @foreach($chapter->pages as $page)
         <li>
-            <h3><i class="glyphicon glyphicon-file"></i> <a href="/chapters/{{ $page->chapter->slug }}/{{ $page->slug }}">{{ $page->title }}</a></h3>
+            <h3><i class="glyphicon glyphicon-file"></i> <a href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">{{ $page->title }}</a></h3>
             <p>{!! substr($page->description, 0, 500) . (strlen($page->description) > 500 ? '...' : null)!!}</p>
         </li>
     @endforeach

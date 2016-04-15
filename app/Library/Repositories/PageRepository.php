@@ -11,9 +11,10 @@ class PageRepository implements Searchable
     {
         $pages = Page::select([
                 \DB::raw("CONCAT('Page: ', pages.title) as content"),
-                \DB::raw("CONCAT('/chapter/', chapters.slug, '/', pages.slug) as url")
+                \DB::raw("CONCAT('/p/', categories.slug, '/', chapters.slug, '/', pages.slug) as url")
             ])
             ->join('chapters', 'pages.chapter_id', '=', 'chapters.id')
+            ->join('categories', 'categories.id', '=', 'chapters.category_id')
             ->where('pages.title', 'LIKE', '%' . $term .'%')
             ->orWhere('pages.content', 'LIKE', '%' . $term .'%')
             ->orWhere('pages.slug', 'LIKE', '%' . $term .'%')

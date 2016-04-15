@@ -11,11 +11,12 @@ class ChapterRepository implements Searchable
     {
         $chapters = Chapter::select([
                 \DB::raw("CONCAT('Chapter: ', chapters.title, ' - ', SUBSTR(chapters.description, 1, 60), '...') as content"),
-                \DB::raw("CONCAT('/chapter/', chapters.slug) as url")
+                \DB::raw("CONCAT('/p/', categories.slug, '/', chapters.slug) as url")
             ])
-            ->where('title', 'LIKE', '%' . $term .'%')
-            ->orWhere('description', 'LIKE', '%' . $term .'%')
-            ->orWhere('slug', 'LIKE', '%' . $term .'%')
+            ->join('categories', 'chapters.category_id', '=', 'categories.id')
+            ->where('chapters.title', 'LIKE', '%' . $term .'%')
+            ->orWhere('chapters.description', 'LIKE', '%' . $term .'%')
+            ->orWhere('chapters.slug', 'LIKE', '%' . $term .'%')
             ->get()
             ->toArray();
 

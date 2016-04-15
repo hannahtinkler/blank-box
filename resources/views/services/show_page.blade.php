@@ -35,11 +35,11 @@
 
 @section('scripts')
 <script>
-    $(window).load(function() {
-        if(window.location.hash) {
+    @if(Request::segment(5) != null)
+        $(window).load(function() {
             var offset = $('{{ "#" . Request::segment(5) }}').offset().top - 100;
              $("html,body").animate({scrollTop: offset}, 300);
-         }
-    });
+        });
+     @endif
 </script>
 @stop

@@ -11,7 +11,7 @@ class ServiceRepository implements Searchable
     {
         $services = Service::select([
                 \DB::raw("CONCAT('Service: ', services.name, ' (', services.service_id, ') - ', servers.location, ' ', servers.node_number) as content"),
-                \DB::raw("CONCAT('/chapter/iaptus-services/service-list/', services.id)  as url")
+                \DB::raw("CONCAT('/p/iaptus/services/service-details/', services.id)  as url")
             ])
             ->join('servers', 'services.server_id', '=', 'servers.id')
             ->where('services.name', 'LIKE', '%' . $term .'%')

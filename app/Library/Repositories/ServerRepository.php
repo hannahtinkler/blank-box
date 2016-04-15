@@ -12,7 +12,7 @@ class ServerRepository implements Searchable
         $servers = Server::select([
             '*',
                 \DB::raw("CONCAT('Server: ', nickname, ' / ', name, ' - ', location, ' ', IF(node_number, node_number, ''), ' (', type, ')') as content"),
-                \DB::raw("CONCAT('/chapter/mayden-servers/server-list/', id)  as url")
+                \DB::raw("CONCAT('/p/mayden/servers/server-details/', id)  as url")
             ])
             ->where('name', 'LIKE', '%' . $term .'%')
             ->orWhere('nickname', 'LIKE', '%' . $term .'%')
