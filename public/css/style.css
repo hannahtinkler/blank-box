@@ -8246,6 +8246,7 @@ body.md-skin {
   bottom:0;
   top:50px;
   width:250px;
+  overflow: auto;
 }
 
 table {
