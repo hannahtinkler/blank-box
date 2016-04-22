@@ -18,7 +18,8 @@ class CreateServicesTable extends Migration
             $table->string('area');
             $table->integer('service_id');
             $table->string('type');
-            $table->integer('server_id');
+            $table->integer('server_id')->nullable();
+            $table->string('live_site_url')->nullable();
             $table->timestamps();
         });
     }

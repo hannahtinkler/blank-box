@@ -17,6 +17,8 @@ class PageSeeder extends Seeder
         $serviceChapter = Chapter::where('slug', 'services')->first();
         $monitoringChapter = Chapter::where('slug', 'monitoring')->first();
         $webformsChapter = Chapter::where('slug', 'webforms')->first();
+        $supportChapter = Chapter::where('slug', 'support-how-tos')->first();
+        $workflowsChapter = Chapter::where('slug', 'workflows')->first();
 
         Page::truncate();
 
@@ -44,6 +46,27 @@ class PageSeeder extends Seeder
             'description' => "Generate a SSH config file for the Mayden servers from your SSH key names.",
             'content' => null,
             'slug' => str_slug('SSH Config Generator'),
+            'order' => 3
+        ]);
+
+        Page::create([
+            'chapter_id' => $supportChapter->id,
+            'title' => 'Creating Case Managers',
+            'description' => "Instructions for how to manually convert therapists to case managers via the database",
+            'content' => "<ol><li>Find the therapist ID (th_id) by looking up the therapist name in the nh_therapist table for the relevant service</li><li>Create a new patch in <code>/mysql/service_patches</code>.</li><li>Paste the example text below into the patch and replace 'TH_ID_HERE' with the therapist ID you looked up earlier</li></ol><br /><h2>Sample Patch Text:</h2><code><span>#Patch to make therapist 'TherapistNameHere' a casemanager for ServiceNameHere</span><br />UPDATE `nh_therapist` <br />SET `th_type`='casemanager' <br />WHERE `th_type`='therapist' and 'th_id'=TH_ID_HERE;</code>",
+            'slug' => str_slug('Creating Case Managers'),
+            'order' => 3
+        ]);
+
+        Page::create([
+            'chapter_id' => $workflowsChapter->id,
+            'title' => 'Working on Support Tasks',
+            'description' => "Diagram showing the process for picking up a support task and seeing it through to pull request stage",
+            'content' => '<div class="diagram"><div class="mxgraph" style="position:relative;overflow:auto;width:100%;">
+<div style="width:1px;height:1px;overflow:hidden;">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</div>
+</div></div>
+<script type="text/javascript" src="https://www.draw.io/js/embed-static.min.js"></script>',
+            'slug' => str_slug('Working on Support Tasks'),
             'order' => 3
         ]);
 

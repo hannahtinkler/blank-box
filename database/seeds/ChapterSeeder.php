@@ -98,5 +98,13 @@ class ChapterSeeder extends Seeder
             'order' => 6,
             'slug' => str_slug('Webforms')
         ]);
+
+        Chapter::create([
+            'category_id' => $mayden->id,
+            'title' => 'Workflows',
+            'description' => 'Workflows for the various parts/actions of Mayden',
+            'order' => 6,
+            'slug' => str_slug('Workflows')
+        ]);
     }
 }

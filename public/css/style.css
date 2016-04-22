@@ -6,6 +6,13 @@
  *   version 2.4
  *
 */
+
+i {
+  position: relative;
+  top:1px;
+}
+
+
 h1,
 h2,
 h3,
@@ -8284,6 +8291,7 @@ thead td {
 }
 
 .highlight-row {background-color: #FFF5AA}
+table.hover-highlight tr:hover {background-color: #F7F1C4}
 
 .logo-space i {
   position: relative;
@@ -8383,3 +8391,15 @@ nav i.glyphicon-bookmark {
   left: 10px;
   font-size: 14px;
 }
+
+code {
+  background-color: #E0E8ED;
+  border-radius: 0;
+  color:#222;
+  padding-left:0;
+}
+
+code span {
+    color: #9CA6AB;
+}
+.text-right {text-align:right;}

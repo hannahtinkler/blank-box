@@ -7,12 +7,13 @@
 
 <hr>
 
-<table>
+<table class="hover-highlight">
     <thead>
         <tr>
+            <td></td>
+            <td>ID</td>
             <td>Service Name</td>
             <td>Area</td>
-            <td>Service ID</td>
             <td>Type</td>
             <td>Server Location</td>
         </tr>
@@ -20,9 +21,16 @@
     <tbody>
         @foreach($services as $service)
             <tr id="{{ $service->id }}" {!! $service->id == Request::segment(5) ? ' class="highlight-row"' : null !!}>
-                <td>{{ ucwords($service->name) }}</td>
-                <td>{{ ucwords($service->area) }}</td>
+                <td>
+                    @if($service->live_site_url)
+                        <a target="_blank" href="{{ $service->live_site_url }}:8000"><i class="fa fa-share-square-o"></i></a>
+                    @endif
+                </td>
                 <td>{{ $service->service_id }}</td>
+                <td>
+                    {{ ucwords($service->name) }}
+                </td>
+                <td>{{ ucwords($service->area) }}</td>
                 <td>{{ ucwords($service->type) }}</td>
                 <td>{{ ucwords($service->server->location . ' ' . $service->server->node_number) }}</td>
             </tr>
