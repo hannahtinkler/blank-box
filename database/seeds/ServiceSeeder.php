@@ -390,6 +390,15 @@ class ServiceSeeder extends Seeder
         ]);
 
         Service::create([
+            'area' => 'Hampshire',
+            'name' => '2gether Hampshire',
+            'service_id' => 123,
+            'type' => 'IAPT',
+            'server_id' => $bracknell16->id,
+            'live_site_url' => 'http://2gether.iaptus.nhs.uk'
+        ]);
+
+        Service::create([
             'area' => 'Surrey',
             'name' => 'Healthy Minds Surrey (HM)',
             'service_id' => 156,
