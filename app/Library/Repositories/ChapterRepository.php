@@ -9,7 +9,9 @@ class ChapterRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
-        return Chapter::search($term);
+        return Chapter::searchByQuery([
+            "wildcard" => ['_all' => "*" . $term . "*"]
+        ]);
     }
 
     public function searchResultString($result)

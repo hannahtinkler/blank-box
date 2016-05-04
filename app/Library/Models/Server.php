@@ -20,19 +20,19 @@ class Server extends Model implements SearchableModel
         ],
         'nickname' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ],
         'location' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ],
         'node_number' => [
           'type' => 'int',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ],
         'type' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ]
     );
 
@@ -40,6 +40,11 @@ class Server extends Model implements SearchableModel
     {
         parent::__construct($attributes);
         $this->repository = new ServerRepository($this);
+    }
+
+    public function getTypeName()
+    {
+        return 'server';
     }
     
     public function services()

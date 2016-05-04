@@ -9,7 +9,7 @@ use Elasticquent\ElasticquentTrait;
 
 class Page extends Model implements SearchableModel
 {
- 	  use ElasticquentTrait;
+    use ElasticquentTrait;
 
     public $guarded = [];
     private $repository;
@@ -24,7 +24,7 @@ class Page extends Model implements SearchableModel
         ],
         'description' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ]
     );
 
@@ -32,6 +32,11 @@ class Page extends Model implements SearchableModel
     {
         parent::__construct($attributes);
         $this->repository = new PageRepository($this);
+    }
+
+    public function getTypeName()
+    {
+        return 'page';
     }
     
     public function chapter()

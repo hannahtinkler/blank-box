@@ -20,7 +20,7 @@ class Chapter extends Model implements SearchableModel
         ],
         'description' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ]
     );
 
@@ -28,6 +28,11 @@ class Chapter extends Model implements SearchableModel
     {
         parent::__construct($attributes);
         $this->repository = new ChapterRepository($this);
+    }
+
+    public function getTypeName()
+    {
+        return 'chapter';
     }
     
     public function category()

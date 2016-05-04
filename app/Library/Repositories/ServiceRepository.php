@@ -9,7 +9,9 @@ class ServiceRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
-        return Service::search($term);
+        return Service::searchByQuery([
+            "wildcard" => ['_all' => "*" . $term . "*"]
+        ]);
     }
 
     public function searchResultString($result)

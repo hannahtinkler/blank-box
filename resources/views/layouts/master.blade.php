@@ -24,55 +24,37 @@
 </head>
 
 
-<body class="fixed-nav fixed-nav-basic" id="app">
-<div id="wrapper">
+<body class="mayden-skin">
 
-    <div id="page-wrapper">
-        <div class="row">
-            <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
-                <div class="navbar-header">
-                    <div class="logo-space">
-                        <a href="/"><i class="fa fa-cube"></i> Black Box</a>
-                    </div>
-                    <div class="right">
-                        <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>
-                        <form role="search" class="navbar-form-custom" method="post" action="#">
-                            <div class="form-group">
-                                <input type="text" placeholder="Search.." class="form-control" name="top-search" id="top-search">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="right topbar-icons">
-                    <a href="/random" title="Take me to a random page"><i class="fa fa-random"></i></a>
-                </div>
-            </nav>
+    <div id="wrapper">
 
-            <nav class="navbar-default navbar-static-side" role="navigation">
-                <div class="sidebar-collapse">
-                    <ul class="nav metismenu" id="side-menu">
-                        <li{!! Request::is('/') ? ' class="active"' : null !!}>
-                            <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
-                        </li>
+    <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav metismenu" id="side-menu">
+                <li{!! Request::is('/') ? ' class="active"' : null !!}>
+                    <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
+                </li>
 
-                        @foreach($categories as $category)
-                            @if($current['category'] != null)
-                                <li{!! $current['category']->id == $category->id ? ' class="active"' : null !!}>
-                            @else
-                                <li>
-                            @endif
-                                <a href="/p/{{ $category->slug }}">
-                                    <i class="fa fa-book"></i>
-                                    <span class="nav-label">{{ $category->title }}</span>
-                                    @if(is_object($category->chapters))
-                                        <span class="fa arrow"></span>
-                                    @endif
-                                </a>
-
-
+                @foreach($categories as $category)
+                    @if(!$category->chapters->isEmpty())
+                        @if($current['category'] != null)
+                            <li{!! $current['category']->id == $category->id ? ' class="active"' : null !!}>
+                        @else
+                            <li>
+                        @endif
+                            <a>
+                                <i class="fa fa-book"></i>
+                                <span class="nav-label">{{ $category->title }}</span>
                                 @if(is_object($category->chapters))
-                                    <ul class="nav nav-second-level collapse">
-                                        @foreach($category->chapters as $chapter)
+                                    <span class="fa arrow"></span>
+                                @endif
+                            </a>
+
+
+                            @if(is_object($category->chapters))
+                                <ul class="nav nav-second-level collapse">
+                                    @foreach($category->chapters as $chapter)
+                                        @if(!$chapter->pages->isEmpty())
                                             @if($current['chapter'] != null)
                                                 <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>
                                             @else
@@ -97,18 +79,94 @@
                                                     </ul>
                                                 @endif
                                             </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
-                        @endforeach
-                        <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
-                            <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
+                                        @endif
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </li>
+                    @endif
+                @endforeach
+                <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
+                    <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+        <div id="page-wrapper" class="gray-bg">
+        <div class="row">
+        <nav class="navbar navbar-fixed-top fixed-nav" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+
+                <div class="navbar-minimalize logo-space">
+                    <a href="#"><i class="fa fa-cube"></i> Black Box</a>
+                </div>
+                
+                <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>
+                <form role="search" class="navbar-form-custom" method="post" action="#">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search.." class="form-control" name="top-search" id="top-search">
+                    </div>
+                </form>
+
+                <div class="right topbar-icons">
+                    <a href="/random" title="Take me to a random page"><i class="fa fa-random"></i></a>
+                </div>
+            </div>
+            <!-- <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="article.html#">
+                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="mailbox.html">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="profile.html">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="grid_options.html">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <div class="text-center link-block">
+                                <a href="notifications.html">
+                                    <strong>See All Alerts</strong>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </div>
                         </li>
                     </ul>
+                </li>
 
-                </div>
-            </nav>
+
+                <li>
+                    <a href="/logout">
+                        <i class="fa fa-sign-out"></i> Log out
+                    </a>
+                </li>
+            </ul> -->
+
+        </nav>
         </div>
 
         <div class="row row-first-content">
@@ -120,24 +178,40 @@
             @yield ('content') 
         </div>
 
-    </div>
-</div>
+        <div class="footer">
+            <!-- <div class="pull-right">
+                10GB of <strong>250GB</strong> Free.
+            </div> -->
+            <div>
+                <strong>&copy;</strong> Black Box {{ date('Y') }}
+            </div>
+        </div>
 
-<!-- Main scripts -->
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        </div>
+        </div>
+
+
+
+<!-- Mainl scripts -->
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/easyAutocomplete.js"></script>
 
 <!-- Custom and plugin javascript -->
 <script src="/js/inspinia.js"></script>
-<script src="/js/easyAutocomplete.js"></script>
 <script src="/js/plugins/pace/pace.min.js"></script>
+
+</body>
 
 @yield('scripts')
 
 <script>
     $(document).ready(function() {
+        $(window).resize(function() {
+            $('#page-wrapper').height($(window).height());
+        });
 
         @if($current['chapter'] != null)
             var category = {!! $current['category'] ? $current['category']->id : '""' !!};
@@ -194,13 +268,17 @@
                 }
             },
             list: {
-                maxNumberOfElements: 10
+                maxNumberOfElements: 10,
+                onShowListEvent: function(term) {
+                    var list = $('body').find('#eac-container-top-search ul');
+                    if (list.text().indexOf('View All Results') == -1) {
+                        list.append('<li id="view-all"><a href="/search/' + term + '/results"><strong>View All Results</strong></a></li>');
+                    }
+                }
             }
         });
     });
 </script>
-
-</body>
 
 </html>
 

@@ -17,6 +17,10 @@ class SearchController extends Controller
   
     public function performSearch($term)
     {
+        if (strlen($term) < 3 && !is_int($term))  {
+            return json_encode([]);
+        }
+
         $searchDetails = $this->getSearchDetails($term);
 
         $searchRepository = new SearchRepository($searchDetails['term']);

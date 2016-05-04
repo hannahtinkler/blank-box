@@ -16,23 +16,23 @@ class Service extends Model implements SearchableModel
     protected $mappingProperties = array(
         'name' => [
           'type' => 'string',
-          "analyzer" => "standard",
+          "analyzer" => "not_analyzed",
         ],
         'area' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "not_analyzed",
         ],
         'service_id' => [
           'type' => 'int',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ],
         'type' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ],
         'live_site_url' => [
           'type' => 'string',
-          "analyzer" => "standard"
+          "analyzer" => "standard",
         ]
     );
 
@@ -40,6 +40,11 @@ class Service extends Model implements SearchableModel
     {
         parent::__construct($attributes);
         $this->repository = new ServiceRepository($this);
+    }
+
+    public function getTypeName()
+    {
+        return 'service';
     }
     
     public function server()

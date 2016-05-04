@@ -9,7 +9,9 @@ class ServerRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
-        return Server::search($term);
+        return Server::searchByQuery([
+            "wildcard" => ['_all' => "*" . $term . "*"]
+        ]);
     }
 
     public function searchResultString($result)
