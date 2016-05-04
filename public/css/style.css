@@ -8387,7 +8387,7 @@ navbar .form-control,
   display: inline;
 }
 .logo-space a {
-  width: 250px;
+  width: 300px;
   float: left;
   color: #4D5356;
   padding: 6px 15px 7px;
@@ -8518,6 +8518,12 @@ body:not(.fixed-sidebar):not(.canvas-menu).mini-navbar .nav li:hover > .nav-seco
 }
 .mini-navbar .nav-second-level li:last-child {
   margin-bottom: 2px;
+}
+body.mini-navbar #page-wrapper {
+  margin: 50px 0 0 70px;
+}
+.navbar-header .glyphicon-search {
+  top: -1px;
 }
 @media print {
   nav.navbar-static-side {
