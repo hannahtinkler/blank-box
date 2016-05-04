@@ -3,10 +3,27 @@
 namespace App\Library\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Elasticquent\ElasticquentTrait;
 
 class Page extends Model
 {
+ 	use ElasticquentTrait;
+
     public $guarded = [];
+    protected $mappingProperties = array(
+	    'title' => [
+	      'type' => 'string',
+	      "analyzer" => "standard",
+	    ],
+	    'content' => [
+	      'type' => 'string',
+	      "analyzer" => "standard",
+	    ],
+	    'description' => [
+	      'type' => 'string',
+	      "analyzer" => "standard"
+	    ]
+  );
     
     public function chapter()
     {

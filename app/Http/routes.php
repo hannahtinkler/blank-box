@@ -11,22 +11,31 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
-Route::get('/random', 'HomeController@getRandomPage');
+Route::get('/', ['as' => 'search', 'uses' => function() {
 
-Route::get('/search/{query}', 'SearchController@performSearch');
+  // Check if user has sent a search query
+    // Use the Elasticquent search method to search ElasticSearch
+    $pages = App\Library\Models\Page::search('love process');
 
-Route::get('/bookmarks', 'BookmarkController@index');
-Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
-Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
+  dd($pages);
+}]);
 
-//Data driven pages requiring controllers
-Route::get('/p/mayden/servers/server-details/{id?}', 'ServerController@showPage');
-Route::get('/p/mayden/servers/ssh-config-generator', 'ServerController@configGenerator');
-Route::post('/p/mayden/servers/ssh-config-generator', 'ServerController@generateConfig');
-Route::get('/p/iaptus/services/service-details/{id?}', 'ServiceController@showPage');
+// Route::get('/', 'HomeController@index');
+// Route::get('/random', 'HomeController@getRandomPage');
 
-//Static content pages - catch all
-Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
-Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
-Route::get('/p/{categorySlug}/', 'CategoryController@show');
+// Route::get('/search/{query}', 'SearchController@performSearch');
+
+// Route::get('/bookmarks', 'BookmarkController@index');
+// Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
+// Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
+
+// //Data driven pages requiring controllers
+// Route::get('/p/mayden/servers/server-details/{id?}', 'ServerController@showPage');
+// Route::get('/p/mayden/servers/ssh-config-generator', 'ServerController@configGenerator');
+// Route::post('/p/mayden/servers/ssh-config-generator', 'ServerController@generateConfig');
+// Route::get('/p/iaptus/services/service-details/{id?}', 'ServiceController@showPage');
+
+// //Static content pages - catch all
+// Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
+// Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
+// Route::get('/p/{categorySlug}/', 'CategoryController@show');
