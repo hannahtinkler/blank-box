@@ -2,26 +2,23 @@
 
 namespace App\Library\Repositories;
 
-use App\Library\Interfaces\Searchable;
+use App\Library\Interfaces\SearchableRepository;
 use App\Library\Models\Service;
 
-class ServiceRepository implements Searchable
+class ServiceRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
-        $services = Service::select([
-                \DB::raw("CONCAT('Service: ', services.name, ' (', services.service_id, ') - ', servers.location, ' ', servers.node_number) as content"),
-                \DB::raw("CONCAT('/p/iaptus/services/service-details/', services.id)  as url")
-            ])
-            ->join('servers', 'services.server_id', '=', 'servers.id')
-            ->where('services.name', 'LIKE', '%' . $term .'%')
-            ->orWhere('services.area', 'LIKE', '%' . $term .'%')
-            ->orWhere('services.service_id', $term)
-            ->orWhere('services.type', 'LIKE', '%' . $term .'%')
-            ->orWhere('servers.location', 'LIKE', '%' . $term .'%')
-            ->get()
-            ->toArray();
+        return Service::search($term);
+    }
 
-        return $services;
+    public function searchResultString($result)
+    {
+        return 'Service: ' . $result->name . ' (' . $result->service_id . ') - ' . $result->server->location . ' ' . $result->server->node_number;
+    }
+
+    public function searchResultUrl($result)
+    {
+        return '/p/iaptus/services/service-details/' . $result->id;
     }
 }

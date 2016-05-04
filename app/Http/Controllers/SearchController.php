@@ -17,7 +17,16 @@ class SearchController extends Controller
   
     public function performSearch($term)
     {
+        $searchDetails = $this->getSearchDetails($term);
 
+        $searchRepository = new SearchRepository($searchDetails['term']);
+        $results = $searchRepository->processSearch($searchDetails['searchables']);
+
+        return json_encode($results);
+    }
+  
+    public function getSearchDetails($term)
+    {
         if (strpos($term, ':')) {
             $parts = array_map('trim', explode(':', $term));
             $searchables = array_map('trim', explode(',', $parts[0]));
@@ -27,9 +36,9 @@ class SearchController extends Controller
             $searchables = $this->defaultSearchables;
         }
 
-        $searchRepository = new SearchRepository($term);
-        $results = $searchRepository->processSearch($searchables);
-        
-        return json_encode($results);
+        return [
+            'term' => $term,
+            'searchables' => $searchables
+        ];
     }
 }

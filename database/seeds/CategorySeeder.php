@@ -34,6 +34,5 @@ class CategorySeeder extends Seeder
             'slug' => str_slug('Iaptus Integrations'),
             'order' => 3
         ]);
-
     }
 }

@@ -32,7 +32,7 @@
                 </td>
                 <td>{{ ucwords($service->area) }}</td>
                 <td>{{ ucwords($service->type) }}</td>
-                <td>{{ ucwords($service->server->location . ' ' . $service->server->node_number) }}</td>
+                <td>{{ is_object($service->server) ? ucwords($service->server->location . ' ' . $service->server->node_number) : null }}</td>
             </tr>
         @endforeach
     </tbody>
