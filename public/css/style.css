@@ -8244,12 +8244,16 @@ body.md-skin {
     position: absolute;
     width: 70px;
   }
+  .body-small #page-wrapper {
+    margin-left: 0;
+  }
   .body-small.mini-navbar .navbar-static-side {
     display: block;
   }
   .lock-word {
     display: none;
   }
+  .navbar-header .glyphicon-search,
   .navbar-form-custom {
     display: none;
   }
@@ -8312,6 +8316,9 @@ body.md-skin {
     float: none;
     text-align: left;
     display: inline-block;
+  }
+  .topbar-icons {
+    display: none;
   }
 }
 h1,
@@ -8406,7 +8413,12 @@ navbar .form-control,
   font-size: 18px;
   padding-right: 0;
 }
-.navbar,
+.navbar-form-custom {
+  width: 50%;
+}
+.navbar-form-custom .easy-autocomplete {
+  width: 100%%;
+}
 .navbar-form-custom .form-control {
   min-height: 50px;
   height: 50px;
@@ -8491,14 +8503,14 @@ nav i.glyphicon-bookmark {
 }
 #top-search {
   box-shadow: none;
-  width: 600px;
+  width: 95%;
 }
 .top-offset-2 {
   margin-top: 2em;
 }
 .topbar-icons {
   font-size: 1.5em;
-  padding: 0.55em 0.8em;
+  padding: 0.55em 0.8em 0.55em 0;
 }
 .right {
   float: right;

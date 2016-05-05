@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1><strong>iaptus</strong> Black Box</h1>
+<h1>Black Box</h1>
 
 <hr>
 
