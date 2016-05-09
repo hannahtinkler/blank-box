@@ -28,6 +28,7 @@ class ElasticSearchSeeder extends Seeder
                 $model::createIndex($shards = null, $replicas = null);
                 $model::putMapping($ignoreConflicts = true);
                 $model::addAllToIndex();
+
             } catch (BadRequest400Exception $e) {
                 if ($e->getMessage() == "index_already_exists_exception: already exists") {
                     $model::reindex();

@@ -13,14 +13,15 @@ class Service extends Model implements SearchableModel
 
     public $guarded = [];
     private $repository;
+
     protected $mappingProperties = array(
         'name' => [
           'type' => 'string',
-          "analyzer" => "not_analyzed",
+          "analyzer" => "standard",
         ],
         'area' => [
           'type' => 'string',
-          "analyzer" => "not_analyzed",
+          "analyzer" => "standard",
         ],
         'service_id' => [
           'type' => 'int',
@@ -42,10 +43,10 @@ class Service extends Model implements SearchableModel
         $this->repository = new ServiceRepository($this);
     }
 
-    public function getTypeName()
-    {
-        return 'service';
-    }
+    // public function getTypeName()
+    // {
+    //     return 'service';
+    // }
     
     public function server()
     {

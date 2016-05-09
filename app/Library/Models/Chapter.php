@@ -30,10 +30,10 @@ class Chapter extends Model implements SearchableModel
         $this->repository = new ChapterRepository($this);
     }
 
-    public function getTypeName()
-    {
-        return 'chapter';
-    }
+    // public function getTypeName()
+    // {
+    //     return 'chapter';
+    // }
     
     public function category()
     {

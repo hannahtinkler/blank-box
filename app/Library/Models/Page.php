@@ -34,10 +34,10 @@ class Page extends Model implements SearchableModel
         $this->repository = new PageRepository($this);
     }
 
-    public function getTypeName()
-    {
-        return 'page';
-    }
+    // public function getTypeName()
+    // {
+    //     return 'page';
+    // }
     
     public function chapter()
     {

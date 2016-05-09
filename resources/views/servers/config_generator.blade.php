@@ -7,7 +7,20 @@
 
 <hr>
 
-<p>Generate an SSH config file with which to connect to Mayden servers. You can only do this once you have received your server SSH keys and put them into your '.ssh' directory. If you place them into a sub directory within the '.ssh' directory, include this directory when you enter the ssh key file names below. Once you have downloaded the config file, place the file in the root of your '.ssh' folder, overwriting any config file that might already exist there. You will then be able to connect SSH into the Mayden servers using 'ssh ipatusvnode#' commands (where # is the node number).</p>
+<p>Generate an SSH config file with which to connect to Mayden servers. You can only do this once you have live access and have been sent your server SSH keys. Move these keys directly to your '.ssh' directory for compatibility with this file download (or include sub directories in the filename if you want to be more organised).</p>
+
+<p>Once you have downloaded this config file, place the file in the root of your '.ssh' folder, overwriting any config file that might already exist there. You will then be able to connect SSH into the Mayden servers using the following commands (provided you have been granted access). Using the correct port forwarding settings, you will be able to access any iaptus database from either iaptus SSH commands.</p>
+<br />
+<ul class="commands-list">
+    <li><code>ssh iaptusbracknell</code> - will SSH you onto the Bracknell server via your Bracknell VPN connection</li>
+    <li><code>ssh iaptusbournemouth</code> - will SSH you onto the Bournemouth server via your Bournemouth VPN connection</li>
+    <li><code>ssh bacpac-staging</code> - will SSH you onto the BacPac staging server via your Bournemouth VPN connection</li>
+    <li><code>ssh bacpac-live</code> - will SSH you onto the BacPac Live server via your Bournemouth VPN connection</li>
+    <li><code>ssh paywall</code> - will SSH you onto the Paywall server via your Bournemouth VPN connection</li>
+    <li><code>ssh iaptusdemo</code> - will SSH you onto the Demo server via your Bournemouth VPN connection</li>
+    <li><code>ssh webforms-application</code> - will SSH you onto the Webforms application server via your Bournemouth VPN connection</li>
+    <li><code>ssh webforms-database</code> - will SSH you onto the Webforms database server via your Bournemouth VPN connection</li>
+</ul>
 
 <br />
 @if(session('error'))
@@ -17,14 +30,19 @@
 
 <form id="config-generator"  action="/p/mayden/servers/ssh-config-generator" method="POST">
     {{ csrf_field() }}
+    <label for="key_name">SSH Username: </label>
+    <div class="form-group">
+        <input type="text" class="form-control" value="{{ old('ssh_username') }}" name="ssh_username" id="key_name" />
+    </div>
     <label for="key_name">SSH Key Filename - Bournemouth: </label>
     <div class="form-group">
-        <input type="text" class="form-control" value="{{ old('bournemouth_key') }}" name="bournemouth_key" id="key_name" />
+        <input type="text" class="form-control prefix-field" value="{{ old('bournemouth_key') }}" name="bournemouth_key" id="key_name" />
         <span class="config-prefix">.ssh/</span>
     </div>
+    <small class="italic help-block">Please do not include the file extension in the key file name</small>
     <label for="key_name">SSH Key Filename - Bracknell: </label>
     <div class="form-group">
-        <input type="text" class="form-control" value="{{ old('bracknell_key') }}" name="bracknell_key" id="key_name" />
+        <input type="text" class="form-control prefix-field" value="{{ old('bracknell_key') }}" name="bracknell_key" id="key_name" />
         <span class="config-prefix">.ssh/</span>
     </div>
     <small class="italic help-block">Please do not include the file extension in the key file name</small>

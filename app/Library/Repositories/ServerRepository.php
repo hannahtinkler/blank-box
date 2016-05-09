@@ -9,14 +9,21 @@ class ServerRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
-        return Server::searchByQuery([
-            "wildcard" => ['_all' => "*" . $term . "*"]
-        ]);
+        $query = [
+            "bool" => [
+                "should" => [
+                    [ "wildcard" => [ "_all" => "$term*"]],
+                    [ "match" => [ "_all" => "$term" ]]
+                ]
+            ]
+        ];
+
+        return Server::searchByQuery($query);
     }
 
     public function searchResultString($result)
     {
-        return 'Server: ' . $result->nickname . ' / ' . $result->name . ' - ' . $result->location . ' ' . ($result->node_number ? $result->node_number : '') . ' (' . $result->type . ')';
+        return 'Server: ' . $result->name . ' / ' . $result->nickname . ' - ' . $result->location . ' ' . ($result->node_number ? $result->node_number : '') . ' (' . $result->type . ')';
     }
 
     public function searchResultUrl($result)

@@ -9,7 +9,7 @@
 
     <title>Black Box</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -31,6 +31,21 @@
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
+
+                <li class="nav-header">
+                     <div class="dropdown profile-element">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="table_data_tables.html#">
+                            <span class="clear"> 
+                                <span class="text-muted text-xs block">iaptus <b class="caret"></b>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animated module-menu fadeInRight m-t-xs">
+                            <li><a href="profile.html">Orbit</a></li>
+                            <li><a href="contacts.html">Mayden</a></li>
+                        </ul>
+                    </div>
+                </li>
+
                 <li{!! Request::is('/') ? ' class="active"' : null !!}>
                     <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
@@ -104,9 +119,9 @@
                 </div>
                 
                 <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>
-                <form role="search" class="navbar-form-custom" method="post" action="#">
+                <form role="search" class="navbar-form-custom" id="topbar-search-form">
                     <div class="form-group">
-                        <input type="text" placeholder="Search.." class="form-control" name="top-search" id="top-search">
+                        <input type="text" placeholder="Search.." class="form-control" name="top-search" id="top-search" {!! isset($searchTerm) ? 'value="'. $searchTerm .'"' : null !!}>
                     </div>
                 </form>
 
@@ -209,9 +224,9 @@
 
 <script>
     $(document).ready(function() {
-        $(window).resize(function() {
-            $('#page-wrapper').height($(window).height());
-        });
+        // $(window).resize(function() {
+        //     $('#page-wrapper').height($(window).height());
+        // });
 
         @if($current['chapter'] != null)
             var category = {!! $current['category'] ? $current['category']->id : '""' !!};
@@ -256,6 +271,13 @@
 
         @endif
 
+        $('#topbar-search-form').submit(function(e) {
+            var term = $('#top-search').val();
+            window.location.href ='/search/' + term + '/results';
+            e.preventDefault();
+            return false;
+        });
+
         $('#top-search').easyAutocomplete({
             url: function(term) {
                     return "/search/" + term;
@@ -269,8 +291,9 @@
             },
             list: {
                 maxNumberOfElements: 10,
-                onShowListEvent: function(term) {
+                onShowListEvent: function() {
                     var list = $('body').find('#eac-container-top-search ul');
+                    var term = $('#top-search').val();
                     if (list.text().indexOf('View All Results') == -1) {
                         list.append('<li id="view-all"><a href="/search/' + term + '/results"><strong>View All Results</strong></a></li>');
                     }

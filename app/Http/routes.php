@@ -15,7 +15,7 @@ Route::get('/', 'HomeController@index');
 Route::get('/random', 'HomeController@getRandomPage');
 
 Route::get('/search/{query}', 'SearchController@performSearch');
-Route::get('/search/{query}/results', 'SearchController@performSearch');
+Route::get('/search/{query}/results', 'SearchController@showSearchResults');
 
 Route::get('/bookmarks', 'BookmarkController@index');
 Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');

@@ -8,6 +8,7 @@ use App\Library\Repositories\SearchRepository;
 
 class SearchController extends Controller
 {
+    private $isAjaxRequest;
     private $defaultSearchables = [
         'Server',
         'Service',
@@ -15,18 +16,38 @@ class SearchController extends Controller
         'Chapter'
     ];
   
+    public function __construct()
+    {
+        $this->determineIfAjax();
+    }
+
+    public function showSearchResults($term)
+    {
+        $results = $this->performSearch($term);
+        return view('search.results', [
+            'results' => $results,
+            'searchTerm' => $term
+        ]);
+    }
+  
+    public function determineIfAjax()
+    {
+        $this->isAjaxRequest = \Request::ajax();
+    }
+
     public function performSearch($term)
     {
-        if (strlen($term) < 3 && !is_int($term))  {
-            return json_encode([]);
+
+        if (strlen($term) < 3 && !is_int($term)) {
+            return $this->isAjaxRequest ? json_encode([]) : [];
         }
 
         $searchDetails = $this->getSearchDetails($term);
 
-        $searchRepository = new SearchRepository($searchDetails['term']);
+        $searchRepository = new SearchRepository($searchDetails['term'], $this->isAjaxRequest);
         $results = $searchRepository->processSearch($searchDetails['searchables']);
 
-        return json_encode($results);
+        return $this->isAjaxRequest ? json_encode($results) : $results;
     }
   
     public function getSearchDetails($term)

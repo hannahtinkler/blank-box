@@ -18,7 +18,8 @@ class CreateServersTable extends Migration
             $table->string('nickname');
             $table->string('location')->default('Bracknell');
             $table->integer('node_number')->nullable();
-            $table->string('type')->default('private');
+            $table->string('access')->default('private');
+            $table->string('type');
             $table->timestamps();
         });
     }

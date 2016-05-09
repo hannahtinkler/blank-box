@@ -42,10 +42,10 @@ class Server extends Model implements SearchableModel
         $this->repository = new ServerRepository($this);
     }
 
-    public function getTypeName()
-    {
-        return 'server';
-    }
+    // public function getTypeName()
+    // {
+    //     return 'server';
+    // }
     
     public function services()
     {

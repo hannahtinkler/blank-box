@@ -98,6 +98,7 @@ navbar .form-control, .single-line {
 #page-wrapper {
   margin: 50px 0 0 @sidebar-width;
   padding: 40px 80px;
+  overflow-y: scroll;
 }
 
 .bigger-icon {
@@ -132,8 +133,9 @@ navbar .form-control, .single-line {
     border-radius: 5px;
 }
 
-#config-generator  .help-block {margin-top:-2em;}
-#config-generator  input {width:400px; padding-left: 41px;} 
+#config-generator  .help-block {margin-top:-3em; margin-bottom:2em}
+#config-generator input {width:400px;} 
+#config-generator input.prefix-field {padding-left: 41px;} 
 .config-prefix {
   position: relative;
   top:-27px;
@@ -239,3 +241,64 @@ body.mini-navbar #page-wrapper {
 }
 
 .navbar-header .glyphicon-search { top:-1px }
+
+.nav-header {
+  padding: 20px 0 19px 0;
+}
+
+.nav-header span {
+  font-size:32px;
+  color:#fff
+}
+
+.module-menu {
+  background-color: #C7CDD3;
+  width:@sidebar-width - 45px;
+  left: 20px;
+  color:#000;
+  padding: 5px 4px;
+  font-size:14px;
+  box-shadow: 0 0 20px 0px rgba(60,60,60,0.5);
+}
+
+.module-menu a:hover {
+  background-color: #D5DBE1 !important;
+  color:#000 !important;
+}
+
+table.table {
+  border: none;
+}
+
+table.table th {
+  font-size:24px;
+  font-weight:normal;
+}
+
+table.table th, table.table td {
+  background-color: #F4F6FA ;
+  border:none !important;
+}
+
+.table-hover > tbody > tr:hover td,
+.highlight-row td {
+    background-color: #F5F4CF !important;
+}
+
+.chapter-list p {
+  font-style: italic;
+}
+
+.chapter-list {
+  list-style: none;
+  margin: 2em 0 0 0;
+  padding:0.2em 2em;
+}
+
+.chapter-list li {
+  margin:2em 0;
+}
+
+.commands-list {
+  padding-left: 1.5em;
+}

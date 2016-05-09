@@ -7,15 +7,15 @@
 
 <hr>
 
-<table class="hover-highlight">
+<table class="table table-striped table-bordered table-hover dataTables-example m-t-xl">
     <thead>
         <tr>
-            <td></td>
-            <td>ID</td>
-            <td>Service Name</td>
-            <td>Area</td>
-            <td>Type</td>
-            <td>Server Location</td>
+            <th></th>
+            <th>ID</th>
+            <th>Service Name</th>
+            <th>Area</th>
+            <th>Type</th>
+            <th>Server</th>
         </tr>
     </thead>
     <tbody>
@@ -32,14 +32,12 @@
                 </td>
                 <td>{{ ucwords($service->area) }}</td>
                 <td>{{ ucwords($service->type) }}</td>
-                <td>{{ is_object($service->server) ? ucwords($service->server->location . ' ' . $service->server->node_number) : null }}</td>
+                <td>{{ $service->server->name }} ({{ $service->server->nickname }})</td>
             </tr>
         @endforeach
     </tbody>
 </table>
-
 @stop
-
 
 @section('scripts')
 <script>

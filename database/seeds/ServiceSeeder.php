@@ -13,10 +13,11 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-        $bournemouth8 = Server::where('location', 'Bournemouth')->where('node_number', 8)->first();
-        $bracknell16 = Server::where('location', 'Bracknell')->where('node_number', 16)->first();
-        $bracknell18 = Server::where('location', 'Bracknell')->where('node_number', 18)->first();
-        $bracknell24 = Server::where('location', 'Bracknell')->where('node_number', 24)->first();
+        $set1A = Server::where('location', 'Bracknell')->where('node_number', 16)->first();
+        $set2A = Server::where('location', 'Bracknell')->where('node_number', 18)->first();
+        $set3A = Server::where('location', 'Bracknell')->where('node_number', 24)->first();
+        $set4A = Server::where('location', 'Bournemouth')->where('node_number', 27)->first();
+        $set5A = Server::where('location', 'Bournemouth')->where('node_number', 34)->first();
 
         Service::truncate();
 
@@ -25,7 +26,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Barnet',
             'service_id' => 176,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://barnet.iaptus.nhs.uk'
         ]);
 
@@ -34,7 +35,7 @@ class ServiceSeeder extends Seeder
             'name' => 'ELFT Bedford',
             'service_id' => 188,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://bedford.iaptus.nhs.uk'
         ]);
 
@@ -43,7 +44,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Bolton CYP',
             'service_id' => 164,
             'type' => 'CYP',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://boltoncyp.iaptus.nhs.uk'
         ]);
 
@@ -52,7 +53,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CAMHS (Calderdale)',
             'service_id' => 178,
             'type' => 'CAMHS',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://calderdalecamhs.iaptus.nhs.uk'
         ]);
 
@@ -61,7 +62,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CAMHSAFC (Richmond & Kingston)',
             'service_id' => 174,
             'type' => 'CAMHS',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://camhsafc.iaptus.nhs.uk'
         ]);
 
@@ -70,7 +71,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Camden & Islington (CANDI)',
             'service_id' => 166,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://candi.iaptus.nhs.uk'
         ]);
 
@@ -79,7 +80,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Catalyst',
             'service_id' => 179,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://catalyst.iaptus.nhs.uk'
         ]);
 
@@ -88,7 +89,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Ealing',
             'service_id' => 160,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://ealing.iaptus.nhs.uk'
         ]);
 
@@ -97,7 +98,7 @@ class ServiceSeeder extends Seeder
             'name' => 'NHS Fylde and Wyre',
             'service_id' => 186,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://fyldeandwyre.iaptus.nhs.uk'
         ]);
 
@@ -106,7 +107,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CNWL Hillingdon',
             'service_id' => 107,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://hillingdon.iaptus.nhs.uk'
         ]);
 
@@ -115,7 +116,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Hounslow',
             'service_id' => 117,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://hounslow.iaptus.nhs.uk'
         ]);
 
@@ -124,7 +125,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Lancashire Care',
             'service_id' => 173,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://lancashire.iaptus.nhs.uk'
         ]);
 
@@ -133,7 +134,7 @@ class ServiceSeeder extends Seeder
             'name' => 'ELFT Luton',
             'service_id' => 165,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://luton.iaptus.nhs.uk'
         ]);
 
@@ -142,7 +143,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Making Space',
             'service_id' => 175,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://makingspace.iaptus.nhs.uk'
         ]);
 
@@ -151,7 +152,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CNWL Milton Keynes',
             'service_id' => 167,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://miltonkeynes.iaptus.nhs.uk'
         ]);
 
@@ -160,7 +161,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Mind BLMK',
             'service_id' => 168,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://mindblmk.iaptus.nhs.uk'
         ]);
 
@@ -169,7 +170,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Northumberland Tyne and Wear Foundation Trust (NTW)',
             'service_id' => 161,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://ntw.iaptus.nhs.uk'
         ]);
 
@@ -178,7 +179,7 @@ class ServiceSeeder extends Seeder
             'name' => 'NSFT Norfolk',
             'service_id' => 181,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://norfolk.iaptus.nhs.uk'
         ]);
 
@@ -187,7 +188,7 @@ class ServiceSeeder extends Seeder
             'name' => 'North Kent MIND',
             'service_id' => 177,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://nkm.iaptus.nhs.uk/'
         ]);
 
@@ -196,7 +197,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Northamptonshire',
             'service_id' => 25,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://northants.iaptus.nhs.uk'
         ]);
 
@@ -205,7 +206,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SWLSTG Sutton',
             'service_id' => 30,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://sm.iaptus.nhs.uk'
         ]);
 
@@ -214,7 +215,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SS South Staffordshire',
             'service_id' => 195,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://southstaffs.iaptus.nhs.uk'
         ]);
 
@@ -223,7 +224,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Starfish Stafford and Cannock',
             'service_id' => 172,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://starfishsc.iaptus.nhs.uk'
         ]);
 
@@ -232,7 +233,7 @@ class ServiceSeeder extends Seeder
             'name' => 'NSFT Suffolk',
             'service_id' => 187,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://suffolk.iaptus.nhs.uk'
         ]);
 
@@ -241,7 +242,7 @@ class ServiceSeeder extends Seeder
             'name' => 'MHM Northumberland (Talking Matters)',
             'service_id' => 191,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://tmn.iaptus.nhs.uk'
         ]);
 
@@ -250,7 +251,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Thrive Psychology',
             'service_id' => 196,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://thrive.iaptus.nhs.uk'
         ]);
 
@@ -259,7 +260,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Torbay CYP',
             'service_id' => 171,
             'type' => 'CYP',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://torbaycyp.iaptus.nhs.uk'
         ]);
 
@@ -268,7 +269,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SWLSTG Wandsworth',
             'service_id' => 13,
             'type' => 'IAPT',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://wandsworth.iaptus.nhs.uk'
         ]);
 
@@ -277,7 +278,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Wandsworth CYP',
             'service_id' => 169,
             'type' => 'CYP',
-            'server_id' => $bournemouth8->id,
+            'server_id' => $set4A->id,
             'live_site_url' => 'http://wandsworthcyp.iaptus.nhs.uk'
         ]);
 
@@ -286,7 +287,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Bath',
             'service_id' => 158,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://banes.iaptus.nhs.uk'
         ]);
 
@@ -295,7 +296,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Bexley',
             'service_id' => 40,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://bexley.iaptus.nhs.uk'
         ]);
 
@@ -304,7 +305,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Birmingham and Solihull Employee\'s Resolve (BSMHT)',
             'service_id' => 149,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://resolve.iaptus.nhs.uk'
         ]);
 
@@ -313,7 +314,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CNWL Brent',
             'service_id' => 115,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://brent.iaptus.nhs.uk'
         ]);
 
@@ -322,7 +323,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Cornwall (OSW)',
             'service_id' => 23,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://outlooksw.iaptus.nhs.uk'
         ]);
 
@@ -331,7 +332,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Cornwall Foundation Trust (CFT)',
             'service_id' => 147,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://westminster.iaptus.nhs.uk'
         ]);
 
@@ -340,7 +341,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SLAM Croydon',
             'service_id' => 136,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => "http://croydon.iaptus.nhs.uk"
         ]);
 
@@ -349,7 +350,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Surrey & Dorking Healthcare',
             'service_id' => 155,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://dorking.iaptus.nhs.uk'
         ]);
 
@@ -358,7 +359,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Dover Counselling',
             'service_id' => 145,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://dover.iaptus.nhs.uk'
         ]);
 
@@ -367,7 +368,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Durham and Darlington',
             'service_id' => 111,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://durhamdarlington.iaptus.nhs.uk'
         ]);
 
@@ -376,7 +377,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Faversham Counselling',
             'service_id' => 143,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://faversham.iaptus.nhs.uk'
         ]);
 
@@ -385,7 +386,7 @@ class ServiceSeeder extends Seeder
             'name' => '2gether Gloucester',
             'service_id' => 12,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://2gether.iaptus.nhs.uk'
         ]);
 
@@ -394,7 +395,7 @@ class ServiceSeeder extends Seeder
             'name' => '2gether Hampshire',
             'service_id' => 123,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://2gether.iaptus.nhs.uk'
         ]);
 
@@ -403,7 +404,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Healthy Minds Surrey (HM)',
             'service_id' => 156,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://hmsurrey.iaptus.nhs.uk'
         ]);
 
@@ -412,7 +413,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Hammersmith & Fulham',
             'service_id' => 17,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://hammersmith.iaptus.nhs.uk'
         ]);
 
@@ -421,7 +422,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Hartlepool Mind',
             'service_id' => 137,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://mindrecovery.iaptus.nhs.uk'
         ]);
 
@@ -430,7 +431,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Hull CHC',
             'service_id' => 150,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://hull.iaptus.nhs.uk'
         ]);
 
@@ -439,7 +440,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CNWL Kensington & Chelsea',
             'service_id' => 9,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://cwlcs-kc-ph.iaptus.nhs.uk'
         ]);
 
@@ -448,7 +449,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Psicon',
             'service_id' => 144,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'https://kentpsicon.iaptus.co.uk'
         ]);
 
@@ -457,7 +458,7 @@ class ServiceSeeder extends Seeder
             'name' => 'North Tyneside',
             'service_id' => 102,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://northtyneside.iaptus.nhs.uk'
         ]);
 
@@ -466,7 +467,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Oxleas',
             'service_id' => 29,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://oxleas.iaptus.nhs.uk'
         ]);
 
@@ -475,7 +476,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Rushmoor',
             'service_id' => 110,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://rushmoor.iaptus.nhs.uk'
         ]);
 
@@ -484,7 +485,7 @@ class ServiceSeeder extends Seeder
             'name' => 'West Sussex',
             'service_id' => 19,
             'type' => 'IAPT',
-            'server_id' => $bracknell16->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://westsussex.iaptus.nhs.uk'
         ]);
 
@@ -493,7 +494,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Avon',
             'service_id' => 139,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://avon.iaptus.nhs.uk'
         ]);
 
@@ -502,7 +503,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Birmingham and Solihull (BSMHFT)',
             'service_id' => 153,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://bmht.iaptus.nhs.uk'
         ]);
 
@@ -511,7 +512,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Berkshire',
             'service_id' => 18,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://berkshire.iaptus.nhs.uk'
         ]);
 
@@ -520,7 +521,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Bromley',
             'service_id' => 114,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://bromley.iaptus.nhs.uk'
         ]);
 
@@ -529,7 +530,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Cumbria',
             'service_id' => 7,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://cumbria.iaptus.nhs.uk'
         ]);
 
@@ -538,7 +539,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Devon & Torbay',
             'service_id' => 28,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://devonandtorbay.iaptus.nhs.uk'
         ]);
 
@@ -547,7 +548,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Gateshead',
             'service_id' => 38,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://gateshead.iaptus.nhs.uk'
         ]);
 
@@ -556,7 +557,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CNWL Harrow',
             'service_id' => 116,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://harrow.iaptus.nhs.uk'
         ]);
 
@@ -565,7 +566,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Mersey Care Liverpool',
             'service_id' => 185,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://mcliverpool.iaptus.nhs.uk'
         ]);
 
@@ -574,7 +575,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Hartlepool MINDRecovery',
             'service_id' => 180,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://hartlepoolmind.iaptus.nhs.uk'
         ]);
 
@@ -583,7 +584,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Off The Record CYP',
             'service_id' => 184,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://otr.iaptus.nhs.uk'
         ]);
 
@@ -592,7 +593,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Portsmouth',
             'service_id' => 142,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://portsmouth.iaptus.nhs.uk'
         ]);
 
@@ -601,7 +602,7 @@ class ServiceSeeder extends Seeder
             'name' => 'South of Tyne',
             'service_id' => 8,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://southtyneside.iaptus.nhs.uk'
         ]);
 
@@ -610,7 +611,7 @@ class ServiceSeeder extends Seeder
             'name' => 'STFT CAMHS (South of Tyne)',
             'service_id' => 194,
             'type' => 'CAMHS',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://stftcamhs.iaptus.nhs.uk'
         ]);
 
@@ -619,7 +620,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Somerset',
             'service_id' => 108,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://somerset.iaptus.nhs.uk'
         ]);
 
@@ -628,7 +629,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Southampton',
             'service_id' => 35,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://southampton.iaptus.nhs.uk'
         ]);
 
@@ -637,7 +638,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Southampton Counselling',
             'service_id' => 124,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://southampton.iaptus.nhs.uk'
         ]);
 
@@ -646,7 +647,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Southwark',
             'service_id' => 5,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://southwark.iaptus.nhs.uk'
         ]);
 
@@ -655,7 +656,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SLAM Lambeth',
             'service_id' => 10,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://lambeth.iaptus.nhs.uk'
         ]);
 
@@ -664,7 +665,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SLAM Lewisham',
             'service_id' => 15,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => "http://lewisham.iaptus.nhs.uk"
         ]);
 
@@ -673,7 +674,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Surrey Borders',
             'service_id' => 140,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://surreyborders.iaptus.nhs.uk'
         ]);
 
@@ -682,7 +683,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Telford and Wrekin',
             'service_id' => 36,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://telfordandwrekin.iaptus.nhs.uk'
         ]);
 
@@ -691,7 +692,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Kent University Medical Practice (UMC)',
             'service_id' => 146,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://umc.iaptus.nhs.uk'
         ]);
 
@@ -700,7 +701,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Warrington',
             'service_id' => 120,
             'type' => 'IAPT',
-            'server_id' => $bracknell18->id,
+            'server_id' => $set2A->id,
             'live_site_url' => 'http://warrington.iaptus.nhs.uk'
         ]);
 
@@ -709,7 +710,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CW Coventry',
             'service_id' => 27,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://cw.iaptus.nhs.uk'
         ]);
 
@@ -718,7 +719,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CW Employees',
             'service_id' => 121,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://cw.iaptus.nhs.uk'
         ]);
 
@@ -727,7 +728,7 @@ class ServiceSeeder extends Seeder
             'name' => 'TP Derbyshire',
             'service_id' => 125,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://derbyshire.iaptus.nhs.uk'
         ]);
 
@@ -736,7 +737,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Dorset, Bournemouth & Poole',
             'service_id' => 1,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://dorset.iaptus.nhs.uk'
         ]);
 
@@ -745,7 +746,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Hants Hampshire',
             'service_id' => 106,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://hampshire.iaptus.nhs.uk'
         ]);
 
@@ -754,7 +755,7 @@ class ServiceSeeder extends Seeder
             'name' => 'IM Wirral (Inclusion matters)',
             'service_id' => 189,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://imwirral.iaptus.nhs.uk'
         ]);
 
@@ -763,7 +764,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Isle of Wight',
             'service_id' => 16,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://iow.iaptus.nhs.uk'
         ]);
 
@@ -772,7 +773,7 @@ class ServiceSeeder extends Seeder
             'name' => 'C & I Kingston',
             'service_id' => 41,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://kingston.iaptus.nhs.uk'
         ]);
 
@@ -781,7 +782,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Newham',
             'service_id' => 100,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://newham.iaptus.nhs.uk'
         ]);
 
@@ -790,7 +791,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SS North Staffordshire',
             'service_id' => 31,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://northstaffs.iaptus.nhs.uk'
         ]);
 
@@ -799,7 +800,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Plymouth',
             'service_id' => 21,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://plymouth.iaptus.nhs.uk'
         ]);
 
@@ -808,7 +809,7 @@ class ServiceSeeder extends Seeder
             'name' => 'ELFT Richmond',
             'service_id' => 134,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://richmond.iaptus.nhs.uk'
         ]);
 
@@ -817,7 +818,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SS Shropshire',
             'service_id' => 37,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://shropshire.iaptus.nhs.uk'
         ]);
 
@@ -826,7 +827,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SignHealth',
             'service_id' => 127,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://signhealth.iaptus.nhs.uk'
         ]);
 
@@ -835,7 +836,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Starfish AQP Teeside',
             'service_id' => 170,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://starfish.iaptus.nhs.uk'
         ]);
 
@@ -844,7 +845,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Stoke on Trent',
             'service_id' => 152,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://stoke.iaptus.nhs.uk'
         ]);
 
@@ -853,7 +854,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Swindon and Wilts',
             'service_id' => 182,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://swindon.iaptus.nhs.uk'
         ]);
 
@@ -862,7 +863,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Tower Hamlets',
             'service_id' => 132,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://towerhamlets.iaptus.nhs.uk'
         ]);
 
@@ -871,7 +872,7 @@ class ServiceSeeder extends Seeder
             'name' => 'TP Wakefield',
             'service_id' => 126,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://wakefield.iaptus.nhs.uk'
         ]);
 
@@ -880,7 +881,7 @@ class ServiceSeeder extends Seeder
             'name' => 'CNWL Westminster',
             'service_id' => 20,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://westminster.iaptus.nhs.uk'
         ]);
 
@@ -889,7 +890,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Wilts',
             'service_id' => 183,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://wiltshire.iaptus.nhs.uk'
         ]);
 
@@ -898,7 +899,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Worcestershire',
             'service_id' => 113,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://worcestershire.iaptus.nhs.uk'
         ]);
 
@@ -907,7 +908,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Yorkshire and Humber Veteran Outreach Service (YAHVOS)',
             'service_id' => 151,
             'type' => 'IAPT',
-            'server_id' => $bracknell24->id,
+            'server_id' => $set3A->id,
             'live_site_url' => 'http://yahvos.iaptus.nhs.uk'
         ]);
 
@@ -916,7 +917,7 @@ class ServiceSeeder extends Seeder
             'name' => 'THN Newcastle',
             'service_id' => 197,
             'type' => 'IAPT',
-            'server_id' => null,
+            'server_id' => $set5A->id,
             'live_site_url' => 'http://thn.iaptus.nhs.uk'
         ]);
 
@@ -925,7 +926,7 @@ class ServiceSeeder extends Seeder
             'name' => 'SS Thurrock',
             'service_id' => 199,
             'type' => 'IAPT',
-            'server_id' => null,
+            'server_id' => $set5A->id,
             'live_site_url' => 'http://thurrock.iaptus.nhs.uk'
         ]);
 
@@ -934,7 +935,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Blackpool Teaching Hospital (BTH)',
             'service_id' => 192,
             'type' => 'IAPT',
-            'server_id' => null,
+            'server_id' => $set5A->id,
             'live_site_url' => 'http://bth.iaptus.nhs.uk'
         ]);
 
@@ -943,7 +944,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Gateshead CAMHS',
             'service_id' => 200,
             'type' => 'CAMHS',
-            'server_id' => null,
+            'server_id' => $set2A->id,
             'live_site_url' => null
         ]);
 
@@ -952,7 +953,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Sunderland CAMHS',
             'service_id' => 201,
             'type' => 'CAMHS',
-            'server_id' => null,
+            'server_id' => $set5A->id,
             'live_site_url' => null
         ]);
 
@@ -961,7 +962,7 @@ class ServiceSeeder extends Seeder
             'name' => 'LPFT Lincolnshire',
             'service_id' => 157,
             'type' => 'CAMHS',
-            'server_id' => null,
+            'server_id' => $set5A->id,
             'live_site_url' => 'http://lpft.iaptus.nhs.uk'
         ]);
 

@@ -7,11 +7,13 @@ use App\Library\Interfaces\SearchableRepository;
 class SearchRepository
 {
     private $term;
+    private $formatForAjax;
     private $allResults = array();
 
-    public function __construct($term)
+    public function __construct($term, $formatForAjax = true)
     {
         $this->term = $term;
+        $this->formatForAjax = $formatForAjax;
     }
 
     public function processSearch(array $searchables)
@@ -23,7 +25,7 @@ class SearchRepository
             $this->allResults[] = $newResults;
         }
 
-        $this->formatResults();
+        $this->formatResultSet();
         $this->sortResults();
 
         return $this->allResults;
@@ -34,25 +36,33 @@ class SearchRepository
         return $class->getSearchResults($this->term);
     }
 
-    private function formatResults()
+    private function formatResultSet()
     {
         $formatted = [];
         foreach ($this->allResults as $resultSet) {
             foreach ($resultSet as $result) {
-                $formatted[] = [
-                    'content' => $result->searchResultString(),
-                    'url' => $result->searchResultUrl(),
-                    'score' => $result->documentScore()
-                ];
+                if ($this->formatForAjax) {
+                    $result = $this->formatSingleResultForAjax($result);
+                }
+                $formatted[] = $result;
             }
         }
 
         $this->allResults = $formatted;
     }
 
+    private function formatSingleResultForAjax($result)
+    {
+        return [
+            'content' => $result->searchResultString(),
+            'url' => $result->searchResultUrl(),
+            'score' => $result->documentScore()
+        ];
+    }
+
     private function sortResults()
     {
-        usort($this->allResults, function($a, $b) {
+        usort($this->allResults, function ($a, $b) {
             if ($a['score'] == $b['score']) {
                 return 0;
             }

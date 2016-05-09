@@ -7751,7 +7751,7 @@ body.skin-3 {
   border: none;
 }
 .mayden-skin .nav > li > a {
-  color: #B5BCC4;
+  color: #C7CDD3;
 }
 .mayden-skin .navbar-minimalize {
   background: #8DB863;
@@ -7790,9 +7790,6 @@ body.mayden-skin:not(.gray-bg) {
   border-left-style: solid;
   border-left-width: 4px;
   background: #2d4653;
-}
-.mayden-skin .nav-header {
-  padding: 35px 25px 25px 25px;
 }
 .mayden-skin .nav-header a.dropdown-toggle {
   color: #fff;
@@ -7834,7 +7831,7 @@ body.mayden-skin:not(.gray-bg) {
   background: transparent;
 }
 .mayden-skin .navbar li a {
-  color: #4d5660;
+  color: #5b6773;
 }
 .mayden-skin .nav-header {
   border-bottom-color: #29404c;
@@ -8408,6 +8405,7 @@ navbar .form-control,
 #page-wrapper {
   margin: 50px 0 0 300px;
   padding: 40px 80px;
+  overflow-y: scroll;
 }
 .bigger-icon {
   font-size: 18px;
@@ -8438,10 +8436,13 @@ navbar .form-control,
   border-radius: 5px;
 }
 #config-generator .help-block {
-  margin-top: -2em;
+  margin-top: -3em;
+  margin-bottom: 2em;
 }
 #config-generator input {
   width: 400px;
+}
+#config-generator input.prefix-field {
   padding-left: 41px;
 }
 .config-prefix {
@@ -8536,6 +8537,56 @@ body.mini-navbar #page-wrapper {
 }
 .navbar-header .glyphicon-search {
   top: -1px;
+}
+.nav-header {
+  padding: 20px 0 19px 0;
+}
+.nav-header span {
+  font-size: 32px;
+  color: #fff;
+}
+.module-menu {
+  background-color: #C7CDD3;
+  width: 255px;
+  left: 20px;
+  color: #000;
+  padding: 5px 4px;
+  font-size: 14px;
+  box-shadow: 0 0 20px 0px rgba(60, 60, 60, 0.5);
+}
+.module-menu a:hover {
+  background-color: #D5DBE1 !important;
+  color: #000 !important;
+}
+table.table {
+  border: none;
+}
+table.table th {
+  font-size: 24px;
+  font-weight: normal;
+}
+table.table th,
+table.table td {
+  background-color: #F4F6FA ;
+  border: none !important;
+}
+.table-hover > tbody > tr:hover td,
+.highlight-row td {
+  background-color: #F5F4CF !important;
+}
+.chapter-list p {
+  font-style: italic;
+}
+.chapter-list {
+  list-style: none;
+  margin: 2em 0 0 0;
+  padding: 0.2em 2em;
+}
+.chapter-list li {
+  margin: 2em 0;
+}
+.commands-list {
+  padding-left: 1.5em;
 }
 @media print {
   nav.navbar-static-side {
