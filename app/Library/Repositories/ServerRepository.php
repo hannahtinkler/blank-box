@@ -12,7 +12,7 @@ class ServerRepository implements SearchableRepository
         $query = [
             "bool" => [
                 "should" => [
-                    [ "wildcard" => [ "_all" => "$term*"]],
+                    [ "wildcard" => [ "_all" => "*$term*"]],
                     [ "match" => [ "_all" => "$term" ]]
                 ]
             ]
@@ -23,11 +23,16 @@ class ServerRepository implements SearchableRepository
 
     public function searchResultString($result)
     {
-        return 'Server: ' . $result->name . ' / ' . $result->nickname . ' - ' . $result->location . ' ' . ($result->node_number ? $result->node_number : '') . ' (' . $result->type . ')';
+        return 'Server: ' . $result->name . ' / ' . $result->nickname . ' - ' . $result->location . ' ' . ' (' . $result->node_type . ')';
     }
 
     public function searchResultUrl($result)
     {
         return '/p/mayden/servers/server-details/' . $result->id;
+    }
+
+    public function searchResultIcon($result)
+    {
+        return '<i class="fa fa-server"></i>';
     }
 }

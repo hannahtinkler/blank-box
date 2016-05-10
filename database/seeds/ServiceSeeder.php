@@ -13,11 +13,11 @@ class ServiceSeeder extends Seeder
      */
     public function run()
     {
-        $set1A = Server::where('location', 'Bracknell')->where('node_number', 16)->first();
-        $set2A = Server::where('location', 'Bracknell')->where('node_number', 18)->first();
-        $set3A = Server::where('location', 'Bracknell')->where('node_number', 24)->first();
-        $set4A = Server::where('location', 'Bournemouth')->where('node_number', 27)->first();
-        $set5A = Server::where('location', 'Bournemouth')->where('node_number', 34)->first();
+        $set1A = Server::where('name', 'iaptusdbvnode16')->first();
+        $set2A = Server::where('name', 'iaptusdbvnode18')->first();
+        $set3A = Server::where('name', 'iaptusdbvnode24')->first();
+        $set4A = Server::where('name', 'iaptusdbvnode27')->first();
+        $set5A = Server::where('name', 'iaptusdbvnode34')->first();
 
         Service::truncate();
 

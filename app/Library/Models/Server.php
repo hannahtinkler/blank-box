@@ -57,8 +57,18 @@ class Server extends Model implements SearchableModel
         return $this->repository->searchResultString($this);
     }
     
+    public function portForwardingSettings()
+    {
+        return $this->hasMany('App\Library\Models\ServerPortForwardingSetting');
+    }
+
     public function searchResultUrl()
     {
         return $this->repository->searchResultUrl($this);
+    }
+
+    public function searchResultIcon()
+    {
+        return $this->repository->searchResultIcon($this);
     }
 }

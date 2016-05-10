@@ -12,7 +12,7 @@ class ChapterRepository implements SearchableRepository
         $query = [
             "bool" => [
                 "should" => [
-                    [ "wildcard" => [ "_all" => "$term*"]],
+                    [ "wildcard" => [ "_all" => "*$term*"]],
                     [ "match" => [ "_all" => "$term" ]]
                 ]
             ]
@@ -29,5 +29,10 @@ class ChapterRepository implements SearchableRepository
     public function searchResultUrl($result)
     {
         return '/p/' . $result->category->slug . '/' . $result->slug;
+    }
+
+    public function searchResultIcon($result)
+    {
+        return '<i class="fa fa-folder-open-o"></i>';
     }
 }

@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PageSeeder::class);
         $this->call(ServerSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(ServerPortForwardingSettingSeeder::class);
         $this->call(ElasticSearchSeeder::class);
     }
 }

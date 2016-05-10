@@ -11,9 +11,15 @@ class ServerController extends Controller
 {
     public function showPage()
     {
-        $servers = Server::orderBy('node_number')->orderBy('node_number')->get();
+        $servers = Server::orderBy('node_type')->orderBy('name')->get();
         $page = Page::where('slug', 'server-details')->first();
         return view('servers.show_page', compact('servers', 'page'));
+    }
+
+    public function showServerModal($id)
+    {
+        $server = Server::find($id);
+        return view('partials.servermodal', compact('server'));
     }
 
     public function configGenerator()

@@ -12,7 +12,12 @@
     <ul class="chapter-list">
         @foreach($results as $result)
             <li>
-                <h3><a href="{{ $result->searchResultUrl() }}">{{ $result->searchResultString() }}</a></h3>
+                <h4>{!! $result->searchResultIcon() !!} <a href="{{ $result->searchResultUrl() }}">{{ $result->searchResultString() }}</a></h4>
+                @if(isset($result->description))
+                    <p>{{ $result->description }}</p>
+                @else
+                @endif
+
             </li>
         @endforeach
     </ul>

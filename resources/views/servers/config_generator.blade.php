@@ -9,7 +9,7 @@
 
 <p>Generate an SSH config file with which to connect to Mayden servers. You can only do this once you have live access and have been sent your server SSH keys. Move these keys directly to your '.ssh' directory for compatibility with this file download (or include sub directories in the filename if you want to be more organised).</p>
 
-<p>Once you have downloaded this config file, place the file in the root of your '.ssh' folder, overwriting any config file that might already exist there. You will then be able to connect SSH into the Mayden servers using the following commands (provided you have been granted access). Using the correct port forwarding settings, you will be able to access any iaptus database from either iaptus SSH commands.</p>
+<p>Once you have downloaded this config file, place the file in the root of your '.ssh' folder, overwriting any config file that might already exist there. You will then be able to connect SSH into the Mayden servers using the following commands (provided you have been granted access). Using the correct port forwarding settings (which you can find <a href="/p/mayden/servers/server-details">here</a> for any server by clicking the plus button), you will be able to access any iaptus database from either iaptus SSH commands.</p>
 <br />
 <ul class="commands-list">
     <li><code>ssh iaptusbracknell</code> - will SSH you onto the Bracknell server via your Bracknell VPN connection</li>
@@ -32,17 +32,17 @@
     {{ csrf_field() }}
     <label for="key_name">SSH Username: </label>
     <div class="form-group">
-        <input type="text" class="form-control" value="{{ old('ssh_username') }}" name="ssh_username" id="key_name" />
+        <input type="text" class="form-control" value="{{ old('ssh_username') }}" name="ssh_username" placeholder="mayhealthv_abc" id="ssh_username" />
     </div>
-    <label for="key_name">SSH Key Filename - Bournemouth: </label>
+    <label for="key_name_bmth">SSH Key Filename - Bournemouth: </label>
     <div class="form-group">
-        <input type="text" class="form-control prefix-field" value="{{ old('bournemouth_key') }}" name="bournemouth_key" id="key_name" />
+        <input type="text" class="form-control prefix-field" value="{{ old('bournemouth_key') }}" name="bournemouth_key" placeholder="abc_bournemouth" id="key_name_bmth" />
         <span class="config-prefix">.ssh/</span>
     </div>
     <small class="italic help-block">Please do not include the file extension in the key file name</small>
-    <label for="key_name">SSH Key Filename - Bracknell: </label>
+    <label for="key_name_brck">SSH Key Filename - Bracknell: </label>
     <div class="form-group">
-        <input type="text" class="form-control prefix-field" value="{{ old('bracknell_key') }}" name="bracknell_key" id="key_name" />
+        <input type="text" class="form-control prefix-field" value="{{ old('bracknell_key') }}" name="bracknell_key" placeholder="abc_bracknell" id="key_name_brck" />
         <span class="config-prefix">.ssh/</span>
     </div>
     <small class="italic help-block">Please do not include the file extension in the key file name</small>

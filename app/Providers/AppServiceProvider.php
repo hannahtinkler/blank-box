@@ -17,24 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('layouts.master', function ($view) {
-
-            if (\Request::segment(1) == 'p') {
-                $current = [];
-                $current['category'] = Category::where('slug', \Request::segment(2))->first();
-                $current['chapter'] = Chapter::where('slug', \Request::segment(3))->first();
-                $current['page'] = Page::where('slug', \Request::segment(4))->first();
-            } else {
-                $current = null;
-            }
-
-            $categories = Category::orderBy('order')->get();
-            $bookmarks = Bookmark::all()->count();
-
-            $view->with('categories', $categories)
-                ->with('current', $current)
-                ->with('bookmarks', $bookmarks);
-        });
+        $this->registerBladeExtension();
+        $this->registerViewComposer();
     }
 
     /**
@@ -45,5 +29,48 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+    }
+
+    public function registerBladeExtension()
+    {
+        $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
+        
+        $blade->extend(function ($value, $compiler) {
+            $value = preg_replace("/@set\('(.*?)'\,(.*)\)/", '<?php $$1 = $2; ?>', $value);
+            return $value;
+        });
+    }
+
+    public function registerViewComposer()
+    {
+        view()->composer('layouts.master', function ($view) {
+            $current = [];
+            $current['category'] = $this->getCurrentCategory();
+
+            if (\Request::segment(1) == 'p') {
+                $current['chapter'] = Chapter::where('slug', \Request::segment(3))->first();
+                $current['page'] = Page::where('slug', \Request::segment(4))->first();
+            }
+
+            $categories = Category::orderBy('order')->get();
+            $bookmarks = Bookmark::all()->count();
+
+            $view->with('categories', $categories)
+                ->with('current', $current)
+                ->with('current', $current)
+                ->with('bookmarks', $bookmarks);
+        });
+    }
+
+    public function getCurrentCategory()
+    {
+        if (!\Session::has('currentCategoryId')) {
+            $category = Category::first();
+            \Session::set('currentCategoryId', $category->id);
+        } else {
+            $category = Category::find(\Session::get('currentCategoryId'));
+        }
+
+        return $category;
     }
 }

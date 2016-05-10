@@ -35,13 +35,16 @@
                 <li class="nav-header">
                      <div class="dropdown profile-element">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="table_data_tables.html#">
-                            <span class="clear"> 
-                                <span class="text-muted text-xs block">iaptus <b class="caret"></b>
+                            <span class="clear">
+                                <span class="text-mutedblock" title="Switch Categories">{{ $current['category']->title }} <b class="caret"></b></span>
                             </span>
                         </a>
                         <ul class="dropdown-menu animated module-menu fadeInRight m-t-xs">
-                            <li><a href="profile.html">Orbit</a></li>
-                            <li><a href="contacts.html">Mayden</a></li>
+                            @foreach($categories as $category)
+                                @if($category->title != $current['category']->title)
+                                    <li><a href="/switchcategory/{{ $category->id }}">{{ $category->title }}</a></li>
+                                @endif
+                            @endforeach
                         </ul>
                     </div>
                 </li>
@@ -50,57 +53,38 @@
                     <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
 
-                @foreach($categories as $category)
-                    @if(!$category->chapters->isEmpty())
-                        @if($current['category'] != null)
-                            <li{!! $current['category']->id == $category->id ? ' class="active"' : null !!}>
-                        @else
-                            <li>
-                        @endif
-                            <a>
-                                <i class="fa fa-book"></i>
-                                <span class="nav-label">{{ $category->title }}</span>
-                                @if(is_object($category->chapters))
-                                    <span class="fa arrow"></span>
-                                @endif
-                            </a>
+                @if(is_object($current['category']->chapters))
 
-
-                            @if(is_object($category->chapters))
-                                <ul class="nav nav-second-level collapse">
-                                    @foreach($category->chapters as $chapter)
-                                        @if(!$chapter->pages->isEmpty())
-                                            @if($current['chapter'] != null)
-                                                <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>
-                                            @else
-                                                <li>
-                                            @endif
-                                                <a href="/p/{{ $category->slug }}/{{ $chapter->slug }}">
-                                                    <i class="fa fa-folder-open-o"></i>
-                                                    <span class="nav-label">{{ $chapter->title }}</span>
-                                                    @if(!$chapter->pages->isEmpty())
-                                                        <span class="fa arrow"></span>
-                                                    @endif
-                                                </a>
-                                            
-                                                @if(!$chapter->pages->isEmpty())
-                                                    <ul class="nav nav-third-level collapse">
-                                                        <li><a href="/p/{{ $category->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a></li>
-                                                        @foreach($chapter->pages as $page)
-                                                            <li>
-                                                                <a href="/p/{{ $category->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
-                                                            </li>
-                                                        @endforeach
-                                                    </ul>
-                                                @endif
-                                            </li>
-                                        @endif
-                                    @endforeach
-                                </ul>
+                    @foreach($current['category']->chapters as $chapter)
+                        @if(!$chapter->pages->isEmpty())
+                            @if(isset($current['chapter']))
+                                <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>
+                            @else
+                                <li>
                             @endif
-                        </li>
-                    @endif
-                @endforeach
+                                <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}">
+                                    <i class="fa fa-folder-open-o"></i>
+                                    <span class="nav-label">{{ $chapter->title }}</span>
+                                    @if(!$chapter->pages->isEmpty())
+                                        <span class="fa arrow"></span>
+                                    @endif
+                                </a>
+                            
+                                @if(!$chapter->pages->isEmpty())
+                                    <ul class="nav nav-second-level collapse">
+                                        <li><a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a></li>
+                                        @foreach($chapter->pages as $page)
+                                            <li>
+                                                <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endif
+                    @endforeach
+                @endif
+
                 <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
                     <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
                 </li>
@@ -126,6 +110,9 @@
                 </form>
 
                 <div class="right topbar-icons">
+                    <a href="/random" title="Add a pages/content">
+                        <span class="new-page"><i class="fa fa-file-o"></i><i class="fa fa-plus"></i></span>
+                    </a>
                     <a href="/random" title="Take me to a random page"><i class="fa fa-random"></i></a>
                 </div>
             </div>
@@ -185,9 +172,9 @@
         </div>
 
         <div class="row row-first-content">
-            @if($current['page'] != null)
+            @if(isset($current['page']))
                 <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['page']->bookmarks) ? 'active' : null }}" title="Click to bookmark this page"></i>
-            @elseif($current['chapter'] != null)
+            @elseif(isset($current['chapter']))
                 <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['chapter']->bookmarks) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
             @endif
             @yield ('content') 
@@ -228,7 +215,7 @@
         //     $('#page-wrapper').height($(window).height());
         // });
 
-        @if($current['chapter'] != null)
+        @if(isset($current['chapter']))
             var category = {!! $current['category'] ? $current['category']->id : '""' !!};
             var chapter = {!! $current['chapter'] ? $current['chapter']->id : '""' !!};
             var page = {!! $current['page'] ? $current['page']->id : '""' !!};
@@ -274,6 +261,7 @@
         $('#topbar-search-form').submit(function(e) {
             var term = $('#top-search').val();
             window.location.href ='/search/' + term + '/results';
+            console.log('sdergs');
             e.preventDefault();
             return false;
         });

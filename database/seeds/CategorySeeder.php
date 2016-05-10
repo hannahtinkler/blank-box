@@ -22,14 +22,14 @@ class CategorySeeder extends Seeder
         ]);
 
         Category::create([
-            'title' => 'Iaptus',
+            'title' => 'iaptus',
             'description' => 'Chapters involving iaptus in general.',
             'slug' => str_slug('iaptus'),
             'order' => 2
         ]);
 
         Category::create([
-            'title' => 'Iaptus Integrations',
+            'title' => 'iaptus Integrations',
             'description' => 'Chapters involving external services that integrate with iaptus like APIs, monitoring etc',
             'slug' => str_slug('Iaptus Integrations'),
             'order' => 3

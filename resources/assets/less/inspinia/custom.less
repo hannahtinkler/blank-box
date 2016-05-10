@@ -13,26 +13,22 @@ h2 {
   font-size: 30px
 }
 h3 {
-  font-size: 16px;
+  font-size: 24px;
   margin-bottom:0.4em;
 }
 h4 {
-  font-size: 14px;
+  font-size: 16px;
 }
 h5 {
   font-size: 12px;
+  margin-top: 5px;
+  font-weight: 600;
 }
 h6 {
   font-size: 10px;
 }
-h3,
-h4,
-h5 {
-  margin-top: 5px;
-  font-weight: 600;
-}
 
-h3 span {
+h4 span {
     font-style: italic;
     font-size: 70%;
     color: #8D8D8D;
@@ -154,6 +150,7 @@ code span {
     color: #9CA6AB;
 }
 .text-right {text-align:right;}
+.text-center {text-align:center;}
 
 a {
   color: #72A046;
@@ -247,7 +244,7 @@ body.mini-navbar #page-wrapper {
 }
 
 .nav-header span {
-  font-size:32px;
+  font-size:28px;
   color:#fff
 }
 
@@ -280,9 +277,13 @@ table.table th, table.table td {
   border:none !important;
 }
 
-.table-hover > tbody > tr:hover td,
+.table-hover > tbody > tr:not(.table-heading):hover td,
 .highlight-row td {
     background-color: #F5F4CF !important;
+}
+
+table tr.table-heading td {
+  padding-top:2em;
 }
 
 .chapter-list p {
@@ -291,14 +292,48 @@ table.table th, table.table td {
 
 .chapter-list {
   list-style: none;
-  margin: 2em 0 0 0;
-  padding:0.2em 2em;
+  margin: 1em 0 0 0;
+  padding: 0.2em 1em;
 }
 
 .chapter-list li {
   margin:2em 0;
 }
 
+.chapter-list li i {
+  font-size: 77%;
+}
+.chapter-list li i.fa-file-o,
+.chapter-list li i.fa-group {
+  top: -2px;
+  position: relative;
+}
+
 .commands-list {
   padding-left: 1.5em;
+}
+
+.modal-dialog {  
+    margin: 180px auto;
+    margin: 25vh auto;
+}
+
+a.tooltip-trigger i {color: #929292}
+
+.new-page {
+  margin-right:0.5em;
+}
+
+.new-page i {
+  position: relative;
+}
+
+.new-page .fa-file-o {
+  top: -1px;
+}
+
+.new-page .fa-plus {
+  font-size:80%;
+  top: 4px;
+  right: 5px;
 }

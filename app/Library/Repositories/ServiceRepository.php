@@ -12,7 +12,7 @@ class ServiceRepository implements SearchableRepository
         $query = [
             "bool" => [
                 "should" => [
-                    [ "wildcard" => [ "_all" => "$term*"]],
+                    [ "wildcard" => [ "_all" => "*$term*"]],
                     [ "match" => [ "_all" => "$term" ]]
                 ]
             ]
@@ -29,5 +29,10 @@ class ServiceRepository implements SearchableRepository
     public function searchResultUrl($result)
     {
         return '/p/iaptus/services/service-details/' . $result->id;
+    }
+
+    public function searchResultIcon($result)
+    {
+        return '<i class="fa fa-group"></i>';
     }
 }

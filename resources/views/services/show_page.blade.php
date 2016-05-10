@@ -32,15 +32,29 @@
                 </td>
                 <td>{{ ucwords($service->area) }}</td>
                 <td>{{ ucwords($service->type) }}</td>
-                <td>{{ $service->server->name }} ({{ $service->server->nickname }})</td>
+                <td><a data-toggle="modal" href="/ajax/modal/server/{{ $service->server->id }}" data-target="#more-info">{{ $service->server->name }} ({{ $service->server->nickname }})</a></td>
             </tr>
         @endforeach
     </tbody>
 </table>
+
+<div class="modal fade" id="more-info" tabindex="-1" role="dialog" aria-labelledby="more-info" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
 @stop
 
 @section('scripts')
 <script>
+    $(document).ready(function() {
+        $('body').on('hidden.bs.modal', '.modal', function () {
+            $(this).removeData('bs.modal');
+            $('.modal .modal-body').text("Loading...");
+        });
+     });
     @if(Request::segment(5) != null)
         $(window).load(function() {
             var offset = $('{{ "#" . Request::segment(5) }}').offset().top - 100;

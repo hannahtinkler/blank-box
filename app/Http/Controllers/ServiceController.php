@@ -12,7 +12,7 @@ class ServiceController extends Controller
     public function showPage()
     {
         $services = Service::orderBy('name')->get();
-        $page = Page::where('slug', 'service-details')->first();
+        $page = Page::where('slug', 'service-list')->first();
         return view('services.show_page', compact('services', 'page'));
     }
 }

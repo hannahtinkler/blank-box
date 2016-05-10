@@ -8,9 +8,9 @@ use App\Library\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function show($catergorySlug)
+    public function show($categorySlug)
     {
-        $catergory = Category::where('slug', $catergorySlug)->first();
-        return view('catergories.show', compact('catergory'));
+        $category = Category::where('slug', $categorySlug)->first();
+        return view('categories.show', compact('category'));
     }
 }

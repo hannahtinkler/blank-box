@@ -58,4 +58,9 @@ class Page extends Model implements SearchableModel
     {
         return $this->repository->searchResultUrl($this);
     }
+
+    public function searchResultIcon()
+    {
+        return $this->repository->searchResultIcon($this);
+    }
 }

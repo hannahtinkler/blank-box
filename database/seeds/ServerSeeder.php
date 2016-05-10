@@ -26,54 +26,54 @@ class ServerSeeder extends Seeder
             'name' => 'Cloud4',
             'nickname' => 'Basement Server',
             'location' => 'Widcombe',
-            'node_number' => 4,
-            'access' => 'private',
-            'type' => 'Application, Database'
+            'ip_address' => null,
+            'node_type' => 'Dual (Application & Database)',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'maydenasvnode1',
             'nickname' => 'iaptus Demo',
             'location' => 'Bournemouth',
-            'node_number' => 1,
-            'access' => 'public',
-            'type' => 'Application'
+            'ip_address' => '192.168.60.1',
+            'node_type' => 'application',
+            'access_type' => 'public'
         ]);
 
         Server::create([
-            'name' => 'maydenasvnode5',
+            'name' => 'maydenasvnode23',
             'nickname' => 'Webforms DB (Slave)',
             'location' => 'Bournemouth',
-            'node_number' => 5,
-            'access' => 'public',
-            'type' => 'Application'
+            'ip_address' => '192.168.60.23',
+            'node_type' => 'application',
+            'access_type' => 'public'
         ]);
 
         Server::create([
-            'name' => 'maydenasvnod23',
+            'name' => 'maydenasvnod5',
             'nickname' => 'Webforms DB',
             'location' => 'Bournemouth',
-            'node_number' => 5,
-            'access' => 'public',
-            'type' => 'Application'
+            'ip_address' => '192.168.60.5',
+            'node_type' => 'application',
+            'access_type' => 'public'
         ]);
 
         Server::create([
             'name' => 'iaptusvnode7',
             'nickname' => 'iaptus Application (Source Host)',
             'location' => 'Bournemouth',
-            'node_number' => 7,
-            'access' => 'private',
-            'type' => 'Application'
+            'ip_address' => '192.168.63.7',
+            'node_type' => 'application',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusvnode14',
             'nickname' => 'iaptus Application (Source Host)',
             'location' => 'Bracknell',
-            'node_number' => 14,
-            'access' => 'private',
-            'type' => 'Application'
+            'ip_address' => '10.0.2.42',
+            'node_type' => 'application',
+            'access_type' => 'private'
         ]);
 
 
@@ -81,9 +81,9 @@ class ServerSeeder extends Seeder
             'name' => 'iaptusvnode22',
             'nickname' => 'iaptus Application',
             'location' => 'Bracknell',
-            'node_number' => 23,
-            'access' => 'private',
-            'type' => 'Application'
+            'ip_address' => '10.0.2.50',
+            'node_type' => 'application',
+            'access_type' => 'private'
         ]);
 
 
@@ -91,9 +91,9 @@ class ServerSeeder extends Seeder
             'name' => 'iaptusvnode26',
             'nickname' => 'iaptus Application (Testing)',
             'location' => 'Bracknell',
-            'node_number' => 26,
-            'access' => 'private',
-            'type' => 'Application'
+            'ip_address' => '10.0.2.54',
+            'node_type' => 'application',
+            'access_type' => 'private'
         ]);
 
 
@@ -108,36 +108,36 @@ class ServerSeeder extends Seeder
             'name' => 'lbnode12',
             'nickname' => 'Nginx Loadbalancer',
             'location' => 'Bracknell',
-            'node_number' => 12,
-            'access' => 'private',
-            'type' => 'Loadbalancer'
+            'ip_address' => null,
+            'node_type' => 'Loadbalancer',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'lbnode13',
             'nickname' => 'Nginx Loadbalancer Failover',
             'location' => 'Bracknell',
-            'node_number' => 13,
-            'access' => 'private',
-            'type' => 'Loadbalancer'
+            'ip_address' => null,
+            'node_type' => 'Loadbalancer',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'lbnode30',
             'nickname' => 'Nginx Loadbalancer',
             'location' => 'Bournemouth',
-            'node_number' => 30,
-            'access' => 'private',
-            'type' => 'Loadbalancer'
+            'ip_address' => null,
+            'node_type' => 'Loadbalancer',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'lbnode31',
             'nickname' => 'Nginx Loadbalancer Failover',
             'location' => 'Bournemouth',
-            'node_number' => 31,
-            'access' => 'private',
-            'type' => 'Loadbalancer'
+            'ip_address' => null,
+            'node_type' => 'Loadbalancer',
+            'access_type' => 'private'
         ]);
 
 
@@ -152,107 +152,107 @@ class ServerSeeder extends Seeder
             'name' => 'iaptusdbvnode16',
             'nickname' => 'Set-1A',
             'location' => 'Bracknell',
-            'node_number' => 16,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.44',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode17',
             'nickname' => 'Set-1B',
             'location' => 'Bracknell',
-            'node_number' => 17,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.45',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode18',
             'nickname' => 'Set-2A',
             'location' => 'Bracknell',
-            'node_number' => 18,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.46',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode19',
             'nickname' => 'Set-2B',
             'location' => 'Bracknell',
-            'node_number' => 19,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.47',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode21',
             'nickname' => 'Stats Archive A',
             'location' => 'Bracknell',
-            'node_number' => 21,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.49',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode26',
             'nickname' => 'Stats Archive B',
             'location' => 'Bracknell',
-            'node_number' => 26,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.54',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode24',
             'nickname' => 'Set-3A',
             'location' => 'Bracknell',
-            'node_number' => 24,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.52',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode25',
             'nickname' => 'Set-3B',
             'location' => 'Bracknell',
-            'node_number' => 25,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '10.0.2.53',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode27',
             'nickname' => 'Set-4A',
             'location' => 'Bournemouth',
-            'node_number' => 27,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '192.168.63.27',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode28',
             'nickname' => 'Set-4B',
             'location' => 'Bournemouth',
-            'node_number' => 28,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '192.168.63.28',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'iaptusdbvnode34',
             'nickname' => 'Set-5A',
             'location' => 'Bournemouth',
-            'node_number' => 34,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '192.168.63.34',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
         Server::create([
             'name' => 'iaptusdbvnode35',
             'nickname' => 'Set-5B',
             'location' => 'Bournemouth',
-            'node_number' => 35,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '192.168.63.35',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
 
         /*
@@ -266,18 +266,18 @@ class ServerSeeder extends Seeder
             'name' => 'tblNode19',
             'nickname' => 'Tableau Reporting',
             'location' => 'Bournemouth',
-            'node_number' => 17,
-            'access' => 'public',
-            'type' => 'Application'
+            'ip_address' => '192.168.63.19',
+            'node_type' => 'application',
+            'access_type' => 'public'
         ]);
 
         Server::create([
             'name' => 'tbldbvnode24',
             'nickname' => 'Tableau DB',
             'location' => 'Bournemouth',
-            'node_number' => 24,
-            'access' => 'private',
-            'type' => 'Database'
+            'ip_address' => '192.168.63.24',
+            'node_type' => 'database',
+            'access_type' => 'private'
         ]);
     
 
@@ -290,30 +290,30 @@ class ServerSeeder extends Seeder
 
         Server::create([
             'name' => 'bacpacvnode13',
-            'nickname' => 'Application (BacPac Staging)',
+            'nickname' => 'BacPac Staging',
             'location' => 'Bournemouth',
-            'node_number' => 13,
-            'access' => 'public',
-            'type' => 'Application'
+            'ip_address' => '192.168.82.13',
+            'node_type' => 'application',
+            'access_type' => 'public'
         ]);
 
         Server::create([
             'name' => 'bacpacvnode14',
-            'nickname' => 'Application Application (Paywall)',
+            'nickname' => 'Paywall',
             'location' => 'Bracknell',
-            'node_number' => 14,
-            'access' => 'private',
-            'type' => 'Application'
+            'ip_address' => '192.168.82.14',
+            'node_type' => 'application',
+            'access_type' => 'public'
         ]);
 
 
         Server::create([
             'name' => 'bacpacvnode15',
-            'nickname' => 'Application Server (BacPac Live)',
+            'nickname' => 'BacPac Live',
             'location' => 'Bracknell',
-            'node_number' => 15,
-            'access' => 'public',
-            'type' => 'Application'
+            'ip_address' => '192.168.83.15',
+            'node_type' => 'application',
+            'access_type' => 'public'
         ]);
     }
 }
