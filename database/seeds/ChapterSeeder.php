@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Library\Models\Chapter;
-use App\Library\Models\Category;
+use App\Models\Chapter;
+use App\Models\Category;
 
 class ChapterSeeder extends Seeder
 {
@@ -29,11 +29,28 @@ class ChapterSeeder extends Seeder
 
         Chapter::create([
             'category_id' => $mayden->id,
+            'title' => 'Workflows',
+            'description' => 'Workflows for the various parts/actions of Mayden',
+            'order' => 2,
+            'slug' => str_slug('Workflows')
+        ]);
+
+        Chapter::create([
+            'category_id' => $mayden->id,
+            'title' => 'Testing',
+            'description' => 'An overview of the how to test Mayden products as a developer.',
+            'order' => 3,
+            'slug' => str_slug('Testing')
+        ]);
+        
+        Chapter::create([
+            'category_id' => $mayden->id,
             'title' => 'Monitoring',
             'description' => 'An overview of the monitoring systems used by Mayden, including Sensu, PCTI etc.',
-            'order' => 2,
+            'order' => 4,
             'slug' => str_slug('Monitoring')
         ]);
+
 
         Chapter::create([
             'category_id' => $iaptus->id,
@@ -97,14 +114,6 @@ class ChapterSeeder extends Seeder
             'description' => 'The Mayden Webforms system allows services to customise forms hey require patients to fill in online and pull the data into iaptus',
             'order' => 6,
             'slug' => str_slug('Webforms')
-        ]);
-
-        Chapter::create([
-            'category_id' => $mayden->id,
-            'title' => 'Workflows',
-            'description' => 'Workflows for the various parts/actions of Mayden',
-            'order' => 6,
-            'slug' => str_slug('Workflows')
         ]);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Library\Repositories;
+namespace App\Repositories;
 
-use App\Library\Interfaces\SearchableRepository;
-use App\Library\Models\Page;
+use App\Interfaces\SearchableRepository;
+use App\Models\Page;
 
 class PageRepository implements SearchableRepository
 {

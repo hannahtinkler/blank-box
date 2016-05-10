@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Library\Models\Chapter;
-use App\Library\Models\Page;
+use App\Models\Chapter;
+use App\Models\Page;
 
 class PageSeeder extends Seeder
 {
@@ -19,6 +19,7 @@ class PageSeeder extends Seeder
         $webformsChapter = Chapter::where('slug', 'webforms')->first();
         $supportChapter = Chapter::where('slug', 'support-how-tos')->first();
         $workflowsChapter = Chapter::where('slug', 'workflows')->first();
+        $testingChapter = Chapter::where('slug', 'testing')->first();
 
         Page::truncate();
 
@@ -73,6 +74,77 @@ class PageSeeder extends Seeder
             'description' => "Instructions for how to process and sign CAE certificate requests for clients",
             'content' => "<ol><li>SSH into the </li></ol><br /><h2>Notes:</h2><ul><li></li></ul>",
             'slug' => str_slug('Signing Exports Certificates'),
+            'order' => 3
+        ]);
+
+        Page::create([
+            'chapter_id' => $testingChapter->id,
+            'title' => 'Types of Automated Tests',
+            'description' => "An overview of the different types of automated tests being used at Mayden.",
+            'content' => "            
+                <h4><strong>Acceptance Tests</strong></h4>
+                An automated test that mimics a user’s behaviour and performs assertions throughout the test to ensure the correct behaviour is witnessed.
+                <br />
+                <br />
+                <h4><strong>Integration Tests</strong></h4>
+                An automated test that is used to test that multiple units of code behave as expected when used together. Can also be used to test areas out of our control (e.g. third party libraries, database interactions, API calls).
+                <br />
+                <br />
+                <h4><strong>Unit Tests</strong></h4>
+                An automated test that tests a particular “unit” of code in isolation. These are very low level tests, and only test the functionality of that code, with the assumption that any associated code runs as expected. A unit is a part of the program that can work independently of the rest of the program. This could be a function, class or even an entire module.
+            ",
+            'slug' => str_slug('Types of Automated Tests'),
+            'order' => 1
+        ]);
+
+        Page::create([
+            'chapter_id' => $testingChapter->id,
+            'title' => 'Code Review Testing Checklist',
+            'description' => "A list of questions a code reviewer should be asking when code reviewing automated tests.",
+            'content' => "<p>No new code should be missing tests, but a lot of tests aren’t code reviewed properly. Below are some prompts for use during code review to help ensure the quality of new tests. If the answers to any of them are 'no', ask the writer to take the actions recommended. If you don’t feel comfortable code reviewing someone’s tests, ask someone else to help as bad quality tests will lead to a lot of headaches in future.</p>
+                <br />
+                <br />
+
+                <strong>Are there unit tests (plural)?</strong><br />
+                Write some
+                <br />
+                <br />
+                <strong>Are the test method names descriptive and match what is being tested?</strong><br />
+                Rename test methods
+                <br />
+                <br />
+                <strong>Do the tests provide value?</strong><br />
+                I.e. if a method only makes a database call then a unit test with a mocked database is of little worth
+                Rewrite the tests, code under test or write integration tests
+                <br />
+                <br />
+                <strong>Does it conform to the <a href='https://gist.github.com/imjoehaines/827b360db65d85807a33d0d6210d2512'>PHP test style guide</a>?</strong><br />
+                Rewrite the tests
+                <br />
+                <br />
+                <strong>Are they following all of the guidelines listed in this chapter?</strong><br />
+                If they don’t have a valid justification for not following them, fix the issue(s)
+                <br />
+                <br />
+                <strong>Have they written the appropriate type(s) of tests, according to the information available in this chapter?</strong><br />
+                Rewrite the tests
+            ",
+            'slug' => str_slug('Code Review Testing Checklist'),
+            'order' => 2
+        ]);
+
+        Page::create([
+            'chapter_id' => $testingChapter->id,
+            'title' => '"What Kind of Test Should I Write?"',
+            'description' => "A flow diagram to help you make a decision as to what kind of automated test to write to test a certain piece of code.",
+            'content' => '<div class="diagram">
+
+            <div class="mxgraph" style="position:relative;overflow:auto;width:100%;"><div style="width:1px;height:1px;overflow:hidden;">%3Cmxfile%20userAgent%3D%22Mozilla%2F5.0%20(Windows%20NT%206.3%3B%20WOW64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F49.0.2623.112%20Safari%2F537.36%22%20version%3D%225.4.4.5%22%20editor%3D%22www.draw.io%22%20type%3D%22google%22%20x0%3D%22-1382%22%20y0%3D%2232%22%20pan%3D%221%22%20zoom%3D%221%22%20resize%3D%221%22%20fit%3D%221%22%20math%3D%220%22%20nav%3D%220%22%20links%3D%221%22%20tooltips%3D%221%22%20border%3D%220%22%3E%3Cdiagram%3E7V1vc6M40v80qbvnRVL8M7ZfJjOTvZnn9mqrslVz%2B1K2ZZsbDD7AcXKffrulFkiAie2AcWaxq%2FxHCCGkn37d6m6JG%2FfT5uWXhG3Xv8YLHt441uLlxv184ziuNXXgC1NeZcrUsWXCKgkWMklLeAr%2BxynRotRdsOCpkTGL4zALtmbiPI4iPs%2BMNJYk8d7MtoxD86pbtlJXLBKe5iyspn4PFtmaUj1VPzzwDx6s1urSjkVHZmz%2BY5XEu4gueOO4S%2FGShzdMFUb50zVbxHstyf0CDZvEMZSMvzYvn3iIjavaTZ73eOBoXvGER1S3N06wmTWZLqYLe8l8d%2BTd2rYny3hm4Y6a48bxQyjtYRE8Y5WzV2on%2F787rOdDxl%2ByWxYGq%2BjGvYccIV9mxVH4taJvUUq6ZVFtMWEQ8ds1NSuWY9%2FhpavFUMr3NYPLWP8fQGM7VgxN7LPNFg5EsxS%2F1AXh7uU1zXpAsrghM%2FUq7vF3nuKdPa3jHSD3p7mtr3DgexJkcO6jcfSU%2BxGjJq%2BAgzcA6etsE0KCjZXMkvgH%2FxSHcQIpURxBzodlEIalJLrrz%2BKW3YdnnmQBUMA9Jc%2FiLIs3cGC%2Fhho%2Fbdkcr7gHwoO0GHIvQzFw18FiweGEBzHqOY4rC2uhBjb%2BWYUsRUrC3%2FN4E8zpd8hmPHzIKaNc5zjKiBvtEWbHBJUHiOXRwnfeKHgDnCi4hgdEEpHALzze8Cx5hSx0wq3tTugk4mzfJRLfawxoecRbqq8xdWQr6iXaXeXFF8wDP4h8jiWiCg3ReM9et5zGOwiABf6G28SKxzs8nLwG0UpIDPzAkYRoK8GmrlM1DLXelxKUSpjgJbTeBY6udK49xrcG0zn0JIeDD9uQBdHtKzQf1gnH5Bxv2P08agkKE881kODSXw0IuaTWcTCltFZhQNeukUY6WTzhldbU7xImQYpVERjZzIKIZUGM3CVgg1L6lguxwcTnMoHWpxSJqQOcVIJRgRPs0jdA1TWMbOjU42Fk4kaCapUw2VvvRJDrm1zijCZVLgFKq0DIp%2B5ul0mUrlX0G1%2BAvkd%2F4yRbx6s4YuGXIrXEAFov8pcg%2Bzcm32G74b8%2FKBO0TvKqHcK%2F6liasSS7R9UU%2BwD7HntcJj%2BCbMplF%2Fyn7vRFGYvqSZConfIfnmWvdArbAemBdMrv6J9xDCDUxKKCjluCjtcAHYmN7S7ZQsuIlsTma8YGtHa8S8RAqOsSpf7C7a64Oq926FdBlvAQBvOzWYE6wNCpv8UBVE2TdJY1vfO9sTWaTBx35ExNtnM8706me7Y99j2f9GF1BXlfVKiuWZev449Lg8CamiXJm6%2BUBB2OozDPtsUMQGYHb2g6GRkXssfj5po5E7%2FpBPgh61AMt7z5zxuBqrs1Fq9h7IyFP5C0UXBL%2Bp0VxGuBnscTgLRAgOwEyJzTtJ7173x1h7NPlrEZSzEbVNm6%2F%2B0r%2FQJlEPWF9DXN%2BCb9v5%2BJ1TUe70I1sC2fulKBWg2Pt5h9TNpkq8zu0MW7ZHZx5Fhmzzu0oPU8Tx%2B03oSd3mi9sHO0yuvTiddA62PLvdMOeqXyT%2BZiA7PvpEfZIgY9fkU1NVsjTWlsZ%2B25mOls4vkPQLAgs720EVBmMd%2FBAYFIAkUX03YpX%2B6gMlc%2BC2rUQS4%2FC7KtkSlWPVdKSYPq6ubDk07mQaQ8HBChSxYkIVa%2FIjrTYCMGeH7EFJZkW5KfdecHaQzjEtFWWwLMnDY5%2BmL4ShBxUYCjRE62lrtojpMv6MKMZheDrD3KIlOah9fK2joAdiJrFWOeDEDoGwDgywH87AO4FTlRX%2FJ93fkLvgXRyKN5ICiwrhBSIBUVRlzAVRiABAMqvhywd6wJyKYJexP0lCrYPfSqRiBpRkbzTR1kkH8OQUUIyKuWg6ghnggEXYt7L%2BsoG4wSe16N7UaJOMN204XY8wYN%2F6oMN0oNadTw5Xh9h4Z%2FPlzIsNEyXHRDX4EPPJRjpzg2wKU6s7lWuJBGrwmWP1DJ6EtPKKIFulMWdE9o9XolQQXnLAIoppTciqCBcApT0NToGB5NwXQ541CntYqE0akqBtgBOLQOeZUGTeMMHVP5FXNFo2Z%2BrXyKnSsaowspGoN0qE4pG6WDHJl9SIdx1SxHIQhavEF9bI4WsYI0QFNkbFMMfDkmrmUwzTW4l0em5HDHNbNTpXoYkSpdMIdy82kw%2BZ0cWsIoRjEqIh5hAfZjhEKqWU7SLZ8HS%2BgmYc6VrisoKwD3lcyAfix5cJvEYAdOZbKY4gYofdR1kgSDIaEZ2CsUMhg7joTTyDHdoZ6SBb0YO1Shw4z3gJBqUlq6mMIcIaOkpOhFRlH1LjbhHdDSiBalMzTD5QAhneYBPTlOxFPWESU2p9KY01nYh7ISGpJRyMEfRcy2cFmSJKR4Z2m0XyCSDAmHYXvYSeLc5wB9BmTpha7FnPqUDItNUZYKV%2Bo39szSeRJs89BAJYpZhI2oBC6e%2BmiIWZ6RZAZ5jeeZlcSrCGeDqCbW6NuT5obdgZStiuLr0u3eHTU4w95tQw67plo3UuSmy2E1wHQ5nOt6rVKrioceBPF1zBaVnt1IrZJy%2BpDEE9LbNLL7thMsoMLbBIfJoDPBPzKig6KVhb98w5lgbOG5pCg2tiiiO7ZwD9hmgo9g0RUXBip5DEf%2BVvLVENF2POnAarWS8k9C8i0rlCKidkHUiTqnfg8%2BirNVNjm6e%2BGV6no8LTiMVJWyJUBYHOZrFq1U9GuuthhxYhC1IQPDymaswRp1PIOouG61cMoip4URplPjyPAprV24UKHX4tLqWCDUrOurdWS1Yna0yEGhOtqp6qd1oc%2FdaKdUlw%2Fs6aYzChGC%2BT%2BkCFEc3SxCxMjsRYRQBM8QFXElcCGOvtaZDMmzwRV6QUjQ7LEZEoJm%2BoCEmgBpWsUn0iflquslZ2kwEwHAez1uwrTJCTMdmeyUBirShG2tZoGCiaoPv76WtNA2lE4wbBvLW1Sg5Fs%2Bq06CJ6aDqeyq2ETtv9PIJnJM98ImVVPZv8DiNUxR3h9UV1p47ytZ3scURa3A%2B8Cs8BebosiB2cGSe9eHrjGAqaz5Jy%2Brt93Rna%2B9RkQmShCOvTtXe5VsLAfWebbh7ZxWDXWf0Y6%2Fl4s4WSi0I31tEqlA0rH4KLyLQjXaI5yk6V%2FfykYY7th8zrcZi6CjTTdjrktBEYMmdYImpRYtE4AmtUudiEY7dwBMq%2Ba7QTR2IhonUL%2F%2BRGM361R%2BEtF44V0L1OS2WTT2Zr2bdmPpHTa5OBcux1jvpDLQC1zI2Hv0ShZdozi40%2BSwquVYdcIz9VHYMpEKMbbPq3MHdiJoqttGDO7AttyBpR1mRj3OtWFTs8Ef%2BME0CgGXPkSEbXVjr22KGh8bOsXVu38uDZhjltW%2F2yN4Zti4RRPiwsLSbdi4bVXtw4PQamsWbFo7puNquOMFhdZgIb4iDjrGQkxjsx%2BpVbWN0XKSub4kQ%2Bz5DNt%2B5gZRMe2psZtW9hjFOMm6Oc9sV5fbwlaSl0s5PIlCLGjZBhG4uiFuu26vtWEZyHHLQEyKqp1B1a4D6WQGBVueXlxZcgYDTANR2SoO8w2meq%2FF7kx1SUVm5s%2B%2BMZ7A0oW6VN3F5uvfcIlJBM%2FXAC6E0Qh9MKhPbcz5S1ttT5VurFFT3WKRjtSnC8R1FvO2YdLfiv4kBmv7LnZYpHQHO%2Brkr5Jxamr7xuGSW%2Fxo77vnWab3vSSqR%2Bd430%2Fm2LLPdmp3vJLZVms8ulYCPqycP6i9YLFdKAHqqR4XMJm8vZRe2URaR7qnYveV15oChbtDumrXIQKhdeXBN0Ez8XuMQLDtC%2BwcUjDBoDy0oTzIsXnxKU0lRKp7EiLF4S%2B9BKXusXCf77%2FYXzBjFyL1mId3vNdpdR4Cx64pBt98xJHtqM1DLvWMI1utyBjidD4QnqVpsRdzttpif8DLAbzUPfO0U7wov2Oz21502wUQ44J9Z7Z0Ro63mE8ZY7edbAxY3RukwEtVXzu2Y43eqevntjbnO6bH%2BttBVlXvSuZSl95evOsJ1USFTeQ7iFed2UpxMHYQb2Hfzsro7GT%2F6J5G51tTrEs%2BHUCOoQ4eF6fmGAo8pCCebhOduGaATKWksxcdwd8kxoekF9mBENa%2Fwv4%2BmONP%3C%2Fdiagram%3E%3C%2Fmxfile%3E</div></div>
+
+
+</div>
+<script type="text/javascript" src="https://www.draw.io/embed.js?s=flowchart"></script>',
+            'slug' => str_slug('"What Kind of Test Should I Write?"'),
             'order' => 3
         ]);
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
@@ -24,6 +24,6 @@ class Category extends Model
 
     public function chapters()
     {
-        return $this->hasMany('App\Library\Models\Chapter');
+        return $this->hasMany('App\Models\Chapter');
     }
 }

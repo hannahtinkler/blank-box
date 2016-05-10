@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Library\Repositories;
+namespace App\Repositories;
 
-use App\Library\Interfaces\SearchableRepository;
-use App\Library\Models\Service;
+use App\Interfaces\SearchableRepository;
+use App\Models\Server;
 
-class ServiceRepository implements SearchableRepository
+class ServerRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
@@ -18,21 +18,21 @@ class ServiceRepository implements SearchableRepository
             ]
         ];
 
-        return Service::searchByQuery($query);
+        return Server::searchByQuery($query);
     }
 
     public function searchResultString($result)
     {
-        return 'Service: ' . $result->name . ' (' . $result->service_id . ') - ' . $result->server->location . ' ' . $result->server->nickname;
+        return 'Server: ' . $result->name . ' / ' . $result->nickname . ' - ' . $result->location . ' ' . ' (' . $result->node_type . ')';
     }
 
     public function searchResultUrl($result)
     {
-        return '/p/iaptus/services/service-details/' . $result->id;
+        return '/p/mayden/servers/server-details/' . $result->id;
     }
 
     public function searchResultIcon($result)
     {
-        return '<i class="fa fa-group"></i>';
+        return '<i class="fa fa-server"></i>';
     }
 }

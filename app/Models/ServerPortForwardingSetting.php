@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +10,6 @@ class ServerPortForwardingSetting extends Model
     
     public function server()
     {
-        return $this->belongsTo('App\Library\Models\Server');
+        return $this->belongsTo('App\Models\Server');
     }
 }

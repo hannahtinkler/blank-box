@@ -1,28 +1,36 @@
 <?php
 
-namespace App\Library\Models;
+namespace App\Models;
 
-use App\Library\Interfaces\SearchableModel;
-use App\Library\Repositories\PageRepository;
+use App\Interfaces\SearchableModel;
+use App\Repositories\ServerRepository;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 
-class Page extends Model implements SearchableModel
+class Server extends Model implements SearchableModel
 {
     use ElasticquentTrait;
 
     public $guarded = [];
     private $repository;
     protected $mappingProperties = array(
-        'title' => [
+        'name' => [
           'type' => 'string',
           "analyzer" => "standard",
         ],
-        'content' => [
+        'nickname' => [
           'type' => 'string',
           "analyzer" => "standard",
         ],
-        'description' => [
+        'location' => [
+          'type' => 'string',
+          "analyzer" => "standard",
+        ],
+        'node_number' => [
+          'type' => 'int',
+          "analyzer" => "standard",
+        ],
+        'type' => [
           'type' => 'string',
           "analyzer" => "standard",
         ]
@@ -31,22 +39,12 @@ class Page extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new PageRepository($this);
-    }
-
-    // public function getTypeName()
-    // {
-    //     return 'page';
-    // }
-    
-    public function chapter()
-    {
-        return $this->belongsTo('App\Library\Models\Chapter');
+        $this->repository = new ServerRepository($this);
     }
     
-    public function bookmarks()
+    public function services()
     {
-        return $this->hasOne('App\Library\Models\Bookmark');
+        return $this->hasMany('App\Models\Service');
     }
     
     public function searchResultString()
@@ -54,6 +52,11 @@ class Page extends Model implements SearchableModel
         return $this->repository->searchResultString($this);
     }
     
+    public function portForwardingSettings()
+    {
+        return $this->hasMany('App\Models\ServerPortForwardingSetting');
+    }
+
     public function searchResultUrl()
     {
         return $this->repository->searchResultUrl($this);

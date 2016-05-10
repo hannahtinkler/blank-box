@@ -1,37 +1,24 @@
 <?php
 
-namespace App\Library\Models;
+namespace App\Models;
 
-use App\Library\Interfaces\SearchableModel;
-use App\Library\Repositories\ServiceRepository;
+use App\Interfaces\SearchableModel;
+use App\Repositories\ChapterRepository;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 
-class Service extends Model implements SearchableModel
+class Chapter extends Model implements SearchableModel
 {
     use ElasticquentTrait;
-
+    
     public $guarded = [];
     private $repository;
-
     protected $mappingProperties = array(
-        'name' => [
+        'title' => [
           'type' => 'string',
           "analyzer" => "standard",
         ],
-        'area' => [
-          'type' => 'string',
-          "analyzer" => "standard",
-        ],
-        'service_id' => [
-          'type' => 'int',
-          "analyzer" => "standard",
-        ],
-        'type' => [
-          'type' => 'string',
-          "analyzer" => "standard",
-        ],
-        'live_site_url' => [
+        'description' => [
           'type' => 'string',
           "analyzer" => "standard",
         ]
@@ -40,17 +27,22 @@ class Service extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new ServiceRepository($this);
+        $this->repository = new ChapterRepository($this);
     }
-
-    // public function getTypeName()
-    // {
-    //     return 'service';
-    // }
     
-    public function server()
+    public function category()
     {
-        return $this->belongsTo('App\Library\Models\Server');
+        return $this->belongsTo('App\Models\Category');
+    }
+    
+    public function pages()
+    {
+        return $this->hasMany('App\Models\Page')->orderBy('order');
+    }
+    
+    public function bookmarks()
+    {
+        return $this->hasOne('App\Models\Bookmark');
     }
     
     public function searchResultString()
@@ -62,7 +54,7 @@ class Service extends Model implements SearchableModel
     {
         return $this->repository->searchResultUrl($this);
     }
-    
+
     public function searchResultIcon()
     {
         return $this->repository->searchResultIcon($this);

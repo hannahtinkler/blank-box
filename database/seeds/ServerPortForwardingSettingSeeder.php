@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Library\Models\ServerPortForwardingSetting;
-use App\Library\Models\Server;
+use App\Models\ServerPortForwardingSetting;
+use App\Models\Server;
 
 class ServerPortForwardingSettingSeeder extends Seeder
 

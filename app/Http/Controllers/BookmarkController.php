@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Library\Models\Chapter;
-use App\Library\Models\Page;
-use App\Library\Models\Bookmark;
-use App\Library\Models\Category;
+use App\Models\Chapter;
+use App\Models\Page;
+use App\Models\Bookmark;
+use App\Models\Category;
 
 class BookmarkController extends Controller
 {

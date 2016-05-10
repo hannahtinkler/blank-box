@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Library\Repositories;
+namespace App\Repositories;
 
-use App\Library\Interfaces\SearchableRepository;
-use App\Library\Models\Chapter;
+use App\Interfaces\SearchableRepository;
+use App\Models\Service;
 
-class ChapterRepository implements SearchableRepository
+class ServiceRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
@@ -18,21 +18,21 @@ class ChapterRepository implements SearchableRepository
             ]
         ];
 
-        return Chapter::searchByQuery($query);
+        return Service::searchByQuery($query);
     }
 
     public function searchResultString($result)
     {
-        return 'Chapter: ' . $result->title . ' - ' . substr($result->description, 0, 60) . '...';
+        return 'Service: ' . $result->name . ' (' . $result->service_id . ') - ' . $result->server->location . ' ' . $result->server->nickname;
     }
 
     public function searchResultUrl($result)
     {
-        return '/p/' . $result->category->slug . '/' . $result->slug;
+        return '/p/iaptus/services/service-details/' . $result->id;
     }
 
     public function searchResultIcon($result)
     {
-        return '<i class="fa fa-folder-open-o"></i>';
+        return '<i class="fa fa-group"></i>';
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Library\Repositories;
+namespace App\Repositories;
 
-use App\Library\Interfaces\SearchableRepository;
-use App\Library\Models\Server;
+use App\Interfaces\SearchableRepository;
+use App\Models\Chapter;
 
-class ServerRepository implements SearchableRepository
+class ChapterRepository implements SearchableRepository
 {
     public function getSearchResults($term)
     {
@@ -18,21 +18,21 @@ class ServerRepository implements SearchableRepository
             ]
         ];
 
-        return Server::searchByQuery($query);
+        return Chapter::searchByQuery($query);
     }
 
     public function searchResultString($result)
     {
-        return 'Server: ' . $result->name . ' / ' . $result->nickname . ' - ' . $result->location . ' ' . ' (' . $result->node_type . ')';
+        return 'Chapter: ' . $result->title . ' - ' . substr($result->description, 0, 60) . '...';
     }
 
     public function searchResultUrl($result)
     {
-        return '/p/mayden/servers/server-details/' . $result->id;
+        return '/p/' . $result->category->slug . '/' . $result->slug;
     }
 
     public function searchResultIcon($result)
     {
-        return '<i class="fa fa-server"></i>';
+        return '<i class="fa fa-folder-open-o"></i>';
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Library\Repositories;
+namespace App\Repositories;
 
-use App\Library\Interfaces\SearchableRepository;
+use App\Interfaces\SearchableRepository;
 
 class SearchRepository
 {
@@ -19,7 +19,7 @@ class SearchRepository
     public function processSearch(array $searchables)
     {
         foreach ($searchables as $searchable) {
-            $searchable = 'App\Library\Repositories\\'. $searchable . 'Repository';
+            $searchable = 'App\Repositories\\'. $searchable . 'Repository';
             $class = new $searchable;
             $newResults = $this->getResults($class);
             $this->allResults[] = $newResults;

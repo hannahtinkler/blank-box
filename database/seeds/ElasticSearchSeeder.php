@@ -22,7 +22,7 @@ class ElasticSearchSeeder extends Seeder
     {
         foreach ($this->modelsToIndex as $modelName) {
             try {
-                $modelPath = 'App\Library\Models\\' . $modelName;
+                $modelPath = 'App\Models\\' . $modelName;
                 $model = new $modelPath;
 
                 $model::createIndex($shards = null, $replicas = null);

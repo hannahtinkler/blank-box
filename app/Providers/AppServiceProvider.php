@@ -3,10 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Library\Models\Chapter;
-use App\Library\Models\Bookmark;
-use App\Library\Models\Page;
-use App\Library\Models\Category;
+use App\Models\Chapter;
+use App\Models\Bookmark;
+use App\Models\Page;
+use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
 {

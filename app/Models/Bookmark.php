@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Library\Models;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,16 +10,16 @@ class Bookmark extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Library\Models\Category');
+        return $this->belongsTo('App\Models\Category');
     }
 
     public function chapter()
     {
-        return $this->belongsTo('App\Library\Models\Chapter');
+        return $this->belongsTo('App\Models\Chapter');
     }
 
     public function page()
     {
-        return $this->belongsTo('App\Library\Models\Page');
+        return $this->belongsTo('App\Models\Page');
     }
 }

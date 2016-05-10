@@ -1,24 +1,37 @@
 <?php
 
-namespace App\Library\Models;
+namespace App\Models;
 
-use App\Library\Interfaces\SearchableModel;
-use App\Library\Repositories\ChapterRepository;
+use App\Interfaces\SearchableModel;
+use App\Repositories\ServiceRepository;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 
-class Chapter extends Model implements SearchableModel
+class Service extends Model implements SearchableModel
 {
     use ElasticquentTrait;
-    
+
     public $guarded = [];
     private $repository;
+
     protected $mappingProperties = array(
-        'title' => [
+        'name' => [
           'type' => 'string',
           "analyzer" => "standard",
         ],
-        'description' => [
+        'area' => [
+          'type' => 'string',
+          "analyzer" => "standard",
+        ],
+        'service_id' => [
+          'type' => 'int',
+          "analyzer" => "standard",
+        ],
+        'type' => [
+          'type' => 'string',
+          "analyzer" => "standard",
+        ],
+        'live_site_url' => [
           'type' => 'string',
           "analyzer" => "standard",
         ]
@@ -27,27 +40,12 @@ class Chapter extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new ChapterRepository($this);
-    }
-
-    // public function getTypeName()
-    // {
-    //     return 'chapter';
-    // }
-    
-    public function category()
-    {
-        return $this->belongsTo('App\Library\Models\Category');
+        $this->repository = new ServiceRepository($this);
     }
     
-    public function pages()
+    public function server()
     {
-        return $this->hasMany('App\Library\Models\Page')->orderBy('order');
-    }
-    
-    public function bookmarks()
-    {
-        return $this->hasOne('App\Library\Models\Bookmark');
+        return $this->belongsTo('App\Models\Server');
     }
     
     public function searchResultString()
@@ -59,7 +57,7 @@ class Chapter extends Model implements SearchableModel
     {
         return $this->repository->searchResultUrl($this);
     }
-
+    
     public function searchResultIcon()
     {
         return $this->repository->searchResultIcon($this);

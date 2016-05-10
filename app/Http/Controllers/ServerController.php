@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Library\Models\Server;
-use App\Library\Models\Page;
+use App\Models\Server;
+use App\Models\Page;
 
 class ServerController extends Controller
 {

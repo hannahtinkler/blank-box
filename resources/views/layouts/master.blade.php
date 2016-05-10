@@ -110,8 +110,11 @@
                 </form>
 
                 <div class="right topbar-icons">
+                    <a href="/random" title="Add a new chapter">
+                        <span class="add-new"><i class="fa fa-folder-open-o"></i><i class="fa fa-plus"></i></span>
+                    </a>
                     <a href="/random" title="Add a pages/content">
-                        <span class="new-page"><i class="fa fa-file-o"></i><i class="fa fa-plus"></i></span>
+                        <span class="add-new"><i class="fa fa-file-o"></i><i class="fa fa-plus"></i></span>
                     </a>
                     <a href="/random" title="Take me to a random page"><i class="fa fa-random"></i></a>
                 </div>
