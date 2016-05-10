@@ -99,6 +99,60 @@ class PageSeeder extends Seeder
 
         Page::create([
             'chapter_id' => $testingChapter->id,
+            'title' => 'Features of Valuable Tests',
+            'description' => "A description of the types of things whihc make a test 'valuable' and worth running on Mayden code.",
+            'content' => '<h4><strong>General:</strong></h4>
+                <ul>
+                    <li>Should actually test something — if you change functionality then the test should break</li>
+                    <li>Should always pass regardless of the order tests are run in</li>
+                    <li>Should be completely independant of the rest of the suite</li>
+                    <li>Must always contain at least one assertion</li>
+                    <li>Should never be skipped (even conditionally skipped) without a good reason</li>
+                    <li>Should contain minimal (preferably no) outside dependencies, in both tests and code under test</li>
+                    <li>Should not share state between tests — this increases the risk of tests interfering with each other and results in much more brittle tests</li>
+                    <li>Should have good, descriptive names — no one is going to type it so make it as long as you need to fully explain what the test is doing</li>
+                    <li>Test method names should be camelCased as this is PSR-2, even if some frameworks (e.g. PHPSpec) like snake case</li>
+                    <li>When using PHPUnit (includes Codeception unit & integration/functional) always start test methods with ‘test’ rather than use PHPUnit’s @test annotation</li>
+                    <li>Maintain the pyramid — don’t write 10 acceptance tests and 1 unit test for a feature</li>
+                    <li>Use the variable names “actual” and “expected” in assertions</li>
+                    <li>Use the “expected” and “actual” parameters to assertions correctly — in PHPUnit assertions are assertion($expected, $actual), in almost every other testing framework it’s assertion(actual, expected)</li>
+                    <li>Employ common sense — if you have a good reason to do something then it’s probably ok, so long as it’s a good reason</li>
+                </ul>
+                <br />
+                
+                <h4><strong>Unit Tests:</strong></h4>
+                <ul>
+                    <li>Ideally one assertion per test — having to use more than one assertion may indicate your unit is doing too much and should be split up. There are exceptions to this and partial refactors of legacy code may not be perfect so sometimes multiple exceptions may be acceptable</li>
+                    <li>Use PHPUnit Data Providers liberally (where it makes sense to — common sense etc…)</li>
+                    <li>Test a unit at a time</li>
+                    <li>Use Prophecy rather than PHPUnit mocking</li>
+                    <li>Don’t mock the class you’re testing</li>
+                </ul>
+                <br />
+
+                <h4><strong>Integration Tests:</strong></h4>
+                <ul>
+                    <li>Don’t mock anything, you should be testing in as close to a live environment as possible</li>
+                    <li>Try to always test a combination of units as the goal is to check a piece of functionality works in its entirety</li>
+                    <li>Don’t just repeat a unit test but without using mocks as this provides very little additional value</li>
+                </ul>
+                <br />
+
+                <h4><strong>Acceptance Tests:</strong></h4>
+                <ul>
+                    <li>Must only be a high level check of a feature (i.e. saving the New Patient form & checking it stored the patient record correctly)</li>
+                    <li>Don’t test validation — use unit & integration tests for this</li>
+                    <li>Test combinations of conditionals in unit & integration tests</li>
+                    <li>Only write new acceptance tests as a last resort if a feature can’t be unit or integration tested, but consider if the value added by the acceptance test is worth it</li>
+                </ul>
+
+            ',
+            'slug' => str_slug('Features of Valuable Tests'),
+            'order' => 3
+        ]);
+
+        Page::create([
+            'chapter_id' => $testingChapter->id,
             'title' => 'Code Review Testing Checklist',
             'description' => "A list of questions a code reviewer should be asking when code reviewing automated tests.",
             'content' => "<p>No new code should be missing tests, but a lot of tests aren’t code reviewed properly. Below are some prompts for use during code review to help ensure the quality of new tests. If the answers to any of them are 'no', ask the writer to take the actions recommended. If you don’t feel comfortable code reviewing someone’s tests, ask someone else to help as bad quality tests will lead to a lot of headaches in future.</p>
@@ -130,7 +184,7 @@ class PageSeeder extends Seeder
                 Rewrite the tests
             ",
             'slug' => str_slug('Code Review Testing Checklist'),
-            'order' => 2
+            'order' => 3
         ]);
 
         Page::create([
@@ -145,7 +199,7 @@ class PageSeeder extends Seeder
 </div>
 <script type="text/javascript" src="https://www.draw.io/embed.js?s=flowchart"></script>',
             'slug' => str_slug('"What Kind of Test Should I Write?"'),
-            'order' => 3
+            'order' => 4
         ]);
 
         Page::create([
