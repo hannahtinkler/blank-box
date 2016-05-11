@@ -8212,7 +8212,7 @@ body.md-skin {
   position: fixed;
   display: none;
 }
-@media (min-width: 768px) {
+@media (min-width: 785px) {
   #page-wrapper {
     position: inherit;
     margin: 0 0 0 300px;
@@ -8229,7 +8229,7 @@ body.md-skin {
     margin-left: auto;
   }
 }
-@media (max-width: 768px) {
+@media (max-width: 785px) {
   #page-wrapper {
     position: inherit;
     margin: 0 0 0 0;
@@ -8408,7 +8408,7 @@ navbar .form-control,
   padding-right: 0;
 }
 .navbar-form-custom {
-  width: 50%;
+  width: 40%;
 }
 .navbar-form-custom .easy-autocomplete {
   width: 100%%;
@@ -8624,6 +8624,9 @@ a.tooltip-trigger i {
 .topbar-icons .fa-folder-open-o {
   font-size: 1.2em;
   top: 1px;
+}
+.btn-default {
+  border-color: #D4D4D4;
 }
 @media print {
   nav.navbar-static-side {

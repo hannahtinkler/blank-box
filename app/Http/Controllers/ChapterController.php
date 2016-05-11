@@ -13,4 +13,10 @@ class ChapterController extends Controller
         $chapter = Chapter::where('slug', $chapterSlug)->first();
         return view('chapters.show', compact('chapter'));
     }
+
+    public function getChaptersForCategory($categoryId)
+    {
+        $chapters = Chapter::where('category_id', $categoryId)->orderBy('title')->get();
+        return json_encode($chapters);
+    }
 }

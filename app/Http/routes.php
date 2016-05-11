@@ -18,11 +18,16 @@ Route::get('/switchcategory/{id}', 'HomeController@switchCategory');
 Route::get('/search/{query}', 'SearchController@performSearch');
 Route::get('/search/{query}/results', 'SearchController@showSearchResults');
 
+Route::get('/page/create', 'PageController@create');
+Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
+Route::get('/page/preview/{id}', 'PageController@previewPage');
+
 Route::get('/bookmarks', 'BookmarkController@index');
 Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
 Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
 
 Route::get('/ajax/modal/server/{id}', 'ServerController@showServerModal');
+Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
 
 //Data driven pages requiring controllers
 Route::get('/p/mayden/servers/server-details/{id?}', 'ServerController@showPage');

@@ -23,7 +23,7 @@ class ChapterSeeder extends Seeder
             'category_id' => $mayden->id,
             'title' => 'Servers',
             'description' => 'An overview of servers running Mayden products, and details required to interact with them.',
-            'order' => 1,
+            'order' => 2,
             'slug' => str_slug('Servers')
         ]);
 
@@ -31,7 +31,7 @@ class ChapterSeeder extends Seeder
             'category_id' => $mayden->id,
             'title' => 'Workflows',
             'description' => 'Workflows for the various parts/actions of Mayden',
-            'order' => 2,
+            'order' => 3,
             'slug' => str_slug('Workflows')
         ]);
 
@@ -39,16 +39,24 @@ class ChapterSeeder extends Seeder
             'category_id' => $mayden->id,
             'title' => 'Testing',
             'description' => 'An overview of the how to test Mayden products as a developer.',
-            'order' => 3,
+            'order' => 4,
             'slug' => str_slug('Testing')
         ]);
-        
+
         Chapter::create([
             'category_id' => $mayden->id,
             'title' => 'Monitoring',
             'description' => 'An overview of the monitoring systems used by Mayden, including Sensu, PCTI etc.',
-            'order' => 4,
+            'order' => 5,
             'slug' => str_slug('Monitoring')
+        ]);
+
+        Chapter::create([
+            'category_id' => $iaptus->id,
+            'title' => 'General Information',
+            'description' => 'General resources that would be helpful for all iaptus developers to know.',
+            'order' => 1,
+            'slug' => str_slug('General Information')
         ]);
 
 
@@ -56,7 +64,7 @@ class ChapterSeeder extends Seeder
             'category_id' => $iaptus->id,
             'title' => 'Services',
             'description' => 'Overview of the services subscribed with iaptus, including relevent details regarding them.',
-            'order' => 1,
+            'order' => 2,
             'slug' => str_slug('Services')
         ]);
 
@@ -64,7 +72,7 @@ class ChapterSeeder extends Seeder
             'category_id' => $iaptus->id,
             'title' => 'Support How-Tos',
             'description' => 'Guides for completing tasks that often come up during developer support time.',
-            'order' => 2,
+            'order' => 3,
             'slug' => str_slug('Support How-Tos')
         ]);
 

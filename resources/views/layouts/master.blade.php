@@ -110,10 +110,10 @@
                 </form>
 
                 <div class="right topbar-icons">
-                    <a href="/random" title="Add a new chapter">
+                    <a href="/chapter/create" title="Add a new chapter">
                         <span class="add-new"><i class="fa fa-folder-open-o"></i><i class="fa fa-plus"></i></span>
                     </a>
-                    <a href="/random" title="Add a pages/content">
+                    <a href="/page/create" title="Add a pages/content">
                         <span class="add-new"><i class="fa fa-file-o"></i><i class="fa fa-plus"></i></span>
                     </a>
                     <a href="/random" title="Take me to a random page"><i class="fa fa-random"></i></a>
@@ -197,12 +197,13 @@
 
 
 
-<!-- Mainl scripts -->
+<!-- Main scripts -->
 <script src="/js/jquery-2.1.1.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/js/easyAutocomplete.js"></script>
+ <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 
 <!-- Custom and plugin javascript -->
 <script src="/js/inspinia.js"></script>
@@ -214,10 +215,6 @@
 
 <script>
     $(document).ready(function() {
-        // $(window).resize(function() {
-        //     $('#page-wrapper').height($(window).height());
-        // });
-
         @if(isset($current['chapter']))
             var category = {!! $current['category'] ? $current['category']->id : '""' !!};
             var chapter = {!! $current['chapter'] ? $current['chapter']->id : '""' !!};
@@ -270,6 +267,7 @@
         });
 
         $('#top-search').easyAutocomplete({
+            adjustWidth: false,
             url: function(term) {
                     return "/search/" + term;
             },

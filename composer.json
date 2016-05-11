@@ -7,7 +7,9 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "elasticquent/elasticquent": "dev-master"
+        "elasticquent/elasticquent": "dev-master",
+        "cogpowered/finediff": "0.3.*",
+        "unisharp/laravel-ckeditor": "^4.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

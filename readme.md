@@ -89,21 +89,39 @@ This will create the schema you need and insert the necessary data.
 
 Since ElasticSearch is based off Java, you will need install Java 8 on your Vagrant box if you have not already. You can do that by running the following:
 
-```sudo apt-get update```
-```sudo apt-get install openjdk-7-jre```
-```sudo add-apt-repository -y ppa:webupd8team/java```
-```sudo apt-get update```
-```sudo apt-get -y install oracle-java8-installer```
+```
+sudo apt-get update
+```
+```
+sudo apt-get install openjdk-7-jre
+```
+```
+sudo add-apt-repository -y ppa:webupd8team/java
+```
+```
+sudo apt-get update
+```
+```
+sudo apt-get -y install oracle-java8-installer
+```
 
 Agree to the terms when prompted. Don't worry about reading them. You're only signing away your soul. You can verify your install by running the following command:
-```java -version```
+```
+java -version
+```
 
 Next you need to download and install ElasticSearch. Again, this is mainly a paste job:
-```wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-2.3.2.deb```
-```sudo dpkg -i elasticsearch-2.3.2.deb```
+```
+wget https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-2.3.2.deb
+```
+```
+sudo dpkg -i elasticsearch-2.3.2.deb
+```
 
 You will also need to configure some of the things. Run the following command:
-```sudo vim /etc/elasticsearch/elasticsearch.yml```
+```
+sudo vim /etc/elasticsearch/elasticsearch.yml
+```
 
 Then change/add the following config values to as below. You will also need to uncomment then (obviously).
 ```
@@ -114,8 +132,12 @@ index.number_of_replicas: 0
 ```
 
 Finally, start ElasticSearch and test it by running the following commands:
-```sudo service elasticsearch start```
-```curl -X GET 'http://localhost:9200'```
+```
+sudo service elasticsearch start
+```
+```
+curl -X GET 'http://localhost:9200'
+```
 
 Some JSON should be output; if it is and it looks a bit like this, you win:
 ```

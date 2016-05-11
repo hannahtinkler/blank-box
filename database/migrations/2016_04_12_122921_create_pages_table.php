@@ -20,6 +20,7 @@ class CreatePagesTable extends Migration
             $table->text('content')->nullable();
             $table->string('slug');
             $table->integer('order');
+            $table->boolean('approved')->default(false);
             $table->timestamps();
         });
     }

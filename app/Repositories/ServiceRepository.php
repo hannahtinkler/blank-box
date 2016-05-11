@@ -28,7 +28,7 @@ class ServiceRepository implements SearchableRepository
 
     public function searchResultUrl($result)
     {
-        return '/p/iaptus/services/service-details/' . $result->id;
+        return '/p/iaptus/services/service-list/' . $result->id;
     }
 
     public function searchResultIcon($result)
