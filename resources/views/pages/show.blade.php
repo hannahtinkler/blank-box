@@ -7,6 +7,10 @@
 
 <hr>
 
+@if(session('message'))
+    <p class="bg-success error-message"><i class="glyphicon glyphicon-check"></i> {!! session('message') !!}</p>
+@endif
+
 {!! $page->content !!}
 
 @stop

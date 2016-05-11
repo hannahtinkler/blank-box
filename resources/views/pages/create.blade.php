@@ -5,8 +5,20 @@
 <h1>Create New Page</h1>
 
 <hr>
+<div class="col-sm-12">
+    @if(session('errorMessages'))
+        <div class="bg-danger error-message m-b-xl">
+            <h4><i class="glyphicon glyphicon-remove"></i> There were some errors:</h4>
+            <ul>
+                @foreach(session('errorMessages') as $message)
+                    <li>{!! $message[0] !!}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+</div>
 
-<form role="form" id="new-page-form">
+<form role="form" id="new-page-form" action="/page/save" method="POST">
     {!! csrf_field() !!}
     <div class="col-sm-6">
         <div class="form-group">
@@ -14,7 +26,7 @@
             <select name="category_id" id="category_id" class="form-control">
                 <option>Select a category...</option>
                 @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                    <option {!! $category->id == old('category_id') ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>
                 @endforeach
             </select>
         </div>
@@ -30,33 +42,33 @@
     <div class="col-sm-12">
         <div class="form-group">
             <label>Page Title</label> 
-            <input class="form-control" name="title" id="title" />
+            <input class="form-control" value="{{ old('title') }}" name="title" id="title" />
         </div>
     </div>
         
     <div class="col-sm-12">
         <div class="form-group">
             <label>Page Description</label> 
-            <textarea class="form-control" name="description" id="description"></textarea>
+            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
         </div>
     </div>
         
     <div class="col-sm-12">
         <div class="form-group m-b-xs">
             <label>Content</label> 
-            <textarea class="form-control" name="content" id="textboxCkeditor"></textarea>
+            <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') }}</textarea>
         </div>
         <small class="italic help-block last-saved pull-right m-b-lg">Not yet saved</small>
     </div>
 
     <div class="col-sm-12 m-t-md m-b-xl">
         <!-- IF is a curator -->
-        <input class="form-group" type="checkbox" value="true" /> Publish this page
+        <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
         <!-- END IF -->
 
         <div class="btn-toolbar pull-right">
+            <div class="btn-group"><a class="btn btn-sm btn-default m-t-n-xs save-as-draft"><strong>Save as Draft</strong></a></div>
             <div class="btn-group"><a class="btn btn-sm btn-default m-t-n-xs preview-page"><strong>Preview</strong></a></div>
-            <div class="btn-group"><a class="btn btn-sm btn-default m-t-n-xs save-as-draft" type="submit"><strong>Save as Draft</strong></a></div>
             <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Curation</strong></button></div>
         </div>
     </div>
@@ -73,24 +85,12 @@
         CKEDITOR.replace('textboxCkeditor');
         CKEDITOR.config.height = 500;
 
-        $('#category_id').change(function() {
-            var categoryId = $('#category_id').val();
+        if ($('#category_id').val() != '' && $('#category_id').val() != 'Select a category...') {
+           getChapters();
+        }
 
-            if (categoryId == '' || categoryId == 'Select a category...') {
-                $('#chapter_id').html('');
-                $('#chapter_id').attr('disabled', true);
-            } else {
-                $.get('/ajax/data/chapters/' + categoryId, function(data) {
-                    data = JSON.parse(data);
-                    $('#chapter_id').append('<option value="2">Select a category...</option>');
-                    $.each(data, function(key, value) {
-                        $('#chapter_id').append('<option value="' + value.id + '">' + value.title + '</option>');
-                    });
-                    $('#chapter_id').attr('disabled', false);
-                }).fail(function() {
-                    alert( "There was an error processing this request :(" );
-                });
-            }
+        $('#category_id').change(function() {
+           getChapters();
         });
 
         $('.preview-page').click(function() {
@@ -109,6 +109,29 @@
         $('.save-as-draft').click(function() {
             saveDraft();
         });
+
+        function getChapters() {
+             var categoryId = $('#category_id').val();
+
+            if (categoryId == '' || categoryId == 'Select a category...') {
+                $('#chapter_id').html('');
+                $('#chapter_id').attr('disabled', true);
+            } else {
+                $.get('/ajax/data/chapters/' + categoryId, function(data) {
+                    data = JSON.parse(data);
+                    $('#chapter_id').append('<option value="2">Select a category...</option>');
+                    $.each(data, function(key, value) {
+                        $('#chapter_id').append('<option id="opt' + value.id + '" value="' + value.id + '">' + value.title + '</option>');
+                    });
+                    $('#chapter_id').attr('disabled', false);
+                    @if(old('chapter_id'))
+                        $('option#opt{{ old("chapter_id") }}').attr('selected', true);
+                    @endif
+                }).fail(function() {
+                    alert( "There was an error processing this request :(" );
+                });
+            }
+        }
 
         function saveDraft() {
             data = getFormContent();

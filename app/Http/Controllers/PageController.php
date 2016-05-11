@@ -14,12 +14,22 @@ class PageController extends Controller
     public function show($categorySlug, $chapterSlug, $pageSlug)
     {
         $page = Page::where('slug', $pageSlug)->first();
+
+        if (!is_object($page)) {
+            return \App::abort(404);
+        }
+        
         return view('pages.show', compact('page'));
     }
     
     public function previewPage($id)
     {
         $page = PageDraft::find($id);
+
+        if (!is_object($page)) {
+            return \App::abort(404);
+        }
+        
         return view('pages.preview', compact('page'));
     }
     
@@ -57,11 +67,34 @@ class PageController extends Controller
         ]);
     }
 
-    public function save()
+    public function save(Request $request)
     {
-        $categories = Category::orderBy('title')->get();
-        $chapters = Chapter::orderBy('title')->get();
+        
+        $validation = \Validator::make($request->input(), [
+            'category_id' => 'required|numeric|exists:categories,id',
+            'chapter_id' => 'required|numeric|exists:chapters,id',
+            'title' => 'required|min:3',
+            'description' => 'required|min:10',
+            'content' => 'required|min:10'
+        ]);
 
-        return view('pages.create', compact('categories', 'chapters'));
+        if ($validation->fails()) {
+            return back()->with('errorMessages', $validation->messages()->messages())->withInput();
+        }
+
+        $currentOrderValue = Page::where('chapter_id', $request->input('chapter_id'))->orderBy('order', 'desc')->first();
+        $nextOrderValue = is_object($currentOrderValue) ? $currentOrderValue->order + 1 : 1;
+
+        $page = Page::create([
+            'chapter_id' => $request->input('chapter_id'),
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'content' => $request->input('content'),
+            'slug' => str_slug($request->input('title')),
+            'order' => $nextOrderValue,
+            'approved' => $request->input('approved', false)
+        ]);
+
+        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
     }
 }

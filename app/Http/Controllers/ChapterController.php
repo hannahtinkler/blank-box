@@ -11,6 +11,11 @@ class ChapterController extends Controller
     public function show($categorySlug, $chapterSlug)
     {
         $chapter = Chapter::where('slug', $chapterSlug)->first();
+
+        if (!is_object($chapter)) {
+            return \App::abort(404);
+        }
+        
         return view('chapters.show', compact('chapter'));
     }
 

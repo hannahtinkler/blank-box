@@ -19,12 +19,22 @@ class ServerController extends Controller
     public function showServerModal($id)
     {
         $server = Server::find($id);
+
+        if (!is_object($server)) {
+            return \App::abort(404);
+        }
+        
         return view('partials.servermodal', compact('server'));
     }
 
     public function configGenerator()
     {
         $page = Page::where('slug', 'ssh-config-generator')->first();
+
+        if (!is_object($page)) {
+            return \App::abort(404);
+        }
+        
         return view('servers.config_generator', compact('page'));
     }
 

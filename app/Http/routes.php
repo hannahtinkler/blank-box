@@ -19,8 +19,9 @@ Route::get('/search/{query}', 'SearchController@performSearch');
 Route::get('/search/{query}/results', 'SearchController@showSearchResults');
 
 Route::get('/page/create', 'PageController@create');
-Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
 Route::get('/page/preview/{id}', 'PageController@previewPage');
+Route::post('/page/save', 'PageController@save');
+Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
 
 Route::get('/bookmarks', 'BookmarkController@index');
 Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');

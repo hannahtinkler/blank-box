@@ -13,6 +13,11 @@ class ServiceController extends Controller
     {
         $services = Service::orderBy('name')->get();
         $page = Page::where('slug', 'service-list')->first();
+
+        if (!is_object($page)) {
+            return \App::abort(404);
+        }
+        
         return view('services.show_page', compact('services', 'page'));
     }
 }
