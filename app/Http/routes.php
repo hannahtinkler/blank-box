@@ -49,4 +49,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
+	Route::get('/updated-pages', 'UpdatedPagesController@index');
 });
