@@ -29,6 +29,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/page/save', 'PageController@save');
     Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
 
+    Route::get('/chapter/create', 'ChapterController@create');
+    Route::get('/chapter/edit/{id}', 'ChapterController@edit');
+    Route::post('/chapter/store', 'ChapterController@store');
+    Route::put('/chapter/update/{id}', 'ChapterController@update');
+    Route::delete('/chapter/destroy/{id?}', 'ChapterController@destroy');
+
     Route::get('/bookmarks', 'BookmarkController@index');
     Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
     Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
