@@ -14,13 +14,14 @@ class PageController extends Controller
 {
     public function show($categorySlug, $chapterSlug, $pageSlug)
     {
+        $user = \Auth::user();
         $page = Page::where('slug', $pageSlug)->first();
 
         if (!is_object($page)) {
             return \App::abort(404);
         }
         
-        return view('pages.show', compact('page'));
+        return view('pages.show', compact('page', 'user'));
     }
     
     public function previewPage($id)
@@ -45,6 +46,12 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::find($id);
+        $user = \Auth::user();
+        
+        if ($page->created_by != $user->id && !$user->curator) {
+            return \App::abort(401);
+        }
+
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
 
@@ -54,6 +61,12 @@ class PageController extends Controller
     public function update($id, PageRequest $request)
     {
         $updatePage = Page::find($id);
+        $user = \Auth::user();
+        
+        if ($page->created_by != $user->id && !$user->curator) {
+            return \App::abort(401);
+        }
+
 
         $updatePage->update($request->only(
             'chapter_id',

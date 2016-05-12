@@ -21,6 +21,7 @@ class CreatePagesTable extends Migration
             $table->string('slug');
             $table->integer('order');
             $table->boolean('approved')->default(false);
+            $table->integer('created_by');
             $table->timestamps();
         });
     }

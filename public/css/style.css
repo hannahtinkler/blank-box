@@ -8628,6 +8628,9 @@ a.tooltip-trigger i {
 .btn-default {
   border-color: #D4D4D4;
 }
+.bg-success {
+  border: thin solid #B1CEA6;
+}
 @media print {
   nav.navbar-static-side {
     display: none;
