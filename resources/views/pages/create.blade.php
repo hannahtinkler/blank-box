@@ -61,6 +61,8 @@
         <small class="italic help-block last-saved pull-right m-b-lg">Not yet saved</small>
     </div>
 
+    <input type="hidden" id="last-draft-id" name="last_draft_id" value="">
+
     <div class="col-sm-12 m-t-md m-b-xl">
         <!-- IF is a curator -->
         <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
@@ -141,6 +143,7 @@
                 savedDraft = JSON.parse(savedDraft);
                 currentDraft = savedDraft.draft.id;
                 $('.last-saved').text('Last saved: ' + savedDraft.draft.updated_at_formatted);
+                $('#last-draft-id').val(currentDraft);
             }).fail(function() {
                 alert( "There was an error processing this request :(" );
             });

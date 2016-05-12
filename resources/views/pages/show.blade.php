@@ -4,6 +4,7 @@
 
 <h1>{{ $page->chapter->category->title }} - {{ $page->chapter->title }}</h1>
 <h2>{{ $page->title }}</h2>
+@include('partials.page_options')
 
 <hr>
 
@@ -14,7 +15,6 @@
 {!! $page->content !!}
 
 @stop
-
 
 @section('scripts')
 
