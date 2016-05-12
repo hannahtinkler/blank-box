@@ -28,7 +28,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/search/{query}', 'SearchController@performSearch');
     Route::get('/search/{query}/results', 'SearchController@showSearchResults');
-    
+
+    Route::get('/chapter/create', 'ChapterController@create');
+    Route::get('/chapter/edit/{id}', 'ChapterController@edit');
+    Route::post('/chapter/store', 'ChapterController@store');
+    Route::put('/chapter/update/{id}', 'ChapterController@update');
+    Route::delete('/chapter/destroy/{id?}', 'ChapterController@destroy');
+
     Route::get('/page/comment/{id}', 'CommentController@comment');
     Route::post('/page/comment-save/{id}', 'CommentController@saveComment');
 
@@ -39,7 +45,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/page/edit/{id}', 'PageController@update');
     Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
     Route::delete('/page/{id}', 'PageController@destroy');
-
 
     Route::get('/bookmarks', 'BookmarkController@index');
     Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
