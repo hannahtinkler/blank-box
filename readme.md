@@ -60,8 +60,16 @@ From the root of the new directory, install the dependencies:
 ```
 composer install
 ```
+```
+npm install
+```
 
 Copy the .env.example from the root into a file called .env
+
+Run the following command to port configs into the main application:
+```
+php artisan vendor:publish
+```
 
 <hr>
 
