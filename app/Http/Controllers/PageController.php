@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Category;
@@ -39,6 +40,39 @@ class PageController extends Controller
         $chapters = Chapter::orderBy('title')->get();
 
         return view('pages.create', compact('categories', 'chapters'));
+    }
+
+    public function edit($id)
+    {
+        $page = Page::find($id);
+        $categories = Category::orderBy('title')->get();
+        $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
+
+        return view('pages.edit', compact('page', 'categories', 'chapters'));
+    }
+
+    public function update($id, PageRequest $request)
+    {
+        $updatePage = Page::find($id);
+
+        $updatePage->update($request->only(
+            'chapter_id',
+            'title',
+            'description',
+            'content'
+        ));
+
+        $updatePage->slug = str_slug($request->input('title'));
+        $updatePage->save();
+
+        $this->deleteCurrentDraft($request->input('last_draft_id'));
+
+        return redirect('/p/' . $updatePage->chapter->category->slug .
+            '/' . $updatePage->chapter->slug . '/' .
+            $updatePage->slug)->with(
+                'message',
+                '<i class="fa fa-check"></i> This page has been edited successfully and you\'re now viewing it. Only you will be able to see it until it has been curated.'
+            );
     }
 
     public function savePreview(Request $request, $id = null)
@@ -95,6 +129,16 @@ class PageController extends Controller
             'approved' => $request->input('approved', false)
         ]);
 
+        $this->deleteCurrentDraft($request->input('last_draft_id'));
+
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
+    }
+
+    private function deleteCurrentDraft($id)
+    {
+        if (!empty($id)) {
+            $currentDraft = PageDraft::find($id);
+            $currentDraft->delete();
+        }
     }
 }

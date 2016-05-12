@@ -25,8 +25,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/search/{query}/results', 'SearchController@showSearchResults');
 
     Route::get('/page/create', 'PageController@create');
+Route::get('/page/edit/{id}', 'PageController@edit');
     Route::get('/page/preview/{id}', 'PageController@previewPage');
     Route::post('/page/save', 'PageController@save');
+Route::post('/page/edit/{id}', 'PageController@update');
     Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
 
     Route::get('/bookmarks', 'BookmarkController@index');
