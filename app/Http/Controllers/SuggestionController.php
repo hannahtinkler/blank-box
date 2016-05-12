@@ -17,7 +17,7 @@ class SuggestionController extends Controller
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
 
-        return view('pages.comment', compact('page', 'categories', 'chapters'));
+        return view('pages.suggest', compact('page', 'categories', 'chapters'));
     }
     
     public function saveComment(Request $request)

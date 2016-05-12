@@ -1,6 +1,6 @@
 @if($page->created_by == $user->id || $user->curator)
     <form action="/page/{{ $page->id }}" method="POST">
-        <div class="btn-group pull-right">
+        <div class="m-t-sm btn-group pull-right">
             <a class="btn btn-default" href="/page/edit/{{ $page->id }}"><i class="fa fa-pencil"></i> Edit</a>
         
             {!! csrf_field() !!}
@@ -11,6 +11,6 @@
         </div>
     </form>
 @endif
-<div class="btn-group pull-right m-r-sm">
+<div class="m-t-sm btn-group pull-right m-r-sm">
     <a class="btn btn-default" href="/page/suggest/{{ $page->id }}"><i class="fa fa-commenting-o"></i> Suggest</a>
 </div>

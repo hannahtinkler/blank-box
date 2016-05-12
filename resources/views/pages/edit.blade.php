@@ -1,73 +1,83 @@
 @extends('layouts.master')
 
 @section('content')
-    <h2>Edit: {{ $page->title }}</h2>
+    <h1>Edit Page</h1>
+    <h2>{{ $page->title }}</h2>
 
     <hr>
-
-    @if(session('message'))
-        <p class="bg-success error-message"><i class="glyphicon glyphicon-check"></i> {!! session('message') !!}</p>
-    @endif
-
-    <form role="form" id="new-page-form" action="/page/edit/{{ $page->id }}" method="POST">
-        {!! csrf_field() !!}
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>Category</label>
-                <select name="category_id" id="category_id" class="form-control">
-                    <option>Select a category...</option>
-                    @foreach($categories as $category)
-                        <option {!! $category->id == $page->chapter->category->id ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>
+    <div class="col-sm-12">
+        @if(session('errors'))
+            <div class="bg-danger error-message m-b-xl">
+                <h4><i class="glyphicon glyphicon-remove"></i> There were some errors:</h4>
+                <ul>
+                    @foreach(session('errors') as $message)
+                        <li>{!! $message[0] !!}</li>
                     @endforeach
-                </select>
+                </ul>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>Chapter</label>
-                <select name="chapter_id" id="chapter_id" class="form-control">
+        @endif
+    </div>
+
+    <div class="row">
+        <form role="form" id="new-page-form" action="/page/edit/{{ $page->id }}" method="POST">
+            {!! csrf_field() !!}
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Category</label>
+                    <select name="category_id" id="category_id" class="form-control">
+                        <option>Select a category...</option>
+                        @foreach($categories as $category)
+                            <option {!! $category->id == $page->chapter->category->id ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label>Chapter</label>
+                    <select name="chapter_id" id="chapter_id" class="form-control">
                     <option>Select a chapter...</option>
-                    @foreach($chapters as $chapter)
-                        <option {!! $chapter->id == $page->chapter->id ? "selected" : null !!} value="{{ $chapter->id }}">{{ $chapter->title }}</option>
-                    @endforeach
-                </select>
+                        @foreach($chapters as $chapter)
+                            <option {!! $chapter->id == $page->chapter->id ? "selected" : null !!} value="{{ $chapter->id }}">{{ $chapter->title }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label>Page Title</label>
-                <input class="form-control" value="{{ old('title') ? old('title') : $page->title }}" name="title" id="title" />
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Page Title</label>
+                    <input class="form-control" value="{{ old('title') ? old('title') : $page->title }}" name="title" id="title" />
+                </div>
             </div>
-        </div>
 
-        <div class="col-sm-12">
-            <div class="form-group">
-                <label>Page Description</label>
-                <textarea class="form-control" name="description" id="description">{{ old('description') ? old('description') : $page->description }}</textarea>
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label>Page Description</label>
+                    <textarea class="form-control" name="description" id="description">{{ old('description') ? old('description') : $page->description }}</textarea>
+                </div>
             </div>
-        </div>
 
-        <div class="col-sm-12">
-            <div class="form-group m-b-xs">
-                <label>Content</label>
-                <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') ? old('content') : $page->content }}</textarea>
+            <div class="col-sm-12">
+                <div class="form-group m-b-xs">
+                    <label>Content</label>
+                    <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') ? old('content') : $page->content }}</textarea>
+                </div>
             </div>
-            <small class="italic help-block last-saved pull-right m-b-lg">Not yet saved</small>
-        </div>
 
-        <input type="hidden" id="last-draft-id" name="last_draft_id" value="">
+            <input type="hidden" id="last-draft-id" name="last_draft_id" value="">
 
-        <div class="col-sm-12 m-t-md m-b-xl">
-            <!-- IF is a curator -->
-            <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
-            <!-- END IF -->
+            <div class="col-sm-12 m-t-md m-b-xl">
+                <!-- IF is a curator -->
+                <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
+                <!-- END IF -->
 
-            <div class="btn-toolbar pull-right">
-                <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Curation</strong></button></div>
+                <div class="btn-toolbar pull-right">
+                    <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Curation</strong></button></div>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 
 @stop
 

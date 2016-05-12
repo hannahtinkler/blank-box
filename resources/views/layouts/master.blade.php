@@ -87,15 +87,15 @@
                 <li class="spacer"><hr></li>
                 @if(Auth::user()->curator)
                     <li{!! Request::is('/curation') ? ' class="active"' : null !!}>
-                        <a href="/curation"><i class="fa fa-check"></i> <span class="nav-label">Curation</span></a>
+                        <a href="/curation"><i class="fa fa-check"></i> <span class="nav-label">Curation </span>({{ $awaitingCurationCount }})</a>
                     </li>
                 @endif
 
-                <li{!! Request::is('/pages/latestupdates') ? ' class="active"' : null !!}>
-                    <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
-                </li>
                 <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
                     <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
+                </li>
+                <li{!! Request::is('/pages/latestupdates') ? ' class="active"' : null !!}>
+                    <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
                 </li>
             </ul>
 

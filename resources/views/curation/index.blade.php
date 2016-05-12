@@ -7,23 +7,45 @@
 
     <hr>
 
-    <div class="list-group">
+    <div class="wrapper wrapper-content  animated fadeInRight blog">
+    <div class="row">
         @foreach($pages as $page)
-            <!-- this looks awful change it -->
-            <div class="col-md-10">
-                <a href="#" class="list-group-item clearfix">
-                    <span class="fa fa-page"></span>
-                    {{ $page->description }}
-                    <span class="pull-right">
-                  <p class="btn btn-xs btn-info">{{ date('jS F Y H:i', strtotime($page->created_at)) }}</p>
-                </span>
-                </a>
-            </div>
-            <div class="col-md-2">
-                <a href="/curation/approve/{{ $page->id }}" class="btn btn-xs btn-primary"><span id="approve-button" class="fa fa-check"></span></a>
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-content">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <a href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">
+                                    <h2>
+                                        {{ $page->title }}
+                                    </h2>
+                                </a>
+                                <div class="small m-b-sm">
+                                    <strong>{{ $page->creator->name }}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
+                                </div>
+                                <p>
+                                    {{ $page->description }}
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-6 m-t-sm">
+                                        <button class="btn btn-primary btn-xs" type="button"><i class="fa fa-book"> </i> {{ $page->chapter->category->title }}</button>
+                                        <button class="btn btn-white btn-xs" type="button"><i class="fa fa-folder-o"> </i> {{ $page->chapter->title }}</button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="text-right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="/curation/approve/{{ $page->id }}" class="btn btn-xs btn-primary"><span id="approve-button" class="fa fa-check"></span></a>
+                            </div>
+                            </div>
+                    </div>
+                </div>
             </div>
         @endforeach
-
+        </div>
     </div>
 
 @stop

@@ -46,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.master', function ($view) {
             $current = [];
             $current['category'] = $this->getCurrentCategory();
+            $awaitingCurationCount = $this->getAwaitingCurationCount();
 
             if (\Request::segment(1) == 'p') {
                 $current['chapter'] = Chapter::where('slug', \Request::segment(3))->first();
@@ -58,8 +59,14 @@ class AppServiceProvider extends ServiceProvider
             $view->with('categories', $categories)
                 ->with('current', $current)
                 ->with('current', $current)
+                ->with('awaitingCurationCount', $awaitingCurationCount)
                 ->with('bookmarks', $bookmarks);
         });
+    }
+
+    public function getAwaitingCurationCount()
+    {
+        return Page::where('approved', 0)->get()->count();
     }
 
     public function getCurrentCategory()
