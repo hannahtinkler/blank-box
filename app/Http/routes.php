@@ -23,6 +23,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/search/{query}', 'SearchController@performSearch');
     Route::get('/search/{query}/results', 'SearchController@showSearchResults');
+    
+    Route::get('/page/comment/{id}', 'CommentController@comment');
+    Route::post('/page/comment-save/{id}', 'CommentController@saveComment');
 
     Route::get('/page/create', 'PageController@create');
     Route::get('/page/edit/{id}', 'PageController@edit');

@@ -11,3 +11,6 @@
         </div>
     </form>
 @endif
+<div class="btn-group pull-right">
+    <a class="btn btn-default" href="/page/comment/{{ $page->id }}"><i class="fa fa-pencil"></i>Comment</a>
+</div>
