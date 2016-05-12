@@ -35,8 +35,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/chapter/update/{id}', 'ChapterController@update');
     Route::delete('/chapter/destroy/{id?}', 'ChapterController@destroy');
 
-    Route::get('/page/comment/{id}', 'CommentController@comment');
-    Route::post('/page/comment-save/{id}', 'CommentController@saveComment');
+    Route::get('/page/suggest/{id}', 'SuggestionController@comment');
+    Route::post('/page/comment-save/{id}', 'SuggestionController@saveComment');
 
     Route::get('/page/create', 'PageController@create');
     Route::get('/page/edit/{id}', 'PageController@edit');
@@ -48,7 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/bookmarks', 'BookmarkController@index');
     Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
-    Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@delete');
+    Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
 
     Route::get('/ajax/modal/server/{id}', 'ServerController@showServerModal');
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
@@ -63,4 +63,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
+
+    Route::get('/pages/latestupdates', 'PageController@getLatestPages');
 });

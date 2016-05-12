@@ -6,11 +6,11 @@
             {!! csrf_field() !!}
             {!! method_field('DELETE') !!}
             <button type="submit" id="delete-page-{{ $page->id }}" class="btn btn-default">
-                <i class="fa fa-btn fa-trash"></i> Delete
+                <i class="fa fa-btn fa-trash-o"></i> Delete
             </button>
         </div>
     </form>
 @endif
-<div class="btn-group pull-right">
-    <a class="btn btn-default" href="/page/comment/{{ $page->id }}"><i class="fa fa-pencil"></i>Comment</a>
+<div class="btn-group pull-right m-r-sm">
+    <a class="btn btn-default" href="/page/suggest/{{ $page->id }}"><i class="fa fa-commenting-o"></i> Suggest</a>
 </div>

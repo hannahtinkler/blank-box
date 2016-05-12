@@ -163,4 +163,10 @@ class PageController extends Controller
             $currentDraft->delete();
         }
     }
+    
+    public function getLatestPages()
+    {
+        $updatedPages = Page::orderBy('updated_at', 'DESC')->paginate(10);
+        return view('updated-pages.index', compact('updatedPages'));
+    }
 }

@@ -8631,6 +8631,12 @@ a.tooltip-trigger i {
 .bg-success {
   border: thin solid #B1CEA6;
 }
+#approve-button {
+  padding: 13px 10px;
+}
+li.spacer {
+  padding: 0 20px;
+}
 @media print {
   nav.navbar-static-side {
     display: none;

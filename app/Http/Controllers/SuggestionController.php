@@ -9,7 +9,7 @@ use App\Models\Chapter;
 use App\Models\Page;
 use App\Models\Comment;
 
-class CommentController extends Controller
+class SuggestionController extends Controller
 {
     public function comment($id)
     {

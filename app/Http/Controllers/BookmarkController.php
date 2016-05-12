@@ -47,7 +47,7 @@ class BookmarkController extends Controller
         ]);
     }
 
-    public function delete($categoryId, $chapterId, $pageId = null)
+    public function destroy($categoryId, $chapterId, $pageId = null)
     {
         $category = Category::where('id', $categoryId)->first();
         $chapter = Chapter::where('id', $chapterId)->first();
