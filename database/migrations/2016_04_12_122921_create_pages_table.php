@@ -23,6 +23,7 @@ class CreatePagesTable extends Migration
             $table->boolean('approved')->default(false);
             $table->integer('created_by');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
