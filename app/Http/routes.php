@@ -18,6 +18,11 @@ Route::get('/accessdenied', 'Auth\AuthController@accessDeniedPage');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index');
+
+    Route::get('/curation', 'CurationController@index');
+    Route::get('/curation/{id}', 'CurationController@show');
+    Route::get('/curation/approve/{id}', 'CurationController@approve');
+
     Route::get('/random', 'HomeController@getRandomPage');
     Route::get('/switchcategory/{id}', 'HomeController@switchCategory');
 
@@ -32,11 +37,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
     Route::delete('/page/{id}', 'PageController@destroy');
 
-    Route::get('/chapter/create', 'ChapterController@create');
-    Route::get('/chapter/edit/{id}', 'ChapterController@edit');
-    Route::post('/chapter/store', 'ChapterController@store');
-    Route::put('/chapter/update/{id}', 'ChapterController@update');
-    Route::delete('/chapter/destroy/{id?}', 'ChapterController@destroy');
 
     Route::get('/bookmarks', 'BookmarkController@index');
     Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
@@ -55,5 +55,4 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
-	Route::get('/updated-pages', 'UpdatedPagesController@index');
 });
