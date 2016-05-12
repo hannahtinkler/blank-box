@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Socialite;
 
 class AuthController extends Controller
 {
@@ -21,7 +22,7 @@ class AuthController extends Controller
     |
     */
 
-    use AuthenticatesAndRegistersUsers, ThrottlesLogins, Socialite;
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
      * Where to redirect users after login / registration.
@@ -29,6 +30,7 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
+    protected $acceptedEmailDomain = '@mayden.co.uk';
 
     /**
      * Create a new authentication controller instance.
@@ -70,20 +72,53 @@ class AuthController extends Controller
         ]);
     }
 
+    public function logout()
+    {
+        \Auth::logout();
+        return redirect('/');
+    }
+
     public function redirectToProvider()
     {
         return Socialite::driver('google')->redirect();
     }
 
     /**
-     * Obtain the user information from GitHub.
+     * Obtain the user information from Google.
      *
      * @return Response
      */
     public function handleProviderCallback()
     {
         $user = Socialite::driver('google')->user();
+        $success = $this->registerUserIfNotRegistered($user);
+        if ($success) {
+            return redirect('/');
+        } else {
+            return redirect('/accessdenied');
+        }
+    }
+    
+    public function accessDeniedPage()
+    {
+        return view('errors.accessdenied');
+    }
+    
+    public function registerUserIfNotRegistered($user)
+    {
+        $eloquentUser = User::where('email', $user->getEmail())->first();
 
-        // $user->token;
+        if (!is_object($eloquentUser)) {
+            if (strpos($user->getEmail(), $this->acceptedEmailDomain)) {
+                $eloquentUser = User::create([
+                    'name' => $user->getName(),
+                    'email' => $user->getEmail()
+                ]);
+            } else {
+                return false;
+            }
+        }
+
+        return  \Auth::login($eloquentUser);
     }
 }
