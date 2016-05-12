@@ -133,6 +133,15 @@ class PageController extends Controller
 
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
     }
+    
+    public function destroy($id)
+    {
+        $page = Page::find($id);
+        $page->delete();
+
+        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
+        ->with('message', 'Page has been successfully deleted');
+    }
 
     private function deleteCurrentDraft($id)
     {

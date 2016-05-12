@@ -6,13 +6,16 @@ use App\Interfaces\SearchableModel;
 use App\Repositories\PageRepository;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends Model implements SearchableModel
 {
     use ElasticquentTrait;
+    use SoftDeletes;
 
     public $guarded = [];
     private $repository;
+    protected $dates = ['deleted_at'];
     protected $mappingProperties = array(
         'title' => [
           'type' => 'string',

@@ -6,6 +6,10 @@
 
 <hr>
 
+@if(session('message'))
+    <p class="bg-success error-message"> {!! session('message') !!}</p>
+@endif
+
 @if($chapter->description)
     <p>{!! $chapter->description !!}</p>
 @endif

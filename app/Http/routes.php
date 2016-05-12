@@ -24,6 +24,7 @@ Route::get('/page/preview/{id}', 'PageController@previewPage');
 Route::post('/page/save', 'PageController@save');
 Route::post('/page/edit/{id}', 'PageController@update');
 Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
+Route::delete('/page/{id}', 'PageController@destroy');
 
 Route::get('/bookmarks', 'BookmarkController@index');
 Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
