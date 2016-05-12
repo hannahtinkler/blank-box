@@ -85,6 +85,9 @@
                     @endforeach
                 @endif
 
+                <li{!! Request::is('/updated-pages') ? ' class="active"' : null !!}>
+                    <a href="/updated-pages"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
+                </li>
                 <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
                     <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
                 </li>
