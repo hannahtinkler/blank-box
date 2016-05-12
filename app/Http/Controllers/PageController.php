@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use \Exception;
 use App\Http\Requests\PageRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -63,10 +64,9 @@ class PageController extends Controller
         $updatePage = Page::find($id);
         $user = \Auth::user();
         
-        if ($page->created_by != $user->id && !$user->curator) {
+        if ($updatePage->created_by != $user->id && !$user->curator) {
             return \App::abort(401);
         }
-
 
         $updatePage->update($request->only(
             'chapter_id',
@@ -114,20 +114,8 @@ class PageController extends Controller
         ]);
     }
 
-    public function save(Request $request)
+    public function save(PageRequest $request)
     {
-        
-        $validation = \Validator::make($request->input(), [
-            'category_id' => 'required|numeric|exists:categories,id',
-            'chapter_id' => 'required|numeric|exists:chapters,id',
-            'title' => 'required|min:3',
-            'description' => 'required|min:10',
-            'content' => 'required|min:10'
-        ]);
-
-        if ($validation->fails()) {
-            return back()->with('errorMessages', $validation->messages()->messages())->withInput();
-        }
 
         $currentOrderValue = Page::where('chapter_id', $request->input('chapter_id'))->orderBy('order', 'desc')->first();
         $nextOrderValue = is_object($currentOrderValue) ? $currentOrderValue->order + 1 : 1;
@@ -150,10 +138,19 @@ class PageController extends Controller
     public function destroy($id)
     {
         $page = Page::find($id);
-        $page->delete();
+
+        $errorMessage = 'Error! Unable to delete specified page.';
+
+        if (is_null($page)) {
+            throw new Exception($errorMessage);
+        }
+
+        $result = $page->delete();
+
+        $message = ($result === true ? 'Page has been successfully deleted' : $errorMessage);
 
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
-        ->with('message', 'Page has been successfully deleted');
+        ->with('message', $message);
     }
 
     private function deleteCurrentDraft($id)

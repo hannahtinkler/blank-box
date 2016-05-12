@@ -18,7 +18,7 @@
         @endif
     </div>
 
-    <form role="form" id="new-chpater-form" action="/chapter/store" method="POST">
+    <form role="form" id="new-chapter-form" action="/chapter/store" method="POST">
         {!! csrf_field() !!}
         <div class="col-sm-6">
             <div class="form-group">
