@@ -9,7 +9,8 @@
         "laravel/framework": "5.2.*",
         "elasticquent/elasticquent": "dev-master",
         "cogpowered/finediff": "0.3.*",
-        "unisharp/laravel-ckeditor": "^4.5"
+        "unisharp/laravel-ckeditor": "^4.5",
+        "laravel/socialite": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

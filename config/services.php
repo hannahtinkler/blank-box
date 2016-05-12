@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+        'client_id' => '285090149867-lmf519i2org46boltb2lu6h8khmevj6b.apps.googleusercontent.com',
+        'client_secret' => 'YEBvcnbqUUDDddg1192k0815',
+        'redirect' => 'http://black-box.app',
+    ],
+
 ];
