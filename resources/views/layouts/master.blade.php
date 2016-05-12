@@ -53,6 +53,12 @@
                     <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
 
+                @if(Auth::user()->curator)
+                    <li{!! Request::is('/curation') ? ' class="active"' : null !!}>
+                        <a href="/curation"><i class="fa fa-check"></i> <span class="nav-label">Curation</span></a>
+                    </li>
+                @endif
+
                 @if(is_object($current['category']->chapters))
 
                     @foreach($current['category']->chapters as $chapter)
