@@ -61,4 +61,9 @@ class Page extends Model implements SearchableModel
     {
         return $this->repository->searchResultIcon($this);
     }
+
+    public function creator()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'created_by');
+    }
 }
