@@ -13,7 +13,7 @@ class CategoryController extends Controller
         $category = Category::where('slug', $categorySlug)->first();
 
         if (!is_object($category)) {
-            throw new \Exception("Invalid data received");
+            return \App::abort(404);
         }
 
         return view('categories.show', compact('category'));
