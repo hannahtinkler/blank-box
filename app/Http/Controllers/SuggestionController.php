@@ -7,11 +7,11 @@ use App\Http\Requests;
 use App\Models\Category;
 use App\Models\Chapter;
 use App\Models\Page;
-use App\Models\Comment;
+use App\Models\Suggestion;
 
 class SuggestionController extends Controller
 {
-    public function comment($id)
+    public function suggest($id)
     {
         $page = Page::find($id);
         $categories = Category::orderBy('title')->get();
@@ -20,16 +20,17 @@ class SuggestionController extends Controller
         return view('pages.suggest', compact('page', 'categories', 'chapters'));
     }
     
-    public function saveComment(Request $request)
+    public function saveSuggestion(Request $request)
     {
-        Comment::create([
+        Suggestion::create([
             'page_id' => $request->input('page_id'),
-            'comment' => $request->input('comment'),
+            'suggestion' => $request->input('suggestion'),
+            'created_by' => \Auth::id(),
             'approved' => $request->input('approved', false)
         ]);
         
         $page = Page::find($request->input('page_id'));
 
-        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)->with('message', '<i class="fa fa-check"></i> Thank you, your comment has been saved');
+        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)->with('message', '<i class="fa fa-check"></i> Thank you, your suggestion has been saved');
     }
 }

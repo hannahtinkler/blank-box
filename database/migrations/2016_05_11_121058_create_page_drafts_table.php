@@ -17,7 +17,8 @@ class CreatePageDraftsTable extends Migration
             $table->integer('chapter_id')->nullable();
             $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->text('content')->nullable()->nullable();
+            $table->text('content')->nullable();
+            $table->integer('created_by')->nullable();
             $table->timestamps();
         });
     }

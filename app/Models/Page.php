@@ -42,28 +42,53 @@ class Page extends Model implements SearchableModel
         return $this->belongsTo('App\Models\Chapter');
     }
     
-    public function bookmarks()
+    public function bookmark()
     {
         return $this->hasOne('App\Models\Bookmark');
-    }
-    
-    public function searchResultString()
-    {
-        return $this->repository->searchResultString($this);
-    }
-    
-    public function searchResultUrl()
-    {
-        return $this->repository->searchResultUrl($this);
-    }
-
-    public function searchResultIcon()
-    {
-        return $this->repository->searchResultIcon($this);
     }
 
     public function creator()
     {
         return $this->hasOne('App\Models\User', 'id', 'created_by');
+    }
+    
+    public function scopeLatestUpdated($query)
+    {
+        return $query->orderBy('updated_at', 'DESC');
+    }
+    
+    public function scopeFindBySlug($query, $slug)
+    {
+        return $query->where('slug', $slug)->firstOrFail();
+    }
+    
+    public function scopeLargestOrderValue($query, $chapterId)
+    {
+        return $query->where('chapter_id', $chapterId)->orderBy('order', 'desc')->first();
+    }
+
+    public function showRedirectUrl()
+    {
+        return $this->repository->showRedirectUrl();
+    }
+    
+    public function searchResultString()
+    {
+        return $this->repository->searchResultString();
+    }
+    
+    public function searchResultUrl()
+    {
+        return $this->repository->searchResultUrl();
+    }
+
+    public function searchResultIcon()
+    {
+        return $this->repository->searchResultIcon();
+    }
+
+    public function editableByMe()
+    {
+        return $this->repository->editableByMe();
     }
 }

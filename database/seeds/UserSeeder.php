@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Hannah Tinkler',
             'email' => 'hannah.tinkler@mayden.co.uk',
+            'slug' => str_slug('Hannah Tinkler'),
             'curator' => 'true'
         ]);
 

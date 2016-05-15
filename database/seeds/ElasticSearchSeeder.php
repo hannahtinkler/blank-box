@@ -10,6 +10,7 @@ class ElasticSearchSeeder extends Seeder
         'Chapter',
         'Page',
         'Server',
+        'User',
         'Service'
     ];
 

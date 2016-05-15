@@ -13,7 +13,8 @@ class SearchController extends Controller
         'Server',
         'Service',
         'Page',
-        'Chapter'
+        'Chapter',
+        'User'
     ];
   
     public function __construct()

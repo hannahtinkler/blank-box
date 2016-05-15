@@ -24,7 +24,7 @@
         <h3 class="font-bold">Whoops, couldn't find what you were looking for...</h3>
 
         <div class="error-desc m-t-xl">
-            Try checking the URL for errors, or look for something else.
+            Are you sure it exists? Try checking the URL for errors, or look for something else.
             Want to go back to the main page? <br/><a href="/" class="btn btn-primary m-t">Home</a>
         </div>
     </div>

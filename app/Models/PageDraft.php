@@ -12,4 +12,9 @@ class PageDraft extends Model
     {
         return $this->belongsTo('App\Models\Chapter');
     }
+
+    public function creator()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'created_by');
+    }
 }

@@ -47,23 +47,23 @@ class Server extends Model implements SearchableModel
         return $this->hasMany('App\Models\Service');
     }
     
-    public function searchResultString()
-    {
-        return $this->repository->searchResultString($this);
-    }
-    
     public function portForwardingSettings()
     {
         return $this->hasMany('App\Models\ServerPortForwardingSetting');
     }
+    
+    public function searchResultString()
+    {
+        return $this->repository->searchResultString();
+    }
 
     public function searchResultUrl()
     {
-        return $this->repository->searchResultUrl($this);
+        return $this->repository->searchResultUrl();
     }
 
     public function searchResultIcon()
     {
-        return $this->repository->searchResultIcon($this);
+        return $this->repository->searchResultIcon();
     }
 }

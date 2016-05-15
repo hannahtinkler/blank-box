@@ -47,16 +47,16 @@ class Chapter extends Model implements SearchableModel
     
     public function searchResultString()
     {
-        return $this->repository->searchResultString($this);
+        return $this->repository->searchResultString();
     }
     
     public function searchResultUrl()
     {
-        return $this->repository->searchResultUrl($this);
+        return $this->repository->searchResultUrl();
     }
 
     public function searchResultIcon()
     {
-        return $this->repository->searchResultIcon($this);
+        return $this->repository->searchResultIcon();
     }
 }

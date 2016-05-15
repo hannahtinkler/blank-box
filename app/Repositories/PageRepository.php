@@ -2,11 +2,21 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\SearchableRepository;
+use Auth;
 use App\Models\Page;
+use App\Interfaces\SearchableRepository;
 
 class PageRepository implements SearchableRepository
 {
+    public $page;
+    public $user;
+
+    public function __construct($page, $user = false)
+    {
+        $this->page = $page;
+        $this->user = $user ?: Auth::user();
+    }
+
     public function getSearchResults($term)
     {
         $query = [
@@ -21,17 +31,26 @@ class PageRepository implements SearchableRepository
         return Page::searchByQuery($query);
     }
 
-    public function searchResultString($result)
+    public function editableByMe()
     {
-        return 'Page: ' . $result->title;
+        return $this->page->created_by == $this->user->id || $this->user->curator;
     }
 
-    public function searchResultUrl($result)
+    public function showRedirectUrl()
     {
-        return '/p/' . $result->chapter->category->slug . '/' . $result->chapter->slug . '/' . $result->slug;
+        return '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
+    }
+    public function searchResultString()
+    {
+        return 'Page: ' . $this->page->title;
     }
 
-    public function searchResultIcon($result)
+    public function searchResultUrl()
+    {
+        return '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
+    }
+
+    public function searchResultIcon()
     {
         return '<i class="fa fa-file-o"></i>';
     }

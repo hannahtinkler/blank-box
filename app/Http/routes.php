@@ -35,14 +35,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/chapter/update/{id}', 'ChapterController@update');
     Route::delete('/chapter/destroy/{id?}', 'ChapterController@destroy');
 
-    Route::get('/page/suggest/{id}', 'SuggestionController@comment');
-    Route::post('/page/comment-save/{id}', 'SuggestionController@saveComment');
+    Route::get('/page/suggest/{id}', 'SuggestionController@suggest');
+    Route::post('/page/suggest/{id}/save', 'SuggestionController@saveSuggestion');
 
     Route::get('/page/create', 'PageController@create');
     Route::get('/page/edit/{id}', 'PageController@edit');
-    Route::get('/page/preview/{id}', 'PageController@previewPage');
+    Route::get('/page/preview/{id}', 'PageDraftController@preview');
     Route::post('/page/save', 'PageController@save');
-    Route::post('/page/edit/{id}', 'PageController@update');
+    Route::post('/page/update/{id}', 'PageController@update');
     Route::post('/page/preview/save/{id?}', 'PageController@savePreview');
     Route::delete('/page/{id}', 'PageController@destroy');
 

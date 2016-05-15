@@ -2,11 +2,21 @@
 
 namespace App\Repositories;
 
+use Auth;
 use App\Interfaces\SearchableRepository;
 use App\Models\Server;
 
 class ServerRepository implements SearchableRepository
 {
+    public $user;
+    public $server;
+
+    public function __construct($server)
+    {
+        $this->user = Auth::user();
+        $this->server = $server;
+    }
+
     public function getSearchResults($term)
     {
         $query = [
@@ -21,17 +31,17 @@ class ServerRepository implements SearchableRepository
         return Server::searchByQuery($query);
     }
 
-    public function searchResultString($result)
+    public function searchResultString()
     {
-        return 'Server: ' . $result->name . ' / ' . $result->nickname . ' - ' . $result->location . ' ' . ' (' . $result->node_type . ')';
+        return 'Server: ' . $this->server->name . ' / ' . $this->server->nickname . ' - ' . $this->server->location . ' ' . ' (' . $this->server->node_type . ')';
     }
 
-    public function searchResultUrl($result)
+    public function searchResultUrl()
     {
-        return '/p/mayden/servers/server-details/' . $result->id;
+        return '/p/mayden/servers/server-details/' . $this->server->id;
     }
 
-    public function searchResultIcon($result)
+    public function searchResultIcon()
     {
         return '<i class="fa fa-server"></i>';
     }

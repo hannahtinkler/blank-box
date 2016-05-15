@@ -6,12 +6,12 @@
 
 <hr>
 <div class="col-sm-12">
-    @if(session('errorMessages'))
+    @if(count($errors) > 0)
         <div class="bg-danger error-message m-b-xl">
             <h4><i class="glyphicon glyphicon-remove"></i> There were some errors:</h4>
             <ul>
-                @foreach(session('errorMessages') as $message)
-                    <li>{!! $message[0] !!}</li>
+                @foreach($errors->all() as $error)
+                    <li>{!! $error !!}</li>
                 @endforeach
             </ul>
         </div>
@@ -23,7 +23,7 @@
     <div class="col-sm-6">
         <div class="form-group">
             <label>Category</label> 
-            <select name="category_id" id="category_id" class="form-control">
+            <select id="category_id" class="form-control">
                 <option>Select a category...</option>
                 @foreach($categories as $category)
                     <option {!! $category->id == old('category_id') ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>

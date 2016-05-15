@@ -112,7 +112,8 @@ class AuthController extends Controller
             if (strpos($user->getEmail(), $this->acceptedEmailDomain)) {
                 $eloquentUser = User::create([
                     'name' => $user->getName(),
-                    'email' => $user->getEmail()
+                    'email' => $user->getEmail(),
+                    'slug' => str_slug($user->getname()),
                 ]);
             } else {
                 return false;

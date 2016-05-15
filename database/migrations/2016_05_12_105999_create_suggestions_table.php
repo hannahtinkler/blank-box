@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentsTable extends Migration
+class CreateSuggestionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,12 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
+        Schema::create('suggestions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('page_id')->nullable();
-            $table->string('comment')->nullable();
+            $table->string('suggestion')->nullable();
             $table->boolean('approved')->default(false);
+            $table->integer('created_by');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('comments');
+        Schema::drop('suggestions');
     }
 }

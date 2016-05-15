@@ -8632,10 +8632,27 @@ a.tooltip-trigger i {
   border: thin solid #B1CEA6;
 }
 #approve-button {
-  padding: 13px 10px;
+  padding: 14px 10px;
 }
 li.spacer {
   padding: 0 20px;
+}
+li.spacer hr {
+  border-color: #405D6D;
+}
+.ibox-content {
+  padding-bottom: 15px;
+  border-color: #E0E4E6;
+}
+h5.tags {
+  margin-bottom: 8px;
+}
+.curation-list {
+  border-color: #E3E6E8;
+}
+.page-content {
+  padding: 20px 30px 30px;
+  border: thin solid #ccc;
 }
 @media print {
   nav.navbar-static-side {

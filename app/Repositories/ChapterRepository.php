@@ -2,11 +2,21 @@
 
 namespace App\Repositories;
 
+use Auth;
 use App\Interfaces\SearchableRepository;
 use App\Models\Chapter;
 
 class ChapterRepository implements SearchableRepository
 {
+    public $user;
+    public $chapter;
+
+    public function __construct($chapter)
+    {
+        $this->user = Auth::user();
+        $this->chapter = $chapter;
+    }
+
     public function getSearchResults($term)
     {
         $query = [
@@ -21,17 +31,17 @@ class ChapterRepository implements SearchableRepository
         return Chapter::searchByQuery($query);
     }
 
-    public function searchResultString($result)
+    public function searchResultString()
     {
-        return 'Chapter: ' . $result->title . ' - ' . substr($result->description, 0, 60) . '...';
+        return 'Chapter: ' . $chapter->title . ' - ' . substr($chapter->description, 0, 60) . '...';
     }
 
-    public function searchResultUrl($result)
+    public function searchResultUrl()
     {
-        return '/p/' . $result->category->slug . '/' . $result->slug;
+        return '/p/' . $chapter->category->slug . '/' . $chapter->slug;
     }
 
-    public function searchResultIcon($result)
+    public function searchResultIcon()
     {
         return '<i class="fa fa-folder-open-o"></i>';
     }

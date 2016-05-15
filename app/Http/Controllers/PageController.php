@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Managers\PageManager;
 use App\Http\Requests\PageRequest;
-use Illuminate\Http\Request;
-use App\Http\Requests;
+use App\Repositories\PageRepository;
+
 use App\Models\Category;
 use App\Models\Chapter;
 use App\Models\Page;
@@ -12,27 +13,22 @@ use App\Models\PageDraft;
 
 class PageController extends Controller
 {
-    public function show($categorySlug, $chapterSlug, $pageSlug)
-    {
-        $user = \Auth::user();
-        $page = Page::where('slug', $pageSlug)->first();
+    private $manager;
+    private $repository;
 
-        if (!is_object($page)) {
-            return \App::abort(404);
-        }
-        
-        return view('pages.show', compact('page', 'user'));
+    public function __construct(PageManager $manager)
+    {
+        $this->manager = $manager;
     }
     
-    public function previewPage($id)
+    public function show($categorySlug, $chapterSlug, $pageSlug)
     {
-        $page = PageDraft::find($id);
+        $page = Page::findBySlug($pageSlug);
 
-        if (!is_object($page)) {
-            return \App::abort(404);
-        }
-        
-        return view('pages.preview', compact('page'));
+        return view('pages.show', [
+            'page' => $page,
+            'user' => $this->manager->user
+        ]);
     }
     
     public function create()
@@ -45,10 +41,10 @@ class PageController extends Controller
 
     public function edit($id)
     {
-        $page = Page::find($id);
-        $user = \Auth::user();
+        $page = Page::findOrFail($id);
+        $user = $this->manager->user;
         
-        if ($page->created_by != $user->id && !$user->curator) {
+        if (!$page->editableByMe()) {
             return \App::abort(401);
         }
 
@@ -58,53 +54,30 @@ class PageController extends Controller
         return view('pages.edit', compact('page', 'categories', 'chapters'));
     }
 
-    public function update($id, PageRequest $request)
+    public function update(PageRequest $request, $id)
     {
-        $updatePage = Page::find($id);
-        $user = \Auth::user();
+        $page = Page::findOrFail($id);
         
-        if ($page->created_by != $user->id && !$user->curator) {
+        if (!$page->editableByMe()) {
             return \App::abort(401);
         }
 
+        $this->manager->updatePage($page, $request->input());
 
-        $updatePage->update($request->only(
-            'chapter_id',
-            'title',
-            'description',
-            'content'
-        ));
-
-        $updatePage->slug = str_slug($request->input('title'));
-        $updatePage->save();
-
-        $this->deleteCurrentDraft($request->input('last_draft_id'));
-
-        return redirect('/p/' . $updatePage->chapter->category->slug .
-            '/' . $updatePage->chapter->slug . '/' .
-            $updatePage->slug)->with(
-                'message',
-                '<i class="fa fa-check"></i> This page has been edited successfully and you\'re now viewing it. Only you will be able to see it until it has been curated.'
-            );
+        return redirect($page->showRedirectUrl())->with(
+            'message',
+            '<i class="fa fa-check"></i> This page has been edited successfully and you\'re now viewing it. Only you will be able to see it until it has been curated.'
+        );
     }
 
-    public function savePreview(Request $request, $id = null)
+    public function savePreview(PageRequest $request, $id = null)
     {
         if ($id != null) {
             $draft = PageDraft::find($id);
-            $draft->chapter_id = $request->input('chapter_id');
-            $draft->title = $request->input('title');
-            $draft->description = $request->input('description');
-            $draft->content = $request->input('content');
-            $draft->save();
+            $draft = $this->manager->updatePageDraft($draft, $request->input());
             $draft->updated_at_formatted = $draft->updated_at->format('jS F Y H:i:sa');
         } else {
-            $draft = PageDraft::create([
-                'chapter_id' => $request->input('chapter_id'),
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'content' => $request->input('content')
-            ]);
+            $draft = $this->manager->savePageDraft($request->input());
             $draft->updated_at_formatted = $draft->created_at->format('jS F Y H:i:sa');
         }
 
@@ -114,37 +87,10 @@ class PageController extends Controller
         ]);
     }
 
-    public function save(Request $request)
+    public function save(PageRequest $request)
     {
-        
-        $validation = \Validator::make($request->input(), [
-            'category_id' => 'required|numeric|exists:categories,id',
-            'chapter_id' => 'required|numeric|exists:chapters,id',
-            'title' => 'required|min:3',
-            'description' => 'required|min:10',
-            'content' => 'required|min:10'
-        ]);
-
-        if ($validation->fails()) {
-            return back()->with('errorMessages', $validation->messages()->messages())->withInput();
-        }
-
-        $currentOrderValue = Page::where('chapter_id', $request->input('chapter_id'))->orderBy('order', 'desc')->first();
-        $nextOrderValue = is_object($currentOrderValue) ? $currentOrderValue->order + 1 : 1;
-
-        $page = Page::create([
-            'chapter_id' => $request->input('chapter_id'),
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'content' => $request->input('content'),
-            'slug' => str_slug($request->input('title')),
-            'order' => $nextOrderValue,
-            'approved' => $request->input('approved', false)
-        ]);
-
-        $this->deleteCurrentDraft($request->input('last_draft_id'));
-
-        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
+        $page = $this->manager->savePage($request->input());
+        return redirect($page->showRedirectUrl())->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
     }
     
     public function destroy($id)
@@ -155,18 +101,10 @@ class PageController extends Controller
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
         ->with('message', 'Page has been successfully deleted');
     }
-
-    private function deleteCurrentDraft($id)
-    {
-        if (!empty($id)) {
-            $currentDraft = PageDraft::find($id);
-            $currentDraft->delete();
-        }
-    }
     
     public function getLatestPages()
     {
-        $updatedPages = Page::orderBy('updated_at', 'DESC')->paginate(10);
+        $updatedPages = Page::latestUpdated()->paginate(10);
         return view('updated-pages.index', compact('updatedPages'));
     }
 }

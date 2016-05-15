@@ -4,19 +4,16 @@ namespace App\Repositories;
 
 use Auth;
 use App\Interfaces\SearchableRepository;
-use App\Models\Service;
+use App\Models\User;
 
-class ServiceRepository implements SearchableRepository
+class UserRepository implements SearchableRepository
 {
     public $user;
-    public $service;
 
-    public function __construct($service)
+    public function __construct($user)
     {
-        $this->user = Auth::user();
-        $this->service = $service;
+        $this->user = $user;
     }
-
     public function getSearchResults($term)
     {
         $query = [
@@ -28,21 +25,21 @@ class ServiceRepository implements SearchableRepository
             ]
         ];
 
-        return Service::searchByQuery($query);
+        return User::searchByQuery($query);
     }
 
     public function searchResultString()
     {
-        return 'Service: ' . $this->service->name . ' (' . $this->service->service_id . ') - ' . $this->service->server->location . ' ' . $this->service->server->nickname;
+        return 'User: ' . $this->user->name . ' (' . ($this->user->curator ? 'Curator' : 'Contributor') . ')';
     }
 
     public function searchResultUrl()
     {
-        return '/p/iaptus/services/service-list/' . $this->service->id;
+        return '/u/' . $this->user->slug;
     }
 
     public function searchResultIcon()
     {
-        return '<i class="fa fa-group"></i>';
+        return '<i class="fa fa-user"></i>';
     }
 }
