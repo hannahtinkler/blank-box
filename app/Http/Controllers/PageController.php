@@ -70,7 +70,7 @@ class PageController extends Controller
         );
     }
 
-    public function savePreview(PageRequest $request, $id = null)
+    public function savePageDraft(PageRequest $request, $id = null)
     {
         if ($id != null) {
             $draft = PageDraft::find($id);
@@ -87,7 +87,7 @@ class PageController extends Controller
         ]);
     }
 
-    public function save(PageRequest $request)
+    public function store(PageRequest $request)
     {
         $page = $this->manager->savePage($request->input());
         return redirect($page->showRedirectUrl())->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');

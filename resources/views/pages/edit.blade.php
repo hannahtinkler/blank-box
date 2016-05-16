@@ -19,12 +19,15 @@
     </div>
 
     <div class="row">
-        <form role="form" id="new-page-form" action="/page/update/{{ $page->id }}" method="POST">
+        <form role="form" id="new-page-form" action="/page/{{ $page->id }}" method="POST">
             {!! csrf_field() !!}
+            
+            <input type="hidden" name="_method" value="PUT" />
+
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Category</label>
-                    <select id="category_id" class="form-control">
+                    <select id="category_id" name="category_id" class="form-control">
                         <option>Select a category...</option>
                         @foreach($categories as $category)
                             <option {!! $category->id == $page->chapter->category->id ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>

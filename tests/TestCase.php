@@ -7,6 +7,9 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @var string
      */
+    public $faker;
+    public $comparableFields = [];
+
     protected $baseUrl = 'http://black-box.app';
 
     /**
@@ -21,5 +24,16 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->faker = Faker\Factory::create();
+    }
+    
+    public function comparableFields($data)
+    {
+        return array_intersect_key($data, array_flip($this->comparableFields));
     }
 }

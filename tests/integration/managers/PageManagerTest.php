@@ -8,113 +8,131 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class PageManagerTest extends TestCase
 {
     use DatabaseTransactions;
+    
+    private $user;
+    private $manager;
+    
+    public $comparableFields = array(
+        'chapter_id',
+        'title',
+        'description',
+        'content',
+        'created_by'
+    );
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->faker = Faker\Factory::create();
         $this->user = factory(App\Models\User::class)->create();
         $this->manager = new PageManager($this->user);
     }
 
     public function testSavePageDraft()
     {
-        $data = [
-            'id' => $this->faker->randomNumber(5),
-            'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
+        $chapter = factory(App\Models\Chapter::class)->create();
+        $requestData = [
+            '_token' => $this->faker->randomNumber(5),
+            'category_id' => $chapter->category->id,
+            'chapter_id' => $chapter->id,
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'content' => $this->faker->text,
-            'created_by' => $this->user->id,
-            'created_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'last_draft_id' => null
         ];
 
-        $actual = $this->manager->savePageDraft($data)->toArray();
+        $expected = $requestData;
+        $expected['created_by'] = $this->user->id;
 
-        $this->assertEquals(array_except(
-            $data,
-            ['last_draft_id']
-        ), $actual);
+        $actual = $this->manager->savePageDraft($requestData)->toArray();
+
+        $this->assertEquals(
+            $this->comparableFields($expected),
+            $this->comparableFields($actual)
+        );
     }
 
     public function testUpdatePageDraft()
     {
         $draft = factory(App\Models\PageDraft::class)->create();
 
-        $newData = [
-            'id' => $this->faker->randomNumber(5),
-            'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
+        $chapter = factory(App\Models\Chapter::class)->create();
+        $requestData = [
+            '_token' => $this->faker->randomNumber(5),
+            'category_id' => $chapter->category->id,
+            'chapter_id' => $chapter->id,
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'content' => $this->faker->text,
-            'created_by' => $this->user->id,
-            'created_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'last_draft_id' => $draft->id
         ];
 
-        $actual = $this->manager->updatePageDraft($draft, $newData)->toArray();
+        $expected = $requestData;
+        $expected['created_by'] = $draft->created_by;
 
-        $this->assertEquals(array_except(
-            $newData,
-            ['last_draft_id']
-        ), $actual);
+        $actual = $this->manager->updatePageDraft($draft, $requestData)->toArray();
+
+        $this->assertEquals(
+            $this->comparableFields($expected),
+            $this->comparableFields($actual)
+        );
     }
 
-    public function testCreatePage()
+    public function testSavePage()
     {
-        $data = [
-            'id' => $this->faker->randomNumber(5),
-            'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
+        $chapter = factory(App\Models\Chapter::class)->create();
+        $requestData = [
+            '_token' => $this->faker->randomNumber(5),
+            'category_id' => $chapter->category->id,
+            'chapter_id' => $chapter->id,
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'content' => $this->faker->text,
-            'created_by' => $this->user->id,
-            'created_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'last_draft_id' => null
         ];
 
-        $largestOrderValue = Page::largestOrderValue($data['chapter_id']);
-        $data['order'] = $largestOrderValue->count() ? $largestOrderValue->order + 1 : 1;
-        $data['approved'] = true;
+        $largestOrderValue = Page::largestOrderValue($requestData['chapter_id']);
 
-        $actual = $this->manager->savePage($data)->toArray();
+        $expected = $requestData;
+        $expected['approved'] = true;
+        $expected['created_by'] = $this->user->id;
+        $expected['slug'] = str_slug($requestData['title']);
+        $expected['order'] = $largestOrderValue->count() ? $largestOrderValue->order + 1 : 1;
+        
+        $actual = $this->manager->savePage($requestData)->toArray();
 
-        $this->assertEquals(array_except(
-            $data,
-            ['last_draft_id']
-        ), $actual);
+        $this->assertEquals(
+            $this->comparableFields($expected),
+            $this->comparableFields($actual)
+        );
     }
 
     public function testUpdatePage()
     {
         $page = factory(App\Models\Page::class)->create();
 
-        $newTitle = $this->faker->sentence;
-        $newData = [
-            'id' => $this->faker->randomNumber(5),
-            'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
-            'title' => $newTitle,
+        $chapter = factory(App\Models\Chapter::class)->create();
+        $requestData = [
+            '_token' => $this->faker->randomNumber(5),
+            'category_id' => $chapter->category->id,
+            'chapter_id' => $chapter->id,
+            'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'content' => $this->faker->text,
-            'slug' => str_slug($newTitle),
             'order' => $page->order,
-            'created_by' => $this->user->id,
-            'created_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'last_draft_id' => null
         ];
 
-        $actual = $this->manager->updatePage($page, $newData)->toArray();
+        $expected = $requestData;
+        $expected['slug'] = str_slug($requestData['title']);
+        $expected['created_by'] = $page->created_by;
 
-        $this->assertEquals(array_except(
-            $newData,
-            ['last_draft_id']
-        ), $actual);
+        $actual = $this->manager->updatePage($page, $requestData)->toArray();
+
+        $this->assertEquals(
+            $this->comparableFields($expected),
+            $this->comparableFields($actual)
+        );
     }
 
     public function testDeletePageDraft()
@@ -132,22 +150,31 @@ class PageManagerTest extends TestCase
     {
         $draft = factory(App\Models\PageDraft::class)->create();
 
-        $data = [
-            'id' => $this->faker->randomNumber(5),
-            'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
+        $chapter = factory(App\Models\Chapter::class)->create();
+        $requestData = [
+            '_token' => $this->faker->randomNumber(5),
+            'category_id' => $chapter->category->id,
+            'chapter_id' => $chapter->id,
             'title' => $this->faker->sentence,
             'description' => $this->faker->sentence,
             'content' => $this->faker->text,
-            'created_by' => $this->user->id,
-            'created_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
-            'updated_at' => $this->faker->dateTime->format('Y-m-d H:i:s'),
             'last_draft_id' => $draft->id
         ];
 
-        $this->manager->savePage($data);
+        $this->manager->savePage($requestData);
 
         $lookup = PageDraft::find($draft->id);
 
         $this->assertNull($lookup);
+    }
+
+    public function testGetNextPageOrderValue()
+    {
+        $page = factory(App\Models\Page::class)->create(['order' => 500]);
+
+        $expected = 501;
+        $actual = $this->manager->getNextPageOrderValue($page->chapter->id);
+
+        $this->assertEquals($expected, $actual);
     }
 }
