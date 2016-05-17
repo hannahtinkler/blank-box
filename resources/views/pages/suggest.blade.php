@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <h1>Suggested an Edit</h1>
+    <h1>Suggest an Edit</h1>
     <h2>{{ $page->title }}</h2>
 
     <hr>
@@ -11,34 +11,32 @@
     @endif
 
     <div class="row">
-        <form role="form" id="new-page-form" action="/page/suggest/{{ $page->id }}/save" method="POST">
+        <form role="form" id="new-page-form" action="/pages/suggest/{{ $page->id }}/save" method="POST">
             {!! csrf_field() !!}
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Category </label> <br />
-                    @foreach($categories as $category)
-                        {!! $category->id == $page->chapter->category->id ? $category->title : null !!}
-                    @endforeach
+                    {!! $page->chapter->category->title !!}
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Chapter </label><br />
-                    @foreach($chapters as $chapter)
-                        {!! $chapter->id == $page->chapter->id ? $chapter->title : null !!}
-                    @endforeach
+                    {!! $page->chapter->title !!}
                 </div>
             </div>
 
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label>Page Title </label><br /> {{ $page->title }}
+                    <label>Page Title </label><br />
+                    {{ $page->title }}
                 </div>
             </div>
 
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label>Page Description </label> <br /> {{ $page->description }}
+                    <label>Page Description </label> <br />
+                    {{ $page->description }}
                 </div>
             </div>
 
@@ -60,12 +58,10 @@
             <input type="hidden" name='page_id' id='page_id' value='{{$page->id}}' />
 
             <div class="col-sm-12 m-t-md m-b-xl">
-                <!-- IF is a curator -->
-                <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
-                <!-- END IF -->
-
                 <div class="btn-toolbar pull-right">
-                    <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit Comment</strong></button></div>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit Comment</strong></button>
+                    </div>
                 </div>
             </div>
         </form>

@@ -3,12 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 
 use App\Models\PageDraft;
+use App\Managers\PageDraftManager;
 
 class PageDraftController extends Controller
 {
+    private $manager;
+
+    public function __construct(PageDraftManager $manager)
+    {
+        $this->manager = $manager;
+    }
+
+    public function store(Request $request, $id = null)
+    {
+        if ($id != null) {
+            $draft = PageDraft::find($id);
+            $draft = $this->manager->updatePageDraft($draft, $request->input());
+            $draft->updated_at_formatted = $draft->updated_at->format('jS F Y H:i:sa');
+        } else {
+            $draft = $this->manager->savePageDraft($request->input());
+            $draft->updated_at_formatted = $draft->created_at->format('jS F Y H:i:sa');
+        }
+
+        return json_encode([
+            'draft' => $draft,
+            'success' => true
+        ]);
+    }
+
     public function preview($id)
     {
         $page = PageDraft::find($id);

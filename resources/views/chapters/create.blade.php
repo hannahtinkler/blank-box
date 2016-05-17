@@ -6,19 +6,20 @@
 
     <hr>
     <div class="col-sm-12">
-        @if(session('errorMessages'))
+        @if(count($errors) > 0)
             <div class="bg-danger error-message m-b-xl">
                 <h4><i class="glyphicon glyphicon-remove"></i> There were some errors:</h4>
                 <ul>
-                    @foreach(session('errorMessages') as $message)
-                        <li>{!! $message[0] !!}</li>
+                    @foreach($errors->all() as $error)
+                        <li>{!! $error !!}</li>
                     @endforeach
                 </ul>
             </div>
         @endif
     </div>
+    </div>
 
-    <form role="form" id="new-chpater-form" action="/chapter/store" method="POST">
+    <form role="form" id="new-chpater-form" action="/chapters/store" method="POST">
         {!! csrf_field() !!}
         <div class="col-sm-6">
             <div class="form-group">

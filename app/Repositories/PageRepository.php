@@ -11,7 +11,7 @@ class PageRepository implements SearchableRepository
     public $page;
     public $user;
 
-    public function __construct($page, $user = false)
+    public function __construct($page, $user = null)
     {
         $this->page = $page;
         $this->user = $user ?: Auth::user();
@@ -31,15 +31,11 @@ class PageRepository implements SearchableRepository
         return Page::searchByQuery($query);
     }
 
-    public function editableByMe()
+    public function editableByUser()
     {
         return $this->page->created_by == $this->user->id || $this->user->curator;
     }
 
-    public function showRedirectUrl()
-    {
-        return '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
-    }
     public function searchResultString()
     {
         return 'Page: ' . $this->page->title;

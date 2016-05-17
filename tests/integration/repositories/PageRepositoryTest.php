@@ -9,19 +9,15 @@ class PageRepositoryTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function testShowRedirectUrlIsCorrect()
-    {
-        $repository = $this->getDatabaseRepository();
-
-        $expected = '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
-        $actual = $repository->showRedirectUrl();
-
-        $this->assertEquals($expected, $actual);
-    }
-
+    /**
+     * Tests that a call to the method which retrieves the text string the
+     * search form uses returns as expected
+     *
+     * @return void
+     */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getDatabaseRepository();
+        $repository = $this->getPageRepository();
 
         $expected = 'Page: ' . $this->page->title;
         $actual = $repository->searchResultString();
@@ -29,9 +25,15 @@ class PageRepositoryTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests that a call to the method which retrieves the URL string the
+     * search form uses returns as expected
+     *
+     * @return void
+     */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getDatabaseRepository();
+        $repository = $this->getPageRepository();
 
         $expected = '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
         $actual = $repository->searchResultUrl();
@@ -39,9 +41,15 @@ class PageRepositoryTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests that a call to the method which retrieves the icon html the
+     * search form uses returns as expected
+     *
+     * @return void
+     */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getDatabaseRepository();
+        $repository = $this->getPageRepository();
 
         $expected = '<i class="fa fa-file-o"></i>';
         $actual = $repository->searchResultIcon();
@@ -49,27 +57,53 @@ class PageRepositoryTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testPageIsNotEditableByNonAuthor()
+    /**
+     * Tests that a call to the method which determines whether a page should
+     * be editable by the logged in user returns false for a reader
+     *
+     * @return void
+     */
+    public function testPageIsNotEditableByReader()
     {
-        $repository = $this->getDatabaseRepository();
-        $this->assertFalse($repository->editableByMe());
+        $repository = $this->getPageRepository();
+        $this->assertFalse($repository->editableByUser());
     }
 
+    /**
+     * Tests that a call to the method which determines whether a page should
+     * be editable by the logged in user returns true for an author
+     *
+     * @return void
+     */
     public function testPageIsEditableByAuthor()
     {
-        $repository = $this->getDatabaseRepository([], true);
-        $this->assertTrue($repository->editableByMe());
+        $repository = $this->getPageRepository([], true);
+        $this->assertTrue($repository->editableByUser());
     }
 
+    /**
+     * Tests that a call to the method which determines whether a page should
+     * be editable by the logged in user returns true for a curator
+     *
+     * @return void
+     */
     public function testPageIsEditableByCurator()
     {
-        $repository = $this->getDatabaseRepository(['curator' => true]);
-        $this->assertTrue($repository->editableByMe());
+        $repository = $this->getPageRepository(['curator' => true]);
+        $this->assertTrue($repository->editableByUser());
     }
-
-    private function getDatabaseRepository($userOverride = [], $makeUserAuthor = false)
+    
+    /**
+     * Create instance of PageRepository class using any configurations
+     * passed in
+     *
+     * @param  array   $userOverrides   Fields to be overriden for the User
+     * @param  boolean $makeUserAuthor  Whether to make the user the page author
+     * @return PageRepository           The repository instance to be used in the test
+     */
+    private function getPageRepository($userOverrides = [], $makeUserAuthor = false)
     {
-        $this->user = factory(User::class)->create($userOverride);
+        $this->user = factory(User::class)->create($userOverrides);
         if ($makeUserAuthor) {
             $this->page = factory(Page::class)->create(['created_by' => $this->user->id]);
         } else {

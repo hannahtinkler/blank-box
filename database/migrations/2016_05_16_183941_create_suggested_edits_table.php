@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSuggestionsTable extends Migration
+class CreateSuggestedEditsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,16 @@ class CreateSuggestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('suggestions', function (Blueprint $table) {
+        Schema::create('suggested_edits', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('page_id')->nullable();
-            $table->string('suggestion')->nullable();
-            $table->string('status')->nullable()->default(null);
+            $table->integer('page_id');
+            $table->integer('chapter_id');
+            $table->string('title');
+            $table->text('description');
+            $table->text('content')->nullable();
             $table->integer('created_by');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +32,6 @@ class CreateSuggestionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('suggestions');
+        Schema::drop('suggested_edits');
     }
 }

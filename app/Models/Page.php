@@ -66,11 +66,6 @@ class Page extends Model implements SearchableModel
     {
         return $query->where('chapter_id', $chapterId)->orderBy('order', 'desc')->first();
     }
-
-    public function showRedirectUrl()
-    {
-        return $this->repository->showRedirectUrl();
-    }
     
     public function searchResultString()
     {
@@ -87,8 +82,8 @@ class Page extends Model implements SearchableModel
         return $this->repository->searchResultIcon();
     }
 
-    public function editableByMe()
+    public function editableByUser()
     {
-        return $this->repository->editableByMe();
+        return $this->repository->editableByUser();
     }
 }

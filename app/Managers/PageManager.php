@@ -5,6 +5,8 @@ namespace App\Managers;
 use Auth;
 use App\Models\Page;
 use App\Models\PageDraft;
+use App\Models\SuggestedEdit;
+use App\Managers\PageDraftManager;
 
 class PageManager
 {
@@ -13,12 +15,13 @@ class PageManager
     public function __construct($user = null)
     {
         $this->user = $user ?: Auth::user();
+        $this->draftManager = new PageDraftManager($this->user);
     }
 
-    public function savePage($data)
+    public function storePage($data)
     {
         if (isset($data['last_draft_id']) && !empty($data['last_draft_id'])) {
-            $this->deletePageDraft($data['last_draft_id']);
+            $this->draftManager->deletePageDraft($data['last_draft_id']);
         }
 
         $nextPageOrderValue = $this->getNextPageOrderValue($data['chapter_id']);
@@ -37,6 +40,20 @@ class PageManager
         return $page;
     }
 
+    public function storeSuggestedEdit($page, $data)
+    {
+        $page = SuggestedEdit::create([
+            'page_id' => $page->id,
+            'chapter_id' => $data['chapter_id'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'content' => $data['content'],
+            'created_by' => $this->user->id
+        ]);
+
+        return $page;
+    }
+
     public function updatePage($page, $data)
     {
         $page->chapter_id = $data['chapter_id'];
@@ -48,42 +65,10 @@ class PageManager
         $page->save();
 
         if (isset($data['last_draft_id']) && !empty($data['last_draft_id'])) {
-            $this->deletePageDraft($data['last_draft_id']);
+            $this->draftManager->deletePageDraft($data['last_draft_id']);
         }
 
         return $page;
-    }
-
-    public function savePageDraft($data)
-    {
-        $draft = PageDraft::create([
-            'chapter_id' => $data['chapter_id'],
-            'title' => $data['title'],
-            'description' => $data['description'],
-            'content' => $data['content'],
-            'created_by' => $this->user->id,
-        ]);
-
-        return $draft;
-    }
-
-    public function updatePageDraft($draft, $data)
-    {
-        $draft->chapter_id = $data['chapter_id'];
-        $draft->title = $data['title'];
-        $draft->description = $data['description'];
-        $draft->content = $data['content'];
-        $draft->save();
-        
-        return $draft;
-    }
-
-    public function deletePageDraft($id)
-    {
-        $currentDraft = PageDraft::find($id);
-        if ($currentDraft) {
-            $currentDraft->delete();
-        }
     }
 
     public function getNextPageOrderValue($chapterId)

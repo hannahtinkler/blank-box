@@ -1,17 +1,20 @@
 @extends('layouts.master')
 
 @section('content')
-    <h1>Edit Page</h1>
-    <h2>{{ $page->title }}</h2>
+    @if($editable)
+        <h1>Edit Page</h1>
+    @else
+        <h1>Suggest an Edit</h1>
+    @endif
 
     <hr>
     <div class="col-sm-12">
-        @if(session('errors'))
+        @if(count($errors) > 0)
             <div class="bg-danger error-message m-b-xl">
                 <h4><i class="glyphicon glyphicon-remove"></i> There were some errors:</h4>
                 <ul>
-                    @foreach(session('errors') as $message)
-                        <li>{!! $message[0] !!}</li>
+                    @foreach($errors->all() as $error)
+                        <li>{!! $error !!}</li>
                     @endforeach
                 </ul>
             </div>
@@ -19,16 +22,18 @@
     </div>
 
     <div class="row">
-        <form role="form" id="new-page-form" action="/page/{{ $page->id }}" method="POST">
+        <form role="form" id="new-page-form" action="/pages/{{ $page->id }}" method="POST">
             {!! csrf_field() !!}
             
-            <input type="hidden" name="_method" value="PUT" />
+            {!! method_field('PUT') !!}
+
+            <input type="hidden" name="page_id" value="{{ $page->id }}" />
 
             <div class="col-sm-6">
                 <div class="form-group">
                     <label>Category</label>
                     <select id="category_id" name="category_id" class="form-control">
-                        <option>Select a category...</option>
+                        <option value="">Select a category...</option>
                         @foreach($categories as $category)
                             <option {!! $category->id == $page->chapter->category->id ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>
                         @endforeach
@@ -76,7 +81,7 @@
                 <!-- END IF -->
 
                 <div class="btn-toolbar pull-right">
-                    <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Curation</strong></button></div>
+                    <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Review</strong></button></div>
                 </div>
             </div>
         </form>
@@ -102,21 +107,25 @@
         function getChapters() {
             var categoryId = $('#category_id').val();
 
-            $.get('/ajax/data/chapters/' + categoryId, function(data) {
-                data = JSON.parse(data);
+            if (categoryId == '') {
                 $('#chapter_id').html('');
-                $('#chapter_id').append('<option value="2">Select a category...</option>');
-                $.each(data, function(key, value) {
-                    $('#chapter_id').append('<option id="opt' + value.id + '" value="' + value.id + '">' + value.title + '</option>');
+                $('#chapter_id').attr('disabled', true);
+            } else {
+                $.get('/ajax/data/chapters/' + categoryId, function(data) {
+                    data = JSON.parse(data);
+                    $('#chapter_id').html('');
+                    $('#chapter_id').append('<option value="">Select a category...</option>');
+                    $.each(data, function(key, value) {
+                        $('#chapter_id').append('<option id="opt' + value.id + '" value="' + value.id + '">' + value.title + '</option>');
+                    });
+                    $('#chapter_id').attr('disabled', false);
+                    @if(old('chapter_id'))
+                        $('option#opt{{ old("chapter_id") }}').attr('selected', true);
+                    @endif
+                }).fail(function() {
+                    alert( "There was an error processing this request :(" );
                 });
-                $('#chapter_id').attr('disabled', false);
-                @if(old('chapter_id'))
-                    $('option#opt{{ old("chapter_id") }}').attr('selected', true);
-                @endif
-            }).fail(function() {
-                alert( "There was an error processing this request :(" );
-            });
-
+            }
         }
     });
 </script>

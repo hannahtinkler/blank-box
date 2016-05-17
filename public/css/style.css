@@ -8654,6 +8654,9 @@ h5.tags {
   padding: 20px 30px 30px;
   border: thin solid #ccc;
 }
+.page-title {
+  width: 80%;
+}
 @media print {
   nav.navbar-static-side {
     display: none;

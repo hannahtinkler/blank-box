@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChapterRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Chapter;
 use App\Models\Category;
 
@@ -11,11 +11,7 @@ class ChapterController extends Controller
 {
     public function show($categorySlug, $chapterSlug)
     {
-        $chapter = Chapter::where('slug', $chapterSlug)->first();
-
-        if (!is_object($chapter)) {
-            return \App::abort(404);
-        }
+        $chapter = Chapter::findBySlug($chapterSlug);
         
         return view('chapters.show', compact('chapter'));
     }
@@ -33,7 +29,7 @@ class ChapterController extends Controller
             return view('chapters.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(ChapterRequest $request)
     {
 
         $validation = \Validator::make($request->input(), [

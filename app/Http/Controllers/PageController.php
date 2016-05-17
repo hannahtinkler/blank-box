@@ -9,12 +9,10 @@ use App\Repositories\PageRepository;
 use App\Models\Category;
 use App\Models\Chapter;
 use App\Models\Page;
-use App\Models\PageDraft;
 
 class PageController extends Controller
 {
     private $manager;
-    private $repository;
 
     public function __construct(PageManager $manager)
     {
@@ -44,62 +42,50 @@ class PageController extends Controller
         $page = Page::findOrFail($id);
         $user = $this->manager->user;
         
-        if (!$page->editableByMe()) {
-            return \App::abort(401);
-        }
+        $editable = $page->editableByUser();
 
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
 
-        return view('pages.edit', compact('page', 'categories', 'chapters'));
+        return view('pages.edit', compact('page', 'categories', 'chapters', 'editable'));
     }
 
     public function update(PageRequest $request, $id)
     {
         $page = Page::findOrFail($id);
         
-        if (!$page->editableByMe()) {
-            return \App::abort(401);
-        }
-
-        $this->manager->updatePage($page, $request->input());
-
-        return redirect($page->showRedirectUrl())->with(
-            'message',
-            '<i class="fa fa-check"></i> This page has been edited successfully and you\'re now viewing it. Only you will be able to see it until it has been curated.'
-        );
-    }
-
-    public function savePageDraft(PageRequest $request, $id = null)
-    {
-        if ($id != null) {
-            $draft = PageDraft::find($id);
-            $draft = $this->manager->updatePageDraft($draft, $request->input());
-            $draft->updated_at_formatted = $draft->updated_at->format('jS F Y H:i:sa');
+        if ($page->editableByUser()) {
+            $this->manager->updatePage($page, $request->input());
+            $message = 'This page has been edited successfully and you\'re now viewing it. Only you will be able to see it until it has been curated.';
         } else {
-            $draft = $this->manager->savePageDraft($request->input());
-            $draft->updated_at_formatted = $draft->created_at->format('jS F Y H:i:sa');
+            $this->manager->storeSuggestedEdit($page, $request->input());
+            $message = 'Your suggested edit has been submitted. It will now be reviewed and actioned by a curator.';
         }
 
-        return json_encode([
-            'draft' => $draft,
-            'success' => true
-        ]);
+
+        return redirect($page->searchResultUrl())->with(
+            'message',
+            '<i class="fa fa-check"></i>  ' . $message
+        );
     }
 
     public function store(PageRequest $request)
     {
-        $page = $this->manager->savePage($request->input());
-        return redirect($page->showRedirectUrl())->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
+        $page = $this->manager->storePage($request->input());
+        return redirect($page->searchResultUrl())->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
     }
     
     public function destroy($id)
     {
-        $page = Page::find($id);
-        $page->delete();
+        if ($this->manager->user->curator) {
+            $page = Page::find($id);
+            $page->delete();
 
-        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
-        ->with('message', 'Page has been successfully deleted');
+            return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
+            ->with('message', 'Page has been successfully deleted');
+        } else {
+            return \App::abort(401);
+        }
     }
     
     public function getLatestPages()

@@ -33,12 +33,12 @@ class ChapterRepository implements SearchableRepository
 
     public function searchResultString()
     {
-        return 'Chapter: ' . $chapter->title . ' - ' . substr($chapter->description, 0, 60) . '...';
+        return 'Chapter: ' . $this->chapter->title . ' - ' . substr($this->chapter->description, 0, 60) . '...';
     }
 
     public function searchResultUrl()
     {
-        return '/p/' . $chapter->category->slug . '/' . $chapter->slug;
+        return '/p/' . $this->chapter->category->slug . '/' . $this->chapter->slug;
     }
 
     public function searchResultIcon()

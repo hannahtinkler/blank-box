@@ -45,6 +45,11 @@ class Chapter extends Model implements SearchableModel
         return $this->hasOne('App\Models\Bookmark');
     }
     
+    public function scopeFindBySlug($query, $slug)
+    {
+        return $query->where('slug', $slug)->firstOrFail();
+    }
+    
     public function searchResultString()
     {
         return $this->repository->searchResultString();

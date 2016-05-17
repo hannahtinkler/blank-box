@@ -81,7 +81,7 @@ class PageTest extends TestCase
         $page = factory(Page::class)->create();
 
         $expected = '/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug;
-        $actual = $page->showRedirectUrl();
+        $actual = $page->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
     }
@@ -121,7 +121,7 @@ class PageTest extends TestCase
         $this->createAndLoginAUser();
         $page = factory(Page::class)->create();
 
-        $this->assertFalse($page->editableByMe());
+        $this->assertFalse($page->editableByUser());
     }
 
     public function testPageIsEditableByAuthor()
@@ -129,7 +129,7 @@ class PageTest extends TestCase
         $user = $this->createAndLoginAUser();
         $page = factory(Page::class)->create(['created_by' => $user->id]);
 
-        $this->assertTrue($page->editableByMe());
+        $this->assertTrue($page->editableByUser());
     }
 
     public function testPageIsEditableByCurator()
@@ -137,7 +137,7 @@ class PageTest extends TestCase
         $this->createAndLoginAUser(['curator' => true]);
         $page = factory(Page::class)->create();
 
-        $this->assertTrue($page->editableByMe());
+        $this->assertTrue($page->editableByUser());
     }
     
     public function createAndLoginAUser($overrides = [])

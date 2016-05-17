@@ -17,6 +17,7 @@ Route::get('/login/callback', 'Auth\AuthController@handleProviderCallback');
 Route::get('/accessdenied', 'Auth\AuthController@accessDeniedPage');
 
 Route::group(['middleware' => ['auth']], function () {
+
     Route::get('/', 'HomeController@index');
     
     Route::get('/random', 'HomeController@getRandomPage');
@@ -25,28 +26,25 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/search/{query}', 'SearchController@performSearch');
     Route::get('/search/{query}/results', 'SearchController@showSearchResults');
 
+
+    Route::get('/pages/create', 'PageController@create');
+    Route::post('/pages', 'PageController@store');
+    Route::get('/pages/edit/{id}', 'PageController@edit');
+    Route::put('/pages/{id}', 'PageController@update');
+    Route::delete('/pages/{id}', 'PageController@destroy');
+    
+    Route::get('/pagedrafts/preview/{id}', 'PageDraftController@preview');
+    Route::post('/pagedrafts/{id?}', 'PageDraftController@store');
+    
+    Route::get('/chapters/create', 'ChapterController@create');
+    Route::post('/chapters', 'ChapterController@store');
+    Route::get('/chapters/edit/{id}', 'ChapterController@edit');
+    Route::put('/chapters/{id}', 'ChapterController@update');
+    Route::delete('/chapters/{id?}', 'ChapterController@destroy');
+
     Route::get('/curation', 'CurationController@index');
-    Route::get('/curation/{id}', 'CurationController@show');
     Route::get('/curation/approve/{id}', 'CurationController@approve');
 
-    Route::get('/chapter/create', 'ChapterController@create');
-    Route::get('/chapter/edit/{id}', 'ChapterController@edit');
-    Route::post('/chapter/store', 'ChapterController@store');
-    Route::put('/chapter/update/{id}', 'ChapterController@update');
-    Route::delete('/chapter/destroy/{id?}', 'ChapterController@destroy');
-
-    Route::get('/page/suggest/{id}', 'SuggestionController@suggest');
-    Route::post('/page/suggest/{id}/save', 'SuggestionController@saveSuggestion');
-
-    Route::get('/page/create', 'PageController@create');
-    Route::post('/page', 'PageController@store');
-    Route::get('/page/edit/{id}', 'PageController@edit');
-    Route::put('/page/{id}', 'PageController@update');
-    Route::delete('/page/{id}', 'PageController@destroy');
-    
-    Route::get('/page/preview/{id}', 'PageDraftController@preview');
-
-    Route::post('/pagedraft/save/{id?}', 'PageController@savePageDraft');
 
     Route::get('/bookmarks', 'BookmarkController@index');
     Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');

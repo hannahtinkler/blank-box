@@ -18,13 +18,13 @@
     @endif
 </div>
 
-<form role="form" id="new-page-form" action="/page" method="POST">
+<form role="form" id="new-page-form" action="/pages" method="POST">
     {!! csrf_field() !!}
     <div class="col-sm-6">
         <div class="form-group">
             <label>Category</label> 
             <select id="category_id" name="category_id" class="form-control">
-                <option>Select a category...</option>
+                <option value="">Select a category...</option>
                 @foreach($categories as $category)
                     <option {!! $category->id == old('category_id') ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>
                 @endforeach
@@ -71,7 +71,7 @@
         <div class="btn-toolbar pull-right">
             <div class="btn-group"><a class="btn btn-sm btn-default m-t-n-xs save-as-draft"><strong>Save as Draft</strong></a></div>
             <div class="btn-group"><a class="btn btn-sm btn-default m-t-n-xs preview-page"><strong>Preview</strong></a></div>
-            <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Curation</strong></button></div>
+            <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Review</strong></button></div>
         </div>
     </div>
 </form>
@@ -87,7 +87,7 @@
         CKEDITOR.replace('textboxCkeditor');
         CKEDITOR.config.height = 500;
 
-        if ($('#category_id').val() != '' && $('#category_id').val() != 'Select a category...') {
+        if ($('#category_id').val() != '') {
            getChapters();
         }
 
@@ -115,13 +115,13 @@
         function getChapters() {
              var categoryId = $('#category_id').val();
 
-            if (categoryId == '' || categoryId == 'Select a category...') {
+            if (categoryId == '') {
                 $('#chapter_id').html('');
                 $('#chapter_id').attr('disabled', true);
             } else {
                 $.get('/ajax/data/chapters/' + categoryId, function(data) {
                     data = JSON.parse(data);
-                    $('#chapter_id').append('<option value="2">Select a category...</option>');
+                    $('#chapter_id').append('<option value="">Select a category...</option>');
                     $.each(data, function(key, value) {
                         $('#chapter_id').append('<option id="opt' + value.id + '" value="' + value.id + '">' + value.title + '</option>');
                     });
@@ -150,7 +150,7 @@
         }
 
         function openInNewTab() {
-            var newTab = window.open('/page/preview/' + currentDraft, '_blank');
+            var newTab = window.open('/pagedrafts/preview/' + currentDraft, '_blank');
             newTab.focus();
         }
 
@@ -160,7 +160,7 @@
         }
 
         function getPostUrl() {
-            return "/pagedraft/save" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
+            return "/pagedrafts" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
         }
 
         function triggerSaveDraftButtonChange() {
