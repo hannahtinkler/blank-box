@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\ControllerServices\PageControllerService;
 use App\Http\Requests\PageRequest;
-use App\Repositories\PageRepository;
+use App\Services\ModelServices\PageModelService;
 
 use App\Models\Category;
 use App\Models\Chapter;

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services\ModelServices;
 
 use Auth;
-use App\Interfaces\SearchableRepository;
+use App\Interfaces\SearchableModelService;
 use App\Models\Chapter;
 
-class ChapterRepository implements SearchableRepository
+class ChapterModelService implements SearchableModelService
 {
     public $user;
     public $chapter;

@@ -1,18 +1,18 @@
 <?php
 
-use App\Models\User;
-use App\Repositories\UserRepository;
+use App\Models\Service;
+use App\Services\ModelServices\ServiceModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserRepositoryTest extends TestCase
+class ServiceModelServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
     /**
-     * The current user being used in the test
-     * @var object User
+     * The current service being used in the test
+     * @var object Service
      */
-    public $user;
+    public $service;
 
     /**
      * Tests that a call to the method which retrieves the text string the
@@ -22,9 +22,9 @@ class UserRepositoryTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getUserRepository();
+        $repository = $this->getServiceModelService();
 
-        $expected = 'User: ' . $this->user->name . ' (' . ($this->user->curator ? 'Curator' : 'Contributor') . ')';
+        $expected = 'Service: ' . $this->service->name . ' (' . $this->service->service_id . ') - ' . $this->service->server->location . ' ' . $this->service->server->nickname;
         $actual = $repository->searchResultString();
 
         $this->assertEquals($expected, $actual);
@@ -38,9 +38,9 @@ class UserRepositoryTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getUserRepository();
+        $repository = $this->getServiceModelService();
 
-        $expected = '/u/' . $this->user->slug;
+        $expected = '/p/iaptus/services/service-list/' . $this->service->id;
         $actual = $repository->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
@@ -54,22 +54,22 @@ class UserRepositoryTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getUserRepository();
+        $repository = $this->getServiceModelService();
 
-        $expected = '<i class="fa fa-user"></i>';
+        $expected = '<i class="fa fa-group"></i>';
         $actual = $repository->searchResultIcon();
 
         $this->assertEquals($expected, $actual);
     }
 
     /**
-     * Create instance of UserRepository class
+     * Create instance of ServiceModelService class
      *
      * @return void
      */
-    private function getUserRepository()
+    private function getServiceModelService()
     {
-        $this->user = factory(User::class)->create();
-        return new UserRepository($this->user);
+        $this->service = factory(Service::class)->create();
+        return new ServiceModelService($this->service);
     }
 }

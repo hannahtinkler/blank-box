@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\Page;
-use App\Repositories\PageRepository;
+use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CurationControllerTest extends TestCase

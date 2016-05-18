@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services\ModelServices;
 
 use Laravel\Socialite\Two\GoogleProvider;
 
-class SocialRepository
+class SocialModelService
 {
     private $user;
 

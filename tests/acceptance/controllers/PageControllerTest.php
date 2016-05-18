@@ -2,7 +2,7 @@
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 
-use App\Repositories\PageRepository;
+use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PageControllerTest extends TestCase

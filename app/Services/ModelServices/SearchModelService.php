@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services\ModelServices;
 
-use App\Interfaces\SearchableRepository;
+use App\Interfaces\SearchableModelService;
 
-class SearchRepository
+class SearchModelService
 {
     private $term;
     private $formatForAjax;
@@ -19,7 +19,7 @@ class SearchRepository
     public function processSearch(array $searchables)
     {
         foreach ($searchables as $searchable) {
-            $searchable = 'App\Repositories\\'. $searchable . 'Repository';
+            $searchable = 'App\Services\ModelServices\\'. $searchable . 'ModelService';
             $class = new $searchable;
             $newResults = $this->getResults($class);
             $this->allResults[] = $newResults;
@@ -31,7 +31,7 @@ class SearchRepository
         return $this->allResults;
     }
 
-    private function getResults(SearchableRepository $class)
+    private function getResults(SearchableModelService $class)
     {
         return $class->getSearchResults($this->term);
     }

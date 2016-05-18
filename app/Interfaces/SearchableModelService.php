@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface SearchableRepository
+interface SearchableModelService
 {
     public function getSearchResults($term);
     public function searchResultString();

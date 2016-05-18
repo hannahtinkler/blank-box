@@ -1,18 +1,18 @@
 <?php
 
-use App\Models\Service;
-use App\Repositories\ServiceRepository;
+use App\Models\Server;
+use App\Services\ModelServices\ServerModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ServiceRepositoryTest extends TestCase
+class ServerModelServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
     /**
-     * The current service being used in the test
-     * @var object Service
+     * The current server being used in the test
+     * @var object Server
      */
-    public $service;
+    public $server;
 
     /**
      * Tests that a call to the method which retrieves the text string the
@@ -22,9 +22,9 @@ class ServiceRepositoryTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getServiceRepository();
+        $repository = $this->getServerModelService();
 
-        $expected = 'Service: ' . $this->service->name . ' (' . $this->service->service_id . ') - ' . $this->service->server->location . ' ' . $this->service->server->nickname;
+        $expected = 'Server: ' . $this->server->name . ' / ' . $this->server->nickname . ' - ' . $this->server->location . ' ' . ' (' . $this->server->node_type . ')';
         $actual = $repository->searchResultString();
 
         $this->assertEquals($expected, $actual);
@@ -38,9 +38,9 @@ class ServiceRepositoryTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getServiceRepository();
+        $repository = $this->getServerModelService();
 
-        $expected = '/p/iaptus/services/service-list/' . $this->service->id;
+        $expected = '/p/mayden/servers/server-details/' . $this->server->id;
         $actual = $repository->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
@@ -54,22 +54,22 @@ class ServiceRepositoryTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getServiceRepository();
+        $repository = $this->getServerModelService();
 
-        $expected = '<i class="fa fa-group"></i>';
+        $expected = '<i class="fa fa-server"></i>';
         $actual = $repository->searchResultIcon();
 
         $this->assertEquals($expected, $actual);
     }
 
     /**
-     * Create instance of ServiceRepository class
+     * Create instance of ServerModelService class
      *
      * @return void
      */
-    private function getServiceRepository()
+    private function getServerModelService()
     {
-        $this->service = factory(Service::class)->create();
-        return new ServiceRepository($this->service);
+        $this->server = factory(Server::class)->create();
+        return new ServerModelService($this->server);
     }
 }

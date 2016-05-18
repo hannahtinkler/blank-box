@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services\ModelServices;
 
 use Auth;
-use App\Interfaces\SearchableRepository;
+use App\Interfaces\SearchableModelService;
 use App\Models\Service;
 
-class ServiceRepository implements SearchableRepository
+class ServiceModelService implements SearchableModelService
 {
     public $user;
     public $service;

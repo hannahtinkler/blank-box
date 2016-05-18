@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\PageDraft;
-use App\Repositories\PageRepository;
+use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PageDraftControllerTest extends TestCase

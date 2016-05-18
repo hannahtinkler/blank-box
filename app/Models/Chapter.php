@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\SearchableModel;
-use App\Repositories\ChapterRepository;
+use App\Services\ModelServices\ChapterModelService;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 
@@ -27,7 +27,7 @@ class Chapter extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new ChapterRepository($this);
+        $this->repository = new ChapterModelService($this);
     }
     
     public function category()

@@ -2,10 +2,10 @@
 
 use App\Models\User;
 use App\Models\Page;
-use App\Repositories\PageRepository;
+use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class PageRepositoryTest extends TestCase
+class PageModelServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -17,7 +17,7 @@ class PageRepositoryTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getPageRepository();
+        $repository = $this->getPageModelService();
 
         $expected = 'Page: ' . $this->page->title;
         $actual = $repository->searchResultString();
@@ -33,7 +33,7 @@ class PageRepositoryTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getPageRepository();
+        $repository = $this->getPageModelService();
 
         $expected = '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
         $actual = $repository->searchResultUrl();
@@ -49,7 +49,7 @@ class PageRepositoryTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getPageRepository();
+        $repository = $this->getPageModelService();
 
         $expected = '<i class="fa fa-file-o"></i>';
         $actual = $repository->searchResultIcon();
@@ -65,7 +65,7 @@ class PageRepositoryTest extends TestCase
      */
     public function testPageIsNotEditableByReader()
     {
-        $repository = $this->getPageRepository();
+        $repository = $this->getPageModelService();
         $this->assertFalse($repository->editableByUser());
     }
 
@@ -77,7 +77,7 @@ class PageRepositoryTest extends TestCase
      */
     public function testPageIsEditableByAuthor()
     {
-        $repository = $this->getPageRepository([], true);
+        $repository = $this->getPageModelService([], true);
         $this->assertTrue($repository->editableByUser());
     }
 
@@ -89,19 +89,19 @@ class PageRepositoryTest extends TestCase
      */
     public function testPageIsEditableByCurator()
     {
-        $repository = $this->getPageRepository(['curator' => true]);
+        $repository = $this->getPageModelService(['curator' => true]);
         $this->assertTrue($repository->editableByUser());
     }
     
     /**
-     * Create instance of PageRepository class using any configurations
+     * Create instance of PageModelService class using any configurations
      * passed in
      *
      * @param  array   $userOverrides   Fields to be overriden for the User
      * @param  boolean $makeUserAuthor  Whether to make the user the page author
-     * @return PageRepository           The repository instance to be used in the test
+     * @return PageModelService           The repository instance to be used in the test
      */
-    private function getPageRepository($userOverrides = [], $makeUserAuthor = false)
+    private function getPageModelService($userOverrides = [], $makeUserAuthor = false)
     {
         $this->user = factory(User::class)->create($userOverrides);
         if ($makeUserAuthor) {
@@ -109,6 +109,6 @@ class PageRepositoryTest extends TestCase
         } else {
             $this->page = factory(Page::class)->create();
         }
-        return new PageRepository($this->page, $this->user);
+        return new PageModelService($this->page, $this->user);
     }
 }

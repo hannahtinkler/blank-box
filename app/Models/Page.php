@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\SearchableModel;
-use App\Repositories\PageRepository;
+use App\Services\ModelServices\PageModelService;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -34,7 +34,7 @@ class Page extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new PageRepository($this);
+        $this->repository = new PageModelService($this);
     }
     
     public function chapter()

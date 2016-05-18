@@ -1,10 +1,10 @@
 <?php
 
 use App\Models\Chapter;
-use App\Repositories\ChapterRepository;
+use App\Services\ModelServices\ChapterModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ChapterRepositoryTest extends TestCase
+class ChapterModelServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -22,7 +22,7 @@ class ChapterRepositoryTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getChapterRepository();
+        $repository = $this->getChapterModelService();
 
         $expected = 'Chapter: ' . $this->chapter->title . ' - ' . substr($this->chapter->description, 0, 60) . '...';
         $actual = $repository->searchResultString();
@@ -38,7 +38,7 @@ class ChapterRepositoryTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getChapterRepository();
+        $repository = $this->getChapterModelService();
 
         $expected = '/p/' . $this->chapter->category->slug . '/' . $this->chapter->slug;
         $actual = $repository->searchResultUrl();
@@ -54,7 +54,7 @@ class ChapterRepositoryTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getChapterRepository();
+        $repository = $this->getChapterModelService();
 
         $expected = '<i class="fa fa-folder-open-o"></i>';
         $actual = $repository->searchResultIcon();
@@ -63,13 +63,13 @@ class ChapterRepositoryTest extends TestCase
     }
 
     /**
-     * Create instance of ChapterRepository class
+     * Create instance of ChapterModelService class
      *
      * @return void
      */
-    private function getChapterRepository()
+    private function getChapterModelService()
     {
         $this->chapter = factory(Chapter::class)->create();
-        return new ChapterRepository($this->chapter);
+        return new ChapterModelService($this->chapter);
     }
 }

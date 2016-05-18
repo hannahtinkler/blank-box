@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\SearchableModel;
-use App\Repositories\UserRepository;
+use App\Services\ModelServices\UserModelService;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -24,7 +24,7 @@ class User extends Authenticatable implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new UserRepository($this);
+        $this->repository = new UserModelService($this);
     }
     
     public function searchResultString()

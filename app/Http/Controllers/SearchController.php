@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Repositories\SearchRepository;
+use App\Services\ModelServices\SearchModelService;
 
 class SearchController extends Controller
 {
@@ -44,8 +44,8 @@ class SearchController extends Controller
 
         $searchDetails = $this->getSearchDetails($term);
 
-        $searchRepository = new SearchRepository($searchDetails['term'], $this->isAjaxRequest);
-        $results = $searchRepository->processSearch($searchDetails['searchables']);
+        $searchModelService = new SearchModelService($searchDetails['term'], $this->isAjaxRequest);
+        $results = $searchModelService->processSearch($searchDetails['searchables']);
 
         return $this->isAjaxRequest ? json_encode($results) : $results;
     }

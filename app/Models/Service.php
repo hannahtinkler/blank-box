@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Interfaces\SearchableModel;
-use App\Repositories\ServiceRepository;
+use App\Services\ModelServices\ServiceModelService;
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 
@@ -40,7 +40,7 @@ class Service extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new ServiceRepository($this);
+        $this->repository = new ServiceModelService($this);
     }
     
     public function server()
