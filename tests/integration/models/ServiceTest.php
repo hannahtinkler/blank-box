@@ -8,6 +8,12 @@ class ServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * Tests that a call to the server relationship returns the server that
+     * this service belongs to
+     *
+     * @return void
+     */
     public function testServerRelationshipReturnsServer()
     {
         $service = factory(Service::class)->create();
@@ -15,6 +21,12 @@ class ServiceTest extends TestCase
         $this->assertTrue($service->server instanceof Server);
     }
 
+    /**
+     * Tests that a call to the method that returns the search result string
+     * for a given record works as expected
+     *
+     * @return void
+     */
     public function testSearchResultStringIsCorrect()
     {
         $service = factory(Service::class)->create();
@@ -25,6 +37,12 @@ class ServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests that a call to the method that returns the search result url
+     * for a given record works as expected
+     *
+     * @return void
+     */
     public function testSearchResultUrlIsCorrect()
     {
         $service = factory(Service::class)->create();
@@ -35,6 +53,12 @@ class ServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests that a call to the method that returns the search result icon
+     * for a given record works as expected
+     *
+     * @return void
+     */
     public function testSearchResultIconIsCorrect()
     {
         $service = factory(Service::class)->create();

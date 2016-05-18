@@ -10,12 +10,24 @@ class PageTest extends TestCase
 {
     use DatabaseTransactions;
 
+    /**
+     * Tests that a call to the chapter relationship returns the chapter that
+     * this page belongs to
+     *
+     * @return void
+     */
     public function testChapterRelationshipReturnsChapter()
     {
         $page = factory(Page::class)->create();
         $this->assertTrue($page->chapter instanceof Chapter);
     }
 
+    /**
+     * Tests that a call to the bookmark relationship returns the bookmark that
+     * this page belongs to
+     *
+     * @return void
+     */
     public function testBookmarksRelationshipReturnsBookmark()
     {
         $page = factory(Page::class)->create();
@@ -24,13 +36,25 @@ class PageTest extends TestCase
         $this->assertTrue($page->bookmark instanceof Bookmark);
     }
 
+    /**
+     * Tests that a call to the creator relationship returns the user that
+     * this page belongs to
+     *
+     * @return void
+     */
     public function testCreatorRelationshipReturnsCreator()
     {
         $page = factory(Page::class)->create();
         $this->assertTrue($page->creator instanceof User);
     }
     
-    public function testScopeLatestUpdated()
+    /**
+     * Tests that a query implementing the 'lastestUpdated' scope returns the
+     * most recently updated pages first
+     *
+     * @return void
+     */
+    public function testTheLatestUpdatedQueryScope()
     {
         $page1 = factory(Page::class)->create(['updated_at' => '2020-05-01 12:43:23']);
         $page2 = factory(Page::class)->create(['updated_at' => '2020-05-10 12:43:23']);
@@ -42,7 +66,13 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    public function testScopeFindBySlug()
+    /**
+     * Tests that a query implementing the 'findBySlug' scope returns a record
+     * with the given slug
+     *
+     * @return void
+     */
+    public function testTheFindBySlugQueryScope()
     {
         $page = factory(Page::class)->create();
         
@@ -52,7 +82,13 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
     
-    public function testScopeLargestOrderValue()
+    /**
+     * Tests that a query implementing the 'largestOrderValue' scope returns 
+     * the highest order value in the page table for a given chapter
+     *
+     * @return void
+     */
+    public function testTheLargestOrderValueQueryScope()
     {
         $chapter = factory(Page::class)->create();
         $page1 = factory(Page::class)->create(['chapter_id' => $chapter->id, 'order' => 5]);
@@ -65,27 +101,12 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testItFetchesLatestUpdatedPages()
-    {
-        factory(Page::class, 2)->create(['updated_at' => '2015-09-03 10:26:23']);
-        factory(Page::class, 1)->create(['updated_at' => '2016-01-18 11:26:23']);
-        $newest = factory(Page::class, 1)->create(['updated_at' => '2017-05-13 09:26:23']);
-
-        $pages = Page::latestUpdated()->get();
-
-        $this->assertEquals($newest->id, $pages->first()->id);
-    }
-
-    public function testShowRedirectUrlIsCorrect()
-    {
-        $page = factory(Page::class)->create();
-
-        $expected = '/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug;
-        $actual = $page->searchResultUrl();
-
-        $this->assertEquals($expected, $actual);
-    }
-
+    /**
+     * Tests that a call to the method that returns the search result string
+     * for a given record works as expected
+     *
+     * @return void
+     */
     public function testSearchResultStringIsCorrect()
     {
         $page = factory(Page::class)->create();
@@ -96,6 +117,12 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests that a call to the method that returns the search result url
+     * for a given record works as expected
+     *
+     * @return void
+     */
     public function testSearchResultUrlIsCorrect()
     {
         $page = factory(Page::class)->create();
@@ -106,6 +133,12 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    /**
+     * Tests that a call to the method that returns the search result icon
+     * for a given record works as expected
+     *
+     * @return void
+     */
     public function testSearchResultIconIsCorrect()
     {
         $page = factory(Page::class)->create();
@@ -116,7 +149,12 @@ class PageTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testPageIsNotEditableByNonAuthor()
+    /**
+     * Tests that any page is not editable by a reader/non-author
+     *
+     * @return void
+     */
+    public function testPageIsNotEditableByReader()
     {
         $this->createAndLoginAUser();
         $page = factory(Page::class)->create();
@@ -124,6 +162,11 @@ class PageTest extends TestCase
         $this->assertFalse($page->editableByUser());
     }
 
+    /**
+     * Tests that any page is editable by an author
+     *
+     * @return void
+     */
     public function testPageIsEditableByAuthor()
     {
         $user = $this->createAndLoginAUser();
@@ -132,6 +175,11 @@ class PageTest extends TestCase
         $this->assertTrue($page->editableByUser());
     }
 
+    /**
+     * Tests that any page is editable by a curator
+     *
+     * @return void
+     */
     public function testPageIsEditableByCurator()
     {
         $this->createAndLoginAUser(['curator' => true]);
@@ -140,6 +188,12 @@ class PageTest extends TestCase
         $this->assertTrue($page->editableByUser());
     }
     
+    /**
+     * Tests that a call to the method that returns the search result string
+     * for a given record works as expected
+     *
+     * @return void
+     */
     public function createAndLoginAUser($overrides = [])
     {
         $user = factory(User::class)->create($overrides);

@@ -3,22 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\ModelServices\SearchModelService;
+use App\Services\ControllerServices\SearchControllerService;
 
 class SearchController extends Controller
 {
     private $isAjaxRequest;
-    private $defaultSearchables = [
-        'Server',
-        'Service',
-        'Page',
-        'Chapter',
-        'User'
-    ];
   
     public function __construct()
     {
         $this->determineIfAjax();
+    }
+  
+    public function determineIfAjax()
+    {
+        $this->isAjaxRequest = \Request::ajax();
     }
 
     public function showSearchResults($term)
@@ -28,11 +26,6 @@ class SearchController extends Controller
             'results' => $results,
             'searchTerm' => $term
         ]);
-    }
-  
-    public function determineIfAjax()
-    {
-        $this->isAjaxRequest = \Request::ajax();
     }
 
     public function performSearch($term)
@@ -44,7 +37,7 @@ class SearchController extends Controller
 
         $searchDetails = $this->getSearchDetails($term);
 
-        $searchModelService = new SearchModelService($searchDetails['term'], $this->isAjaxRequest);
+        $searchModelService = new SearchControllerService($searchDetails['term'], $this->isAjaxRequest);
         $results = $searchModelService->processSearch($searchDetails['searchables']);
 
         return $this->isAjaxRequest ? json_encode($results) : $results;
@@ -52,13 +45,14 @@ class SearchController extends Controller
   
     public function getSearchDetails($term)
     {
-        if (strpos($term, ':')) {
-            $parts = array_map('trim', explode(':', $term));
+        if (strpos($term, ']')) {
+            $term = trim($term, '[');
+            $parts = array_map('trim', explode(']', $term));
             $searchables = array_map('trim', explode(',', $parts[0]));
             $searchables = array_map('ucwords', $searchables);
             $term = $parts[1];
         } else {
-            $searchables = $this->defaultSearchables;
+            $searchables = config('elasticquent.searchables');
         }
 
         return [

@@ -2,7 +2,7 @@
     <div class="m-t-sm btn-group pull-right page-options">
         <a class="btn right btn-default" href="/pages/edit/{{ $page->id }}"><i class="fa fa-pencil"></i> Edit</a>
 
-        @if ($user->curator) {
+        @if ($user->curator)
             <form action="/pages/{{ $page->id }}" method="POST">
                 {!! csrf_field() !!}
                 {!! method_field('DELETE') !!}

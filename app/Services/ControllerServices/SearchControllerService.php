@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Services\ModelServices;
+namespace App\Services\ControllerServices;
 
+use Auth;
 use App\Interfaces\SearchableModelService;
 
-class SearchModelService
+class SearchControllerService
 {
+    public $user;
     private $term;
     private $formatForAjax;
     private $allResults = array();
 
-    public function __construct($term, $formatForAjax = true)
+    public function __construct($term, $formatForAjax = true, $user = null)
     {
+        $this->user = $user ?: Auth::user();
         $this->term = $term;
         $this->formatForAjax = $formatForAjax;
     }
@@ -20,7 +23,7 @@ class SearchModelService
     {
         foreach ($searchables as $searchable) {
             $searchable = 'App\Services\ModelServices\\'. $searchable . 'ModelService';
-            $class = new $searchable;
+            $class = new $searchable($this->user);
             $newResults = $this->getResults($class);
             $this->allResults[] = $newResults;
         }

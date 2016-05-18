@@ -18,9 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Hannah Tinkler',
             'email' => 'hannah.tinkler@mayden.co.uk',
             'slug' => str_slug('Hannah Tinkler'),
-            'curator' => 'true'
+            'curator' => 1
         ]);
-
-
     }
 }

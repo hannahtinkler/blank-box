@@ -28,9 +28,22 @@ class UserModelService implements SearchableModelService
         return User::searchByQuery($query);
     }
 
+    public function getUserType()
+    {
+        if ($this->user->curator) {
+            $userType = 'Curator';
+        } elseif (!$this->user->pages->isEmpty()) {
+            $userType = 'Contributor';
+        } else {
+            $userType = 'Reader';
+        }
+
+        return $userType;
+    }
+
     public function searchResultString()
     {
-        return 'User: ' . $this->user->name . ' (' . ($this->user->curator ? 'Curator' : 'Contributor') . ')';
+        return 'User: ' . $this->user->name . ' (' . $this->getUserType() . ')';
     }
 
     public function searchResultUrl()

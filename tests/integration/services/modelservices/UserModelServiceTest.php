@@ -15,6 +15,61 @@ class UserModelServiceTest extends TestCase
     public $user;
 
     /**
+     * Tests that a call to the method which retrieves the user type works for
+     * a curator and returns the expected value
+     *
+     * @return void
+     */
+    public function testItCanGetUserTypeForCurator()
+    {
+        $curator = factory(App\Models\User::class)->create(['curator' => true]);
+
+        $modelService = new UserModelService($curator);
+        
+        $actual = $modelService->getUserType();
+        $expected = 'Curator';
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Tests that a call to the method which retrieves the user type works for
+     * a contributor and returns the expected value
+     *
+     * @return void
+     */
+    public function testItCanGetUserTypeForContributor()
+    {
+        $contributor = factory(App\Models\User::class)->create();
+        factory(App\Models\Page::class)->create(['created_by' => $contributor->id]);
+
+        $modelService = new UserModelService($contributor);
+        
+        $actual = $modelService->getUserType();
+        $expected = 'Contributor';
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
+     * Tests that a call to the method which retrieves the user type works for
+     * a reader and returns the expected value
+     *
+     * @return void
+     */
+    public function testItCanGetUserTypeForReader()
+    {
+        $reader = factory(App\Models\User::class)->create();
+
+        $modelService = new UserModelService($reader);
+        
+        $actual = $modelService->getUserType();
+        $expected = 'Reader';
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    /**
      * Tests that a call to the method which retrieves the text string the
      * search form uses returns as expected
      *
@@ -24,7 +79,7 @@ class UserModelServiceTest extends TestCase
     {
         $modelService = $this->getUserModelService();
 
-        $expected = 'User: ' . $this->user->name . ' (' . ($this->user->curator ? 'Curator' : 'Contributor') . ')';
+        $expected = 'User: ' . $this->user->name . ' (Reader)';
         $actual = $modelService->searchResultString();
 
         $this->assertEquals($expected, $actual);

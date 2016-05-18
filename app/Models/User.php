@@ -27,6 +27,11 @@ class User extends Authenticatable implements SearchableModel
         $this->modelService = new UserModelService($this);
     }
     
+    public function pages()
+    {
+        return $this->hasMany('App\Models\Page', 'created_by');
+    }
+    
     public function searchResultString()
     {
         return $this->modelService->searchResultString();
@@ -40,5 +45,10 @@ class User extends Authenticatable implements SearchableModel
     public function searchResultIcon()
     {
         return $this->modelService->searchResultIcon();
+    }
+    
+    public function getUserType()
+    {
+        return $this->modelService->getUserType();
     }
 }

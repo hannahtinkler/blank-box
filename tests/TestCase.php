@@ -36,6 +36,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         parent::setUp();
         $this->faker = Faker\Factory::create();
+        $this->mockObservers();
     }
     
     /**
@@ -55,5 +56,22 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         
         ksort($data);
         return $data;
+    }
+    
+    /**
+     * Mocks a the observer passed into the IOC so that this is tested in
+     * isolation from the Elasticsearch model watchers
+     *
+     * @return void
+     */
+    public function mockObservers()
+    {
+        foreach (config('elasticquent.searchables') as $searchable) {
+            $mock = $this->mockProvider = Mockery::mock('App\Observers\Elasticsearch\\' . $searchable . 'Observer');
+            $mock->shouldReceive('created')->andReturn(true);
+            $mock->shouldReceive('updated')->andReturn(true);
+            $mock->shouldReceive('deleted')->andReturn(true);
+            $this->app->instance('App\Observers\Elasticsearch\\' . $searchable . 'Observer', $this->mockProvider);
+        }   
     }
 }

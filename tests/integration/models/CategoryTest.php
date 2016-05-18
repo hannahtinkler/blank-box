@@ -6,6 +6,12 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryTest extends TestCase
 {
+    /**
+     * Test that a call to the chapter relationship returns a collection
+     * containing objects of the type 'Page'
+     *
+     * @return void
+     */
     public function testChapterRelationshipReturnsChapter()
     {
         $category = factory(Category::class)->create();

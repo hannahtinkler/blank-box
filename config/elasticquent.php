@@ -20,13 +20,18 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Default Index Name
+    | Default Searchables
     |--------------------------------------------------------------------------
     |
-    | This is the index name that Elasticquent will use for all
-    | Elasticquent models.
+    | This is an array of models which should be used when performing a search
     */
 
-    // 'default_index' => 'default',
+    'searchables' => [
+        'Server',
+        'Service',
+        'Page',
+        'Chapter',
+        'User'
+    ]
 
 );
