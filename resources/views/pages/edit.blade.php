@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label>Chapter</label>
                     <select name="chapter_id" id="chapter_id" class="form-control">
-                        <option>Select a category...</option>
+                    <option>Select a chapter...</option>
                         @foreach($chapters as $chapter)
                             <option {!! $chapter->id == $page->chapter->id ? "selected" : null !!} value="{{ $chapter->id }}">{{ $chapter->title }}</option>
                         @endforeach

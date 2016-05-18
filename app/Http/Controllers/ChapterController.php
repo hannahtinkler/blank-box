@@ -55,4 +55,51 @@ class ChapterController extends Controller
         return redirect('/p/' . $chapter->category->slug . '/' . $chapter->slug)->with('message', '<i class="fa fa-check"></i>New chapter has been created');
     }
 
+    public function edit($id)
+    {
+        $chapter = Chapter::find($id);
+
+        $categories = Category::orderBy('title')->get();
+
+        return view('chapters.edit', compact('chapter', 'categories'));
+    }
+
+    public function update($id, ChapterRequest $request)
+    {
+        $updateChapter = Chapter::find($id);
+
+        $updateChapter->update($request->only(
+            'category_id',
+            'title',
+            'description'
+        ));
+
+        $updateChapter->slug = str_slug($request->input('title'));
+        $updateChapter->save();
+
+        return redirect('/p/' . $updateChapter->category->slug . '/' .
+                        $updateChapter->slug)->with(
+            'message',
+            '<i class="fa fa-check"></i> This chapter has been edited successfully.'
+        );
+    }
+
+    public function destroy($id)
+    {
+        $chapter = Chapter::find($id);
+
+        $errorMessage = 'Error! Unable to delete specified chapter.';
+
+        if (is_null($chapter)) {
+            throw new Exception($errorMessage);
+        }
+
+        $result = $chapter->delete();
+
+        $message = ($result === true ? 'Chapter has been successfully deleted' : $errorMessage);
+
+        return redirect('/p/' . $chapter->category->slug . '/' . $chapter->slug)
+            ->with('message', $message);
+    }
+
 }
