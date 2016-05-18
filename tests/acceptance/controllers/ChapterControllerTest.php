@@ -61,7 +61,7 @@ class ChapterControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that shows a user the 'Create Chapter' Page
+     * Test that a request to the route that shows a user the 'Create Chapter' Page
      * shows the 'Create Chapter' page and returns a 200 response code (OK)
      *
      * @return void
@@ -76,7 +76,7 @@ class ChapterControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that stores a new chapter works when
+     * Test that a request to the route that stores a new chapter works when
      * passed all available data from the creation form
      *
      * @return void
@@ -105,7 +105,7 @@ class ChapterControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that stores a new chapter returns errors
+     * Test that a request to the route that stores a new chapter returns errors
      * when passed no data from the creation form
      *
      * @return void

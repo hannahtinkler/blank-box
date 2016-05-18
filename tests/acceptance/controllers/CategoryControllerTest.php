@@ -28,7 +28,7 @@ class CategoryControllerTest extends TestCase
     );
 
     /**
-     * Test that a call to the method that shows a user the 'Show Category' Page
+     * Test that a request to the route that shows a user the 'Show Category' Page
      * shows the 'Show Category' page and returns a 200 response code (OK)
      *
      * @return void

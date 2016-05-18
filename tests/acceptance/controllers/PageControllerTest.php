@@ -30,7 +30,7 @@ class PageControllerTest extends TestCase
     );
 
     /**
-     * Test that a call to the method that shows a user the 'Show Page' Page
+     * Test that a request to the route that shows a user the 'Show Page' Page
      * shows the 'Show Page' page and returns a 200 response code (OK)
      *
      * @return void
@@ -47,7 +47,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that shows a user the 'Create Page' Page
+     * Test that a request to the route that shows a user the 'Create Page' Page
      * shows the 'Create Page' page and returns a 200 response code (OK)
      *
      * @return void
@@ -62,7 +62,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that shows a user the 'Edit Page' Page
+     * Test that a request to the route that shows a user the 'Edit Page' Page
      * shows the 'Edit Page' page and returns a 200 response code (OK) when
      * logged in as a curator
      *
@@ -80,7 +80,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that shows a user the 'Edit Page' Page
+     * Test that a request to the route that shows a user the 'Edit Page' Page
      * shows the 'Edit Page' page and returns a 200 response code (OK) when
      * logged in as the author of the page
      *
@@ -98,7 +98,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that shows a user the 'Suggest an Edit Page' Page
+     * Test that a request to the route that shows a user the 'Suggest an Edit Page' Page
      * shows the 'Suggest an Edit Page' page and returns a 200 response code (OK) when
      * logged in as a standard user (not the page author or a curator)
      *
@@ -116,7 +116,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that stores a new page works when
+     * Test that a request to the route that stores a new page works when
      * passed all available data from the creation form
      *
      * @return void
@@ -147,7 +147,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that stores a new page returns errors
+     * Test that a request to the route that stores a new page returns errors
      * when passed no data from the creation form
      *
      * @return void
@@ -167,7 +167,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that updates an existing page works when
+     * Test that a request to the route that updates an existing page works when
      * logged in as a curator and passed all available data from the edit
      * form
      *
@@ -204,7 +204,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that updates an existing page returns
+     * Test that a request to the route that updates an existing page returns
      * errors when logged in as a curator and passed no available data from
      * the edit form
      *
@@ -227,7 +227,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that updates an existing page works
+     * Test that a request to the route that updates an existing page works
      * when logged in as the page author and passed all available data from
      * the edit form
      *
@@ -264,7 +264,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that updates an existing page returns
+     * Test that a request to the route that updates an existing page returns
      * errors when logged in as a the page author and passed no available
      * data from the edit form
      *
@@ -287,7 +287,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that updates an existing page returns
+     * Test that a request to the route that updates an existing page returns
      * errors when logged in as a reader/non-author/non-curator
      *
      * @return void
@@ -309,7 +309,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that creates a suggested edit works when
+     * Test that a request to the route that creates a suggested edit works when
      * logged in as a reader and is passed all available data from the edit
      * form
      *
@@ -346,7 +346,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that creates a suggested edit works
+     * Test that a request to the route that creates a suggested edit works
      * errors when logged in as a reader and is passed no available data from
      * the edit form
      *
@@ -369,7 +369,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that destroys a page works when logged
+     * Test that a request to the route that destroys a page works when logged
      * in as a curator
      *
      * @return void
@@ -389,7 +389,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that destroys a page does not work when
+     * Test that a request to the route that destroys a page does not work when
      * logged in as an author
      *
      * @return void
@@ -405,7 +405,7 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a call to the method that destroys a page does not work when
+     * Test that a request to the route that destroys a page does not work when
      * logged in as a reader
      *
      * @return void

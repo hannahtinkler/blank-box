@@ -23,6 +23,12 @@ class BookmarkControllerTest extends TestCase
             ->assertResponseStatus(200);
     }
 
+    /**
+     * Test that a request to the route that creates a bookmark works when
+     * passed all available data, and returns sucess = true via json
+     *
+     * @return void
+     */
     public function testItCanCreateBookmarkWithAllDAta()
     {
         $this->logInAsUser();
@@ -33,6 +39,12 @@ class BookmarkControllerTest extends TestCase
             ->seeJson(['success' => true]);
     }
 
+    /**
+     * Test that a request to the route that creates a bookmark fails when
+     * passed no available data, and returns a 404 error
+     *
+     * @return void
+     */
     public function testItCanNotCreateBookmarkWithNoData()
     {
         $this->logInAsUser();
@@ -43,6 +55,12 @@ class BookmarkControllerTest extends TestCase
             ->assertResponseStatus(404);
     }
 
+    /**
+     * Test that a request to the route that deletes a bookmark works when
+     * passed all available data, and returns sucess = true via json
+     *
+     * @return void
+     */
     public function testItCanDeleteBookmarkWithAllDAta()
     {
         $this->logInAsUser();
@@ -53,6 +71,12 @@ class BookmarkControllerTest extends TestCase
             ->seeJson(['success' => true]);
     }
 
+    /**
+     * Test that a request to the route that deletes a bookmark fails when
+     * passed no available data, and returns a 404 error
+     *
+     * @return void
+     */
     public function testItCanNotDeleteBookmarkWithNoDAta()
     {
         $this->logInAsUser();

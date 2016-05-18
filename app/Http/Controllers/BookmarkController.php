@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Chapter;
 use App\Models\Page;
+use App\Models\Chapter;
 use App\Models\Bookmark;
 use App\Models\Category;
 

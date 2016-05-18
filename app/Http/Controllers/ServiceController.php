@@ -8,7 +8,7 @@ use App\Models\Service;
 
 class ServiceController extends Controller
 {
-    public function showPage()
+    public function show()
     {
         $services = Service::orderBy('name')->get();
         $page = Page::where('slug', 'service-list')->first();

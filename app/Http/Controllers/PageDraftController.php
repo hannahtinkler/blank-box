@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 
+use App\Http\Requests\PageDraftRequest;
 use App\Models\PageDraft;
 use App\Managers\PageDraftManager;
 
@@ -16,7 +16,7 @@ class PageDraftController extends Controller
         $this->manager = $manager;
     }
 
-    public function store(Request $request, $id = null)
+    public function store(PageDraftRequest $request, $id = null)
     {
         if ($id != null) {
             $draft = PageDraft::find($id);

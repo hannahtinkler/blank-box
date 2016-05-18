@@ -45,7 +45,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/curation', 'CurationController@index');
     Route::get('/curation/approve/{id}', 'CurationController@approve');
 
-
     Route::get('/bookmarks', 'BookmarkController@index');
     Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
     Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
@@ -54,10 +53,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
 
     //Data driven pages requiring controllers
-    Route::get('/p/mayden/servers/server-details/{id?}', 'ServerController@showPage');
+    Route::get('/p/mayden/servers/server-details/{id?}', 'ServerController@show');
     Route::get('/p/mayden/servers/ssh-config-generator', 'ServerController@configGenerator');
     Route::post('/p/mayden/servers/ssh-config-generator', 'ServerController@generateConfig');
-    Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@showPage');
+    Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@show');
 
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ChapterRequest;
-use Illuminate\Http\Request;
 use App\Models\Chapter;
 use App\Models\Category;
+use App\Http\Requests\ChapterRequest;
 
 class ChapterController extends Controller
 {

@@ -1,10 +1,9 @@
 <?php
 
-use App\Models\Page;
-use App\Repositories\PageRepository;
+use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class CurationControllerTest extends TestCase
+class HomeControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -15,19 +14,17 @@ class CurationControllerTest extends TestCase
     public $user;
 
     /**
-     * Test that a request to the route that shows a user the 'Pages Awaiting
-     * Curation' Page shows the 'Show Curation' page and returns a 200
-     * response code (OK)
+     * Test that a request to the route that shows a user a random page works
+     * and returns a 200 response code (OK)
      *
      * @return void
      */
-    public function testItCanAccessPagesPendingCurationPage()
+    public function testItCanSendAUserToARandomPage()
     {
         $this->logInAsUser();
 
-        $this->get('/curation')
-            ->see('Curation Page')
-            ->assertResponseStatus(200);
+        $this->get('/random')
+            ->assertResponseStatus(302);
     }
 
     /**
@@ -36,18 +33,19 @@ class CurationControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanApproveAPagePendingCuration()
+    public function testItSwitchTheActiveCategoryForAUser()
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $category = factory(App\Models\Category::class)->create();
 
-        $this->get('/curation/approve/' . $page->id)
+        $this->get('/switchcategory/' . $category->id)
             ->assertResponseStatus(302);
 
-        $lookup = Page::find($page->id);
+        $expected = $category->id;
+        $actual = \Session::get('currentCategoryId');
 
-        $this->assertEquals(1, $lookup->approved);
+        $this->assertEquals($expected, $actual);
     }
 
     /**

@@ -14,8 +14,8 @@ class PageRequest extends FormRequest
     public function rules()
     {
         return [
-            'chapter_id' => 'required|integer',
-            'title' => 'required',
+            'chapter_id' => 'required|integer|exists:chapters,id',
+            'title' => 'required|min:5',
             'description' => 'required|min:10',
             'content' => 'required|min:10'
         ];
