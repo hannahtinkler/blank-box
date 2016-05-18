@@ -5,13 +5,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PageDraftRequest;
 use App\Models\PageDraft;
-use App\Managers\PageDraftManager;
+use App\Services\ControllerServices\PageDraftControllerService;
 
 class PageDraftController extends Controller
 {
     private $manager;
 
-    public function __construct(PageDraftManager $manager)
+    public function __construct(PageDraftControllerService $manager)
     {
         $this->manager = $manager;
     }

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\SshConfigRequest;
-use App\Managers\ServerManager;
+use App\Services\ControllerServices\ServerControllerService;
 use App\Models\Server;
 use App\Models\Page;
 
@@ -13,7 +13,7 @@ class ServerController extends Controller
 {
     private $manager;
 
-    public function __construct(ServerManager $manager)
+    public function __construct(ServerControllerService $manager)
     {
         $this->manager = $manager;
     }

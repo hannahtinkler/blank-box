@@ -2,10 +2,10 @@
 
 use App\Models\Page;
 use App\Models\PageDraft;
-use App\Managers\PageDraftManager;
+use App\Services\ControllerServices\PageDraftControllerService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class PageDraftManagerTest extends TestCase
+class PageDraftControllerServiceTest extends TestCase
 {
     use DatabaseTransactions;
     
@@ -16,7 +16,7 @@ class PageDraftManagerTest extends TestCase
     private $user;
 
     /**
-     * An instance of the PageDraftManager class under test
+     * An instance of the PageDraftControllerService class under test
      * @var object
      */
     private $manager;
@@ -37,7 +37,7 @@ class PageDraftManagerTest extends TestCase
 
     /**
      * Runs the parent setUp operations and then creates and new user.
-     * Instantiates an instance of the PageDraftManager class under test
+     * Instantiates an instance of the PageDraftControllerService class under test
      *
      * @return void
      */
@@ -46,7 +46,7 @@ class PageDraftManagerTest extends TestCase
         parent::setUp();
 
         $this->user = factory(App\Models\User::class)->create();
-        $this->manager = new PageDraftManager($this->user);
+        $this->manager = new PageDraftControllerService($this->user);
     }
 
     /**

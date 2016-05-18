@@ -1,9 +1,9 @@
 <?php
 
-use App\Managers\ServerManager;
+use App\Services\ControllerServices\ServerControllerService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ServerManagerTest extends TestCase
+class ServerControllerServiceTest extends TestCase
 {
     use DatabaseTransactions;
     
@@ -14,14 +14,14 @@ class ServerManagerTest extends TestCase
     private $user;
 
     /**
-     * An instance of the ServerManager class under test
+     * An instance of the ServerControllerService class under test
      * @var object
      */
     private $manager;
 
     /**
      * Runs the parent setUp operations and then creates and new user.
-     * Instantiates an instance of the ServerManager class under test
+     * Instantiates an instance of the ServerControllerService class under test
      *
      * @return void
      */
@@ -30,7 +30,7 @@ class ServerManagerTest extends TestCase
         parent::setUp();
 
         $this->user = factory(App\Models\User::class)->create();
-        $this->manager = new ServerManager($this->user);
+        $this->manager = new ServerControllerService($this->user);
     }
 
     /**

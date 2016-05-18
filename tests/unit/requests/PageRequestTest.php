@@ -6,7 +6,7 @@ class PageRequestTest extends TestCase
 {
     /**
      * Runs the parent setUp operations and then creates and new user.
-     * Instantiates an instance of the PageDraftManager class under test
+     * Instantiates an instance of the PageDraftControllerService class under test
      *
      * @return void
      */

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Managers;
+namespace App\Services\ControllerServices;
 
 use Auth;
 use App\Models\PageDraft;
 
-class ServerManager
+class ServerControllerService
 {
     public $user;
 

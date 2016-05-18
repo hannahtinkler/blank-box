@@ -6,7 +6,7 @@ class ChapterRequestTest extends TestCase
 {
     /**
      * Runs the parent setUp operations and then creates and new user.
-     * Instantiates an instance of the ChapterManager class under test
+     * Instantiates an instance of the ChapterControllerService class under test
      *
      * @return void
      */

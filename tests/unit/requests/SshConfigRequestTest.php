@@ -6,7 +6,7 @@ class SshConfigRequestTest extends TestCase
 {
     /**
      * Runs the parent setUp operations and then creates and new user.
-     * Instantiates an instance of the SshConfigManager class under test
+     * Instantiates an instance of the SshConfigControllerService class under test
      *
      * @return void
      */

@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Managers;
+namespace App\Services\ControllerServices;
 
 use Auth;
 use App\Models\Page;
 use App\Models\PageDraft;
 use App\Models\SuggestedEdit;
-use App\Managers\PageDraftManager;
+use App\Services\ControllerServices\PageDraftControllerService;
 
-class PageManager
+class PageControllerService
 {
     public $user;
 
     public function __construct($user = null)
     {
         $this->user = $user ?: Auth::user();
-        $this->draftManager = new PageDraftManager($this->user);
+        $this->draftControllerService = new PageDraftControllerService($this->user);
     }
 
     public function storePage($data)
     {
         if (isset($data['last_draft_id']) && !empty($data['last_draft_id'])) {
-            $this->draftManager->deletePageDraft($data['last_draft_id']);
+            $this->draftControllerService->deletePageDraft($data['last_draft_id']);
         }
 
         $nextPageOrderValue = $this->getNextPageOrderValue($data['chapter_id']);
@@ -65,7 +65,7 @@ class PageManager
         $page->save();
 
         if (isset($data['last_draft_id']) && !empty($data['last_draft_id'])) {
-            $this->draftManager->deletePageDraft($data['last_draft_id']);
+            $this->draftControllerService->deletePageDraft($data['last_draft_id']);
         }
 
         return $page;

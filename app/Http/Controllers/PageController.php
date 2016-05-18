@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Managers\PageManager;
+use App\Services\ControllerServices\PageControllerService;
 use App\Http\Requests\PageRequest;
 use App\Repositories\PageRepository;
 
@@ -14,7 +14,7 @@ class PageController extends Controller
 {
     private $manager;
 
-    public function __construct(PageManager $manager)
+    public function __construct(PageControllerService $manager)
     {
         $this->manager = $manager;
     }
