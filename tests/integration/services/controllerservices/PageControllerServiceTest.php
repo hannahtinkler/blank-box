@@ -19,7 +19,7 @@ class PageControllerServiceTest extends TestCase
      * An instance of the PageDraftControllerService class under test
      * @var object
      */
-    private $manager;
+    private $controllerService;
 
     /**
      * An array of fields which should be used for comparison purposes when
@@ -49,7 +49,7 @@ class PageControllerServiceTest extends TestCase
         parent::setUp();
 
         $this->user = factory(App\Models\User::class)->create();
-        $this->manager = new PageControllerService($this->user);
+        $this->controllerService = new PageControllerService($this->user);
     }
 
     /**
@@ -79,7 +79,7 @@ class PageControllerServiceTest extends TestCase
         $expected['slug'] = str_slug($requestData['title']);
         $expected['order'] = $largestOrderValue->count() ? $largestOrderValue->order + 1 : 1;
         
-        $actual = $this->manager->storePage($requestData)->toArray();
+        $actual = $this->controllerService->storePage($requestData)->toArray();
 
         $this->assertEquals(
             $this->comparableFields($expected),
@@ -112,7 +112,7 @@ class PageControllerServiceTest extends TestCase
         $expected = $requestData;
         $expected['created_by'] = $this->user->id;
         
-        $actual = $this->manager->storeSuggestedEdit($page, $requestData)->toArray();
+        $actual = $this->controllerService->storeSuggestedEdit($page, $requestData)->toArray();
 
         $this->assertEquals(
             $this->comparableFields($expected),
@@ -147,7 +147,7 @@ class PageControllerServiceTest extends TestCase
         $expected['slug'] = str_slug($requestData['title']);
         $expected['created_by'] = $page->created_by;
 
-        $actual = $this->manager->updatePage($page, $requestData)->toArray();
+        $actual = $this->controllerService->updatePage($page, $requestData)->toArray();
 
         $this->assertEquals(
             $this->comparableFields($expected),
@@ -176,7 +176,7 @@ class PageControllerServiceTest extends TestCase
             'last_draft_id' => $draft->id
         ];
 
-        $this->manager->storePage($requestData);
+        $this->controllerService->storePage($requestData);
 
         $lookup = PageDraft::find($draft->id);
 
@@ -195,7 +195,7 @@ class PageControllerServiceTest extends TestCase
         $page = factory(App\Models\Page::class)->create(['order' => 500]);
 
         $expected = 501;
-        $actual = $this->manager->getNextPageOrderValue($page->chapter->id);
+        $actual = $this->controllerService->getNextPageOrderValue($page->chapter->id);
 
         $this->assertEquals($expected, $actual);
     }

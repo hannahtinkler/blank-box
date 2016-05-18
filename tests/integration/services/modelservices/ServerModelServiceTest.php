@@ -22,10 +22,10 @@ class ServerModelServiceTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getServerModelService();
+        $modelService = $this->getServerModelService();
 
         $expected = 'Server: ' . $this->server->name . ' / ' . $this->server->nickname . ' - ' . $this->server->location . ' ' . ' (' . $this->server->node_type . ')';
-        $actual = $repository->searchResultString();
+        $actual = $modelService->searchResultString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -38,10 +38,10 @@ class ServerModelServiceTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getServerModelService();
+        $modelService = $this->getServerModelService();
 
         $expected = '/p/mayden/servers/server-details/' . $this->server->id;
-        $actual = $repository->searchResultUrl();
+        $actual = $modelService->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
     }
@@ -54,10 +54,10 @@ class ServerModelServiceTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getServerModelService();
+        $modelService = $this->getServerModelService();
 
         $expected = '<i class="fa fa-server"></i>';
-        $actual = $repository->searchResultIcon();
+        $actual = $modelService->searchResultIcon();
 
         $this->assertEquals($expected, $actual);
     }

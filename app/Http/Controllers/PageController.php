@@ -12,11 +12,11 @@ use App\Models\Page;
 
 class PageController extends Controller
 {
-    private $manager;
+    private $controllerService;
 
-    public function __construct(PageControllerService $manager)
+    public function __construct(PageControllerService $controllerService)
     {
-        $this->manager = $manager;
+        $this->controllerService = $controllerService;
     }
     
     public function show($categorySlug, $chapterSlug, $pageSlug)
@@ -25,7 +25,7 @@ class PageController extends Controller
 
         return view('pages.show', [
             'page' => $page,
-            'user' => $this->manager->user
+            'user' => $this->controllerService->user
         ]);
     }
     
@@ -40,7 +40,7 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::findOrFail($id);
-        $user = $this->manager->user;
+        $user = $this->controllerService->user;
         
         $editable = $page->editableByUser();
 
@@ -55,10 +55,10 @@ class PageController extends Controller
         $page = Page::findOrFail($id);
         
         if ($page->editableByUser()) {
-            $this->manager->updatePage($page, $request->input());
+            $this->controllerService->updatePage($page, $request->input());
             $message = 'This page has been edited successfully and you\'re now viewing it. Only you will be able to see it until it has been curated.';
         } else {
-            $this->manager->storeSuggestedEdit($page, $request->input());
+            $this->controllerService->storeSuggestedEdit($page, $request->input());
             $message = 'Your suggested edit has been submitted. It will now be reviewed and actioned by a curator.';
         }
 
@@ -71,13 +71,13 @@ class PageController extends Controller
 
     public function store(PageRequest $request)
     {
-        $page = $this->manager->storePage($request->input());
+        $page = $this->controllerService->storePage($request->input());
         return redirect($page->searchResultUrl())->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
     }
     
     public function destroy($id)
     {
-        if ($this->manager->user->curator) {
+        if ($this->controllerService->user->curator) {
             $page = Page::find($id);
             $page->delete();
 

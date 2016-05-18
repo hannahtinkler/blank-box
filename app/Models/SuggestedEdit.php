@@ -10,7 +10,7 @@ class SuggestedEdit extends Model
     use SoftDeletes;
 
     public $guarded = [];
-    private $repository;
+    private $modelService;
 
     public function page()
     {

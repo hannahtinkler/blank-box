@@ -17,7 +17,7 @@ class ServerControllerServiceTest extends TestCase
      * An instance of the ServerControllerService class under test
      * @var object
      */
-    private $manager;
+    private $controllerService;
 
     /**
      * Runs the parent setUp operations and then creates and new user.
@@ -30,7 +30,7 @@ class ServerControllerServiceTest extends TestCase
         parent::setUp();
 
         $this->user = factory(App\Models\User::class)->create();
-        $this->manager = new ServerControllerService($this->user);
+        $this->controllerService = new ServerControllerService($this->user);
     }
 
     /**
@@ -214,7 +214,7 @@ ServerAliveInterval 90
         LocalForward 16307 localhost:3306
 ";
 
-        $actual = $this->manager->getSshConfigContent();
+        $actual = $this->controllerService->getSshConfigContent();
 
         $this->assertEquals($expected, $actual);
     }

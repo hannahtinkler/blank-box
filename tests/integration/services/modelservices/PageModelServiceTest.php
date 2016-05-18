@@ -17,10 +17,10 @@ class PageModelServiceTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getPageModelService();
+        $modelService = $this->getPageModelService();
 
         $expected = 'Page: ' . $this->page->title;
-        $actual = $repository->searchResultString();
+        $actual = $modelService->searchResultString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -33,10 +33,10 @@ class PageModelServiceTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getPageModelService();
+        $modelService = $this->getPageModelService();
 
         $expected = '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
-        $actual = $repository->searchResultUrl();
+        $actual = $modelService->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
     }
@@ -49,10 +49,10 @@ class PageModelServiceTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getPageModelService();
+        $modelService = $this->getPageModelService();
 
         $expected = '<i class="fa fa-file-o"></i>';
-        $actual = $repository->searchResultIcon();
+        $actual = $modelService->searchResultIcon();
 
         $this->assertEquals($expected, $actual);
     }
@@ -65,8 +65,8 @@ class PageModelServiceTest extends TestCase
      */
     public function testPageIsNotEditableByReader()
     {
-        $repository = $this->getPageModelService();
-        $this->assertFalse($repository->editableByUser());
+        $modelService = $this->getPageModelService();
+        $this->assertFalse($modelService->editableByUser());
     }
 
     /**
@@ -77,8 +77,8 @@ class PageModelServiceTest extends TestCase
      */
     public function testPageIsEditableByAuthor()
     {
-        $repository = $this->getPageModelService([], true);
-        $this->assertTrue($repository->editableByUser());
+        $modelService = $this->getPageModelService([], true);
+        $this->assertTrue($modelService->editableByUser());
     }
 
     /**
@@ -89,8 +89,8 @@ class PageModelServiceTest extends TestCase
      */
     public function testPageIsEditableByCurator()
     {
-        $repository = $this->getPageModelService(['curator' => true]);
-        $this->assertTrue($repository->editableByUser());
+        $modelService = $this->getPageModelService(['curator' => true]);
+        $this->assertTrue($modelService->editableByUser());
     }
     
     /**
@@ -99,7 +99,7 @@ class PageModelServiceTest extends TestCase
      *
      * @param  array   $userOverrides   Fields to be overriden for the User
      * @param  boolean $makeUserAuthor  Whether to make the user the page author
-     * @return PageModelService           The repository instance to be used in the test
+     * @return PageModelService           The modelService instance to be used in the test
      */
     private function getPageModelService($userOverrides = [], $makeUserAuthor = false)
     {

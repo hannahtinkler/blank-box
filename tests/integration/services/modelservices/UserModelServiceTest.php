@@ -22,10 +22,10 @@ class UserModelServiceTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getUserModelService();
+        $modelService = $this->getUserModelService();
 
         $expected = 'User: ' . $this->user->name . ' (' . ($this->user->curator ? 'Curator' : 'Contributor') . ')';
-        $actual = $repository->searchResultString();
+        $actual = $modelService->searchResultString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -38,10 +38,10 @@ class UserModelServiceTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getUserModelService();
+        $modelService = $this->getUserModelService();
 
         $expected = '/u/' . $this->user->slug;
-        $actual = $repository->searchResultUrl();
+        $actual = $modelService->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
     }
@@ -54,10 +54,10 @@ class UserModelServiceTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getUserModelService();
+        $modelService = $this->getUserModelService();
 
         $expected = '<i class="fa fa-user"></i>';
-        $actual = $repository->searchResultIcon();
+        $actual = $modelService->searchResultIcon();
 
         $this->assertEquals($expected, $actual);
     }

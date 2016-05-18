@@ -12,7 +12,7 @@ class Chapter extends Model implements SearchableModel
     use ElasticquentTrait;
     
     public $guarded = [];
-    private $repository;
+    private $modelService;
     protected $mappingProperties = array(
         'title' => [
           'type' => 'string',
@@ -27,7 +27,7 @@ class Chapter extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new ChapterModelService($this);
+        $this->modelService = new ChapterModelService($this);
     }
     
     public function category()
@@ -52,16 +52,16 @@ class Chapter extends Model implements SearchableModel
     
     public function searchResultString()
     {
-        return $this->repository->searchResultString();
+        return $this->modelService->searchResultString();
     }
     
     public function searchResultUrl()
     {
-        return $this->repository->searchResultUrl();
+        return $this->modelService->searchResultUrl();
     }
 
     public function searchResultIcon()
     {
-        return $this->repository->searchResultIcon();
+        return $this->modelService->searchResultIcon();
     }
 }

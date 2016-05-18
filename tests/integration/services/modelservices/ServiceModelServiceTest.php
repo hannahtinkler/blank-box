@@ -22,10 +22,10 @@ class ServiceModelServiceTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getServiceModelService();
+        $modelService = $this->getServiceModelService();
 
         $expected = 'Service: ' . $this->service->name . ' (' . $this->service->service_id . ') - ' . $this->service->server->location . ' ' . $this->service->server->nickname;
-        $actual = $repository->searchResultString();
+        $actual = $modelService->searchResultString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -38,10 +38,10 @@ class ServiceModelServiceTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getServiceModelService();
+        $modelService = $this->getServiceModelService();
 
         $expected = '/p/iaptus/services/service-list/' . $this->service->id;
-        $actual = $repository->searchResultUrl();
+        $actual = $modelService->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
     }
@@ -54,10 +54,10 @@ class ServiceModelServiceTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getServiceModelService();
+        $modelService = $this->getServiceModelService();
 
         $expected = '<i class="fa fa-group"></i>';
-        $actual = $repository->searchResultIcon();
+        $actual = $modelService->searchResultIcon();
 
         $this->assertEquals($expected, $actual);
     }

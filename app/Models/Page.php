@@ -14,7 +14,7 @@ class Page extends Model implements SearchableModel
     use SoftDeletes;
 
     public $guarded = [];
-    private $repository;
+    private $modelService;
     protected $dates = ['deleted_at'];
     protected $mappingProperties = array(
         'title' => [
@@ -34,7 +34,7 @@ class Page extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new PageModelService($this);
+        $this->modelService = new PageModelService($this);
     }
     
     public function chapter()
@@ -69,21 +69,21 @@ class Page extends Model implements SearchableModel
     
     public function searchResultString()
     {
-        return $this->repository->searchResultString();
+        return $this->modelService->searchResultString();
     }
     
     public function searchResultUrl()
     {
-        return $this->repository->searchResultUrl();
+        return $this->modelService->searchResultUrl();
     }
 
     public function searchResultIcon()
     {
-        return $this->repository->searchResultIcon();
+        return $this->modelService->searchResultIcon();
     }
 
     public function editableByUser()
     {
-        return $this->repository->editableByUser();
+        return $this->modelService->editableByUser();
     }
 }

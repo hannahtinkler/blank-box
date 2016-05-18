@@ -11,11 +11,11 @@ use App\Models\Page;
 
 class ServerController extends Controller
 {
-    private $manager;
+    private $controllerService;
 
-    public function __construct(ServerControllerService $manager)
+    public function __construct(ServerControllerService $controllerService)
     {
-        $this->manager = $manager;
+        $this->controllerService = $controllerService;
     }
 
     public function show()
@@ -54,7 +54,7 @@ class ServerController extends Controller
         header("Content-Disposition: attachment; filename=config");
         header('Content-type: text/plain');
 
-        $content = $this->manager->getSshConfigContent();
+        $content = $this->controllerService->getSshConfigContent();
         $content = str_replace('SSH_USERNAME', $request->input('ssh_username'), $content);
         $content = str_replace('BRACKNELL_KEY', $request->input('bracknell_key'), $content);
         $content = str_replace('BOURNEMOUTH_KEY', $request->input('bournemouth_key'), $content);

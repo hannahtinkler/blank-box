@@ -22,10 +22,10 @@ class ChapterModelServiceTest extends TestCase
      */
     public function testSearchResultStringIsCorrect()
     {
-        $repository = $this->getChapterModelService();
+        $modelService = $this->getChapterModelService();
 
         $expected = 'Chapter: ' . $this->chapter->title . ' - ' . substr($this->chapter->description, 0, 60) . '...';
-        $actual = $repository->searchResultString();
+        $actual = $modelService->searchResultString();
 
         $this->assertEquals($expected, $actual);
     }
@@ -38,10 +38,10 @@ class ChapterModelServiceTest extends TestCase
      */
     public function testSearchResultUrlIsCorrect()
     {
-        $repository = $this->getChapterModelService();
+        $modelService = $this->getChapterModelService();
 
         $expected = '/p/' . $this->chapter->category->slug . '/' . $this->chapter->slug;
-        $actual = $repository->searchResultUrl();
+        $actual = $modelService->searchResultUrl();
 
         $this->assertEquals($expected, $actual);
     }
@@ -54,10 +54,10 @@ class ChapterModelServiceTest extends TestCase
      */
     public function testSearchResultIconIsCorrect()
     {
-        $repository = $this->getChapterModelService();
+        $modelService = $this->getChapterModelService();
 
         $expected = '<i class="fa fa-folder-open-o"></i>';
-        $actual = $repository->searchResultIcon();
+        $actual = $modelService->searchResultIcon();
 
         $this->assertEquals($expected, $actual);
     }

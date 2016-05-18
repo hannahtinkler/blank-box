@@ -12,7 +12,7 @@ class User extends Authenticatable implements SearchableModel
 {
     use ElasticquentTrait;
 
-    public $repository;
+    public $modelService;
     public $guarded = [];
     protected $mappingProperties = array(
         'name' => [
@@ -24,21 +24,21 @@ class User extends Authenticatable implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->repository = new UserModelService($this);
+        $this->modelService = new UserModelService($this);
     }
     
     public function searchResultString()
     {
-        return $this->repository->searchResultString();
+        return $this->modelService->searchResultString();
     }
     
     public function searchResultUrl()
     {
-        return $this->repository->searchResultUrl();
+        return $this->modelService->searchResultUrl();
     }
     
     public function searchResultIcon()
     {
-        return $this->repository->searchResultIcon();
+        return $this->modelService->searchResultIcon();
     }
 }

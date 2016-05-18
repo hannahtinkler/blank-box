@@ -19,7 +19,7 @@ class PageDraftControllerServiceTest extends TestCase
      * An instance of the PageDraftControllerService class under test
      * @var object
      */
-    private $manager;
+    private $controllerService;
 
     /**
      * An array of fields which should be used for comparison purposes when
@@ -46,7 +46,7 @@ class PageDraftControllerServiceTest extends TestCase
         parent::setUp();
 
         $this->user = factory(App\Models\User::class)->create();
-        $this->manager = new PageDraftControllerService($this->user);
+        $this->controllerService = new PageDraftControllerService($this->user);
     }
 
     /**
@@ -71,7 +71,7 @@ class PageDraftControllerServiceTest extends TestCase
         $expected = $requestData;
         $expected['created_by'] = $this->user->id;
 
-        $actual = $this->manager->savePageDraft($requestData)->toArray();
+        $actual = $this->controllerService->savePageDraft($requestData)->toArray();
 
         $this->assertEquals(
             $this->comparableFields($expected),
@@ -101,7 +101,7 @@ class PageDraftControllerServiceTest extends TestCase
             'created_by' => $this->user->id
         ]);
 
-        $actual = $this->manager->savePageDraft($requestData)->toArray();
+        $actual = $this->controllerService->savePageDraft($requestData)->toArray();
 
         $this->assertEquals(
             $this->comparableFields($expected),
@@ -133,7 +133,7 @@ class PageDraftControllerServiceTest extends TestCase
         $expected = $requestData;
         $expected['created_by'] = $draft->created_by;
 
-        $actual = $this->manager->updatePageDraft($draft, $requestData)->toArray();
+        $actual = $this->controllerService->updatePageDraft($draft, $requestData)->toArray();
 
         $this->assertEquals(
             $this->comparableFields($expected),
@@ -165,7 +165,7 @@ class PageDraftControllerServiceTest extends TestCase
             'created_by' => $draft->created_by
         ]);
 
-        $actual = $this->manager->updatePageDraft($draft, $requestData)->toArray();
+        $actual = $this->controllerService->updatePageDraft($draft, $requestData)->toArray();
 
         $this->assertEquals(
             $this->comparableFields($expected),
@@ -183,7 +183,7 @@ class PageDraftControllerServiceTest extends TestCase
     {
         $draft = factory(App\Models\PageDraft::class)->create();
 
-        $this->manager->deletePageDraft($draft->id);
+        $this->controllerService->deletePageDraft($draft->id);
 
         $lookup = PageDraft::find($draft->id);
 
