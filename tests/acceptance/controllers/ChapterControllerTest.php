@@ -125,6 +125,154 @@ class ChapterControllerTest extends TestCase
     }
 
     /**
+     * Test that a request to the route that updates an existing page works when
+     * logged in as a curator and passed all available data from the edit
+     * form
+     *
+     * @return void
+     */
+    public function testItCanUpdateAnExistingPageAsCuratorWithAllData()
+    {
+        $this->logInAsUser(['curator' => true]);
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $data = [
+            '_token' => csrf_token(),
+            'category_id' => $chapter->category_id,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+        ];
+
+        $this->put('/chapters/' . $chapter->id, $data)
+            ->assertResponseStatus(302);
+
+        $expected = $data;
+        $expected['order'] = $chapter->order;
+        $expected['slug'] = str_slug($data['title']);
+
+        $actual = Chapter::find($chapter->id)->toArray();
+
+        $this->assertEquals(
+            $this->comparableFields($expected),
+            $this->comparableFields($actual)
+        );
+    }
+
+    /**
+     * Test that a request to the route that updates an existing chapter returns
+     * errors when logged in as a curator and passed no available data from
+     * the edit form
+     *
+     * @return void
+     */
+    public function testItCanNotUpdateAnExistingChapterAsCuratorWithNoData()
+    {
+        $this->logInAsUser(['curator' => true]);
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $data = [
+            '_token' => csrf_token(),
+        ];
+
+        $this->put('/chapters/' . $chapter->id, $data)
+            ->assertResponseStatus(302);
+        
+        $this->assertSessionHasErrors();
+    }
+    
+    /**
+     * Test that a request to the route that shows a user the 'Edit Chapter' Page
+     * shows the 'Edit Chapter' page and returns a 200 response code (OK) when
+     * logged in as a curator
+     *
+     * @return void
+     */
+    public function testItCanAccessEditChapterAsCurator()
+    {
+        $this->logInAsUser(['curator' => true]);
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $this->get('/chapters/edit/' . $chapter->id)
+            ->see('Edit Chapter')
+            ->assertResponseStatus(200);
+    }
+
+    /**
+     * Test that a request to the route that shows a user the 'Edit Chapter' Page
+     * shows the 'Edit Chapter' page and returns a 200 response code (OK) when
+     * logged in as a curator
+     *
+     * @return void
+     */
+    public function testItCanNotAccessEditChapterAsReader()
+    {
+        $this->logInAsUser();
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $this->get('/chapters/edit/' . $chapter->id)
+            ->assertResponseStatus(401);
+    }
+
+    /**
+     * Test that a request to the route that updates an existing chapter returns
+     * errors when logged in as a reader/non-author/non-curator
+     *
+     * @return void
+     */
+    public function testItCanNotUpdateAnExistingChapterAsReader()
+    {
+        $this->logInAsUser();
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $data = [
+            '_token' => csrf_token(),
+            'category_id' => $chapter->category_id,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+        ];
+
+        $this->put('/chapters/' . $chapter->id, $data)
+            ->assertResponseStatus(401);
+    }
+
+    /**
+     * Test that a request to the route that destroys a chapter works when
+     * logged in as a curator
+     *
+     * @return void
+     */
+    public function testItCanNotDestroyChapterAsReader()
+    {
+        $this->logInAsUser();
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $this->delete('/chapters/' . $chapter->id)
+            ->assertResponseStatus(401);
+    }
+
+    /**
+     * Test that a request to the route that destroys a chapter works when
+     * logged in as a curator
+     *
+     * @return void
+     */
+    public function testItCanDestroyChapterAsCurator()
+    {
+        $this->logInAsUser(['curator' => true]);
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $this->delete('/chapters/' . $chapter->id)
+            ->assertResponseStatus(302);
+    }
+
+    /**
      * Logs in a new user so that we can path successfully though
      * authentication
      *

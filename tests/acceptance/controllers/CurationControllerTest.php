@@ -26,7 +26,7 @@ class CurationControllerTest extends TestCase
         $this->logInAsUser();
 
         $this->get('/curation')
-            ->see('Curation Page')
+            ->see('Curation')
             ->assertResponseStatus(200);
     }
 

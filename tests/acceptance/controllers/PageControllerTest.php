@@ -30,14 +30,66 @@ class PageControllerTest extends TestCase
     );
 
     /**
-     * Test that a request to the route that shows a user the 'Show Page' Page
-     * shows the 'Show Page' page and returns a 200 response code (OK)
+     * Test that a request to the route that shows a user an approved page
+     * works and returns a 200 response code (OK)
      *
      * @return void
      */
-    public function testItCanAccessShowPagePage()
+    public function testItCanAccessApprovedPage()
     {
         $this->logInAsUser();
+
+        $page = factory(App\Models\Page::class)->create(['approved' => true]);
+
+        $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
+            ->see($page->title)
+            ->assertResponseStatus(200);
+    }
+
+    /**
+     * Test that a request to the route that shows a user an unapproved page
+     * fails and returns a 404 response code (not found) when logged in as
+     * a reader
+     *
+     * @return void
+     */
+    public function testItCanNotAccessUnpprovedPageAsReader()
+    {
+        $this->logInAsUser();
+
+        $page = factory(App\Models\Page::class)->create();
+
+        $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
+            ->assertResponseStatus(404);
+    }
+
+    /**
+     * Test that a request to the route that shows a user an unapproved page
+     * works and returns a 200 response code (OK) when logged in as the author
+     *
+     * @return void
+     */
+    public function testItCanAccessUnpprovedPageAsAuthor()
+    {
+        $this->logInAsUser();
+
+        $page = factory(App\Models\Page::class)->create(['created_by' => $this->user->id]);
+
+        $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
+            ->see($page->title)
+            ->assertResponseStatus(200);
+    }
+
+    /**
+     * Test that a request to the route that shows a user an unapproved page
+     * works and returns a 200 response code (OK) when logged in as a
+     * curator
+     *
+     * @return void
+     */
+    public function testItCanAccessUnpprovedPageAsCurator()
+    {
+        $this->logInAsUser(['curator' => true]);
 
         $page = factory(App\Models\Page::class)->create();
 

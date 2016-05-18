@@ -2,12 +2,12 @@
 
 @section('content')
 
-    <h1>Curation Page</h1>
-    <h2>Pages awaiting approval</h2>
+    <h1>Curation</h1>
+    <h2>Pages Awaiting Approval</h2>
 
     <hr>
 
-    <div class="wrapper wrapper-content  animated fadeInRight blog">
+    <div class="wrapper wrapper-content animated blog">
     <div class="row">
         @foreach($pages as $page)
             <div class="col-lg-12">
@@ -15,7 +15,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-10">
-                                <a href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">
+                                <a target="_blank" href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">
                                     <h2>
                                         {{ $page->title }}
                                     </h2>
@@ -38,9 +38,9 @@
                                 </div>
                             </div>
                             <div class="col-md-2">
-                                <a href="/curation/approve/{{ $page->id }}" class="btn btn-xs btn-primary"><span id="approve-button" class="fa fa-check"></span></a>
+                                <a href="/curation/approve/{{ $page->id }}" class="btn btn-xs btn-primary approve-link"><span id="approve-button" class="approve-button fa fa-check"></span></a>
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,5 +51,17 @@
 @stop
 
 @section('scripts')
-
+<script>
+    $(document).ready(function() {
+        $('.approve-button').each(function() {
+            var width = $(this).parent().parent().parent().height();
+            var fontsize = width / 2.5;
+            var height =  (width - fontsize - 5) /2;
+            $(this).css('font-size', fontsize);
+            $(this).css('padding-top', height);
+            $(this).css('padding-bottom', height);
+            $(this).width($(this).innerHeight() - 25);
+        });
+    });
+</script>
 @stop

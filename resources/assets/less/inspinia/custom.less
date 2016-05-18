@@ -29,11 +29,16 @@ h6 {
 }
 
 h4 span {
-    font-style: italic;
-    font-size: 70%;
-    color: #8D8D8D;
-    font-weight: normal;
-    margin-left: 1em;
+  font-style: italic;
+  font-size: 70%;
+  color: #8D8D8D;
+  font-weight: normal;
+  margin-left: 1em;
+}
+
+h2 .label {
+  position: relative;
+  top: -5px;
 }
 
 .navbar .btn {
@@ -206,7 +211,7 @@ nav i.glyphicon-bookmark {
 
 .top-offset-2 {margin-top:2em;}
 
-.right {float:right}
+.right {float:right !important}
 
 .nav-second-level li a {
   font-weight: normal !important;
@@ -380,4 +385,35 @@ h5.tags {
 .page-content {
   padding:20px 30px 30px;
   border:thin solid #ccc;
+}
+
+.approve-link {
+  float:right;
+}
+
+.page-options {
+  min-width:200px;
+}
+
+.btn-group.page-options > .btn, 
+.btn-group.page-options > form > .btn {
+  float: right !important;
+}
+
+.page-options.btn-group > .btn:first-child:not(:last-child),
+.page-options.btn-group > form:first-child:not(:last-child) > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-left: -1px;
+}
+
+.page-options.btn-group > .btn:last-child:not(:first-child),
+.page-options.btn-group > form:last-child:not(:first-child) > .btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin-right: 0;
 }

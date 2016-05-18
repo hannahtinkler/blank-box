@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/pages/edit/{id}', 'PageController@edit');
     Route::put('/pages/{id}', 'PageController@update');
     Route::delete('/pages/{id}', 'PageController@destroy');
+    Route::get('/pages/latestupdates', 'PageController@latestPages');
     
     Route::get('/pagedrafts/preview/{id}', 'PageDraftController@preview');
     Route::post('/pagedrafts/{id?}', 'PageDraftController@store');
@@ -40,7 +41,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/chapters', 'ChapterController@store');
     Route::get('/chapters/edit/{id}', 'ChapterController@edit');
     Route::put('/chapters/{id}', 'ChapterController@update');
-    Route::delete('/chapters/{id?}', 'ChapterController@destroy');
+    Route::delete('/chapters/{id}', 'ChapterController@destroy');
 
     Route::get('/curation', 'CurationController@index');
     Route::get('/curation/approve/{id}', 'CurationController@approve');
@@ -63,5 +64,4 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
 
-    Route::get('/pages/latestupdates', 'PageController@getLatestPages');
 });

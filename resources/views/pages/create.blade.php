@@ -114,6 +114,7 @@
 
         function getChapters() {
              var categoryId = $('#category_id').val();
+             console.log(categoryId);
 
             if (categoryId == '') {
                 $('#chapter_id').html('');
@@ -121,6 +122,7 @@
             } else {
                 $.get('/ajax/data/chapters/' + categoryId, function(data) {
                     data = JSON.parse(data);
+                    $('#chapter_id').html('');
                     $('#chapter_id').append('<option value="">Select a category...</option>');
                     $.each(data, function(key, value) {
                         $('#chapter_id').append('<option id="opt' + value.id + '" value="' + value.id + '">' + value.title + '</option>');

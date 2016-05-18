@@ -4,7 +4,12 @@
 
 <h1>{{ $page->chapter->category->title }} - {{ $page->chapter->title }}</h1>
 @include('partials.page_options')
-<h2>{{ $page->title }}</h2>
+<h2>
+    {{ $page->title }}
+    @if(!$page->approved)
+        <span class="label label-warning m-l-sm"><i class="fa fa-flag"></i> Pending Curation</span>
+    @endif
+</h2>
 
 <hr>
 

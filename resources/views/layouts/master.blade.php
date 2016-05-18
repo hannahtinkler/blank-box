@@ -56,7 +56,7 @@
                 @if(is_object($current['category']->chapters))
 
                     @foreach($current['category']->chapters as $chapter)
-                        @if(!$chapter->pages->isEmpty())
+                        @if(!$chapter->approvedPages->isEmpty())
                             @if(isset($current['chapter']))
                                 <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>
                             @else
@@ -65,12 +65,12 @@
                                 <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}">
                                     <i class="fa fa-folder-open-o"></i>
                                     <span class="nav-label">{{ $chapter->title }}</span>
-                                    @if(!$chapter->pages->isEmpty())
+                                    @if(!$chapter->approvedPages->isEmpty())
                                         <span class="fa arrow"></span>
                                     @endif
                                 </a>
                             
-                                @if(!$chapter->pages->isEmpty())
+                                @if(!$chapter->approvedPages->isEmpty())
                                     <ul class="nav nav-second-level collapse">
                                         <li><a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a></li>
                                         @foreach($chapter->pages as $page)
@@ -185,9 +185,9 @@
 
         <div class="row row-first-content">
             @if(isset($current['page']))
-                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['page']->bookmarks) ? 'active' : null }}" title="Click to bookmark this page"></i>
+                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['page']->bookmark) ? 'active' : null }}" title="Click to bookmark this page"></i>
             @elseif(isset($current['chapter']))
-                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['chapter']->bookmarks) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
+                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['chapter']->bookmark) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
             @endif
             @yield ('content') 
         </div>

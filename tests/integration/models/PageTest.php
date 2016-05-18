@@ -90,7 +90,7 @@ class PageTest extends TestCase
      */
     public function testTheLargestOrderValueQueryScope()
     {
-        $chapter = factory(Page::class)->create();
+        $chapter = factory(Chapter::class)->create();
         $page1 = factory(Page::class)->create(['chapter_id' => $chapter->id, 'order' => 5]);
         $page2 = factory(Page::class)->create(['chapter_id' => $chapter->id, 'order' => 25]);
         $page3 = factory(Page::class)->create(['chapter_id' => $chapter->id, 'order' => 15]);

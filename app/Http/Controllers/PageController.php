@@ -23,6 +23,10 @@ class PageController extends Controller
     {
         $page = Page::findBySlug($pageSlug);
 
+        if (!$page->editableByUser() && !$page->approved) {
+            \App::abort(404);
+        }
+
         return view('pages.show', [
             'page' => $page,
             'user' => $this->controllerService->user
@@ -82,15 +86,16 @@ class PageController extends Controller
             $page->delete();
 
             return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
-            ->with('message', 'Page has been successfully deleted');
+            ->with('message', '<i class="fa fa-check"></i> This page has been successfully deleted');
         } else {
             return \App::abort(401);
         }
     }
     
-    public function getLatestPages()
+    public function latestPages()
     {
         $updatedPages = Page::latestUpdated()->paginate(10);
-        return view('updated-pages.index', compact('updatedPages'));
+
+        return view('pages.updated', compact('updatedPages'));
     }
 }

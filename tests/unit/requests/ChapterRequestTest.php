@@ -26,7 +26,7 @@ class ChapterRequestTest extends TestCase
     public function testItReturnsValidationRules()
     {
         $expected = [
-            'category_id' => 'required|integer',
+            'category_id' => 'required|integer|exists:categories,id',
             'title' => 'required',
             'description' => 'required|min:10'
         ];

@@ -24,7 +24,7 @@ class ServiceControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $this->get('/p/mayden/servers/service-list')
+        $this->get('/p/iaptus/services/service-list')
             ->see('Service List')
             ->assertResponseStatus(200);
     }

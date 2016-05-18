@@ -8354,6 +8354,10 @@ h4 span {
   font-weight: normal;
   margin-left: 1em;
 }
+h2 .label {
+  position: relative;
+  top: -5px;
+}
 .navbar .btn {
   padding: 4px 10px;
   margin: 14px 5px 5px 17px;
@@ -8509,7 +8513,7 @@ nav i.glyphicon-bookmark {
   margin-top: 2em;
 }
 .right {
-  float: right;
+  float: right !important;
 }
 .nav-second-level li a {
   font-weight: normal !important;
@@ -8654,8 +8658,31 @@ h5.tags {
   padding: 20px 30px 30px;
   border: thin solid #ccc;
 }
-.page-title {
-  width: 80%;
+.approve-link {
+  float: right;
+}
+.page-options {
+  min-width: 200px;
+}
+.btn-group.page-options > .btn,
+.btn-group.page-options > form > .btn {
+  float: right !important;
+}
+.page-options.btn-group > .btn:first-child:not(:last-child),
+.page-options.btn-group > form:first-child:not(:last-child) > .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-left: -1px;
+}
+.page-options.btn-group > .btn:last-child:not(:first-child),
+.page-options.btn-group > form:last-child:not(:first-child) > .btn {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin-right: 0;
 }
 @media print {
   nav.navbar-static-side {
