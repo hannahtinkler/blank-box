@@ -20,6 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', 'HomeController@index');
     
+    Route::get('/contribute', 'HomeController@contribute');
     Route::get('/random', 'HomeController@getRandomPage');
     Route::get('/switchcategory/{id}', 'HomeController@switchCategory');
 
@@ -44,7 +45,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/chapters/{id}', 'ChapterController@destroy');
 
     Route::get('/curation', 'CurationController@index');
-    Route::get('/curation/approve/{id}', 'CurationController@approve');
+    Route::get('/curation/new', 'CurationController@newPagesAwaitingApproval');
+    Route::get('/curation/edits', 'CurationController@suggestedEditsAwaitingApproval');
+    Route::get('/curation/new/approve/{id}', 'CurationController@approveNewPage');
+    Route::get('/curation/edits/approve/{id}', 'CurationController@approveSuggestedEdit');
+    Route::get('/curation/viewdiff/{id}', 'CurationController@viewdiff');
+    Route::get('/curation/edits/approve/{id}', 'CurationController@approveEdit');
+    Route::get('/curation/edits/reject/{id}', 'CurationController@rejectEdit');
 
     Route::get('/bookmarks', 'BookmarkController@index');
     Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Page;
+use App\Models\SuggestedEdit;
 use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -25,7 +26,7 @@ class CurationControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $this->get('/curation')
+        $this->get('/curation/new')
             ->see('Curation')
             ->assertResponseStatus(200);
     }
@@ -42,12 +43,86 @@ class CurationControllerTest extends TestCase
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->get('/curation/approve/' . $page->id)
+        $this->get('/curation/new/approve/' . $page->id)
             ->assertResponseStatus(302);
 
         $lookup = Page::find($page->id);
 
         $this->assertEquals(1, $lookup->approved);
+    }
+
+    /**
+     * Test that a request to the route that shows a user the 'Pages Awaiting
+     * Curation' Page shows the 'Show Curation' page and returns a 200
+     * response code (OK)
+     *
+     * @return void
+     */
+    public function testItCanAccessSuggestedEditsPendingCurationPage()
+    {
+        $this->logInAsUser();
+
+        $this->get('/curation/edits')
+            ->see('Curation')
+            ->assertResponseStatus(200);
+    }
+
+    /**
+     * Test that a request to the route that approves an edit awaiting curation
+     * works and returns a 200 response code (OK)
+     *
+     * @return void
+     */
+    public function testItCanApproveASuggestedEditPendingCuration()
+    {
+        $this->logInAsUser();
+
+        $page = factory(App\Models\SuggestedEdit::class)->create();
+
+        $this->get('/curation/edits/approve/' . $page->id)
+            ->assertResponseStatus(302);
+
+        $lookup = SuggestedEdit::find($page->id);
+
+        $this->assertEquals(1, $lookup->approved);
+    }
+
+    /**
+     * Test that a request to the route that rejects an edit awaiting curation
+     * works and returns a 200 response code (OK)
+     *
+     * @return void
+     */
+    public function testItCanRejectASuggestedEditPendingCuration()
+    {
+        $this->logInAsUser();
+
+        $page = factory(App\Models\SuggestedEdit::class)->create();
+
+        $this->get('/curation/edits/reject/' . $page->id)
+            ->assertResponseStatus(302);
+
+        $lookup = SuggestedEdit::find($page->id);
+
+        $this->assertEquals(0, $lookup->approved);
+    }
+
+    /**
+     * Test that a request to the route that returns a diff of the original page
+     * and the edit returns the required html and a 200 response (OK)
+     *
+     * @return void
+     */
+    public function testItCanViewDiffForSuggestedEdit()
+    {
+        $this->logInAsUser();
+
+        $page = factory(App\Models\SuggestedEdit::class)->create();
+
+        $this->get('/curation/viewdiff/' . $page->id)
+            ->see('<ins>')
+            ->see('<del>')
+            ->assertResponseStatus(200);
     }
 
     /**

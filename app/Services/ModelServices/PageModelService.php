@@ -4,6 +4,7 @@ namespace App\Services\ModelServices;
 
 use Auth;
 use App\Models\Page;
+use App\Models\SuggestedEdit;
 use App\Interfaces\SearchableModelService;
 
 class PageModelService implements SearchableModelService
@@ -49,5 +50,33 @@ class PageModelService implements SearchableModelService
     public function searchResultIcon()
     {
         return '<i class="fa fa-file-o"></i>';
+    }
+
+    public function hasEdits()
+    {
+        $edits = SuggestedEdit::where('page_id', $this->page->id)->get();
+        return $edits->count();
+    }
+
+    public function getUpdatorsString()
+    {
+        $edits = SuggestedEdit::where('page_id', $this->page->id)->groupBy('created_by')->get();
+
+        if ($edits->count() == 1) {
+            return '<strong>' . $edits->first()->creator->name . '</strong>';
+        }
+
+        $count = 1;
+        $string = '';
+        foreach ($edits as $edit) {
+            if ($count < $edit->count()) {
+                $string .= '<strong>' . $edit->creator->name . '</strong>, ';
+            } else {
+                $string = trim($string, ', ') . ' and <strong>' . $edit->creator->name . '</strong>';
+            }
+            $count++;
+        }
+        return $string;
+
     }
 }

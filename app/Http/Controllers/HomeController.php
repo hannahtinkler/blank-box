@@ -13,6 +13,11 @@ class HomeController extends Controller
         return view('home.index');
     }
     
+    public function contribute()
+    {
+        return view('home.contribute');
+    }
+    
     public function getRandomPage()
     {
         $page = Page::orderByRaw("RAND()")->first();

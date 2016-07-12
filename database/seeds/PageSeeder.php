@@ -31,7 +31,8 @@ class PageSeeder extends Seeder
             'content' => null,
             'slug' => str_slug('Server Details'),
             'order' => 1,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -41,7 +42,8 @@ class PageSeeder extends Seeder
             'content' => null,
             'slug' => str_slug('Service List'),
             'order' => 1,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -51,7 +53,8 @@ class PageSeeder extends Seeder
             'content' => null,
             'slug' => str_slug('SSH Config Generator'),
             'order' => 3,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -61,7 +64,8 @@ class PageSeeder extends Seeder
             'content' => "<h3>You will need:</h3><ol><li>The service number of the service requiring the case manager</li></ol><br /><h3>How To</h3><ol><li>Find the therapist ID (th_id) by looking up the therapist name in the nh_therapist table for the relevant service</li><li>Create a new patch in <code>/mysql/service_patches</code>.</li><li>Paste the example text below into the patch and replace 'TH_ID_HERE' with the therapist ID you looked up earlier</li></ol><br /><h3>Sample Patch Text:</h3><code><span>#Patch to make therapist 'TherapistNameHere' a casemanager for ServiceNameHere</span><br />UPDATE `nh_therapist` <br />SET `th_type`='casemanager' <br />WHERE `th_type`='therapist' and 'th_id'=TH_ID_HERE;</code>",
             'slug' => str_slug('Creating Case Managers'),
             'order' => 3,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -71,7 +75,8 @@ class PageSeeder extends Seeder
             'content' => "<h3>You will need:</h3><ol><li>Live access</li><li>Access to Keepass</li></ol><br /><h3>How To</h3><ol><li>SSH into the Bournemouth server</li><li>Log into <a href='https://demo.iaptus.co.uk'>https://demo.iaptus.co.uk</a> using 'superuser' followed by the service needing the care pathway as the username, e.g. <code>superuserhull</code>. You can find the password in Keepass under <code>Projects > IAPTus > Websites > Demo</code>.</li><li>Click the 'Care Pathway (Mayden Only)' link under the Superuser menu.</li><li>Scroll to the 'Care Pathway Sync Tool' section of the page, which will be close to the bottom. Ensure that the dropdown says 'LIVE' and then click 'Export'.</li><li>Open the downloaded file in a text editor and add the following insert statement to the top, to log the patch running: <br /><code><span># Changing 'PATCH_FILENAME_HERE' to the name you will save this patch under</span><br />INSERT INTO db_patches (filename, startDate, endDate, user, logFile) VALUES ('PATCH_FILENAME_HERE.sql', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP(), '', '');</code></li><li>Save the patch in the <code>/mysql/service_patches</code> folder.</li></ol><br /><h3>Notes:</h3><ul><li>The patch filename should be the current timestamp with no delimiter, followed by the service name, followed by a brief description of the patch (all separated by dashes):<br /><code><span># For example:</span><br />20160505-hull-care-pathway-to-go-live.sql</code></li><li>Don't forget to make a note on Jira that the patch will need to be run manually</li></ul>",
             'slug' => str_slug('Putting a Care Pathway Live'),
             'order' => 3,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -81,7 +86,8 @@ class PageSeeder extends Seeder
             'content' => "<h3>You will need:</h3><ol><li>Live access</li><li>Access to Keepass</li><li>An FTP connection to the server the client lives on</li></ol><br /><h3>How To</h3><ol><li>Download the client's certificate request from the relevant Orbit task and upload it to the <code>/var/www/ca/clients/CLIENT_NAME/</code> directory on <a href='/p/iaptus/services/service-list'>the client's server</a> via FTP</li><li>Open and read the certificate using the <code>openssl req -noout -text -in CERT_REQUEST_NAME.csr</code> command, replacing 'CERT_REQUEST_NAME' with the file name of the certificate request that you uploaded.</li><li>Chech the 'common name' in the open certificate request againt that service's nh_export_users. If the common name from the certificate is already in this table, the certificate request should be discarded and the client needs to be asked to supply another with a unique common name.</li><li>Generate a signed certificate from your uploaded certificate request by running <code>openssl ca -cert ../../ca/ca.crt -keyfile ../../ca/ca.key -config ../../openssl.cnf -in CERT_REQUEST_NAME.csr -out CERT_REQUEST_NAME.crt</code>, replacing 'CERT_REQUEST_NAME' again.</li><li>Open the newly created signed certificate by running <code>openssl x509 -noout -text -in client.crt</code>. Ensure the contents look logical/not corrupted or empty.</li><li>Download the certificate via FTP and send it via Skype to the support team member who is assigned to the task.</li></ol><br /><h3>Notes:</h3><ul><li>The certificate request you download may have a <code>.csr</code> file extension OR a <code>.req</code> file extension. Either if valid.</li></ul>",
             'slug' => str_slug('Signing Exports Certificates'),
             'order' => 3,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -102,7 +108,8 @@ class PageSeeder extends Seeder
             ",
             'slug' => str_slug('Types of Automated Tests'),
             'order' => 1,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -158,7 +165,8 @@ class PageSeeder extends Seeder
             ',
             'slug' => str_slug('Features of Valuable Tests'),
             'order' => 3,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -195,7 +203,8 @@ class PageSeeder extends Seeder
             ",
             'slug' => str_slug('Code Review Testing Checklist'),
             'order' => 3,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -212,7 +221,8 @@ class PageSeeder extends Seeder
 <script type="text/javascript" src="https://www.draw.io/embed.js?s=flowchart"></script>',
             'slug' => str_slug('"What Kind of Test Should I Write?"'),
             'order' => 4,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -224,7 +234,8 @@ class PageSeeder extends Seeder
 </div></div>',
             'slug' => str_slug('Working on Support Tasks'),
             'order' => 3,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -237,7 +248,8 @@ class PageSeeder extends Seeder
 <script type="text/javascript" src="https://www.draw.io/embed.js?s=flowchart"></script>',
             'slug' => str_slug('Webforms Process Diagram'),
             'order' => 1,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -255,7 +267,8 @@ class PageSeeder extends Seeder
 <script type="text/javascript" src="https://www.draw.io/embed.js?s=flowchart"></script>',
             'slug' => str_slug('Server Node Diagram'),
             'order' => 1,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -268,7 +281,8 @@ class PageSeeder extends Seeder
 <script type="text/javascript" src="https://www.draw.io/embed.js?s=flowchart"></script>',
             'slug' => str_slug('Sensu Process Diagram'),
             'order' => 1,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -280,7 +294,8 @@ class PageSeeder extends Seeder
 </div></div>',
             'slug' => str_slug('Server Map Diagram'),
             'order' => 2,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
 
         Page::create([
@@ -301,7 +316,8 @@ class PageSeeder extends Seeder
             ",
             'slug' => str_slug('iaptus Thesaurus'),
             'order' => 1,
-            'created_by' => 1
+            'created_by' => 1,
+            'approved' => 1
         ]);
     }
 }

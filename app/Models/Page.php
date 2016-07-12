@@ -72,6 +72,16 @@ class Page extends Model implements SearchableModel
         return $this->modelService->searchResultString();
     }
     
+    public function getUpdatorsString()
+    {
+        return $this->modelService->getUpdatorsString();
+    }
+    
+    public function hasEdits()
+    {
+        return $this->modelService->hasEdits();
+    }
+    
     public function searchResultUrl()
     {
         return $this->modelService->searchResultUrl();

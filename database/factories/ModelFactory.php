@@ -47,6 +47,7 @@ $factory->define(App\Models\Page::class, function (Faker\Generator $faker) {
         'title' => $title,
         'description' => $faker->sentence,
         'content' => $faker->text,
+        'approved' => null,
         'slug' => str_slug($title),
         'order' => $faker->randomDigit,
         'created_by' => factory(App\Models\User::class)->create()->id
@@ -103,11 +104,15 @@ $factory->define(App\Models\ServerPortForwardingSetting::class, function (Faker\
     ];
 });
 
-$factory->define(App\Models\Suggestion::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\SuggestedEdit::class, function (Faker\Generator $faker) {
+    $title = $faker->sentence;
     return [
+        'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
         'page_id' => factory(App\Models\Page::class)->create()->id,
-        'suggestion' => $faker->text,
-        'approved' => $faker->boolean,
-        'created_by' => factory(App\Models\User::class)->create()->id,
+        'title' => $title,
+        'description' => $faker->sentence,
+        'content' => $faker->text,
+        'approved' => null,
+        'created_by' => factory(App\Models\User::class)->create()->id
     ];
 });

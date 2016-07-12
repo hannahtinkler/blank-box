@@ -917,7 +917,7 @@ class ServiceSeeder extends Seeder
             'name' => 'THN Newcastle',
             'service_id' => 197,
             'type' => 'IAPT',
-            'server_id' => $set5A->id,
+            'server_id' => $set1A->id,
             'live_site_url' => 'http://thn.iaptus.nhs.uk'
         ]);
 

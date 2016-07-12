@@ -86,8 +86,20 @@
                 @endif
                 <li class="spacer"><hr></li>
                 @if(Auth::user()->curator)
-                    <li{!! Request::is('/curation') ? ' class="active"' : null !!}>
-                        <a href="/curation"><i class="fa fa-check"></i> <span class="nav-label">Curation </span>({{ $awaitingCurationCount }})</a>
+                     <li>
+                        <a href="/curation">
+                            <span class="nav-label"><i class="fa fa-check"></i> <span class="nav-label">Curation</span> ({{ $awaitingCurationCountNew + $awaitingCurationCountEdits }})</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                    
+                        <ul class="nav nav-second-level collapse">
+                            <li>
+                                <a href="/curation/new"><i class="fa fa-file-o"></i> <span class="nav-label">New Pages </span>({{ $awaitingCurationCountNew }})</a>
+                            </li>
+                            <li>
+                                <a href="/curation/edits"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Suggested Edits </span>({{ $awaitingCurationCountEdits }})</a>
+                            </li>
+                        </ul>
                     </li>
                 @endif
 
@@ -96,6 +108,9 @@
                 </li>
                 <li{!! Request::is('/pages/latestupdates') ? ' class="active"' : null !!}>
                     <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
+                </li>
+                <li{!! Request::is('/contribute') ? ' class="active"' : null !!}>
+                    <a href="/contribute"><i class="fa fa-hand-peace-o"></i> <span class="nav-label">Contribute</span></a>
                 </li>
             </ul>
 

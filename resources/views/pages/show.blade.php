@@ -19,6 +19,17 @@
 
 {!! $page->content !!}
 
+<div class="m-t-lg green-text">
+    <small>Added by <strong>{{ $page->creator->name }}</strong>
+    @if($page->hasEdits()) 
+        and kept up-to-date by {!! $page->getUpdatorsString() !!}
+    @endif
+    @if(strip_tags($page->getUpdatorsString()) == $page->creator->name)
+        <span class="italic">(what, you're gonna let them do all the work?)</span>
+    @endif
+    </small>
+</div>
+
 @stop
 
 @section('scripts')

@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Chapter;
 use App\Models\Bookmark;
+use App\Models\SuggestedEdit;
 use App\Models\Page;
 use App\Models\Category;
 
@@ -46,7 +47,8 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('layouts.master', function ($view) {
             $current = [];
             $current['category'] = $this->getCurrentCategory();
-            $awaitingCurationCount = $this->getAwaitingCurationCount();
+            $awaitingCurationCountNew = $this->getAwaitingCurationCountNew();
+            $awaitingCurationCountEdits = $this->getAwaitingCurationCountEdits();
 
             if (\Request::segment(1) == 'p') {
                 $current['chapter'] = Chapter::where('slug', \Request::segment(3))->first();
@@ -59,14 +61,20 @@ class AppServiceProvider extends ServiceProvider
             $view->with('categories', $categories)
                 ->with('current', $current)
                 ->with('current', $current)
-                ->with('awaitingCurationCount', $awaitingCurationCount)
+                ->with('awaitingCurationCountNew', $awaitingCurationCountNew)
+                ->with('awaitingCurationCountEdits', $awaitingCurationCountEdits)
                 ->with('bookmarks', $bookmarks);
         });
     }
 
-    public function getAwaitingCurationCount()
+    public function getAwaitingCurationCountNew()
     {
-        return Page::where('approved', 0)->get()->count();
+        return Page::where('approved', null)->get()->count();
+    }
+
+    public function getAwaitingCurationCountEdits()
+    {
+        return SuggestedEdit::where('approved', null)->get()->count();
     }
 
     public function getCurrentCategory()

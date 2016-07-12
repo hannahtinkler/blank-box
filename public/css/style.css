@@ -8684,6 +8684,22 @@ h5.tags {
   border-bottom-left-radius: 3px;
   margin-right: 0;
 }
+del {
+  margin-right: 0.5em;
+}
+ins {
+  background-color: #bde6a4;
+}
+.diff-container {
+  padding: 1em 4em 3em 4em;
+  border: thin solid #dedbdb;
+  background-color: #fff;
+  margin-bottom: 3em;
+  box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.1);
+}
+.green-text {
+  color: #548228;
+}
 @media print {
   nav.navbar-static-side {
     display: none;
