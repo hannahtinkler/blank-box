@@ -29,7 +29,17 @@ class User extends Authenticatable implements SearchableModel
     
     public function pages()
     {
-        return $this->hasMany('App\Models\Page', 'created_by');
+        return $this->hasMany('App\Models\Page', 'created_by')->orderBy('created_at', 'desc')->orderBy('updated_at', 'desc');
+    }
+    
+    public function suggestedEdits()
+    {
+        return $this->hasMany('App\Models\SuggestedEdit', 'created_by');
+    }
+    
+    public function specialistAreas($limit = null)
+    {
+        return $this->modelService->specialistAreas($limit);
     }
     
     public function searchResultString()

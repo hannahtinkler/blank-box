@@ -20,7 +20,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', 'HomeController@index');
     
-    Route::get('/contribute', 'HomeController@contribute');
+    Route::get('/contributors', 'HomeController@contributors');
     Route::get('/random', 'HomeController@getRandomPage');
     Route::get('/switchcategory/{id}', 'HomeController@switchCategory');
 
@@ -66,9 +66,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/p/mayden/servers/ssh-config-generator', 'ServerController@generateConfig');
     Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@show');
 
+    Route::get('/u/{userSlug}/', 'UserController@show');
+
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
+
+    
 
 });

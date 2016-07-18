@@ -14,12 +14,26 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function testPageRelationshipReturnsPage()
+    public function testPagesRelationshipReturnsPages()
     {
         $user = factory(User::class)->create();
         factory(App\Models\Page::class, 2)->create(['created_by' => $user->id]);
 
         $this->assertTrue($user->pages->first() instanceof Page);
+    }
+
+    /**
+     * Tests that a call to the suggestedEdits relationship returns a collection
+     * object containing instances of the SuggestedEdit class
+     *
+     * @return void
+     */
+    public function testSuggestedEditsRelationshipReturnsSuggestedEdits()
+    {
+        $user = factory(User::class)->create();
+        factory(App\Models\SuggestedEdit::class, 2)->create(['created_by' => $user->id]);
+
+        $this->assertTrue($user->pages->first() instanceof SuggestedEdit);
     }
 
     /**

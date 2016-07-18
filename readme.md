@@ -6,9 +6,9 @@
 <a href="#section1">1. Before You Start</a>  
 <a href="#section2">2. Configuring Homestead</a>  
 <a href="#section3">3. Setting Up the Repository</a>  
-<a href="#section4">4. Setting Up Local Databases</a> 
-<a href="#section5">5. Setting Up ElasticSearch</a> 
-<a href="#section6">6. Notes</a> 
+<a href="#section4">4. Setting Up Local Databases</a>  
+<a href="#section5">5. Setting Up ElasticSearch</a>  
+<a href="#section6">6. Notes</a>  
 
 <hr>
 
@@ -104,7 +104,7 @@ Since ElasticSearch is based off Java, you will need install Java 8 on your Vagr
 sudo apt-get update
 ```
 ```
-sudo apt-get install openjdk-7-jre
+sudo apt-get install openjdk-8-jre
 ```
 ```
 sudo add-apt-repository -y ppa:webupd8team/java
@@ -147,7 +147,7 @@ Finally, start ElasticSearch and test it by running the following commands:
 sudo service elasticsearch start
 ```
 ```
-curl -X GET 'http://localhost:9200'
+curl --ipv4 -XGET "http://localhost:9200"
 ```
 
 Some JSON should be output; if it is and it looks a bit like this, you win:

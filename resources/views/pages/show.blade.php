@@ -20,7 +20,7 @@
 {!! $page->content !!}
 
 <div class="m-t-lg green-text">
-    <small>Added by <strong>{{ $page->creator->name }}</strong>
+    <small>Added by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>
     @if($page->hasEdits()) 
         and kept up-to-date by {!! $page->getUpdatorsString() !!}
     @endif

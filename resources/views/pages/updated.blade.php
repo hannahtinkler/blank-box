@@ -17,7 +17,7 @@
                             </h2>
                         </a>
                         <div class="small m-b-sm">
-                            <strong>{{ $page->creator->name }}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
+                            <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
                         </div>
                         <p>
                             {{ $page->description }}

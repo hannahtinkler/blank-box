@@ -23,7 +23,7 @@
                                     </h2>
                                 </a>
                                 <div class="small m-b-sm">
-                                    Suggested by <strong>{{ $edit->creator->name }}</strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
+                                    Suggested by <strong><a href="/u/{{ $page->creator->slug }}">{{ $edit->creator->name }}</a></strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
                                 </div>
                                 <p>
                                     {{ $edit->description }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Page;
+use App\Models\SuggestedEdit;
 use App\Models\Category;
 
 class HomeController extends Controller
@@ -13,9 +14,18 @@ class HomeController extends Controller
         return view('home.index');
     }
     
-    public function contribute()
+    public function contributors()
     {
-        return view('home.contribute');
+        $contributors = Page::select(
+                'pages.created_by',
+                \DB::raw('COUNT(pages.id) as total')
+            )
+            ->join('suggested_edits', 'pages.id', '=', 'suggested_edits.page_id')
+            ->orderBy('total', 'desc')
+            ->groupBy('pages.created_by')
+            ->get();
+
+        return view('home.contributors', compact('contributors'));
     }
     
     public function getRandomPage()
