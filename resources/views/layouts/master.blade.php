@@ -106,11 +106,11 @@
                 <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
                     <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
                 </li>
-                <li{!! Request::is('/pages/latestupdates') ? ' class="active"' : null !!}>
-                    <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
-                </li>
                 <li{!! Request::is('/contributors') ? ' class="active"' : null !!}>
                     <a href="/contributors"><i class="fa fa-hand-peace-o"></i> <span class="nav-label">Contributors</span></a>
+                </li>
+                <li{!! Request::is('/pages/latestupdates') ? ' class="active"' : null !!}>
+                    <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
                 </li>
             </ul>
 
