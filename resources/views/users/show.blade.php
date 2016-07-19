@@ -37,7 +37,10 @@
             <p class="italic">{{ $user->name }} has not submitted any new content yet.</p>
         @else
             @foreach($user->pages as $page)
-                <p><a target="_blank" href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">{{ $page->chapter->category->title }} > {{ $page->chapter->title }} > {{ $page->title }}</a></p>
+                <p>
+                    <a target="_blank" href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}" title="{{ $page->chapter->category->title }} > {{ $page->chapter->title }} > {{ $page->title }}">{{ $page->title }}</a>
+                    <small><i class="fa m-l-sm fa-clock-o grey-text"></i> {{ $page->created_at->format('jS M Y, H:i') }}</small>
+                </p>
             @endforeach
         @endif
     </div>
@@ -46,8 +49,11 @@
         @if($user->suggestedEdits->isEmpty())
             <p class="italic">{{ $user->name }} has not submitted updates to any content yet.</p>
         @else
-            @foreach($user->suggestedEdits->groupBy('created_by') as $suggestedEdit)
-                <p><a target="_blank" href="/p/{{ $suggestedEdit->page->chapter->category->slug }}/{{ $suggestedEdit->page->chapter->slug }}/{{ $suggestedEdit->page->slug }}">{{ $suggestedEdit->page->chapter->category->title }} > {{ $suggestedEdit->page->chapter->title }} > {{ $suggestedEdit->page->title }}</a></p>
+            @foreach($user->suggestedEdits as $suggestedEdit)
+                <p>
+                    <a target="_blank" href="/p/{{ $suggestedEdit->page->chapter->category->slug }}/{{ $suggestedEdit->page->chapter->slug }}/{{ $suggestedEdit->page->slug }}" title="{{ $suggestedEdit->page->chapter->title }} > {{ $suggestedEdit->page->title }}">{{ $suggestedEdit->page->title }}</a>
+                    <small><i class="fa m-l-sm fa-clock-o grey-text"></i> {{ $suggestedEdit->created_at->format('jS M Y, H:i') }}</small>
+                </p>
             @endforeach
         @endif
     </div>
