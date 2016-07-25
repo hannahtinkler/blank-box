@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Page;
-use App\Models\Chapter;
 use App\Models\Bookmark;
-use App\Models\Category;
+
+use App\Services\ControllerServices\BookmarkControllerService;
 
 class BookmarkController extends Controller
 {
+    private $controllerService;
+
+    public function __construct(BookmarkControllerService $controllerService)
+    {
+        $this->controllerService = $controllerService;
+    }
+
     public function index()
     {
         $bookmarks = Bookmark::orderBy('created_at', 'DESC')->get();
@@ -17,52 +23,18 @@ class BookmarkController extends Controller
 
     public function create($categoryId, $chapterId, $pageId = null)
     {
-        $category = Category::where('id', $categoryId)->first();
-        $chapter = Chapter::where('id', $chapterId)->first();
-        $page = Page::where('id', $pageId)->first();
-
-        if (!is_object($chapter) || (!is_object($page) && $pageId != null)) {
-            throw new \Exception("Invalid data received");
-        }
-
-        $exists = Bookmark::where('category_id', $categoryId)
-            ->where('chapter_id', $chapterId)
-            ->where('page_id', is_object($page) ? $pageId : null)
-            ->get();
-
-        if ($exists->isEmpty()) {
-            $exists = Bookmark::create([
-                'category_id' => $categoryId,
-                'chapter_id' => $chapterId,
-                'page_id' => $pageId
-            ]);
-        }
+        $bookmark = $this->controllerService->storeBookmark($categoryId, $chapterId, $pageId);
 
         return json_encode([
             'success' => true,
-            'entity' =>  $exists,
+            'entity' =>  $bookmark,
             'count' => Bookmark::all()->count()
         ]);
     }
 
     public function destroy($categoryId, $chapterId, $pageId = null)
     {
-        $category = Category::where('id', $categoryId)->first();
-        $chapter = Chapter::where('id', $chapterId)->first();
-        $page = Page::where('id', $pageId)->first();
-
-        if (!is_object($chapter) || (!is_object($page) && $pageId != null)) {
-            throw Exception("Invalid data received");
-        }
-
-        $exists = Bookmark::where('category_id', $categoryId)
-            ->where('chapter_id', $chapterId)
-            ->where('page_id', $pageId)
-            ->first();
-
-        if (is_object($exists)) {
-            $exists->delete();
-        }
+        $this->controllerService->deleteBookmark($categoryId, $chapterId, $pageId);
 
         return json_encode([
             'success' => true,

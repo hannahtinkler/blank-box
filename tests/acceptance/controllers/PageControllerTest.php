@@ -53,14 +53,14 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanNotAccessUnpprovedPageAsReader()
+    public function testItCanNotAccessUnapprovedPageAsReader()
     {
         $this->logInAsUser();
 
         $page = factory(App\Models\Page::class)->create();
 
         $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
-            ->assertResponseStatus(404);
+            ->assertResponseStatus(401);
     }
 
     /**
@@ -69,7 +69,7 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanAccessUnpprovedPageAsAuthor()
+    public function testItCanAccessUnapprovedPageAsAuthor()
     {
         $this->logInAsUser();
 
@@ -87,7 +87,7 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanAccessUnpprovedPageAsCurator()
+    public function testItCanAccessUnapprovedPageAsCurator()
     {
         $this->logInAsUser(['curator' => true]);
 
@@ -156,7 +156,7 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanAccessEditPageAsReader()
+    public function testItCanAccessSuggestEditPageAsReader()
     {
         $this->logInAsUser();
 
@@ -470,6 +470,17 @@ class PageControllerTest extends TestCase
 
         $this->delete('/pages/' . $page->id)
             ->assertResponseStatus(401);
+    }
+
+    public function testItCanAccessTheLatestPagesPage()
+    {
+        $this->logInAsUser();
+
+        $page = factory(App\Models\Page::class)->create();
+
+        $this->get('/pages/latestupdates')
+            ->assertResponseStatus(200)
+            ->see("Latest Updated Pages:");
     }
 
     /**

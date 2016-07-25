@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ControllerServices\PageControllerService;
+use Illuminate\Http\Request;
+
 use App\Http\Requests\PageRequest;
+use App\Services\ControllerServices\PageControllerService;
 use App\Services\ModelServices\PageModelService;
 
 use App\Models\Category;
@@ -14,8 +16,9 @@ class PageController extends Controller
 {
     private $controllerService;
 
-    public function __construct(PageControllerService $controllerService)
+    public function __construct(Request $request, PageControllerService $controllerService)
     {
+        $this->user = $request->user();
         $this->controllerService = $controllerService;
     }
     
@@ -23,8 +26,8 @@ class PageController extends Controller
     {
         $page = Page::findBySlug($pageSlug);
 
-        if (!$page->editableByUser() && !$page->approved) {
-            \App::abort(404);
+        if (!$page->editableByUser($this->user) && !$page->approved) {
+            \App::abort(401);
         }
 
         return view('pages.show', [
@@ -44,9 +47,8 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::findOrFail($id);
-        $user = $this->controllerService->user;
         
-        $editable = $page->editableByUser();
+        $editable = $page->editableByUser($this->user);
 
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
@@ -57,12 +59,14 @@ class PageController extends Controller
     public function update(PageRequest $request, $id)
     {
         $page = Page::findOrFail($id);
+        $editableByUser = $page->editableByUser($this->user);
         
-        if ($page->editableByUser()) {
+        $this->controllerService->storeSuggestedEdit($page, $request->input(), $editableByUser);
+
+        if ($editableByUser) {
             $this->controllerService->updatePage($page, $request->input());
-            $message = 'This page has been edited successfully and you\'re now viewing it. Only you will be able to see it until it has been curated.';
+            $message = 'This page has been edited successfully and you\'re now viewing it.';
         } else {
-            $this->controllerService->storeSuggestedEdit($page, $request->input());
             $message = 'Your suggested edit has been submitted. It will now be reviewed and actioned by a curator.';
         }
 
@@ -81,15 +85,15 @@ class PageController extends Controller
     
     public function destroy($id)
     {
-        if ($this->controllerService->user->curator) {
-            $page = Page::find($id);
-            $page->delete();
-
-            return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
-            ->with('message', '<i class="fa fa-check"></i> This page has been successfully deleted');
-        } else {
+        if (!$this->controllerService->user->curator) {
             return \App::abort(401);
         }
+        
+        $page = Page::find($id);
+        $page->delete();
+
+        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
+        ->with('message', '<i class="fa fa-check"></i> This page has been successfully deleted');
     }
     
     public function latestPages()

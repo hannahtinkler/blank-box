@@ -2,7 +2,8 @@
 
 namespace App\Services\ControllerServices;
 
-use Auth;
+use Illuminate\Http\Request;
+
 use App\Interfaces\SearchableModelService;
 
 class SearchControllerService
@@ -12,10 +13,11 @@ class SearchControllerService
     private $formatForAjax;
     private $allResults = array();
 
-    public function __construct($term, $formatForAjax = true, $user = null)
+    public function __construct(Request $request, $term, $formatForAjax = true)
     {
-        $this->user = $user ?: Auth::user();
+        $this->user = $request->user();
         $this->term = $term;
+        $this->request = $request;
         $this->formatForAjax = $formatForAjax;
     }
 
@@ -23,7 +25,7 @@ class SearchControllerService
     {
         foreach ($searchables as $searchable) {
             $searchable = 'App\Services\ModelServices\\'. $searchable . 'ModelService';
-            $class = new $searchable($this->user);
+            $class = new $searchable(null, $this->user);
             $newResults = $this->getResults($class);
             $this->allResults[] = $newResults;
         }

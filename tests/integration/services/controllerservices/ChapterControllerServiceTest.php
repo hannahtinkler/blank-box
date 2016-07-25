@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Chapter;
-use App\Models\ChapterDraft;
 use App\Services\ControllerServices\ChapterControllerService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -16,7 +15,7 @@ class ChapterControllerServiceTest extends TestCase
     private $user;
 
     /**
-     * An instance of the ChapterDraftControllerService class under test
+     * An instance of the ChapterControllerService class under test
      * @var object
      */
     private $controllerService;
@@ -37,16 +36,20 @@ class ChapterControllerServiceTest extends TestCase
 
     /**
      * Runs the parent setUp operations and then creates and new user.
-     * Instantiates an instance of the ChapterDraftControllerService class under test
+     * Instantiates an instance of the ChapterControllerService class under test
      *
      * @return void
      */
     public function setUp()
     {
         parent::setUp();
-
         $this->user = factory(App\Models\User::class)->create();
-        $this->controllerService = new ChapterControllerService($this->user);
+
+        $prophet = new Prophecy\Prophet;
+        $prophecy = $prophet->prophesize('Illuminate\Http\Request');
+        $prophecy->user()->willReturn($this->user);
+
+        $this->controllerService = new ChapterControllerService($prophecy->reveal());
     }
 
     /**

@@ -1,9 +1,12 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 use App\Models\Page;
 use App\Models\PageDraft;
+
 use App\Services\ControllerServices\PageControllerService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Services\ControllerServices\PageDraftControllerService;
 
 class PageControllerServiceTest extends TestCase
 {
@@ -47,9 +50,14 @@ class PageControllerServiceTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
         $this->user = factory(App\Models\User::class)->create();
-        $this->controllerService = new PageControllerService($this->user);
+
+        $prophet = new Prophecy\Prophet;
+        $prophecy = $prophet->prophesize('Illuminate\Http\Request');
+        $prophecy->user()->willReturn($this->user);
+
+        $pageDraftcontrollerService = new PageDraftControllerService($prophecy->reveal());
+        $this->controllerService = new PageControllerService($prophecy->reveal(), $pageDraftcontrollerService);
     }
 
     /**
@@ -58,7 +66,7 @@ class PageControllerServiceTest extends TestCase
      *
      * @return void
      */
-    public function testItCanSaveANewPage()
+    public function testItCanStoreANewPage()
     {
         $chapter = factory(App\Models\Chapter::class)->create();
         $requestData = [

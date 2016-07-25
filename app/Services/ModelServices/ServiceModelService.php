@@ -2,18 +2,17 @@
 
 namespace App\Services\ModelServices;
 
-use Auth;
-use App\Interfaces\SearchableModelService;
+use Illuminate\Http\Request;
+
 use App\Models\Service;
+use App\Interfaces\SearchableModelService;
 
 class ServiceModelService implements SearchableModelService
 {
-    public $user;
     public $service;
 
     public function __construct($service)
     {
-        $this->user = Auth::user();
         $this->service = $service;
     }
 

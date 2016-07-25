@@ -20,7 +20,7 @@ class HomeController extends Controller
                 'pages.created_by',
                 \DB::raw('COUNT(pages.id) as total')
             )
-            ->join('suggested_edits', 'pages.id', '=', 'suggested_edits.page_id')
+            ->leftJoin('suggested_edits', 'pages.id', '=', 'suggested_edits.page_id')
             ->orderBy('total', 'desc')
             ->groupBy('pages.created_by')
             ->get();

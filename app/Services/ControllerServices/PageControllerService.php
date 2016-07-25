@@ -2,7 +2,8 @@
 
 namespace App\Services\ControllerServices;
 
-use Auth;
+use Illuminate\Http\Request;
+
 use App\Models\Page;
 use App\Models\PageDraft;
 use App\Models\SuggestedEdit;
@@ -12,10 +13,10 @@ class PageControllerService
 {
     public $user;
 
-    public function __construct($user = null)
+    public function __construct(Request $request, PageDraftControllerService $draftControllerService)
     {
-        $this->user = $user ?: Auth::user();
-        $this->draftControllerService = new PageDraftControllerService($this->user);
+        $this->user = $request->user();
+        $this->draftControllerService = $draftControllerService;
     }
 
     public function storePage($data)
@@ -34,13 +35,13 @@ class PageControllerService
             'created_by' => $this->user->id,
             'slug' => str_slug($data['title']),
             'order' => $nextPageOrderValue,
-            'approved' => (int) isset($data['approved']) ? 1 : 0
+            'approved' => (int) isset($data['approved']) ? 1 : null
         ]);
 
         return $page;
     }
 
-    public function storeSuggestedEdit($page, $data)
+    public function storeSuggestedEdit($page, $data, $approved = null)
     {
         $page = SuggestedEdit::create([
             'page_id' => $page->id,
@@ -48,7 +49,8 @@ class PageControllerService
             'title' => $data['title'],
             'description' => $data['description'],
             'content' => $data['content'],
-            'created_by' => $this->user->id
+            'created_by' => $this->user->id,
+            'approved' => $approved ? true : null
         ]);
 
         return $page;

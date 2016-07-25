@@ -28,6 +28,17 @@ class PageDraftControllerTest extends TestCase
         'created_by'
     );
 
+    public function testItCanAccessDraftsPage()
+    {
+        $this->logInAsUser();
+
+        $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
+
+        $this->get('/pagedrafts')
+            ->see($draft->title)
+            ->assertResponseStatus(200);
+    }
+
     /**
      * Test that a request to the route that stores new page drafts works
      *
@@ -56,6 +67,31 @@ class PageDraftControllerTest extends TestCase
         $actualCount = PageDraft::all()->count();
 
         $this->assertEquals($expectedCount, $actualCount);
+    }
+
+    public function testItCanEditAPageDraft()
+    {
+        $this->logInAsUser();
+
+        $chapter = factory(App\Models\Chapter::class)->create();
+
+        $this->post('/pagedrafts', [
+                '_token' => csrf_token(),
+                'category_id' => $chapter->category->id,
+                'chapter_id' => $chapter->id,
+                'title' => $this->faker->sentence,
+                'description' => $this->faker->sentence,
+                'content' => $this->faker->text,
+            ])
+            ->seeJson(['success' => true]);
+
+        $draft = PageDraft::orderBy('id', 'DESC')->first();
+
+        $this->get('/pagedrafts/' . $draft->id)
+            ->see($draft->title)
+            ->see($draft->description)
+            ->see($draft->content)
+            ->assertResponseStatus(200);
     }
 
     /**
@@ -93,7 +129,7 @@ class PageDraftControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $draft = factory(App\Models\PageDraft::class)->create();
+        $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
 
         $this->visit('/pagedrafts/preview/' . $draft->id)
             ->see($draft->title)

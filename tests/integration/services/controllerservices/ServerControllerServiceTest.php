@@ -28,9 +28,13 @@ class ServerControllerServiceTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
         $this->user = factory(App\Models\User::class)->create();
-        $this->controllerService = new ServerControllerService($this->user);
+
+        $prophet = new Prophecy\Prophet;
+        $prophecy = $prophet->prophesize('Illuminate\Http\Request');
+        $prophecy->user()->willReturn($this->user);
+
+        $this->controllerService = new ServerControllerService($prophecy->reveal());
     }
 
     /**

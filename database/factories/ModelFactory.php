@@ -70,8 +70,9 @@ $factory->define(App\Models\Bookmark::class, function (Faker\Generator $faker) {
     return [
         'user_id' => $page->created_by,
         'category_id' => $page->chapter->category->id,
-        'chapter_id' => $page->chapter->id,
-        'page_id' => $page->id
+        'chapter_id' => $page->chapter_id,
+        'page_id' => $page->id,
+        'user_id' => $page->created_by
     ];
 });
 

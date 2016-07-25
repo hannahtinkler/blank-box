@@ -8,11 +8,7 @@ class CategoryController extends Controller
 {
     public function show($categorySlug)
     {
-        $category = Category::where('slug', $categorySlug)->first();
-
-        if (!is_object($category)) {
-            return \App::abort(404);
-        }
+        $category = Category::where('slug', $categorySlug)->firstOrFail();
 
         return view('categories.show', compact('category'));
     }

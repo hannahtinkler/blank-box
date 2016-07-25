@@ -9,6 +9,9 @@ class PageModelServiceTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public $user;
+    public $page;
+
     /**
      * Tests that a call to the method which retrieves the text string the
      * search form uses returns as expected
@@ -66,7 +69,7 @@ class PageModelServiceTest extends TestCase
     public function testPageIsNotEditableByReader()
     {
         $modelService = $this->getPageModelService();
-        $this->assertFalse($modelService->editableByUser());
+        $this->assertFalse($modelService->editableByUser($this->user));
     }
 
     /**
@@ -78,7 +81,7 @@ class PageModelServiceTest extends TestCase
     public function testPageIsEditableByAuthor()
     {
         $modelService = $this->getPageModelService([], true);
-        $this->assertTrue($modelService->editableByUser());
+        $this->assertTrue($modelService->editableByUser($this->user));
     }
 
     /**
@@ -90,7 +93,7 @@ class PageModelServiceTest extends TestCase
     public function testPageIsEditableByCurator()
     {
         $modelService = $this->getPageModelService(['curator' => true]);
-        $this->assertTrue($modelService->editableByUser());
+        $this->assertTrue($modelService->editableByUser($this->user));
     }
     
     /**

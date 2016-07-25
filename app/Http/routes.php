@@ -35,8 +35,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/pages/{id}', 'PageController@destroy');
     Route::get('/pages/latestupdates', 'PageController@latestPages');
     
-    Route::get('/pagedrafts/preview/{id}', 'PageDraftController@preview');
+    Route::get('/pagedrafts', 'PageDraftController@index');
+    Route::get('/pagedrafts/{id}', 'PageDraftController@edit');
     Route::post('/pagedrafts/{id?}', 'PageDraftController@store');
+    Route::get('/pagedrafts/preview/{id}', 'PageDraftController@preview');
+    Route::get('/pagedrafts/delete/{id}', 'PageDraftController@destroy');
     
     Route::get('/chapters/create', 'ChapterController@create');
     Route::post('/chapters', 'ChapterController@store');
@@ -47,9 +50,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/curation', 'CurationController@index');
     Route::get('/curation/new', 'CurationController@newPagesAwaitingApproval');
     Route::get('/curation/edits', 'CurationController@suggestedEditsAwaitingApproval');
-    Route::get('/curation/new/approve/{id}', 'CurationController@approveNewPage');
-    Route::get('/curation/edits/approve/{id}', 'CurationController@approveSuggestedEdit');
     Route::get('/curation/viewdiff/{id}', 'CurationController@viewdiff');
+    Route::get('/curation/new/approve/{id}', 'CurationController@approveNewPage');
+    Route::get('/curation/new/reject/{id}', 'CurationController@rejectNewPage');
+    Route::get('/curation/edits/approve/{id}', 'CurationController@approveSuggestedEdit');
     Route::get('/curation/edits/approve/{id}', 'CurationController@approveEdit');
     Route::get('/curation/edits/reject/{id}', 'CurationController@rejectEdit');
 

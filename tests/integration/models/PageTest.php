@@ -156,10 +156,10 @@ class PageTest extends TestCase
      */
     public function testPageIsNotEditableByReader()
     {
-        $this->createAndLoginAUser();
+        $user = $this->createAndLoginAUser();
         $page = factory(Page::class)->create();
 
-        $this->assertFalse($page->editableByUser());
+        $this->assertFalse($page->editableByUser($user));
     }
 
     /**
@@ -172,7 +172,7 @@ class PageTest extends TestCase
         $user = $this->createAndLoginAUser();
         $page = factory(Page::class)->create(['created_by' => $user->id]);
 
-        $this->assertTrue($page->editableByUser());
+        $this->assertTrue($page->editableByUser($user));
     }
 
     /**
@@ -182,10 +182,10 @@ class PageTest extends TestCase
      */
     public function testPageIsEditableByCurator()
     {
-        $this->createAndLoginAUser(['curator' => true]);
+        $user = $this->createAndLoginAUser(['curator' => true]);
         $page = factory(Page::class)->create();
 
-        $this->assertTrue($page->editableByUser());
+        $this->assertTrue($page->editableByUser($user));
     }
     
     /**

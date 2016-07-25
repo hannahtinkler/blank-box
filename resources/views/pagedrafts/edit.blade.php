@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>Create New Page</h1>
+<h1>Edit Your Draft</h1>
 
 <hr>
 <div class="col-sm-12">
@@ -18,45 +18,53 @@
     @endif
 </div>
 
-<form role="form" id="new-page-form" action="/pages" method="POST">
+<form role="form" id="edit-draft-form" action="/pagedrafts/{{ $draft->id }}" method="POST">
     {!! csrf_field() !!}
+
+    <input type="hidden" name="page_id" value="{{ $draft->page_id }}" />
+    <input type="hidden" id="last-draft-id" name="last_draft_id" value="{{ $draft->id }}">
+
     <div class="col-sm-6">
         <div class="form-group">
-            <label>Category</label> 
+            <label>Category</label>
             <select id="category_id" name="category_id" class="form-control">
                 <option value="">Select a category...</option>
                 @foreach($categories as $category)
-                    <option {!! $category->id == old('category_id') ? "selected" : null !!} value="{{ $category->id }}">{{ $category->title }}</option>
+                    <option {!! $draft->chapter_id != null ? ($category->id == $draft->chapter->category->id ? "selected" : null) : null  !!} value="{{ $category->id }}">{{ $category->title }}</option>
                 @endforeach
             </select>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label>Chapter</label> 
-            <select name="chapter_id" disabled="true" id="chapter_id" class="form-control">
+            <label>Chapter</label>
+            <select name="chapter_id" id="chapter_id" class="form-control">
+            <option>Select a chapter...</option>
+                @foreach($chapters as $chapter)
+                    <option {!! $draft->chapter_id != null ? ($chapter->id == $draft->chapter->id ? "selected" : null) : null !!} value="{{ $chapter->id }}">{{ $chapter->title }}</option>
+                @endforeach
             </select>
         </div>
     </div>
-        
+
     <div class="col-sm-12">
         <div class="form-group">
-            <label>Page Title</label> 
-            <input class="form-control" value="{{ old('title') }}" name="title" id="title" />
+            <label>Page Title</label>
+            <input class="form-control" value="{{ $draft->title == '' ? $draft->title : $draft->title }}" name="title" id="title" />
         </div>
     </div>
-        
+
     <div class="col-sm-12">
         <div class="form-group">
-            <label>Page Description</label> 
-            <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
+            <label>Page Description</label>
+            <textarea class="form-control" name="description" id="description">{{ $draft->description == '' ? $draft->description : $draft->description }}</textarea>
         </div>
     </div>
-        
+
     <div class="col-sm-12">
         <div class="form-group m-b-xs">
-            <label>Content</label> 
-            <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') }}</textarea>
+            <label>Content</label>
+            <textarea class="form-control" name="content" id="textboxCkeditor">{{ $draft->content == '' ? $draft->content : $draft->content }}</textarea>
         </div>
         <small class="italic help-block last-saved pull-right m-b-lg">Not yet saved</small>
     </div>
@@ -82,7 +90,7 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        var currentDraft;
+        var currentDraft = parseInt($('#last-draft-id').val());
 
         CKEDITOR.replace('textboxCkeditor');
         CKEDITOR.config.height = 500;
@@ -113,7 +121,7 @@
         });
 
         function getChapters() {
-             var categoryId = $('#category_id').val();
+            var categoryId = $('#category_id').val();
 
             if (categoryId == '') {
                 $('#chapter_id').html('');
@@ -127,14 +135,16 @@
                         $('#chapter_id').append('<option id="opt' + value.id + '" value="' + value.id + '">' + value.title + '</option>');
                     });
                     $('#chapter_id').attr('disabled', false);
-                    @if(old('chapter_id'))
-                        $('option#opt{{ old("chapter_id") }}').attr('selected', true);
+                    @if($draft->chapter_id != null)
+                        $('option#opt{{ $draft->chapter_id }}').attr('selected', true);
                     @endif
+
                 }).fail(function() {
                     alert( "There was an error processing this request :(" );
                 });
             }
         }
+
         function saveDraft() {
             data = getFormContent();
             triggerSaveDraftButtonChange();
@@ -157,7 +167,7 @@
 
         function getFormContent() {
             $('#textboxCkeditor').text(CKEDITOR.instances.textboxCkeditor.getData());
-            return $('#new-page-form').serializeArray();
+            return $('#edit-draft-form').serializeArray();
         }
 
         function getPostUrl() {

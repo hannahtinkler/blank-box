@@ -2,7 +2,8 @@
 
 namespace App\Services\ModelServices;
 
-use Auth;
+use Illuminate\Http\Request;
+
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 use App\Interfaces\SearchableModelService;
@@ -10,12 +11,10 @@ use App\Interfaces\SearchableModelService;
 class PageModelService implements SearchableModelService
 {
     public $page;
-    public $user;
 
-    public function __construct($page, $user = null)
+    public function __construct($page)
     {
         $this->page = $page;
-        $this->user = $user ?: Auth::user();
     }
 
     public function getSearchResults($term)
@@ -32,9 +31,9 @@ class PageModelService implements SearchableModelService
         return Page::searchByQuery($query);
     }
 
-    public function editableByUser()
+    public function editableByUser($user)
     {
-        return $this->page->created_by == $this->user->id || $this->user->curator;
+        return $this->page->created_by == $user->id || $user->curator;
     }
 
     public function searchResultString()

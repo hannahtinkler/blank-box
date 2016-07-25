@@ -2,18 +2,17 @@
 
 namespace App\Services\ModelServices;
 
-use Auth;
-use App\Interfaces\SearchableModelService;
+use Illuminate\Http\Request;
+
 use App\Models\Chapter;
+use App\Interfaces\SearchableModelService;
 
 class ChapterModelService implements SearchableModelService
 {
-    public $user;
     public $chapter;
 
     public function __construct($chapter)
     {
-        $this->user = Auth::user();
         $this->chapter = $chapter;
     }
 

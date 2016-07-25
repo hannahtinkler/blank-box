@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 
+use App\Services\ControllerServices\CurationControllerService;
+
 class CurationController extends Controller
 {
+    private $controllerService;
+
+    public function __construct(CurationControllerService $controllerService)
+    {
+        $this->controllerService = $controllerService;
+    }
+
     public function index()
     {
         return redirect('/curation/new');
@@ -14,26 +25,16 @@ class CurationController extends Controller
     
     public function approveEdit($id)
     {
-        $edit = SuggestedEdit::find($id);
-
-        $page = Page::find($edit->page_id);
-        $page->chapter_id = $edit->chapter_id;
-        $page->title = $edit->title;
-        $page->description = $edit->description;
-        $page->content = $edit->content;
-        $page->save();
-
-        $edit->approved = true;
-        $edit->save();
-        return redirect('/curation/new');
+        $this->controllerService->approveSuggestedEdit($id);
+        return redirect('/curation/edits')
+            ->with('message', '<i class="fa fa-check"></i> This suggested edit has been approved and merged into the original page.');
     }
     
     public function rejectEdit($id)
     {
-        $edit = SuggestedEdit::find($id);
-        $edit->approved = false;
-        $edit->save();
-        return redirect('/curation/new');
+        $this->controllerService->rejectSuggestedEdit($id);
+        return redirect('/curation/edits')
+            ->with('message', '<i class="fa fa-check"></i> This suggested edit has been rejected and will not be merged into the original page.');
     }
     
     public function newPagesAwaitingApproval()
@@ -52,17 +53,21 @@ class CurationController extends Controller
     
     public function approveNewPage($id)
     {
-        $page = Page::find($id);
-        $page->approved = 1;
-        $page->save();
-        
+        $this->controllerService->approveNewPage($id);
         return redirect('/curation/new')
-            ->with('message', 'This page has been approved');
+            ->with('message', '<i class="fa fa-check"></i> This page has been approved');
     }
     
-    public function viewdiff($id)
+    public function rejectNewPage($id)
     {
-        $user = \Auth::user();
+        $this->controllerService->rejectNewPage($id);
+        return redirect('/curation/new')
+            ->with('message', '<i class="fa fa-check"></i> This page has been rejected');
+    }
+    
+    public function viewdiff(Request $request, $id)
+    {
+        $user = $request->user();
         $edit = SuggestedEdit::find($id);
         $page = Page::find($edit->page_id);
 

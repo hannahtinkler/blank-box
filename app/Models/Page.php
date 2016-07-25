@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+use Elasticquent\ElasticquentTrait;
+
 use App\Interfaces\SearchableModel;
 use App\Services\ModelServices\PageModelService;
-use Illuminate\Database\Eloquent\Model;
-use Elasticquent\ElasticquentTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends Model implements SearchableModel
 {
@@ -92,8 +94,8 @@ class Page extends Model implements SearchableModel
         return $this->modelService->searchResultIcon();
     }
 
-    public function editableByUser()
+    public function editableByUser($user)
     {
-        return $this->modelService->editableByUser();
+        return $this->modelService->editableByUser($user);
     }
 }

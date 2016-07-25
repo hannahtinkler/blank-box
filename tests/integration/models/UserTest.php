@@ -1,8 +1,10 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 use App\Models\User;
 use App\Models\Page;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Models\SuggestedEdit;
 
 class UserTest extends TestCase
 {
@@ -33,7 +35,7 @@ class UserTest extends TestCase
         $user = factory(User::class)->create();
         factory(App\Models\SuggestedEdit::class, 2)->create(['created_by' => $user->id]);
 
-        $this->assertTrue($user->pages->first() instanceof SuggestedEdit);
+        $this->assertTrue($user->suggestedEdits->first() instanceof SuggestedEdit);
     }
 
     /**

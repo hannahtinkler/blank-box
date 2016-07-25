@@ -85,7 +85,7 @@
                     @endforeach
                 @endif
                 <li class="spacer"><hr></li>
-                @if(Auth::user()->curator)
+                @if($user->curator)
                      <li>
                         <a href="/curation">
                             <span class="nav-label"><i class="fa fa-check"></i> <span class="nav-label">Curation</span> ({{ $awaitingCurationCountNew + $awaitingCurationCountEdits }})</span>
@@ -103,14 +103,20 @@
                     </li>
                 @endif
 
+                <li{!! Request::is('/pagedrafts') ? ' class="active"' : null !!}>
+                    <a href="/pagedrafts"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Your Drafts (<span id="draft-count">{{ $drafts }}</span>)</span></a>
+                </li>
                 <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
                     <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
                 </li>
-                <li{!! Request::is('/contributors') ? ' class="active"' : null !!}>
-                    <a href="/contributors"><i class="fa fa-hand-peace-o"></i> <span class="nav-label">Contributors</span></a>
-                </li>
+
+                <li class="spacer"><hr></li>
+                
                 <li{!! Request::is('/pages/latestupdates') ? ' class="active"' : null !!}>
                     <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
+                </li>
+                <li{!! Request::is('/contributors') ? ' class="active"' : null !!}>
+                    <a href="/contributors"><i class="fa fa-hand-peace-o"></i> <span class="nav-label">Contributors</span></a>
                 </li>
             </ul>
 

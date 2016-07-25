@@ -600,7 +600,7 @@ body.canvas-menu.mini-navbar nav.navbar-static-side {
   color: #1c84c6;
 }
 .btn-info.btn-outline {
-  color: #23c6c8;
+  color: #60b6d0;
 }
 .btn-warning.btn-outline {
   color: #f8ac59;
@@ -698,8 +698,8 @@ fieldset[disabled] .btn-success.active {
   border-color: #1f90d8;
 }
 .btn-info {
-  background-color: #23c6c8;
-  border-color: #23c6c8;
+  background-color: #60b6d0;
+  border-color: #60b6d0;
   color: #FFFFFF;
 }
 .btn-info:hover,
@@ -711,8 +711,8 @@ fieldset[disabled] .btn-success.active {
 .btn-info:active:hover,
 .btn-info.active:hover,
 .btn-info.active:focus {
-  background-color: #21b9bb;
-  border-color: #21b9bb;
+  background-color: #54b1cd;
+  border-color: #54b1cd;
   color: #FFFFFF;
 }
 .btn-info:active,
@@ -735,8 +735,8 @@ fieldset[disabled] .btn-info:hover,
 fieldset[disabled] .btn-info:focus,
 fieldset[disabled] .btn-info:active,
 fieldset[disabled] .btn-info.active {
-  background-color: #26d7d9;
-  border-color: #26d7d9;
+  background-color: #70bdd5;
+  border-color: #70bdd5;
 }
 .btn-default {
   color: inherit;
@@ -999,10 +999,10 @@ button.btn-warning.dim:active {
   box-shadow: inset 0 0 0 #f79d3c, 0 2px 0 0 #f79d3c, 0 5px 3px #999;
 }
 button.btn-info.dim {
-  box-shadow: inset 0 0 0 #1eacae, 0 5px 0 0 #1eacae, 0 10px 5px #999;
+  box-shadow: inset 0 0 0 #48abc9, 0 5px 0 0 #48abc9, 0 10px 5px #999;
 }
 button.btn-info.dim:active {
-  box-shadow: inset 0 0 0 #1eacae, 0 2px 0 0 #1eacae, 0 5px 3px #999;
+  box-shadow: inset 0 0 0 #48abc9, 0 2px 0 0 #48abc9, 0 5px 3px #999;
 }
 button.btn-success.dim {
   box-shadow: inset 0 0 0 #1872ab, 0 5px 0 0 #1872ab, 0 10px 5px #999;
@@ -1078,7 +1078,7 @@ button.dim:active:before {
 }
 .label-info,
 .badge-info {
-  background-color: #23c6c8;
+  background-color: #60b6d0;
   color: #FFFFFF;
 }
 .label-inverse,
@@ -2423,7 +2423,7 @@ label.error {
   background-color: #ED5565;
 }
 .toast-info {
-  background-color: #23c6c8;
+  background-color: #60b6d0;
 }
 .toast-warning {
   background-color: #f8ac59;
@@ -3818,7 +3818,7 @@ table.table-mail tr td {
   color: #ffffff;
 }
 .lazur-bg {
-  background-color: #23c6c8;
+  background-color: #60b6d0;
   color: #ffffff;
 }
 .yellow-bg {
@@ -3848,11 +3848,11 @@ table.table-mail tr td {
   color: #ffffff;
 }
 .panel-info {
-  border-color: #23c6c8;
+  border-color: #60b6d0;
 }
 .panel-info > .panel-heading {
-  background-color: #23c6c8;
-  border-color: #23c6c8;
+  background-color: #60b6d0;
+  border-color: #60b6d0;
   color: #ffffff;
 }
 .panel-warning {
@@ -3894,7 +3894,7 @@ table.table-mail tr td {
   background-color: #1c84c6;
 }
 .progress-bar-info {
-  background-color: #23c6c8;
+  background-color: #60b6d0;
 }
 .progress-bar-warning {
   background-color: #f8ac59;
@@ -3923,7 +3923,7 @@ table.table-mail tr td {
   color: #1c84c6;
 }
 .text-info {
-  color: #23c6c8;
+  color: #60b6d0;
 }
 .text-warning {
   color: #f8ac59;
@@ -4088,46 +4088,46 @@ a.close-canvas-menu:hover {
   margin: 0 !important;
 }
 .m-l-none {
-  margin-left: 0;
+  margin-left: 0 !important;
 }
 .m-l-xs {
-  margin-left: 5px;
+  margin-left: 5px !important;
 }
 .m-l-sm {
-  margin-left: 10px;
+  margin-left: 10px !important;
 }
 .m-l {
   margin-left: 15px;
 }
 .m-l-md {
-  margin-left: 20px;
+  margin-left: 20px !important;
 }
 .m-l-lg {
-  margin-left: 30px;
+  margin-left: 30px !important;
 }
 .m-l-xl {
-  margin-left: 40px;
+  margin-left: 40px !important;
 }
 .m-l-n-xxs {
-  margin-left: -1px;
+  margin-left: -1px !important;
 }
 .m-l-n-xs {
-  margin-left: -5px;
+  margin-left: -5px !important;
 }
 .m-l-n-sm {
-  margin-left: -10px;
+  margin-left: -10px !important;
 }
 .m-l-n {
-  margin-left: -15px;
+  margin-left: -15px !important;
 }
 .m-l-n-md {
-  margin-left: -20px;
+  margin-left: -20px !important;
 }
 .m-l-n-lg {
-  margin-left: -30px;
+  margin-left: -30px !important;
 }
 .m-l-n-xl {
-  margin-left: -40px;
+  margin-left: -40px !important;
 }
 .m-t-none {
   margin-top: 0;
@@ -4646,7 +4646,7 @@ ul.notes li div {
   color: #1c84c6;
 }
 .category-list li a .text-info {
-  color: #23c6c8;
+  color: #60b6d0;
 }
 .category-list li a .text-danger {
   color: #EF5352;

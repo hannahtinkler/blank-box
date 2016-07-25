@@ -93,8 +93,6 @@
 
 <script>
     $(document).ready(function () {
-        var currentDraft;
-
         CKEDITOR.replace('textboxCkeditor');
         CKEDITOR.config.height = 500;
 

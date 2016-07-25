@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Services\ControllerServices\SearchControllerService;
 
 class SearchController extends Controller
@@ -28,7 +29,7 @@ class SearchController extends Controller
         ]);
     }
 
-    public function performSearch($term)
+    public function performSearch(Request $request, $term)
     {
 
         if (strlen($term) < 3 && !is_int($term)) {
@@ -37,7 +38,7 @@ class SearchController extends Controller
 
         $searchDetails = $this->getSearchDetails($term);
 
-        $searchModelService = new SearchControllerService($searchDetails['term'], $this->isAjaxRequest);
+        $searchModelService = new SearchControllerService($request, $searchDetails['term'], $this->isAjaxRequest);
         $results = $searchModelService->processSearch($searchDetails['searchables']);
 
         return $this->isAjaxRequest ? json_encode($results) : $results;

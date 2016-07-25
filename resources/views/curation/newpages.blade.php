@@ -7,6 +7,10 @@
 
     <hr>
 
+    @if(session('message'))
+        <p class="bg-success error-message m-b-xl">{!! session('message') !!}</p>
+    @endif
+
     <div class="wrapper wrapper-content animated blog">
     <div class="row">
         @if($pages->isEmpty())
@@ -17,14 +21,14 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-12">
                                     <a target="_blank" href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">
                                         <h2>
                                             {{ $page->title }}
                                         </h2>
                                     </a>
                                     <div class="small m-b-sm">
-                                        <strong><a href="/u/{{ $page->creator->slug }}">{ $page->creator->name }}</a></strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
+                                        <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong> <span class="text-muted"><i class="fa fa-clock-o"></i> {{ $page->created_at->format('jS M Y') }}</span>
                                     </div>
                                     <p>
                                         {{ $page->description }}
@@ -39,9 +43,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <a href="/curation/view/{{ $page->id }}" class="btn btn-xs btn-primary approve-link"><span id="view-button" class="view-button fa fa-search"></span></a>
                                 </div>
                             </div>
                         </div>

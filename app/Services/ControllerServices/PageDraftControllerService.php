@@ -2,16 +2,17 @@
 
 namespace App\Services\ControllerServices;
 
-use Auth;
+use Illuminate\Http\Request;
+
 use App\Models\PageDraft;
 
 class PageDraftControllerService
 {
     public $user;
 
-    public function __construct($user = null)
+    public function __construct(Request $request)
     {
-        $this->user = $user ?: Auth::user();
+        $this->user = $request->user();
     }
 
     public function savePageDraft($data)
@@ -44,5 +45,14 @@ class PageDraftControllerService
         if ($currentDraft) {
             $currentDraft->delete();
         }
+    }
+
+    public function getDraftsForUser()
+    {
+        $drafts = PageDraft::where('created_by', $this->user->id)
+            ->where('approved', null)
+            ->get();
+
+        return $drafts;
     }
 }

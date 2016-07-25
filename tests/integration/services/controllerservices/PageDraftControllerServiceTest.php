@@ -44,9 +44,13 @@ class PageDraftControllerServiceTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-
         $this->user = factory(App\Models\User::class)->create();
-        $this->controllerService = new PageDraftControllerService($this->user);
+
+        $prophet = new Prophecy\Prophet;
+        $prophecy = $prophet->prophesize('Illuminate\Http\Request');
+        $prophecy->user()->willReturn($this->user);
+
+        $this->controllerService = new PageDraftControllerService($prophecy->reveal());
     }
 
     /**
@@ -188,5 +192,25 @@ class PageDraftControllerServiceTest extends TestCase
         $lookup = PageDraft::find($draft->id);
 
         $this->assertNull($lookup);
+    }
+
+    /**
+     * Tests that a call to the method which gets drafts for a user returns
+     * the expected drafts
+     *
+     * @return void
+     */
+    public function testItCanGetDraftsForUser()
+    {
+        $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
+
+        $expected = [$draft->toArray()];
+
+        $actual = $this->controllerService->getDraftsForUser()->toArray();
+
+        $this->assertEquals(
+            $this->comparableFields($expected),
+            $this->comparableFields($actual)
+        );
     }
 }

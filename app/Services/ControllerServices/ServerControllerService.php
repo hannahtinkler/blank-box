@@ -2,16 +2,17 @@
 
 namespace App\Services\ControllerServices;
 
-use Auth;
+use Illuminate\Http\Request;
+
 use App\Models\PageDraft;
 
 class ServerControllerService
 {
     public $user;
 
-    public function __construct($user = null)
+    public function __construct(Request $request)
     {
-        $this->user = $user ?: Auth::user();
+        $this->user = $request->user();
     }
 
     public function getSshConfigContent()

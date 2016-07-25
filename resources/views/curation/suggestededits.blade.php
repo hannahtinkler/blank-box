@@ -7,6 +7,10 @@
 
     <hr>
 
+    @if(session('message'))
+        <p class="bg-success error-message m-b-xl">{!! session('message') !!}</p>
+    @endif
+
     <div class="wrapper wrapper-content animated blog">
     <div class="row">
         @if($edits->isEmpty())
@@ -16,14 +20,14 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-md-10">
-                                <a target="_blank" href="/p/{{ $edit->chapter->category->slug }}/{{ $edit->chapter->slug }}/{{ $edit->slug }}">
+                            <div class="col-md-12">
+                                <a target="_blank" href="/curation/viewdiff/{{ $edit->id }}">
                                     <h2>
                                         {{ $edit->title }}
                                     </h2>
                                 </a>
                                 <div class="small m-b-sm">
-                                    Suggested by <strong><a href="/u/{{ $page->creator->slug }}">{{ $edit->creator->name }}</a></strong> <span class="text-muted"><i class="fa fa-clock-o"></i> 28th Oct 2015</span>
+                                    Suggested by <strong><a href="/u/{{ $edit->creator->slug }}">{{ $edit->creator->name }}</a></strong> <span class="text-muted"><i class="fa fa-clock-o"></i> {{ $edit->created_at->format('jS M Y') }}</span>
                                 </div>
                                 <p>
                                     {{ $edit->description }}
@@ -38,9 +42,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <a href="/curation/viewdiff/{{ $edit->id }}" class="btn btn-xs btn-primary approve-link"><span id="approve-button" class="approve-button fa fa-search"></span></a>
                             </div>
                         </div>
                     </div>

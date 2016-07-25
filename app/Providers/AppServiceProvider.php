@@ -7,6 +7,7 @@ use App\Models\Chapter;
 use App\Models\Bookmark;
 use App\Models\SuggestedEdit;
 use App\Models\Page;
+use App\Models\PageDraft;
 use App\Models\Category;
 
 class AppServiceProvider extends ServiceProvider
@@ -55,12 +56,16 @@ class AppServiceProvider extends ServiceProvider
                 $current['page'] = Page::where('slug', \Request::segment(4))->first();
             }
 
+            $user = \Auth::user();
+
             $categories = Category::orderBy('order')->get();
-            $bookmarks = Bookmark::all()->count();
+            $bookmarks = Bookmark::where('user_id', $user->id)->count();
+            $drafts = PageDraft::where('created_by', $user->id)->count();
 
             $view->with('categories', $categories)
                 ->with('current', $current)
-                ->with('current', $current)
+                ->with('user', $user)
+                ->with('drafts', $drafts)
                 ->with('awaitingCurationCountNew', $awaitingCurationCountNew)
                 ->with('awaitingCurationCountEdits', $awaitingCurationCountEdits)
                 ->with('bookmarks', $bookmarks);

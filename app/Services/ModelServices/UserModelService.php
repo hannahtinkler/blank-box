@@ -2,8 +2,8 @@
 
 namespace App\Services\ModelServices;
 
-use Auth;
 use App\Interfaces\SearchableModelService;
+
 use App\Models\User;
 use App\Models\Page;
 use App\Models\SuggestedEdit;
