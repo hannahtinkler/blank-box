@@ -11,6 +11,7 @@ use App\Models\SuggestedEdit;
 class UserModelService implements SearchableModelService
 {
     public $user;
+    public $communityPageMultiplier = 3;
 
     public function __construct($user)
     {
@@ -58,6 +59,46 @@ class UserModelService implements SearchableModelService
         return '<i class="fa fa-user"></i>';
     }
 
+    public function getRawCommunityData()
+    {
+        \DB::statement(\DB::raw('set @row:=0'));
+
+        return User::select([
+                'id',
+                \DB::raw('(
+                    (
+                        (
+                            SELECT COUNT(*) FROM pages WHERE pages.created_by=users.id
+                        ) 
+                        * ' . $this->communityPageMultiplier . '
+                    ) + (
+                        SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by=users.id AND approved=1
+                    )
+                ) as total'),
+                \DB::raw('@row:=@row+1 as rank')
+            ])
+            ->orderBy('total', 'DESC')
+            ->get();
+    }
+
+    public function getCommunityData()
+    {
+        $communityData = $this->getRawCommunityData();
+
+        foreach ($communityData as $user) {
+            if ($user->id == $this->user->id) {
+                $userRank = $user;
+                break;
+            }
+        }
+
+        return  [
+         'rank' => $user->rank,
+         'score' => $user->total,
+         'title' => $this->getUserTitle($score)
+        ];
+    }
+
     public function specialistAreas($limit = null)
     {
         $chaptersEdited = SuggestedEdit::select(
@@ -67,7 +108,7 @@ class UserModelService implements SearchableModelService
                 'suggested_edits.chapter_id',
                 \DB::raw('COUNT(suggested_edits.id) as total')
             )
-            ->join('pages', 'pages.id', '=', 'suggested_edits.page_id')
+            ->leftJoin('pages', 'pages.id', '=', 'suggested_edits.page_id')
             ->where('suggested_edits.created_by', $this->user->id);
         
         $chaptersSubmittedTo = Page::select(
@@ -84,6 +125,37 @@ class UserModelService implements SearchableModelService
             ->limit($limit)
             ->get();
 
+        foreach ($chaptersSubmittedTo as $key => $chapter) {
+            if ($chapter->total < 1) {
+                unset($chaptersSubmittedTo[$key]);
+            }
+        }
+
         return $chaptersSubmittedTo;
+    }
+
+    public function getUserTitle($score)
+    {
+        $titles = [
+            200 => 'Monarque de Mayden',
+            170 => 'Admiral of AJAX',
+            150 => 'Vice Admiral of Validation',
+            130 => 'Rear Admiral of Reports',
+            110 => 'Commodore of Courses',
+            110 => 'Captain of Caches',
+            90 => 'Lieutenant Commander of Letters',
+            80 => 'Lieutenant of Logger',
+            70 => 'Sub-Lieutenant of Supervision',
+            60 => 'Midshipman of MDS',
+            50 => 'Online Provider Wrangler',
+            40 => 'Probably-Has-Too-Much-Time-On-Their-Hands',
+            30 => 'Probably-Could-Teach-At-Hogwarts',
+            20 => 'SMS Smasher',
+            15 => 'Specialism Hunter',
+            10 => 'Prolific Publisher',
+            5 => 'RunReportLibrary Lover',
+            1 => 'The Have-A-Go Harry',
+            0 => 'Postroom Proofreader',
+        ];
     }
 }

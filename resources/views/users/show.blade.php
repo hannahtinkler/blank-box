@@ -16,15 +16,42 @@
         @if($user->specialistAreas(3)->isEmpty())
             <p class="italic">{{ $user->name }} has not submitted any content yet.</p>
         @else
-            @foreach($user->specialistAreas(3) as $specialistArea)
-                <p><a target="_blank" href="/p/{{ $specialistArea->chapter->category->slug }}/{{ $specialistArea->chapter->slug }}">{{ $specialistArea->chapter->title }} ({{ $specialistArea->total }})</a></p>
-            @endforeach
+            @set('specialistAreas', $user->specialistAreas(3))
+            @if($specialistAreas->isEmpty())
+                <p class="italic">{{ $user->name }} doesn't have any specialist areas yet :(.</p>
+            @else
+                @foreach($specialistAreas as $specialistArea)
+                    <p><a target="_blank" href="/p/{{ $specialistArea->chapter->category->slug }}/{{ $specialistArea->chapter->slug }}">{{ $specialistArea->chapter->title }} ({{ $specialistArea->total }})</a></p>
+                @endforeach
+            @endif
         @endif
     </div>
 
     <div class="col-md-6">
-        <h3 class="m-b-md">No.1 Fave Animals:</h3>
-        <p><a target="_blank" href="https://i.ytimg.com/vi/mW3S0u8bj58/maxresdefault.jpg">Cats</a></p>
+        <h3 class="m-b-md">Community Rank:</h3>
+
+        @set('communityData', $user->getCommunityData())
+
+        <div class="row">
+            <div class="col-md-5">
+                <p>Ranking</p>
+            </div>
+            <div class="col-md-6">
+                <p><i class="fa fa-trophy"></i> {{ $communityData['rank'] }}</p>
+            </div>
+            <div class="col-md-5">
+                <p>Score</p>
+            </div>
+            <div class="col-md-6">
+                <p><i class="fa fa-star"></i> {{ $communityData['score'] }}</p>
+            </div>
+            <div class="col-md-5">
+                <p>Title</p>
+            </div>
+            <div class="col-md-6">
+                <p><i class="fa fa-star"></i> {{ $communityData['title'] }}</p>
+            </div>
+        </div>
         <p><a target="_blank" href="http://i.dailymail.co.uk/i/pix/2016/03/08/16/31FE611300000578-3482348-image-a-4_1457453444322.jpg">Cats</a></p>
         <p><a target="_blank" href="https://cdn.pastemagazine.com/www/articles/shakycatmeowmain.jpg">Cats</a></p>
     </div>
