@@ -192,10 +192,10 @@ class PageControllerTest extends TestCase
             ])
             ->assertResponseStatus(302);
 
-        $expectedCount = $currentCount + 1;
-        $actualCount = Page::all()->count();
+        $expected = $currentCount + 1;
+        $actual = Page::all()->count();
 
-        $this->assertEquals($expectedCount, $actualCount);
+        $this->assertEquals($expected, $actual);
     }
 
     /**

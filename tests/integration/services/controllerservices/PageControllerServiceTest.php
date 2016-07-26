@@ -4,6 +4,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Page;
 use App\Models\PageDraft;
+use App\Models\SlugForwardingSetting;
 
 use App\Services\ControllerServices\PageControllerService;
 use App\Services\ControllerServices\PageDraftControllerService;
@@ -119,6 +120,7 @@ class PageControllerServiceTest extends TestCase
 
         $expected = $requestData;
         $expected['created_by'] = $this->user->id;
+        $expected['approved'] = null;
         
         $actual = $this->controllerService->storeSuggestedEdit($page, $requestData)->toArray();
 
@@ -204,6 +206,57 @@ class PageControllerServiceTest extends TestCase
 
         $expected = 501;
         $actual = $this->controllerService->getNextPageOrderValue($page->chapter->id);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testItCanRegisterSlugForwarding()
+    {
+        $oldPage = factory(App\Models\Page::class)->create();
+        $newPage = factory(App\Models\Page::class)->create();
+
+        $this->controllerService->registerSlugForwarding($oldPage, $newPage);
+
+        $lookup = SlugForwardingSetting::where('old_slug', $oldPage->slug)
+            ->where('new_slug', $newPage->slug)
+            ->first();
+
+        $actual = $lookup->toArray();
+        $expected = [
+            'old_slug' => $oldPage->slug,
+            'new_slug' => $newPage->slug
+        ];
+
+        $this->assertEquals($expected['old_slug'], $actual['old_slug']);
+        $this->assertEquals($expected['new_slug'], $actual['new_slug']);
+    }
+
+    public function testItUpdatesAllRecordsWhenAddingAdditionalSlugForwards()
+    {
+        $page1 = factory(App\Models\Page::class)->create();
+        $page2 = factory(App\Models\Page::class)->create();
+        $page3 = factory(App\Models\Page::class)->create();
+
+        $this->controllerService->registerSlugForwarding($page1, $page2);
+        $this->controllerService->registerSlugForwarding($page2, $page3);
+
+        $lookup = SlugForwardingSetting::select([
+            'old_slug',
+            'new_slug'
+        ])
+        ->get();
+
+        $actual = $lookup->toArray();
+        $expected = [
+            0 => [
+                'old_slug' => $page1->slug,
+                'new_slug' => $page3->slug,
+            ],
+            1 => [
+                'old_slug' => $page2->slug,
+                'new_slug' => $page3->slug,
+            ]
+        ];
 
         $this->assertEquals($expected, $actual);
     }

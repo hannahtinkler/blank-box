@@ -61,10 +61,10 @@ class BookmarkControllerServiceTest extends TestCase
     public function testItCanStoreANewBookmark()
     {
         $page = factory(App\Models\Page::class)->create();
-        
+
         $actual = $this->controllerService->storeBookmark(
-            $page->chapter_id,
             $page->chapter->category_id,
+            $page->chapter_id,
             $page->id
         )->toArray();
 

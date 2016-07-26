@@ -101,13 +101,13 @@ This will create the schema you need and insert the necessary data.
 Since ElasticSearch is based off Java, you will need install Java 8 on your Vagrant box if you have not already. You can do that by running the following:
 
 ```
+sudo add-apt-repository -y ppa:webupd8team/java
+```
+```
 sudo apt-get update
 ```
 ```
 sudo apt-get install openjdk-8-jre
-```
-```
-sudo add-apt-repository -y ppa:webupd8team/java
 ```
 ```
 sudo apt-get update

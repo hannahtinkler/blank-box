@@ -117,3 +117,13 @@ $factory->define(App\Models\SuggestedEdit::class, function (Faker\Generator $fak
         'created_by' => factory(App\Models\User::class)->create()->id
     ];
 });
+
+$factory->define(App\Models\SlugForwardingSetting::class, function (Faker\Generator $faker) {
+    $old = factory(App\Models\Page::class)->create();
+    $new = factory(App\Models\Page::class)->create();
+
+    return [
+        'old_slug' => $old->slug,
+        'new_slug' => $new->slug
+    ];
+});

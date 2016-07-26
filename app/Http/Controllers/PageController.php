@@ -26,6 +26,10 @@ class PageController extends Controller
     {
         $page = Page::findBySlug($pageSlug);
 
+        if (!$page instanceof Page) {
+            $page = $this->controllerService->retrieveSlugForwardingSetting($pageSlug);
+        }
+
         if (!$page->editableByUser($this->user) && !$page->approved) {
             \App::abort(401);
         }

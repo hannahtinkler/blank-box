@@ -61,7 +61,7 @@ class Page extends Model implements SearchableModel
     
     public function scopeFindBySlug($query, $slug)
     {
-        return $query->where('slug', $slug)->firstOrFail();
+        return $query->where('slug', $slug)->first();
     }
     
     public function scopeLargestOrderValue($query, $chapterId)

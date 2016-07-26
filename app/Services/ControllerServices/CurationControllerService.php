@@ -4,6 +4,8 @@ namespace App\Services\ControllerServices;
 
 use Illuminate\Http\Request;
 
+use cogpowered\FineDiff\Diff;
+
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 
@@ -20,9 +22,9 @@ class CurationControllerService
     public function approveSuggestedEdit($id)
     {
         $edit = SuggestedEdit::findOrFail($id);
-        $page = Page::findOrFail($edit->page_id);
+        $oldPage = Page::findOrFail($edit->page_id);
 
-        $this->pageControllerService->updatePage($page, [
+        $newPage = $this->pageControllerService->updatePage($oldPage, [
             'chapter_id' => $edit->chapter_id,
             'title' => $edit->title,
             'description' => $edit->description,
@@ -30,6 +32,9 @@ class CurationControllerService
             'approved' => 1
         ]);
 
+        if ($oldPage->slug != $newPage->slug) {
+            $this->pageControllerService->registerSlugForwarding($oldPage, $newPage);
+        }
 
         $edit->approved = true;
         $edit->save();
@@ -56,5 +61,20 @@ class CurationControllerService
         $page = Page::find($id);
         $page->approved = 0;
         $page->save();
+    }
+
+    public function getPageDiff($original, $new)
+    {
+        $differ = new Diff;
+
+        $diff = [
+            'category' => $differ->render($original->chapter->title, $new->chapter->title),
+            'chapter' => $differ->render($original->chapter->category->title, $new->chapter->category->title),
+            'title' => $differ->render($original->title, $new->title),
+            'description' => $differ->render($original->description, $new->description),
+            'content' => $differ->render($original->content, $new->content)
+        ];
+
+        return $diff;
     }
 }

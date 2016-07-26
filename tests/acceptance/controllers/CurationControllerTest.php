@@ -51,6 +51,20 @@ class CurationControllerTest extends TestCase
         $this->assertEquals(1, $lookup->approved);
     }
 
+    public function testItCanRejectAPagePendingCuration()
+    {
+        $this->logInAsUser();
+
+        $page = factory(App\Models\Page::class)->create();
+
+        $this->get('/curation/new/reject/' . $page->id)
+            ->assertResponseStatus(302);
+
+        $lookup = Page::find($page->id);
+
+        $this->assertEquals(0, $lookup->approved);
+    }
+
     /**
      * Test that a request to the route that shows a user the 'Pages Awaiting
      * Curation' Page shows the 'Show Curation' page and returns a 200
