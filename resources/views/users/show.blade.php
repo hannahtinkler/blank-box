@@ -45,15 +45,7 @@
             <div class="col-md-6">
                 <p><i class="fa fa-star"></i> {{ $communityData['score'] }}</p>
             </div>
-            <div class="col-md-5">
-                <p>Title</p>
-            </div>
-            <div class="col-md-6">
-                <p><i class="fa fa-star"></i> {{ $communityData['title'] }}</p>
-            </div>
         </div>
-        <p><a target="_blank" href="http://i.dailymail.co.uk/i/pix/2016/03/08/16/31FE611300000578-3482348-image-a-4_1457453444322.jpg">Cats</a></p>
-        <p><a target="_blank" href="https://cdn.pastemagazine.com/www/articles/shakycatmeowmain.jpg">Cats</a></p>
     </div>
 </div>
 

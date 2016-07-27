@@ -94,8 +94,7 @@ class UserModelService implements SearchableModelService
 
         return  [
          'rank' => $user->rank,
-         'score' => $user->total,
-         'title' => $this->getUserTitle($score)
+         'score' => $user->total
         ];
     }
 
@@ -132,30 +131,5 @@ class UserModelService implements SearchableModelService
         }
 
         return $chaptersSubmittedTo;
-    }
-
-    public function getUserTitle($score)
-    {
-        $titles = [
-            200 => 'Monarque de Mayden',
-            170 => 'Admiral of AJAX',
-            150 => 'Vice Admiral of Validation',
-            130 => 'Rear Admiral of Reports',
-            110 => 'Commodore of Courses',
-            110 => 'Captain of Caches',
-            90 => 'Lieutenant Commander of Letters',
-            80 => 'Lieutenant of Logger',
-            70 => 'Sub-Lieutenant of Supervision',
-            60 => 'Midshipman of MDS',
-            50 => 'Online Provider Wrangler',
-            40 => 'Probably-Has-Too-Much-Time-On-Their-Hands',
-            30 => 'Probably-Could-Teach-At-Hogwarts',
-            20 => 'SMS Smasher',
-            15 => 'Specialism Hunter',
-            10 => 'Prolific Publisher',
-            5 => 'RunReportLibrary Lover',
-            1 => 'The Have-A-Go Harry',
-            0 => 'Postroom Proofreader',
-        ];
     }
 }
