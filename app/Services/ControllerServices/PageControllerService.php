@@ -4,6 +4,8 @@ namespace App\Services\ControllerServices;
 
 use Illuminate\Http\Request;
 
+use App\Events\PageWasAddedToChapter;
+
 use App\Models\Page;
 use App\Models\PageDraft;
 use App\Models\SuggestedEdit;
@@ -39,6 +41,10 @@ class PageControllerService
             'order' => $nextPageOrderValue,
             'approved' => (int) isset($data['approved']) ? 1 : null
         ]);
+
+        if ($page->approved) {
+            \Event::fire(new PageWasAddedToChapter($page));
+        }
 
         return $page;
     }

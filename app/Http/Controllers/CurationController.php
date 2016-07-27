@@ -40,6 +40,7 @@ class CurationController extends Controller
     public function approveNewPage($id)
     {
         $this->controllerService->approveNewPage($id);
+
         return redirect('/curation/new')
             ->with('message', '<i class="fa fa-check"></i> This page has been approved');
     }
@@ -54,6 +55,7 @@ class CurationController extends Controller
     public function approveEdit($id)
     {
         $this->controllerService->approveSuggestedEdit($id);
+
         return redirect('/curation/edits')
             ->with('message', '<i class="fa fa-check"></i> This suggested edit has been approved and merged into the original page.');
     }

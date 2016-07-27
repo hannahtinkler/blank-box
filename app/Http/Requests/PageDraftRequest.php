@@ -14,7 +14,6 @@ class PageDraftRequest extends FormRequest
     public function rules()
     {
         return [
-            'chapter_id' => 'integer|exists:chapters,id',
             'title' => 'min:5',
             'description' => 'min:10',
             'content' => 'min:10'

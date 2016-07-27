@@ -28,32 +28,30 @@
     </div>
 
     <div class="col-md-6">
-        <h3 class="m-b-md">Community Rank:</h3>
+        <h3 class="m-b-md">Community:</h3>
 
         @set('communityData', $user->getCommunityData())
 
         <div class="row">
-            <div class="col-md-5">
-                <p>Ranking</p>
+            <div class="col-md-4">
+                <p>Ranking:</p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <p><i class="fa fa-trophy"></i> {{ $communityData['rank'] }}</p>
             </div>
-            <div class="col-md-5">
-                <p>Score</p>
+            <div class="col-md-4">
+                <p>Score:</p>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7">
                 <p><i class="fa fa-star"></i> {{ $communityData['score'] }}</p>
             </div>
-            <div class="col-md-5">
-                <p>Title</p>
+            <div class="col-md-4">
+                <p>Badges:</p>
             </div>
-            <div class="col-md-6">
-                <p><i class="fa fa-star"></i> {{ $communityData['title'] }}</p>
+            <div class="col-md-7">
+                <p><i class="fa fa-shield"></i> {{ $communityData['badgeCount'] }}</p>
             </div>
         </div>
-        <p><a target="_blank" href="http://i.dailymail.co.uk/i/pix/2016/03/08/16/31FE611300000578-3482348-image-a-4_1457453444322.jpg">Cats</a></p>
-        <p><a target="_blank" href="https://cdn.pastemagazine.com/www/articles/shakycatmeowmain.jpg">Cats</a></p>
     </div>
 </div>
 

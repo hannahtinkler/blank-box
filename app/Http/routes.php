@@ -35,12 +35,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/pages/{id}', 'PageController@destroy');
     Route::get('/pages/latestupdates', 'PageController@latestPages');
     
-    Route::get('/pagedrafts', 'PageDraftController@index');
-    Route::get('/pagedrafts/{id}', 'PageDraftController@edit');
-    Route::post('/pagedrafts/{id?}', 'PageDraftController@store');
-    Route::get('/pagedrafts/preview/{id}', 'PageDraftController@preview');
-    Route::get('/pagedrafts/delete/{id}', 'PageDraftController@destroy');
-    
     Route::get('/chapters/create', 'ChapterController@create');
     Route::post('/chapters', 'ChapterController@store');
     Route::get('/chapters/edit/{id}', 'ChapterController@edit');
@@ -57,10 +51,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/curation/edits/approve/{id}', 'CurationController@approveEdit');
     Route::get('/curation/edits/reject/{id}', 'CurationController@rejectEdit');
 
-    Route::get('/bookmarks', 'BookmarkController@index');
-    Route::get('/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
-    Route::get('/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
-
     Route::get('/ajax/modal/server/{id}', 'ServerController@showServerModal');
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
 
@@ -71,12 +61,22 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@show');
 
     Route::get('/u/{userSlug}/', 'UserController@show');
+    Route::get('/u/{userSlug}/badges', 'BadgeController@index');
 
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
+});
 
-    
+Route::group(['middleware' => ['auth', 'mine']], function () {
+    Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
+    Route::get('/u/{slug}/drafts', 'PageDraftController@index');
+    Route::get('/u/{slug}/drafts/{id}', 'PageDraftController@edit');
+    Route::get('/u/{slug}/drafts/preview/{id}', 'PageDraftController@preview');
+    Route::get('/u/{slug}/drafts/delete/{id}', 'PageDraftController@destroy');
 
+    Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
+    Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
+    Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
 });

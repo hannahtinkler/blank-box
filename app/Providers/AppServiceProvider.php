@@ -4,11 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\Chapter;
-use App\Models\Bookmark;
 use App\Models\SuggestedEdit;
 use App\Models\Page;
 use App\Models\PageDraft;
 use App\Models\Category;
+use App\Models\UserBadge;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -59,16 +59,19 @@ class AppServiceProvider extends ServiceProvider
             $user = \Auth::user();
 
             $categories = Category::orderBy('order')->get();
-            $bookmarks = Bookmark::where('user_id', $user->id)->count();
-            $drafts = PageDraft::where('created_by', $user->id)->count();
+            $draftCount = PageDraft::where('created_by', $user->id)->count();
+            $newBadgeCount = UserBadge::where('user_id', $user->id)
+                ->where('read', 0)
+                ->get()
+                ->count();
 
             $view->with('categories', $categories)
                 ->with('current', $current)
                 ->with('user', $user)
-                ->with('drafts', $drafts)
+                ->with('draftCount', $draftCount)
                 ->with('awaitingCurationCountNew', $awaitingCurationCountNew)
                 ->with('awaitingCurationCountEdits', $awaitingCurationCountEdits)
-                ->with('bookmarks', $bookmarks);
+                ->with('newBadgeCount', $newBadgeCount);
         });
     }
 

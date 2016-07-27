@@ -18,7 +18,7 @@
     @endif
 </div>
 
-<form role="form" id="edit-draft-form" action="/pagedrafts/{{ $draft->id }}" method="POST">
+<form role="form" id="edit-draft-form" action="/u/{{ $user->slug }}/drafts/{{ $draft->id }}" method="POST">
     {!! csrf_field() !!}
 
     <input type="hidden" name="page_id" value="{{ $draft->page_id }}" />
@@ -161,7 +161,7 @@
         }
 
         function openInNewTab() {
-            var newTab = window.open('/pagedrafts/preview/' + currentDraft, '_blank');
+            var newTab = window.open('/u/{{ $user->slug }}/drafts/preview/' + currentDraft, '_blank');
             newTab.focus();
         }
 
@@ -171,7 +171,7 @@
         }
 
         function getPostUrl() {
-            return "/pagedrafts" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
+            return "/u/{{ $user->slug }}/drafts" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
         }
 
         function triggerSaveDraftButtonChange() {

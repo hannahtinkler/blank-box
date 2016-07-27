@@ -34,7 +34,7 @@ class PageDraftControllerTest extends TestCase
 
         $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
 
-        $this->get('/pagedrafts')
+        $this->get('/u/' . $this->user->slug . '/drafts')
             ->see($draft->title)
             ->assertResponseStatus(200);
     }
@@ -52,7 +52,7 @@ class PageDraftControllerTest extends TestCase
 
         $chapter = factory(App\Models\Chapter::class)->create();
 
-        $this->post('/pagedrafts', [
+        $this->post('/u/' . $this->user->slug . '/drafts', [
                 '_token' => csrf_token(),
                 'category_id' => $chapter->category->id,
                 'chapter_id' => $chapter->id,
@@ -75,7 +75,7 @@ class PageDraftControllerTest extends TestCase
 
         $chapter = factory(App\Models\Chapter::class)->create();
 
-        $this->post('/pagedrafts', [
+        $this->post('/u/' . $this->user->slug . '/drafts', [
                 '_token' => csrf_token(),
                 'category_id' => $chapter->category->id,
                 'chapter_id' => $chapter->id,
@@ -87,7 +87,7 @@ class PageDraftControllerTest extends TestCase
 
         $draft = PageDraft::orderBy('id', 'DESC')->first();
 
-        $this->get('/pagedrafts/' . $draft->id)
+        $this->get('/u/' . $this->user->slug . '/drafts/' . $draft->id)
             ->see($draft->title)
             ->see($draft->description)
             ->see($draft->content)
@@ -108,7 +108,7 @@ class PageDraftControllerTest extends TestCase
 
         $chapter = factory(App\Models\Chapter::class)->create();
 
-        $this->post('/pagedrafts', [
+        $this->post('/u/' . $this->user->slug . '/drafts', [
                 '_token' => csrf_token(),
             ])
             ->seeJson(['success' => true]);
@@ -131,7 +131,7 @@ class PageDraftControllerTest extends TestCase
 
         $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
 
-        $this->visit('/pagedrafts/preview/' . $draft->id)
+        $this->visit('/u/' . $this->user->slug . '/drafts/preview/' . $draft->id)
             ->see($draft->title)
             ->assertResponseStatus(200);
     }

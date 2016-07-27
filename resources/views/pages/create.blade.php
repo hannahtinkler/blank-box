@@ -144,14 +144,18 @@
                 currentDraft = savedDraft.draft.id;
                 $('.last-saved').text('Last saved: ' + savedDraft.draft.updated_at_formatted);
                 $('#last-draft-id').val(currentDraft);
+
+                var currentDraftCount = parseInt($('#draft-count').html());
                 $('#draft-count').html(savedDraft.count);
+                var currentYourCount = parseInt($('#your-count').html());
+                $('#your-count').html(currentYourCount + (savedDraft.count - currentDraftCount));
             }).fail(function() {
                 alert( "There was an error processing this request :(" );
             });
         }
 
         function openInNewTab() {
-            var newTab = window.open('/pagedrafts/preview/' + currentDraft, '_blank');
+            var newTab = window.open('/u/{{ $user->slug }}/drafts/preview/' + currentDraft, '_blank');
             newTab.focus();
         }
 
@@ -161,7 +165,7 @@
         }
 
         function getPostUrl() {
-            return "/pagedrafts" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
+            return "/u/{{ $user->slug }}/drafts" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
         }
 
         function triggerSaveDraftButtonChange() {

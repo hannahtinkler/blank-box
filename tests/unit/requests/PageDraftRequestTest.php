@@ -26,7 +26,6 @@ class PageDraftRequestTest extends TestCase
     public function testItReturnsValidationRules()
     {
         $expected = [
-            'chapter_id' => 'integer|exists:chapters,id',
             'title' => 'min:5',
             'description' => 'min:10',
             'content' => 'min:10'

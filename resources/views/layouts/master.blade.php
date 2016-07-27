@@ -86,7 +86,7 @@
                 @endif
                 <li class="spacer"><hr></li>
                 @if($user->curator)
-                     <li>
+                    <li{!! Request::is('curation/*') ? ' class="active"' : null !!}>
                         <a href="/curation">
                             <span class="nav-label"><i class="fa fa-check"></i> <span class="nav-label">Curation</span> ({{ $awaitingCurationCountNew + $awaitingCurationCountEdits }})</span>
                             <span class="fa arrow"></span>
@@ -102,20 +102,38 @@
                         </ul>
                     </li>
                 @endif
-
-                <li{!! Request::is('/pagedrafts') ? ' class="active"' : null !!}>
-                    <a href="/pagedrafts"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Your Drafts (<span id="draft-count">{{ $drafts }}</span>)</span></a>
-                </li>
-                <li{!! Request::is('/bookmarks') ? ' class="active"' : null !!}>
-                    <a href="/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Your Bookmarks (<span id="bookmark-count">{{ $bookmarks }}</span>)</span></a>
+                <li
+                    @if(Request::is('pagedrafts') || Request::is('u/' . $user->slug) || Request::is('bookmarks'))
+                    class="active"
+                    @endif
+                >
+                    <a href="/curation">
+                        <span class="nav-label"><i class="fa fa-user"></i> <span class="nav-label">Your Black Box</span> (<span id="your-count">{{ $awaitingCurationCountNew + $awaitingCurationCountEdits + $newBadgeCount + $draftCount}}</span>)</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                
+                    <ul class="nav nav-second-level collapse">
+                        <li>
+                            <a href="/u/{{ $user->slug }}"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
+                        </li>
+                        <li>
+                            <a href="/u/{{ $user->slug }}/drafts"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Drafts (<span id="draft-count">{{ $draftCount }}</span>)</span></a>
+                        </li>
+                        <li>
+                            <a href="/u/{{ $user->slug }}/badges"><i class="fa fa-shield"></i> <span class="nav-label">Badges (<span id="draft-count">{{ $newBadgeCount }}</span>)</span></a>
+                        </li>
+                        <li>
+                            <a href="/u/{{ $user->slug }}/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Bookmarks</span></a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="spacer"><hr></li>
                 
-                <li{!! Request::is('/pages/latestupdates') ? ' class="active"' : null !!}>
+                <li{!! Request::is('pages/latestupdates') ? ' class="active"' : null !!}>
                     <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
                 </li>
-                <li{!! Request::is('/contributors') ? ' class="active"' : null !!}>
+                <li{!! Request::is('contributors') ? ' class="active"' : null !!}>
                     <a href="/contributors"><i class="fa fa-hand-peace-o"></i> <span class="nav-label">Contributors</span></a>
                 </li>
             </ul>
@@ -261,10 +279,9 @@
 
             function addBookmark() {
                 $('.bookmark').addClass('active');
-                $.ajax('/bookmarks/create/' + category + '/' + chapter + '/' + page, {
+                $.ajax('/u/{{ $user->slug }}/bookmarks/create/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
-                    $('#bookmark-count').html(data.count);
                   },                  
                   error: function() {
                     $('.bookmark').removeClass('active');
@@ -275,10 +292,9 @@
 
             function removeBookmark() {
                 $('.bookmark').removeClass('active');
-                $.ajax('/bookmarks/delete/' + category + '/' + chapter + '/' + page, {
+                $.ajax('/u/{{ $user->slug }}/bookmarks/delete/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
-                    $('#bookmark-count').html(data.count);
                   },
                   error: function() {
                     $('.bookmark').addClass('active');
@@ -292,7 +308,6 @@
         $('#topbar-search-form').submit(function(e) {
             var term = $('#top-search').val();
             window.location.href ='/search/' + term + '/results';
-            console.log('sdergs');
             e.preventDefault();
             return false;
         });

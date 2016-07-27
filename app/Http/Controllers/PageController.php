@@ -44,8 +44,9 @@ class PageController extends Controller
     {
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::orderBy('title')->get();
+        $user = $this->user;
 
-        return view('pages.create', compact('categories', 'chapters'));
+        return view('pages.create', compact('categories', 'chapters', 'user'));
     }
 
     public function edit($id)
