@@ -2,6 +2,7 @@
 
 use App\Models\Page;
 use App\Models\User;
+use App\Models\PageTag;
 use App\Models\Chapter;
 use App\Models\Bookmark;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -47,6 +48,20 @@ class PageTest extends TestCase
         $page = factory(Page::class)->create();
         $this->assertTrue($page->creator instanceof User);
     }
+
+    /**
+     * Tests that a call to the pageTags relationship returns a colleaction of
+     * PageTags
+     *
+     * @return void
+     */
+    public function testPageTagsRelationshipReturnsPageTags()
+    {
+        $page = factory(Page::class)->create();
+        factory(PageTag::class, 3)->create(['page_id' => $page->id]);
+
+        $this->assertTrue($page->pageTags->first() instanceof PageTag);
+    }
     
     /**
      * Tests that a query implementing the 'lastestUpdated' scope returns the
@@ -83,7 +98,7 @@ class PageTest extends TestCase
     }
     
     /**
-     * Tests that a query implementing the 'largestOrderValue' scope returns 
+     * Tests that a query implementing the 'largestOrderValue' scope returns
      * the highest order value in the page table for a given chapter
      *
      * @return void

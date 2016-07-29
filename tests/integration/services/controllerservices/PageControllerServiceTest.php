@@ -8,6 +8,7 @@ use App\Models\SlugForwardingSetting;
 
 use App\Services\ControllerServices\PageControllerService;
 use App\Services\ControllerServices\PageDraftControllerService;
+use App\Services\ControllerServices\PageTagControllerService;
 
 class PageControllerServiceTest extends TestCase
 {
@@ -57,8 +58,9 @@ class PageControllerServiceTest extends TestCase
         $prophecy = $prophet->prophesize('Illuminate\Http\Request');
         $prophecy->user()->willReturn($this->user);
 
-        $pageDraftcontrollerService = new PageDraftControllerService($prophecy->reveal());
-        $this->controllerService = new PageControllerService($prophecy->reveal(), $pageDraftcontrollerService);
+        $pageDraftControllerService = new PageDraftControllerService($prophecy->reveal());
+        $pageTagControllerService = new PageTagControllerService($prophecy->reveal());
+        $this->controllerService = new PageControllerService($prophecy->reveal(), $pageDraftControllerService, $pageTagControllerService);
     }
 
     /**

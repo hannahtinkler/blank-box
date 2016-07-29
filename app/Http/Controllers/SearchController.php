@@ -12,11 +12,6 @@ class SearchController extends Controller
   
     public function __construct()
     {
-        $this->determineIfAjax();
-    }
-  
-    public function determineIfAjax()
-    {
         $this->isAjaxRequest = \Request::ajax();
     }
 

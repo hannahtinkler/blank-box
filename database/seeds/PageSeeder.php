@@ -119,7 +119,7 @@ class PageSeeder extends Seeder
             'content' => '<h4><strong>General:</strong></h4>
                 <ul>
                     <li>Should actually test something — if you change functionality then the test should break</li>
-                    <li>Should always pass regardless of the order tests are run in</li>,
+                    <li>Should always pass regardless of the order tests are run in</li>
                     <li>Should always pass regardless of the order tests are created_by in</li>
                     <li>Should be completely independant of the rest of the suite</li>
                     <li>Must always contain at least one assertion</li>

@@ -8,9 +8,10 @@ use App\Http\Requests\PageRequest;
 use App\Services\ControllerServices\PageControllerService;
 use App\Services\ModelServices\PageModelService;
 
-use App\Models\Category;
-use App\Models\Chapter;
+use App\Models\Tag;
 use App\Models\Page;
+use App\Models\Chapter;
+use App\Models\Category;
 
 class PageController extends Controller
 {
@@ -44,8 +45,9 @@ class PageController extends Controller
     {
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::orderBy('title')->get();
+        $tags = Tag::orderBy('tag')->get();
 
-        return view('pages.create', compact('categories', 'chapters'));
+        return view('pages.create', compact('categories', 'chapters', 'tags'));
     }
 
     public function edit($id)
@@ -56,8 +58,9 @@ class PageController extends Controller
 
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
+        $tags = Tag::orderBy('tag')->get();
 
-        return view('pages.edit', compact('page', 'categories', 'chapters', 'editable'));
+        return view('pages.edit', compact('page', 'categories', 'chapters', 'editable', 'tags'));
     }
 
     public function update(PageRequest $request, $id)

@@ -53,6 +53,11 @@ class Page extends Model implements SearchableModel
     {
         return $this->hasOne('App\Models\User', 'id', 'created_by');
     }
+
+    public function pageTags()
+    {
+        return $this->hasMany('App\Models\PageTag');
+    }
     
     public function scopeLatestUpdated($query)
     {

@@ -66,10 +66,22 @@
                 </div>
             </div>
 
-            <div class="col-sm-12">
+            <div class="col-sm-12 m-b-md">
                 <div class="form-group m-b-xs">
                     <label>Content</label>
                     <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') ? old('content') : $page->content }}</textarea>
+                </div>
+            </div>
+        
+            <div class="col-sm-12  m-b-lg">
+                <div class="form-group">
+                    <label>Tags <span class="italic">(comma separated)</span> <i class="fa fa-question-circle pointer" title="These tags will be used to suggest help pages for Orbit tasks based on task title"></i></label>
+                    <select id="tag-select" name="tags[]" multiple="multiple">
+                        @set('pageTags', array_pluck($page->pageTags->toArray(), 'tag_id'))
+                        @foreach($tags as $tag)
+                            <option value="{{ $tag->tag }}" {{ in_array($tag->id, $pageTags) ? 'selected' : null }}>{{ $tag->tag }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
@@ -92,6 +104,11 @@
 @section('scripts')
 
 <script>
+    $('#tag-select').select2({
+        tags: true,
+        tokenSeparators: [','],
+        minimumInputLength: 1
+    });
     $(document).ready(function () {
         CKEDITOR.replace('textboxCkeditor');
         CKEDITOR.config.height = 500;

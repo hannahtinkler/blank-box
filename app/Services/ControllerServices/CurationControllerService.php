@@ -9,6 +9,8 @@ use cogpowered\FineDiff\Diff;
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 
+use App\Services\ControllerServices\PageControllerService;
+
 class CurationControllerService
 {
     public $user;

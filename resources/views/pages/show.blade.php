@@ -17,15 +17,19 @@
     <p class="bg-success error-message m-b-xl">{!! session('message') !!}</p>
 @endif
 
-{!! $page->content !!}
+<div class="m-b-lg">
+    {!! $page->content !!}
+</div>
 
-<div class="m-t-lg green-text">
+<div class="m-t-lg">
+    @foreach($page->pageTags as $pageTag)
+        <span class="tag label m-r-sm"><i class="fa fa-tag m-r-xs"></i> {{ $pageTag->tag->tag }}</span>
+    @endforeach
+</div>
+<div class="m-t-sm m-b-lg green-text">
     <small>Added by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>
     @if($page->hasEdits()) 
         and kept up-to-date by {!! $page->getUpdatorsString() !!}
-    @endif
-    @if(strip_tags($page->getUpdatorsString()) == $page->creator->name)
-        <span class="italic">(what, you're gonna let them do all the work?)</span>
     @endif
     </small>
 </div>

@@ -26,7 +26,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/search/{query}', 'SearchController@performSearch');
     Route::get('/search/{query}/results', 'SearchController@showSearchResults');
-
+    Route::get('/related/{query}', 'RelatedController@getRelatedResources');
+    Route::get('/related/{query}/results', 'RelatedController@showRelatedResults');
 
     Route::get('/pages/create', 'PageController@create');
     Route::post('/pages', 'PageController@store');

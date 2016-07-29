@@ -9,13 +9,13 @@
 
     <title>Black Box</title>
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/easy-autocomplete.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
 
-    
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
@@ -234,7 +234,8 @@
 <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/js/easyAutocomplete.js"></script>
 <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="https://www.draw.io/js/embed-static.min.js"></script>
+<script src="https://www.draw.io/js/embed-static.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <!-- Custom and plugin javascript -->
 <script src="/js/inspinia.js"></script>

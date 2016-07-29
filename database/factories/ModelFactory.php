@@ -127,3 +127,19 @@ $factory->define(App\Models\SlugForwardingSetting::class, function (Faker\Genera
         'new_slug' => $new->slug
     ];
 });
+
+$factory->define(App\Models\Tag::class, function (Faker\Generator $faker) {
+    return [
+        'tag' => $faker->word
+    ];
+});
+
+$factory->define(App\Models\PageTag::class, function (Faker\Generator $faker) {
+    $page = factory(App\Models\Page::class)->create();
+    $tag = factory(App\Models\Tag::class)->create();
+
+    return [
+        'page_id' => $page->id,
+        'tag_id' => $tag->id
+    ];
+});

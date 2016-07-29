@@ -15,10 +15,11 @@ class PageControllerService
 {
     public $user;
 
-    public function __construct(Request $request, PageDraftControllerService $draftControllerService)
+    public function __construct(Request $request, PageDraftControllerService $draftControllerService, PageTagControllerService $pageTagControllerService)
     {
         $this->user = $request->user();
         $this->draftControllerService = $draftControllerService;
+        $this->pageTagControllerService = $pageTagControllerService;
     }
 
     public function storePage($data)
@@ -39,6 +40,10 @@ class PageControllerService
             'order' => $nextPageOrderValue,
             'approved' => (int) isset($data['approved']) ? 1 : null
         ]);
+
+        if (isset($data['tags'])) {
+            $this->pageTagControllerService->storeTagsForAPage($page, $data['tags']);
+        }
 
         return $page;
     }
@@ -76,6 +81,10 @@ class PageControllerService
 
         if (isset($data['approved']) || $page->approved) {
             $this->registerSlugForwarding($oldPage, $page);
+        }
+
+        if (isset($data['tags'])) {
+            $this->pageTagControllerService->storeTagsForAPage($page, $data['tags']);
         }
 
         return $page;
