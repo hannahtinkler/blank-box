@@ -63,20 +63,21 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/u/{userSlug}/', 'UserController@show');
     Route::get('/u/{userSlug}/badges', 'BadgeController@index');
 
+    // Route::group(['middleware' => ['mine']], function () {
+        Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
+        Route::get('/u/{slug}/drafts', 'PageDraftController@index');
+        Route::get('/u/{slug}/drafts/{id}', 'PageDraftController@edit');
+        Route::get('/u/{slug}/drafts/preview/{id}', 'PageDraftController@preview');
+        Route::get('/u/{slug}/drafts/delete/{id}', 'PageDraftController@destroy');
+
+        Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
+        Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
+        Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
+    // });
+    
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
 });
 
-Route::group(['middleware' => ['auth', 'mine']], function () {
-    Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
-    Route::get('/u/{slug}/drafts', 'PageDraftController@index');
-    Route::get('/u/{slug}/drafts/{id}', 'PageDraftController@edit');
-    Route::get('/u/{slug}/drafts/preview/{id}', 'PageDraftController@preview');
-    Route::get('/u/{slug}/drafts/delete/{id}', 'PageDraftController@destroy');
-
-    Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
-    Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
-    Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
-});

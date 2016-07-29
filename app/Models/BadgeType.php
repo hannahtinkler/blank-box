@@ -8,7 +8,7 @@ class BadgeType extends Model
 {
     public $guarded = [];
 
-    public function badgeGroups()
+    public function groups()
     {
         return $this->hasMany('App\Models\BadgeGroup');
     }

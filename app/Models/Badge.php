@@ -8,9 +8,9 @@ class Badge extends Model
 {
     public $guarded = [];
 
-    public function badgeGroup()
+    public function group()
     {
-        return $this->belongsTo('App\Models\BadgeGroup');
+        return $this->belongsTo('App\Models\BadgeGroup', 'badge_group_id');
     }
 
     public function userBadges()

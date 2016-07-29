@@ -12,36 +12,27 @@
 
     <div class="wrapper wrapper-content animated blog">
     <div class="row">
-        @if($pages->isEmpty())
-            {{ $user->name }} has no badges yet :(
+        @if(empty($userBadges))
+            This user has no badges yet :(
         @else
-            @foreach($pages as $page)
+            @foreach($badgeGroups as $badgeGroup)
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a target="_blank" href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">
-                                        <h2>
-                                            {{ $page->title }}
-                                        </h2>
-                                    </a>
-                                    <div class="small m-b-sm">
-                                        <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong> <span class="text-muted"><i class="fa fa-clock-o"></i> {{ $page->created_at->format('jS M Y') }}</span>
-                                    </div>
+                                    <h2>
+                                        {{ $badgeGroup->name }}
+                                    </h2>
                                     <p>
-                                        {{ $page->description }}
+                                        {{ $badgeGroup->description }}
                                     </p>
-                                    <div class="row">
-                                        <div class="col-md-6 m-t-sm">
-                                            <button class="btn btn-primary btn-xs" type="button"><i class="fa fa-book"> </i> {{ $page->chapter->category->title }}</button>
-                                            <button class="btn btn-white btn-xs" type="button"><i class="fa fa-folder-o"> </i> {{ $page->chapter->title }}</button>
+                                    @foreach($badgeGroup->badges as $badge)
+                                        <div class="badge-image left">
+                                            <img src="http://www.languagenut.com/assets/media/placeholders/250x250-circle.png" />
+                                            <p>{{ $badge->name }}</p>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="text-right">
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -55,17 +46,3 @@
 @stop
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
-        $('.view-button').each(function() {
-            var width = $(this).parent().parent().parent().height();
-            var fontsize = width / 2.5;
-            var height =  (width - fontsize - 5) /2;
-            $(this).css('font-size', fontsize);
-            $(this).css('padding-top', height);
-            $(this).css('padding-bottom', height);
-            $(this).width($(this).innerHeight() - 25);
-        });
-    });
-</script>
-@stop

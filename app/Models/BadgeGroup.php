@@ -8,13 +8,13 @@ class BadgeGroup extends Model
 {
     public $guarded = [];
 
-    public function badgeType()
+    public function type()
     {
         return $this->belongsTo('App\Models\BadgeType');
     }
 
     public function badges()
     {
-        return $this->hasMany('App\Models\Badge');
+        return $this->hasMany('App\Models\Badge')->orderBy('level', 'ASC');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Badge;
+use App\Models\BadgeGroup;
 
 use App\Services\ControllerServices\UserBadgeControllerService;
 
@@ -19,12 +19,10 @@ class BadgeController extends Controller
 
     public function index(Request $request, $userSlug)
     {
-        $badges = Badge::join('user_badges', 'badges.id', '=', 'user_badges.badge_id')
-            ->join('users', 'user_badges.user_id', '=', 'users.id')
-            ->where('users.slug', $userSlug)
-            ->orderBy('badges.created_at', 'DESC')
-            ->get();
+        $userBadges = $this->controllerService->getBadgesForUser();
 
-        return view('badges.index', compact('badges'));
+        $badgeGroups = BadgeGroup::all();
+
+        return view('badges.index', compact('badgeGroups', 'userBadges'));
     }
 }
