@@ -44,7 +44,7 @@ class BadgeSeeder extends Seeder
 
         $codeBadgeGroup = BadgeGroup::create([
             'badge_type_id' => $codeContributions->id,
-            'name' => 'Holder of the Thunder Badge',
+            'name' => 'Gym of Vermillion City',
             'description' => 'Earned for the number of pages submitted to the Monitoring chapter and approved',
             'metric_entity' => null
         ]);
