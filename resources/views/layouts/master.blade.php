@@ -107,8 +107,11 @@
                     class="active"
                     @endif
                 >
-                    <a href="/curation">
-                        <span class="nav-label"><i class="fa fa-user"></i> <span class="nav-label">Your Black Box</span> (<span id="your-count">{{ $awaitingCurationCountNew + $awaitingCurationCountEdits + $newBadgeCount + $draftCount}}</span>)</span>
+                    <a href="/u/{{ $user->slug }}">
+                        <span class="nav-label">
+                            <i class="fa fa-user"></i> Your Black Box
+                            <span {!! $newBadgeCount + $draftCount == 0 ? 'class="hidden"' : null !!} id="your-count">(<span>{{ $newBadgeCount + $draftCount }}</span>)</span>
+                        </span>
                         <span class="fa arrow"></span>
                     </a>
                 
@@ -117,10 +120,20 @@
                             <a href="/u/{{ $user->slug }}"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
                         </li>
                         <li>
-                            <a href="/u/{{ $user->slug }}/drafts"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Drafts (<span id="draft-count">{{ $draftCount }}</span>)</span></a>
+                            <a href="/u/{{ $user->slug }}/drafts">
+                                <i class="fa fa-pencil-square-o"></i> 
+                                <span class="nav-label">Drafts 
+                                    <span {!! $draftCount == 0 ? 'class="hidden"' : null !!} id="draft-count">(<span>{{ $draftCount }}</span>)</span>
+                                </span>
+                            </a>
                         </li>
                         <li>
-                            <a href="/u/{{ $user->slug }}/badges"><i class="fa fa-shield"></i> <span class="nav-label">Badges (<span id="draft-count">{{ $newBadgeCount }}</span>)</span></a>
+                            <a href="/u/{{ $user->slug }}/badges">
+                                <i class="fa fa-shield"></i> 
+                                <span class="nav-label">Badges
+                                    <span {!! $newBadgeCount == 0 ? 'class="hidden"' : null !!} id="badge-count">(<span>{{ $newBadgeCount }}</span>)</span)
+                                </span>
+                            </a>
                         </li>
                         <li>
                             <a href="/u/{{ $user->slug }}/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Bookmarks</span></a>

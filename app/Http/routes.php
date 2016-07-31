@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/curation/edits/reject/{id}', 'CurationController@rejectEdit');
 
     Route::get('/ajax/modal/server/{id}', 'ServerController@showServerModal');
+    Route::get('/ajax/modal/badges/{id}', 'BadgeController@showBadgeModal');
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
 
     //Data driven pages requiring controllers
