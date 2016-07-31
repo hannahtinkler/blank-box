@@ -354,7 +354,7 @@ class BadgeSeeder extends Seeder
             'badge_group_id' => $monitoringBadgeGroup->id,
             'name' => 'The Comedian',
             'description' => 'Earned by submitting 1 pages to the Monitoring chapter',
-            'image' => '/images/badges/monitoring_bronze.png',
+            'image' => '/images/badges/code_bronze.png',
             'level' => 1,
             'metric_boundary' => 1
         ]);
@@ -363,7 +363,7 @@ class BadgeSeeder extends Seeder
             'badge_group_id' => $monitoringBadgeGroup->id,
             'name' => 'Dr Manhattan',
             'description' => 'Earned by submitting 5 pages to the Monitoring chapter',
-            'image' => '/images/badges/monitoring_silver.png',
+            'image' => '/images/badges/code_silver.png',
             'level' => 2,
             'metric_boundary' => 5
         ]);
@@ -372,7 +372,7 @@ class BadgeSeeder extends Seeder
             'badge_group_id' => $monitoringBadgeGroup->id,
             'name' => 'Nite Owl',
             'description' => 'Earned by submitting 10 pages to the Monitoring chapter',
-            'image' => '/images/badges/monitoring_gold.png',
+            'image' => '/images/badges/code_gold.png',
             'level' => 3,
             'metric_boundary' => 10
         ]);
@@ -381,7 +381,7 @@ class BadgeSeeder extends Seeder
             'badge_group_id' => $monitoringBadgeGroup->id,
             'name' => 'Silk Spectre',
             'description' => 'Earned by submitting 15 pages to the Monitoring chapter',
-            'image' => '/images/badges/monitoring_platinum.png',
+            'image' => '/images/badges/code_platinum.png',
             'level' => 4,
             'metric_boundary' => 15
         ]);
