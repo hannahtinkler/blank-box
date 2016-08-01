@@ -498,3 +498,37 @@ img.not-earned,
   color: #ffffff;
   padding-bottom: 4px;
 }
+
+.vertical-timeline-icon img {
+  width:100%;
+}
+
+.vertical-timeline-content {
+  border: thin solid #ccc !important;
+  padding-bottom: 1.3em !important;
+}
+
+.vertical-timeline-icon {
+  left: 49.2% !important;
+  border-color:transparent;
+  background-color:transparent;
+  width:70px !important;
+  height:70px !important;
+}
+
+.feed-icon {
+  margin-top: 0.66em !important;
+  margin-left: -0.6em !important;
+  color: #8ba3b5 !important;
+  font-size: 110% !important;
+}
+
+.vertical-date {margin-top:0.9em}
+.vertical-date small {color:#222}
+
+.center-orientation .vertical-timeline-content::before {
+  border-left-color: #ccc;
+}
+.center-orientation .vertical-timeline-block:nth-child(even) .vertical-timeline-content::before {
+  border-right-color: #ccc;
+}

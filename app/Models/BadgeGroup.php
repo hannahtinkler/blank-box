@@ -10,7 +10,7 @@ class BadgeGroup extends Model
 
     public function type()
     {
-        return $this->belongsTo('App\Models\BadgeType');
+        return $this->belongsTo('App\Models\BadgeType', 'badge_type_id');
     }
 
     public function badges()

@@ -3,23 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\Page;
+use App\Models\FeedEvent;
 use App\Models\SuggestedEdit;
-use App\Models\Category;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        return view('home.index');
+        $feedEvents = FeedEvent::orderBy('created_at', 'DESC')->paginate(20);
+
+        return view('home.index', compact('feedEvents'));
     }
     
     public function contributors()
     {
         $contributors = Page::select(
-                'pages.created_by',
-                \DB::raw('COUNT(pages.id) as total')
-            )
+            'pages.created_by',
+            \DB::raw('COUNT(pages.id) as total')
+        )
             ->leftJoin('suggested_edits', 'pages.id', '=', 'suggested_edits.page_id')
             ->orderBy('total', 'desc')
             ->groupBy('pages.created_by')

@@ -40,7 +40,9 @@ class CheckForBadgeQualification
         $count = $this->getPageCountForChapter();
         $newBadges = $this->getNewlyQualifiedForBadges($count);
 
-        $this->userBadgeControllerService->addBadgesForUser($newBadges);
+        if (!$newBadges->isEmpty()) {
+            $this->userBadgeControllerService->addBadgesForUser($newBadges);
+        }
     }
 
     public function getPageCountForChapter()

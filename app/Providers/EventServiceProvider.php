@@ -15,6 +15,10 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         'App\Events\PageWasAddedToChapter' => [
             'App\Listeners\CheckForBadgeQualification',
+            'App\Listeners\AddPageEventToFeed',
+        ],
+        'App\Events\BadgeWasAddedToUser' => [
+            'App\Listeners\AddBadgeEventToFeed',
         ],
     ];
 

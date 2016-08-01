@@ -191,3 +191,22 @@ $factory->define(App\Models\PageTag::class, function (Faker\Generator $faker) {
         'tag_id' => $tag->id
     ];
 });
+
+$factory->define(App\Models\FeedEventType::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'text' => $faker->sentence
+    ];
+});
+
+$factory->define(App\Models\FeedEvent::class, function (Faker\Generator $faker) {
+    $user = factory(App\Models\User::class)->create();
+    $type = factory(App\Models\FeedEventType::class)->create();
+    $page = factory(App\Models\Page::class)->create();
+    
+    return [
+        'feed_event_type_id' => $type->id,
+        'user_id' => $user->id,
+        'resource_id' => $page->id
+    ];
+});

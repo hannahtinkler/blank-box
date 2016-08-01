@@ -4,6 +4,8 @@ namespace App\Services\ControllerServices;
 
 use Illuminate\Http\Request;
 
+use App\Events\BadgeWasAddedToUser;
+
 use App\Models\Badge;
 use App\Models\UserBadge;
 
@@ -18,10 +20,14 @@ class UserBadgeControllerService
 
     public function addABadgeForUser($badgeId)
     {
-        return UserBadge::create([
+        $badge = UserBadge::create([
             'user_id' => $this->user->id,
             'badge_id' => $badgeId
         ]);
+
+        \Event::fire(new BadgeWasAddedToUser($badge->badge));
+
+        return $badge;
     }
 
     public function addBadgesForUser($newBadges)
