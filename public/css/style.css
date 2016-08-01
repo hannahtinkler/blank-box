@@ -8703,29 +8703,49 @@ ins {
 .grey-text {
   color: #a9a9a9;
 }
+
 ol li {
   margin: 0.5em;
 }
+
 .badge-image {
-  width: 120px;
-  margin: 0.5em;
-}
-.badge-image p {
   text-align: center;
+  width:100%;
+  margin:1em;
 }
+
+.large-badge {
+  width:200px;  
+}
+
+.badge-image p {
+  text-align:center;
+}
+
 .badge-image img {
-  width: 120px;
+  width:100%;
 }
-.left {
-  float: left !important;
+
+.left {float:left !important;}
+
+img.not-earned,
+.not-earned img {
+  opacity: 0.2;
+  -webkit-filter: grayscale(60%);
+  -moz-filter: grayscale(60%);
+  filter: grayscale(60%);
 }
-@media print {
-  nav.navbar-static-side {
-    display: none;
-  }
-  #page-wrapper {
-    margin: 0;
-  }
+.not-earned p {
+  opacity: 0.5;
+  color:#888;
+}
+
+.badge-container {
+  margin-left: -3em;
+}
+
+.badge-cell {
+  width:12% !important;
 }
 
 /*# sourceMappingURL=style.css.map */

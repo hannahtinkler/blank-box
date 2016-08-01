@@ -145,10 +145,13 @@
                 $('.last-saved').text('Last saved: ' + savedDraft.draft.updated_at_formatted);
                 $('#last-draft-id').val(currentDraft);
 
-                var currentDraftCount = parseInt($('#draft-count').html());
-                $('#draft-count').html(savedDraft.count);
-                var currentYourCount = parseInt($('#your-count').html());
-                $('#your-count').html(currentYourCount + (savedDraft.count - currentDraftCount));
+                var currentDraftCount = parseInt($('#draft-count span').html());
+                $('#draft-count span').html(savedDraft.count);
+                $('#draft-count').removeClass('hidden');
+
+                var currentYourCount = parseInt($('#your-count span').html());
+                $('#your-count span').html(currentYourCount + (savedDraft.count - currentDraftCount));
+                $('#your-count').removeClass('hidden');
             }).fail(function() {
                 alert( "There was an error processing this request :(" );
             });

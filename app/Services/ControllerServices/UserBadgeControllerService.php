@@ -27,14 +27,24 @@ class UserBadgeControllerService
     public function addBadgesForUser($newBadges)
     {
         foreach ($newBadges as $badge) {
-            $this->addABadgeForUser($this->user->id, $badge->id);
+            $this->addABadgeForUser($badge->id);
         }
     }
     
+    public function userHasBadge($id)
+    {
+        $badge = UserBadge::where('user_badges.user_id', $this->user->id)
+            ->where('user_badges.badge_id', $id)
+            ->first();
+
+        return is_object($badge);
+    }
+
     public function getBadgesForUser()
     {
-        return Badge::join('user_badges', 'badges.id', '=', 'user_badges.badge_id')
-            ->where('user_badges.id', $this->user->id)
+        return Badge::select('badges.*')
+            ->leftJoin('user_badges', 'badges.id', '=', 'user_badges.badge_id')
+            ->where('user_badges.user_id', $this->user->id)
             ->orderBy('badges.created_at', 'DESC')
             ->get();
     }

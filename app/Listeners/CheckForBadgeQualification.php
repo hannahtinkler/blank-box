@@ -63,7 +63,7 @@ class CheckForBadgeQualification
             ->where('badge_groups.metric_entity', $this->page->chapter_id)
             ->where('badges.metric_boundary', '<=', $count)
             ->whereNotIn('badges.id', function ($query) use ($userId) {
-                $query->select('id')
+                $query->select('badge_id')
                   ->from('user_badges')
                   ->where('user_id', $userId);
             })

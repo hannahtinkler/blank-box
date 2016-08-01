@@ -17,6 +17,7 @@ class CreateBadgesTable extends Migration
             $table->integer('badge_group_id');
             $table->string('name');
             $table->string('description')->nullable()->default(null);;
+            $table->string('image')->nullable()->default(null);;
             $table->integer('level');
             $table->integer('metric_boundary')->nullable()->default(null);
             $table->timestamps();

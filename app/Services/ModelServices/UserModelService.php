@@ -35,12 +35,10 @@ class UserModelService implements SearchableModelService
     public function getUserType()
     {
         if ($this->user->curator) {
-            $userType = 'Curator';
-        } elseif (!$this->user->pages->isEmpty()) {
-            $userType = 'Contributor';
-        } else {
-            $userType = 'Reader';
+            $userType = 'Curator / ';
         }
+
+        $userType .= $this->getBestBadge();
 
         return $userType;
     }
@@ -96,7 +94,8 @@ class UserModelService implements SearchableModelService
         return  [
          'rank' => $user->rank,
          'score' => $user->total,
-         'badgeCount' => $this->getBadgeCount()
+         'badgeCount' => $this->getBadgeCount(),
+         'bestBadge' => $this->getBestBadge()
         ];
     }
 
@@ -140,5 +139,15 @@ class UserModelService implements SearchableModelService
         return UserBadge::where('user_id', $this->user->id)
             ->get()
             ->count();
+    }
+    public function getBestBadge()
+    {
+        $badge = UserBadge::join('badges', 'badges.id', '=', 'user_badges.badge_id')
+            ->where('user_id', $this->user->id)
+            ->orderBy('badges.level', 'DESC')
+            ->orderBy('user_badges.created_at', 'DESC')
+            ->first();
+
+        return is_object($badge) ? $badge->name : null;
     }
 }
