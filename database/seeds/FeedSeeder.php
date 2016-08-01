@@ -24,7 +24,7 @@ class FeedSeeder extends Seeder
 
         $pageFeedEvent = FeedEventType::create([
             'name' => 'Page Added',
-            'text' => "%s added a new page to the '%s' chapter:<br /><strong>'%s'</strong>"
+            'text' => "%s added a new page to the '%s' chapter:<br /><br /><strong>'%s'</strong>"
         ]);
 
         $badgeFeedEvent = FeedEventType::create([

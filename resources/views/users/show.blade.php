@@ -16,7 +16,7 @@
         @if($user->specialistAreas(4)->isEmpty())
             <p class="italic">{{ $user->name }} has not submitted any content yet.</p>
         @else
-            @set('specialistAreas', $user->specialistAreas(3))
+            @set('specialistAreas', $user->specialistAreas(4))
             @if($specialistAreas->isEmpty())
                 <p class="italic">{{ $user->name }} doesn't have any specialist areas yet :(.</p>
             @else
@@ -28,7 +28,8 @@
     </div>
 
     <div class="col-md-6">
-        <h3 class="m-b-md">Community:</h3>
+        <h3 class="m-b-md">Community: <small><i class="m-l-sm pointer fa fa-info-circle" title="Community ranks/scores are based on the quantity of
+information a person has contributed to Black Box"></i></small></h3>
 
         @set('communityData', $user->getCommunityData())
 
@@ -49,13 +50,17 @@
                 <p>Badges:</p>
             </div>
             <div class="col-md-7">
-                <p><i class="fa fa-shield"></i> {{ $communityData['badgeCount'] }}</p>
+                <a href="/u/{{ $user->slug }}/badges">
+                    <p><i class="fa fa-shield"></i> {{ $communityData['badgeCount'] }}</p>
+                </a>
             </div>
             <div class="col-md-4">
                 <p>Best Badge:</p>
             </div>
             <div class="col-md-7">
-                {{ $communityData['bestBadge'] == null ? 'None earned yet' : $communityData['bestBadge'] }}</p>
+                <a href="/u/{{ $user->slug }}/badges">
+                    {{ $communityData['bestBadge'] == null ? 'None earned yet' : $communityData['bestBadge'] }}</p>
+                </a>
             </div>
         </div>
     </div>

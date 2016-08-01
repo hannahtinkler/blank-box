@@ -127,7 +127,7 @@ class BadgeSeeder extends Seeder
 
         Badge::create([
             'badge_group_id' => $codeBadgeGroup->id,
-            'name' => 'master of the Zapdos',
+            'name' => 'Master of the Zapdos',
             'description' => 'Earned by submitting 15 pull request to the Black Box repository',
             'image' => '/images/badges/code_platinum.png',
             'level' => 4,
