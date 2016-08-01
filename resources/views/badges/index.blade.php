@@ -16,7 +16,7 @@
             @set('x', 0)
             @foreach($badgeGroups as $badgeGroup)
                 @foreach($badgeGroup->badges as $badge)
-                    @if(is_int($x / 8))
+                    @if(is_int($x / 7))
                         <div class="row">
                     @endif
                         <div class="col-lg-2 badge-cell">
@@ -30,7 +30,7 @@
                                 </div>
                             </a>
                         </div>
-                    @if(is_int(($x + 1) / 8))
+                    @if(is_int(($x + 1) / 7))
                         </div>
                     @endif
                     @set('x', $x + 1)
