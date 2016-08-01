@@ -26,8 +26,9 @@ class BadgeController extends Controller
         $userBadges = array_pluck($this->controllerService->getBadgesForUser()->toArray(), 'id');
 
         $badgeGroups = BadgeGroup::all();
+        $user = $request->user();
 
-        return view('badges.index', compact('badgeGroups', 'userBadges'));
+        return view('badges.index', compact('badgeGroups', 'userBadges', 'user'));
     }
 
     public function showBadgeModal($id)

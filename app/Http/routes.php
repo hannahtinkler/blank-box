@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('test', function() {
+    
+});
+
 Route::get('login', 'Auth\AuthController@redirectToProvider');
 Route::get('logout', 'Auth\AuthController@logout');
 Route::get('/login/callback', 'Auth\AuthController@handleProviderCallback');

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h1>Your Badges</h1>
+    <h1>{{ $user->name }}'s Badges</h1>
 
     <hr>
 
