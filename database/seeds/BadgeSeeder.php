@@ -244,7 +244,7 @@ class BadgeSeeder extends Seeder
 
         Badge::create([
             'badge_group_id' => $generalBadgeGroup->id,
-            'name' => 'First Year Student',
+            'name' => 'Gryffindor Prefect',
             'description' => 'Earned by submitting 1 pages to the General Information chapter',
             'image' => '/images/badges/general_bronze.png',
             'level' => 1,

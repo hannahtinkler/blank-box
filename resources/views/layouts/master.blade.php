@@ -103,7 +103,7 @@
                     </li>
                 @endif
                 <li
-                    @if(Request::is('pagedrafts') || Request::is('u/' . $user->slug) || Request::is('bookmarks'))
+                    @if(Request::is('u/' . $user->slug . '*') || Request::is('bookmarks'))
                     class="active"
                     @endif
                 >
