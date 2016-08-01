@@ -161,14 +161,21 @@
                 currentDraft = savedDraft.draft.id;
                 $('.last-saved').text('Last saved: ' + savedDraft.draft.updated_at_formatted);
                 $('#last-draft-id').val(currentDraft);
-                $('#draft-count').html(savedDraft.count);
+
+                var currentDraftCount = parseInt($('#draft-count span').html());
+                $('#draft-count span').html(savedDraft.count);
+                $('#draft-count').removeClass('hidden');
+
+                var currentYourCount = parseInt($('#your-count span').html());
+                $('#your-count span').html(currentYourCount + (savedDraft.count - currentDraftCount));
+                $('#your-count').removeClass('hidden');
             }).fail(function() {
                 alert( "There was an error processing this request :(" );
             });
         }
 
         function openInNewTab() {
-            var newTab = window.open('/pagedrafts/preview/' + currentDraft, '_blank');
+            var newTab = window.open('/u/{{ $user->slug }}/drafts/preview/' + currentDraft, '_blank');
             newTab.focus();
         }
 
@@ -178,7 +185,7 @@
         }
 
         function getPostUrl() {
-            return "/pagedrafts" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
+            return "/u/{{ $user->slug }}/drafts" + (typeof currentDraft == 'number' ? '/' + currentDraft : '');
         }
 
         function triggerSaveDraftButtonChange() {

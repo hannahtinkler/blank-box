@@ -34,7 +34,12 @@ class User extends Authenticatable implements SearchableModel
     
     public function suggestedEdits()
     {
-        return $this->hasMany('App\Models\SuggestedEdit', 'created_by');
+        return $this->hasMany('App\Models\SuggestedEdit', 'created_by')->orderBy('updated_at', 'desc');;
+    }
+
+    public function userBadges()
+    {
+        return $this->hasMany('App\Models\UserBadge');
     }
     
     public function specialistAreas($limit = null)

@@ -46,8 +46,9 @@ class PageController extends Controller
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::orderBy('title')->get();
         $tags = Tag::orderBy('tag')->get();
+        $user = $this->user;
 
-        return view('pages.create', compact('categories', 'chapters', 'tags'));
+        return view('pages.create', compact('categories', 'chapters', 'tags', 'user'));
     }
 
     public function edit($id)

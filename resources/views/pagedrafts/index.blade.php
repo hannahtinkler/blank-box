@@ -22,7 +22,7 @@
                     <div class="ibox">
                         <div class="ibox-content">
                             <h2>
-                                <a target="_blank" href="/pagedrafts/{{ $draft->id }}">
+                                <a target="_blank" href="/u/{{ $user->slug }}/drafts/{{ $draft->id }}">
                                     {!! $draft->title != '' ? $draft->title : '<span class="italic">Not Yet Titled</span>' !!}
                                 </a>
 
@@ -37,10 +37,10 @@
                             </p>
                             <div class="row">
                                 <div class="col-md-12 m-t-md">
-                                    <a title="Delete this draft" class="btn btn-xs btn-info" href="/pagedrafts/delete/{{ $draft->id }}">
+                                    <a title="Delete this draft" class="btn btn-xs btn-info" href="/u/{{ $user->slug }}/drafts/delete/{{ $draft->id }}">
                                         <i class="fa fa-trash"></i>
                                     </a>
-                                    <a class="btn btn-xs btn-info" target="_blank" href="/pagedrafts/{{ $draft->id }}">
+                                    <a class="btn btn-xs btn-info" target="_blank" href="/u/{{ $user->slug }}/drafts/{{ $draft->id }}">
                                         &#9654; Continue editing
                                     </a>
                                 </div>

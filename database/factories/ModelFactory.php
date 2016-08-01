@@ -12,10 +12,13 @@
 */
 
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+    $name = $faker->name;
+
     return [
-        'name' => $faker->name,
+        'name' => $name,
         'email' => $faker->safeEmail,
-        'remember_token' => str_random(10)
+        'remember_token' => str_random(10),
+        'slug' => str_slug($name)
     ];
 });
 
@@ -125,6 +128,51 @@ $factory->define(App\Models\SlugForwardingSetting::class, function (Faker\Genera
     return [
         'old_slug' => $old->slug,
         'new_slug' => $new->slug
+    ];
+});
+
+$factory->define(App\Models\BadgeType::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->sentence(3),
+        'metric' => 'pagesSubmittedInChapter',
+        'description' => $faker->sentence
+    ];
+});
+
+$factory->define(App\Models\BadgeGroup::class, function (Faker\Generator $faker) {
+    $badgeType = factory(App\Models\BadgeType::class)->create();
+    $chapter = factory(App\Models\Chapter::class)->create();
+    
+    return [
+        'badge_type_id' => $badgeType->id,
+        'name' => $faker->sentence(3),
+        'description' => $faker->sentence,
+        'metric_entity' => $chapter->id
+    ];
+});
+
+$factory->define(App\Models\Badge::class, function (Faker\Generator $faker) {
+    $badgeGroup = factory(App\Models\BadgeGroup::class)->create();
+    $user = factory(App\Models\User::class)->create();
+    
+    return [
+        'badge_group_id' => $badgeGroup->id,
+        'name' => $faker->sentence(3),
+        'description' => $faker->sentence,
+        'level' => $faker->numberBetween(1, 5),
+        'metric_boundary' => $faker->randomNumber(2),
+    ];
+});
+
+$factory->define(App\Models\UserBadge::class, function (Faker\Generator $faker) {
+    $badge = factory(App\Models\Badge::class)->create();
+    $user = factory(App\Models\User::class)->create();
+    
+    return [
+        'badge_id' => $badge->id,
+        'user_id' => $user->id,
+        'read' => $faker->boolean,
+        'default' => $faker->boolean
     ];
 });
 

@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\User;
 use App\Models\Page;
 use App\Models\SuggestedEdit;
+use App\Models\UserBadge;
 
 class UserTest extends TestCase
 {
@@ -36,6 +37,20 @@ class UserTest extends TestCase
         factory(App\Models\SuggestedEdit::class, 2)->create(['created_by' => $user->id]);
 
         $this->assertTrue($user->suggestedEdits->first() instanceof SuggestedEdit);
+    }
+    
+    /**
+     * Tests that a call to the userBadges relationship returns a collection
+     * object containing instances of the UserBadge class
+     *
+     * @return void
+     */
+    public function testUserBadgesRelationshipReturnsUserBadges()
+    {
+        $user = factory(User::class)->create();
+        factory(App\Models\UserBadge::class, 2)->create(['user_id' => $user->id]);
+
+        $this->assertTrue($user->userBadges->first() instanceof UserBadge);
     }
 
     /**

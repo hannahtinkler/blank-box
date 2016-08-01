@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use cogpowered\FineDiff\Diff;
 
+use App\Events\PageWasAddedToChapter;
+
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 
@@ -56,6 +58,9 @@ class CurationControllerService
         $page = Page::find($id);
         $page->approved = 1;
         $page->save();
+        
+        \Event::fire(new PageWasAddedToChapter($page));
+
     }
 
     public function rejectNewPage($id)

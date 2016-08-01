@@ -22,35 +22,30 @@ class PageDraftController extends Controller
         $this->controllerService = $controllerService;
     }
 
-    public function index()
+    public function index(Request $request, $userSlug)
     {
+        $user = $request->user();
+
         $drafts = $this->controllerService->getDraftsForUser();
 
-        return view('pagedrafts.index', compact('drafts'));
+        return view('pagedrafts.index', compact('drafts', 'user'));
     }
 
-    public function edit(Request $request, $id)
+    public function edit(Request $request, $userSlug, $id)
     {
         $draft = PageDraft::findOrFail($id);
 
-        if ($draft->created_by != $request->user()->id) {
-            \App::abort(401);
-        }
-
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::orderBy('title')->get();
+        $user = $request->user();
 
-        return view('pagedrafts.edit', compact('draft', 'chapters', 'categories'));
+        return view('pagedrafts.edit', compact('draft', 'chapters', 'categories', 'user'));
     }
 
-    public function store(PageDraftRequest $request, $id = null)
+    public function store(PageDraftRequest $request, $userSlug, $id = null)
     {
         if ($id != null) {
             $draft = PageDraft::findOrFail($id);
-
-            if ($draft->created_by != $request->user()->id) {
-                return \App::abort(401);
-            }
 
             $draft = $this->controllerService->updatePageDraft($draft, $request->input());
             $draft->updated_at_formatted = $draft->updated_at->format('jS F Y H:i:sa');
@@ -66,28 +61,21 @@ class PageDraftController extends Controller
         ]);
     }
 
-    public function preview(Request $request, $id)
+    public function preview(Request $request, $userSlug, $id)
     {
         $page = PageDraft::findOrFail($id);
-
-        if ($page->created_by != $request->user()->id) {
-            return \App::abort(401);
-        }
         
         return view('pages.preview', compact('page'));
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, $userSlug, $id)
     {
+        $user = $request->user();
         $draft = PageDraft::findOrFail($id);
-
-        if ($draft->created_by != $request->user()->id) {
-            \App::abort(401);
-        }
 
         $draft->delete();
 
-        return redirect('/pagedrafts')
+        return redirect('/u/' . $user->slug . '/drafts')
             ->with('message', '<i class="fa fa-check"></i> This draft has been successfully deleted');
     }
 }

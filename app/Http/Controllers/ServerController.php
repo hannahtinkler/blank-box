@@ -21,13 +21,13 @@ class ServerController extends Controller
     public function show()
     {
         $servers = Server::orderBy('node_type')->orderBy('name')->get();
-        $page = Page::where('slug', 'server-details')->first();
+        $page = Page::where('slug', 'server-details')->firstOrFail();
         return view('servers.show_page', compact('servers', 'page'));
     }
 
     public function showServerModal($id)
     {
-        $server = Server::find($id);
+        $server = Server::findOrFail($id);
 
         if (!is_object($server)) {
             return \App::abort(404);
@@ -38,12 +38,8 @@ class ServerController extends Controller
 
     public function configGenerator()
     {
-        $page = Page::where('slug', 'ssh-config-generator')->first();
+        $page = Page::where('slug', 'ssh-config-generator')->firstOrFail();
 
-        if (!is_object($page)) {
-            return \App::abort(404);
-        }
-        
         return view('servers.config_generator', compact('page'));
     }
 

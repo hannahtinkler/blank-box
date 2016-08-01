@@ -18,7 +18,7 @@ class BookmarkControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $this->get('/bookmarks')
+        $this->get('/u/' . $this->user->slug .'/bookmarks')
             ->see('Your Bookmarks')
             ->assertResponseStatus(200);
     }
@@ -35,7 +35,7 @@ class BookmarkControllerTest extends TestCase
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->get('/bookmarks/create/' . $page->chapter->category->id . '/' . $page->chapter->id . '/' . $page->id)
+        $this->get('/u/' . $this->user->slug .'/bookmarks/create/' . $page->chapter->category->id . '/' . $page->chapter->id . '/' . $page->id)
             ->seeJson(['success' => true]);
     }
 
@@ -51,7 +51,7 @@ class BookmarkControllerTest extends TestCase
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->get('/bookmarks/create')
+        $this->get('/u/' . $this->user->slug .'/bookmarks/create')
             ->assertResponseStatus(404);
     }
 
@@ -67,7 +67,7 @@ class BookmarkControllerTest extends TestCase
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->get('/bookmarks/delete/' . $page->chapter->category->id . '/' . $page->chapter->id . '/' . $page->id)
+        $this->get('/u/' . $this->user->slug .'/bookmarks/delete/' . $page->chapter->category->id . '/' . $page->chapter->id . '/' . $page->id)
             ->seeJson(['success' => true]);
     }
 
@@ -83,7 +83,7 @@ class BookmarkControllerTest extends TestCase
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->get('/bookmarks/delete')
+        $this->get('/u/' . $this->user->slug .'/bookmarks/delete')
             ->assertResponseStatus(404);
     }
 
