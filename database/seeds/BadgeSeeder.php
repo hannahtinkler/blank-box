@@ -100,7 +100,7 @@ class BadgeSeeder extends Seeder
 
         Badge::create([
             'badge_group_id' => $codeBadgeGroup->id,
-            'name' => 'Pichu',
+            'name' => 'Peruser of Pichus',
             'description' => 'Earned by submitting 1 pull request to the Black Box repository',
             'image' => '/images/badges/code_bronze.png',
             'level' => 1,
@@ -109,7 +109,7 @@ class BadgeSeeder extends Seeder
 
         Badge::create([
             'badge_group_id' => $codeBadgeGroup->id,
-            'name' => 'Jolteon',
+            'name' => 'Joiner of Jolteons',
             'description' => 'Earned by submitting 5 pull request to the Black Box repository',
             'image' => '/images/badges/code_silver.png',
             'level' => 2,
@@ -118,7 +118,7 @@ class BadgeSeeder extends Seeder
 
         Badge::create([
             'badge_group_id' => $codeBadgeGroup->id,
-            'name' => 'Electrode',
+            'name' => 'Earner of Electrodes',
             'description' => 'Earned by submitting 10 pull request to the Black Box repository',
             'image' => '/images/badges/code_gold.png',
             'level' => 3,
@@ -127,7 +127,7 @@ class BadgeSeeder extends Seeder
 
         Badge::create([
             'badge_group_id' => $codeBadgeGroup->id,
-            'name' => 'Zapdos',
+            'name' => 'master of the Zapdos',
             'description' => 'Earned by submitting 15 pull request to the Black Box repository',
             'image' => '/images/badges/code_platinum.png',
             'level' => 4,
