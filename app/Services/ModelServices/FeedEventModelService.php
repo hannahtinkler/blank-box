@@ -26,12 +26,21 @@ class FeedEventModelService
         switch ($type) {
             case 'Page Added':
                 $page = Page::find($this->feedEvent->resource_id);
-                $text = sprintf($this->feedEvent->type->text, $this->feedEvent->user->name, $page->chapter->title, $page->title);
+                $text = sprintf(
+                    $this->feedEvent->type->text,
+                    '<a href="/u/' . $this->feedEvent->user->slug .'">' . $this->feedEvent->user->name . '</a>',
+                    '<a href="/p/' . $page->chapter->category->slug .'/' . $page->chapter->slug . '">' . $page->chapter->title . '</a>',
+                    '<a href="/p/' . $page->chapter->category->slug .'/' . $page->chapter->slug . '/' . $page->slug . '">' . $page->title . '</a>'
+                );
                 break;
 
             case 'Badge Earned':
                 $badge = Badge::find($this->feedEvent->resource_id);
-                $text = sprintf($this->feedEvent->type->text, $this->feedEvent->user->name, $badge->name);
+                $text = sprintf(
+                    $this->feedEvent->type->text,
+                    '<a href="/u/' . $this->feedEvent->user->slug .'">' . $this->feedEvent->user->name . '</a>',
+                    '<a href="/u/' . $this->feedEvent->user->slug .'/badges">' . $badge->name . '</a>'
+                );
                 break;
 
             default:

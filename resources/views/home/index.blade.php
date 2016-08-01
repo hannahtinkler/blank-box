@@ -15,9 +15,11 @@
                 @foreach($feedEvents as $feedEvent)
                     <div class="vertical-timeline-block">
                         <div class="vertical-timeline-icon navy-bg">
-                            <a href="/u/{{ $feedEvent->user->slug }}">
+                            @if($feedEvent->type->name == 'Page Added')
+                                <div class="icon-circle">{!! $feedEvent->getImage() !!}</div>
+                            @else
                                 {!! $feedEvent->getImage() !!}                                
-                            </a>
+                            @endif
                         </div>
 
                         <div class="vertical-timeline-content">
