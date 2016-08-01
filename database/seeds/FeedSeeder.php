@@ -24,12 +24,12 @@ class FeedSeeder extends Seeder
 
         $pageFeedEvent = FeedEventType::create([
             'name' => 'Page Added',
-            'text' => "%s added a new page to the '%s' chapter:<br /><h4>'%s'</h4>"
+            'text' => "%s added a new page to the '%s' chapter:<br /><strong>'%s'</strong>"
         ]);
 
         $badgeFeedEvent = FeedEventType::create([
             'name' => 'Badge Earned',
-            'text' => "%s just earned the '%s' badge!"
+            'text' => "%s just earned the <strong>'%s'</strong> badge!"
         ]);
     }
 }
