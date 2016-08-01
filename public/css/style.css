@@ -8706,6 +8706,40 @@ ins {
 ol li {
   margin: 0.5em;
 }
+.badge-image {
+  text-align: center;
+  width: 100%;
+  margin: 1em;
+}
+.large-badge {
+  width: 200px;
+}
+.badge-image p {
+  text-align: center;
+}
+.badge-image img {
+  width: 100%;
+}
+.left {
+  float: left !important;
+}
+img.not-earned,
+.not-earned img {
+  opacity: 0.2;
+  -webkit-filter: grayscale(60%);
+  -moz-filter: grayscale(60%);
+  filter: grayscale(60%);
+}
+.not-earned p {
+  opacity: 0.5;
+  color: #888;
+}
+.badge-container {
+  margin-left: -3em;
+}
+.badge-cell {
+  width: 12% !important;
+}
 .pointer {
   cursor: pointer;
 }

@@ -27,7 +27,7 @@ class UserModelServiceTest extends TestCase
         $modelService = new UserModelService($curator);
         
         $actual = $modelService->getUserType();
-        $expected = 'Curator';
+        $expected = 'Curator / This loser has no badges';
 
         $this->assertEquals($expected, $actual);
     }
@@ -46,7 +46,7 @@ class UserModelServiceTest extends TestCase
         $modelService = new UserModelService($contributor);
         
         $actual = $modelService->getUserType();
-        $expected = 'Contributor';
+        $expected = 'This loser has no badges';
 
         $this->assertEquals($expected, $actual);
     }
@@ -64,7 +64,7 @@ class UserModelServiceTest extends TestCase
         $modelService = new UserModelService($reader);
         
         $actual = $modelService->getUserType();
-        $expected = 'Reader';
+        $expected = 'This loser has no badges';
 
         $this->assertEquals($expected, $actual);
     }
@@ -79,7 +79,7 @@ class UserModelServiceTest extends TestCase
     {
         $modelService = $this->getUserModelService();
 
-        $expected = 'User: ' . $this->user->name . ' (Reader)';
+        $expected = 'User: ' . $this->user->name . ' (This loser has no badges)';
         $actual = $modelService->searchResultString();
 
         $this->assertEquals($expected, $actual);

@@ -58,12 +58,11 @@ class UserBadgeControllerServiceTest extends TestCase
     public function testItCanAddABadgeForUser()
     {
         $badge = factory(App\Models\Badge::class)->create();
-        $user = factory(App\Models\User::class)->create();
 
-        $actual = $this->controllerService->addABadgeForUser($user->id, $badge->id)->toArray();
+        $actual = $this->controllerService->addABadgeForUser($badge->id)->toArray();
 
         $expected = [
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'badge_id' => $badge->id
         ];
 
@@ -81,9 +80,8 @@ class UserBadgeControllerServiceTest extends TestCase
     public function testItCanAddMultipleBadgesForUser()
     {
         $badges = factory(App\Models\Badge::class, 2)->create();
-        $user = factory(App\Models\User::class)->create();
 
-        $this->controllerService->addBadgesForUser($user->id, $badges);
+        $this->controllerService->addBadgesForUser($badges);
 
         $lookup = UserBadge::all();
 

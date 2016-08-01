@@ -35,10 +35,20 @@ class UserModelService implements SearchableModelService
     public function getUserType()
     {
         if ($this->user->curator) {
-            $userType = 'Curator / ';
+            $userType = 'Curator';
         }
 
-        $userType .= $this->getBestBadge();
+        $bestBadge = $this->getBestBadge();
+
+        if ($bestBadge == null) {
+            $bestBadge = 'This loser has no badges';
+        }
+
+        if (isset($userType)) {
+            $userType .= ' / ' . $bestBadge;
+        } else {
+            $userType = $bestBadge;
+        }
 
         return $userType;
     }
@@ -102,22 +112,22 @@ class UserModelService implements SearchableModelService
     public function specialistAreas($limit = null)
     {
         $chaptersEdited = SuggestedEdit::select(
-                'pages.slug',
-                'suggested_edits.id',
-                'suggested_edits.title',
-                'suggested_edits.chapter_id',
-                \DB::raw('COUNT(suggested_edits.id) as total')
-            )
+            'pages.slug',
+            'suggested_edits.id',
+            'suggested_edits.title',
+            'suggested_edits.chapter_id',
+            \DB::raw('COUNT(suggested_edits.id) as total')
+        )
             ->leftJoin('pages', 'pages.id', '=', 'suggested_edits.page_id')
             ->where('suggested_edits.created_by', $this->user->id);
         
         $chaptersSubmittedTo = Page::select(
-                'id',
-                'slug',
-                'title',
-                'chapter_id',
-                \DB::raw('COUNT(id) as total')
-            )
+            'id',
+            'slug',
+            'title',
+            'chapter_id',
+            \DB::raw('COUNT(id) as total')
+        )
             ->where('created_by', $this->user->id)
             ->union($chaptersEdited)
             ->orderBy('total', 'desc')
@@ -139,7 +149,8 @@ class UserModelService implements SearchableModelService
         return UserBadge::where('user_id', $this->user->id)
             ->get()
             ->count();
-}
+    }
+
     public function getBestBadge()
     {
         $badge = UserBadge::join('badges', 'badges.id', '=', 'user_badges.badge_id')

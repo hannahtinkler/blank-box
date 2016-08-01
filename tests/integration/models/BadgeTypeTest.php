@@ -15,11 +15,11 @@ class BadgeTypeTest extends TestCase
      *
      * @return void
      */
-    public function testBadgeGroupsRelationshipReturnsBadgeGroups()
+    public function testGroupsRelationshipReturnsGroups()
     {
         $badgeType = factory(App\Models\BadgeType::class)->create();
         factory(App\Models\BadgeGroup::class, 2)->create(['badge_type_id' => $badgeType->id]);
 
-        $this->assertTrue($badgeType->badgeGroups->first() instanceof BadgeGroup);
+        $this->assertTrue($badgeType->groups->first() instanceof BadgeGroup);
     }
 }

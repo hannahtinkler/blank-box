@@ -63,7 +63,7 @@ class UserTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $expected = 'User: ' . $user->name . ' (Reader)';
+        $expected = 'User: ' . $user->name . ' (This loser has no badges)';
         $actual = $user->searchResultString();
 
         $this->assertEquals($expected, $actual);
