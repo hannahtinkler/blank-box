@@ -121,7 +121,7 @@
                 $('.last-saved').text('Last saved: ' + savedDraft.draft.updated_at_formatted);
                 openInNewTab();
             }).fail(function() {
-                alert( "There was an error processing this request :(" );
+                console.log( "There was an error processing this request :(" );
             });
         });
 
@@ -148,7 +148,7 @@
                         $('option#opt{{ old("chapter_id") }}').attr('selected', true);
                     @endif
                 }).fail(function() {
-                    alert( "There was an error processing this request :(" );
+                    console.log( "There was an error processing this request :(" );
                 });
             }
         }
@@ -170,7 +170,7 @@
                 $('#your-count span').html(currentYourCount + (savedDraft.count - currentDraftCount));
                 $('#your-count').removeClass('hidden');
             }).fail(function() {
-                alert( "There was an error processing this request :(" );
+                console.log( "There was an error processing this request :(" );
             });
         }
 

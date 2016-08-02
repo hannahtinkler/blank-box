@@ -138,7 +138,7 @@
                         $('option#opt{{ old("chapter_id") }}').attr('selected', true);
                     @endif
                 }).fail(function() {
-                    alert( "There was an error processing this request :(" );
+                    console.log( "There was an error processing this request :(" );
                 });
             }
         }

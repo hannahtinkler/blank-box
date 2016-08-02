@@ -112,7 +112,7 @@
                 $('.last-saved').text('Last saved: ' + savedDraft.draft.updated_at_formatted);
                 openInNewTab();
             }).fail(function() {
-                alert( "There was an error processing this request :(" );
+                console.log( "There was an error processing this request :(" );
             });
         });
 
@@ -140,7 +140,7 @@
                     @endif
 
                 }).fail(function() {
-                    alert( "There was an error processing this request :(" );
+                    console.log( "There was an error processing this request :(" );
                 });
             }
         }
@@ -156,7 +156,7 @@
                 $('#last-draft-id').val(currentDraft);
                 $('#draft-count').html(savedDraft.count);
             }).fail(function() {
-                alert( "There was an error processing this request :(" );
+                console.log( "There was an error processing this request :(" );
             });
         }
 
