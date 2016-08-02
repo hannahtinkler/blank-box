@@ -59,7 +59,10 @@ class PageModelService implements SearchableModelService
 
     public function getUpdatorsString()
     {
-        $edits = SuggestedEdit::where('page_id', $this->page->id)->groupBy('created_by')->get();
+        $edits = SuggestedEdit::where('page_id', $this->page->id)
+            ->where('approved', 1)
+            ->groupBy('created_by')
+            ->get();
 
         if ($edits->count() == 1) {
             return '<strong>' . $edits->first()->creator->name . '</strong>';
