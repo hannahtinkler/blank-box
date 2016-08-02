@@ -18,8 +18,6 @@
 <h2 class="m-t-xl">Current Contributors</h2>
 
 @foreach($contributors as $contributor)
-    <!-- Hard code this right now >_> BAD. -->
-    <p><a href="/u/tom-harding">Tom Harding</a></p>
     <p><a href="/u/{{ $contributor->creator->slug }}">{{ $contributor->creator->name }}</a></p>
 @endforeach
 
