@@ -9,15 +9,16 @@ use App\Services\ControllerServices\SearchControllerService;
 class SearchController extends Controller
 {
     private $isAjaxRequest;
-  
+
     public function __construct()
     {
         $this->isAjaxRequest = \Request::ajax();
     }
 
-    public function showSearchResults($term)
+    public function showSearchResults(Request $request, $term)
     {
-        $results = $this->performSearch($term);
+        $results = $this->performSearch($request, $term);
+
         return view('search.results', [
             'results' => $results,
             'searchTerm' => $term
@@ -38,7 +39,7 @@ class SearchController extends Controller
 
         return $this->isAjaxRequest ? json_encode($results) : $results;
     }
-  
+
     public function getSearchDetails($term)
     {
         if (strpos($term, ']')) {
