@@ -73,7 +73,7 @@ class UserModelService implements SearchableModelService
     {
         \DB::statement(\DB::raw('set @row:=0'));
 
-        return User::select([
+        $users = User::select([
                 'id',
                 \DB::raw('(
                     (
@@ -89,27 +89,37 @@ class UserModelService implements SearchableModelService
                         )
                         * ' . $this->contributingMultiplier . '
                     )
-                ) as total'),
-                \DB::raw('@row:=@row+1 as rank')
+                ) as total')
             ])
             ->orderBy('total', 'DESC')
-            ->get();
+            ->get()
+            ->toArray();
+
+        usort($users, function ($a, $b) {
+            if ($a['total'] == $b['total']) {
+                return 0;
+            }
+
+            return ($a['total'] < $b['total']) ? 1 : -1;
+        });
+
+        return $users;
     }
 
     public function getCommunityData()
     {
         $communityData = $this->getRawCommunityData();
 
-        foreach ($communityData as $user) {
-            if ($user->id == $this->user->id) {
-                $userRank = $user;
+        foreach ($communityData as $rank => $user) {
+            if ($user['id'] == $this->user->id) {
+                $userRank = $rank + 1;
                 break;
             }
         }
 
         return  [
-         'rank' => $user->rank,
-         'score' => $user->total,
+         'rank' => $userRank,
+         'score' => $user['total'],
          'badgeCount' => $this->getBadgeCount(),
          'bestBadge' => $this->getBestBadge()
         ];
