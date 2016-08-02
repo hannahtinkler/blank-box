@@ -22,19 +22,22 @@ class HomeController extends Controller
         $contributors = User::select([
                 'users.*',
                 \DB::raw('(
-                    (
-                        SELECT COUNT(*) FROM pages WHERE pages.created_by=users.id
-                    ) + (
-                        SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by=users.id AND approved=1
-                    ) + (
-                        SELECT count FROM contributors WHERE contributors.user_id=users.id
+                    COALESCE(
+                        (SELECT COUNT(*) FROM pages WHERE pages.created_by=users.id),
+                        0
+                    ) + COALESCE(
+                        (SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by=users.id AND approved=1),
+                        0
+                    ) + COALESCE(
+                        (SELECT count FROM contributors WHERE contributors.user_id=users.id),
+                        0
                     )
                 ) as total')
             ])
-            ->having('total', '>', 0)
+            // ->having('total', '>', 0)
             ->orderBy('total', 'DESC')
             ->get();
-
+dd($contributors);
         return view('home.contributors', compact('contributors'));
     }
     
