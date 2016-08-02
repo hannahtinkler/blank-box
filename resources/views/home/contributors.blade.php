@@ -18,7 +18,7 @@
 <h2 class="m-t-xl">Current Contributors</h2>
 
 @foreach($contributors as $contributor)
-    <p><a href="/u/{{ $contributor->creator->slug }}">{{ $contributor->creator->name }}</a></p>
+    <p><a href="/u/{{ $contributor->slug }}">{{ $contributor->user_name }}</a></p>
 @endforeach
 
 @stop

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Page;
 use App\Models\FeedEvent;
+use App\Models\Contributor;
 use App\Models\SuggestedEdit;
 
 class HomeController extends Controller
@@ -19,13 +20,31 @@ class HomeController extends Controller
     
     public function contributors()
     {
-        $contributors = Page::select(
-            'pages.created_by',
+        $pages = Page::select(
+            'pages.created_by as user_id',
+            'users.slug as slug',
+            'users.name as user_name',
             \DB::raw('COUNT(pages.id) as total')
         )
-            ->leftJoin('suggested_edits', 'pages.id', '=', 'suggested_edits.page_id')
+            ->join('users', 'users.id', '=', 'pages.created_by');
+
+        $pages = SuggestedEdit::select(
+            'suggested_edits.created_by as user_id',
+            'users.slug as slug',
+            'users.name as user_name',
+            \DB::raw('COUNT(pages.id) as total')
+        )
+            ->join('users', 'users.id', '=', 'suggested_edits.created_by');
+        
+        $contributors = Contributor::select([
+            'contributors.user_id as user_id',
+            'users.slug as slug',
+            'users.name as user_name',
+            'count as total'
+        ])
+            ->join('users', 'users.id', '=', 'contributors.user_id')
             ->orderBy('total', 'desc')
-            ->groupBy('pages.created_by')
+            ->groupBy('user_id')
             ->get();
 
         return view('home.contributors', compact('contributors'));
