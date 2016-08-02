@@ -6,6 +6,7 @@ use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
+use App\Models\User;
 use App\Models\Page;
 
 class PageWasAddedToChapter extends Event
@@ -19,9 +20,10 @@ class PageWasAddedToChapter extends Event
      *
      * @return void
      */
-    public function __construct(Page $page)
+    public function __construct(Page $page, User $user)
     {
         $this->page = $page;
+        $this->user = $user;
     }
 
     /**

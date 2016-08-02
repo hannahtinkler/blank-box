@@ -48,7 +48,7 @@ class PageControllerService
         }
 
         if ($page->approved) {
-            \Event::fire(new PageWasAddedToChapter($page));
+            \Event::fire(new PageWasAddedToChapter($page, $page->creator));
         }
 
         return $page;

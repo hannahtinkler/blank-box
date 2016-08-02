@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Models\Badge;
+use App\Models\UserBadge;
 
 use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
@@ -17,7 +17,7 @@ class BadgeWasAddedToUser extends Event
      *
      * @return void
      */
-    public function __construct(Badge $badge)
+    public function __construct(UserBadge $badge)
     {
         $this->badge = $badge;
     }

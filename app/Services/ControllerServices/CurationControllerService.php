@@ -59,7 +59,7 @@ class CurationControllerService
         $page->approved = 1;
         $page->save();
         
-        \Event::fire(new PageWasAddedToChapter($page));
+        \Event::fire(new PageWasAddedToChapter($page, $page->creator));
 
     }
 
