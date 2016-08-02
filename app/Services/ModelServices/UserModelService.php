@@ -13,6 +13,7 @@ class UserModelService implements SearchableModelService
 {
     public $user;
     public $communityPageMultiplier = 3;
+    public $contributingMultiplier = 5;
 
     public function __construct($user)
     {
@@ -82,6 +83,11 @@ class UserModelService implements SearchableModelService
                         * ' . $this->communityPageMultiplier . '
                     ) + (
                         SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by=users.id AND approved=1
+                    ) + (
+                        (
+                            SELECT COUNT(*) FROM contributors WHERE contributors.user_id=users.id
+                        )
+                        * ' . $this->contributingMultiplier . '
                     )
                 ) as total'),
                 \DB::raw('@row:=@row+1 as rank')
