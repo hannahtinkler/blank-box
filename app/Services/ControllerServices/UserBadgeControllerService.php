@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Events\BadgeWasAddedToUser;
 
+use App\Models\User;
 use App\Models\Badge;
 use App\Models\UserBadge;
 
@@ -46,11 +47,11 @@ class UserBadgeControllerService
         return is_object($badge);
     }
 
-    public function getBadgesForUser()
+    public function getBadgesForUser($id)
     {
         return Badge::select('badges.*')
-            ->leftJoin('user_badges', 'badges.id', '=', 'user_badges.badge_id')
-            ->where('user_badges.user_id', $this->user->id)
+            ->rightJoin('user_badges', 'badges.id', '=', 'user_badges.badge_id')
+            ->where('user_badges.user_id', $id)
             ->orderBy('badges.created_at', 'DESC')
             ->get();
     }

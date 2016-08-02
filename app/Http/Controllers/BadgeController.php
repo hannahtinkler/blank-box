@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\User;
 use App\Models\Badge;
 use App\Models\UserBadge;
 use App\Models\BadgeGroup;
@@ -22,11 +23,12 @@ class BadgeController extends Controller
     public function index(Request $request, $userSlug)
     {
         UserBadge::where('read', false)->update(['read' => true]);
+        
+        $user = User::where('slug', $userSlug)->firstOrFail();
 
-        $userBadges = array_pluck($this->controllerService->getBadgesForUser()->toArray(), 'id');
+        $userBadges = array_pluck($this->controllerService->getBadgesForUser($user->id)->toArray(), 'id');
 
         $badgeGroups = BadgeGroup::all();
-        $user = $request->user();
 
         return view('badges.index', compact('badgeGroups', 'userBadges', 'user'));
     }
