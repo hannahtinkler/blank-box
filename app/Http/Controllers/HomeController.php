@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Page;
 use App\Models\FeedEvent;
-use App\Models\Contributor;
-use App\Models\SuggestedEdit;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -20,31 +19,20 @@ class HomeController extends Controller
     
     public function contributors()
     {
-        $pages = Page::select(
-            'pages.created_by as user_id',
-            'users.slug as slug',
-            'users.name as user_name',
-            \DB::raw('COUNT(pages.id) as total')
-        )
-            ->join('users', 'users.id', '=', 'pages.created_by');
-
-        $pages = SuggestedEdit::select(
-            'suggested_edits.created_by as user_id',
-            'users.slug as slug',
-            'users.name as user_name',
-            \DB::raw('COUNT(pages.id) as total')
-        )
-            ->join('users', 'users.id', '=', 'suggested_edits.created_by');
-        
-        $contributors = Contributor::select([
-            'contributors.user_id as user_id',
-            'users.slug as slug',
-            'users.name as user_name',
-            'count as total'
-        ])
-            ->join('users', 'users.id', '=', 'contributors.user_id')
-            ->orderBy('total', 'desc')
-            ->groupBy('user_id')
+        $contributors = User::select([
+                'users.*',
+                \DB::raw('(
+                    (
+                        SELECT COUNT(*) FROM pages WHERE pages.created_by=users.id
+                    ) + (
+                        SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by=users.id AND approved=1
+                    ) + (
+                        SELECT count FROM contributors WHERE contributors.user_id=users.id
+                    )
+                ) as total')
+            ])
+            ->having('total', '>', 0)
+            ->orderBy('total', 'DESC')
             ->get();
 
         return view('home.contributors', compact('contributors'));
