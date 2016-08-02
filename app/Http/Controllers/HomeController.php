@@ -37,7 +37,7 @@ class HomeController extends Controller
             // ->having('total', '>', 0)
             ->orderBy('total', 'DESC')
             ->get();
-dd($contributors);
+
         return view('home.contributors', compact('contributors'));
     }
     
