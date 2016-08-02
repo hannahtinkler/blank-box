@@ -34,7 +34,7 @@ class HomeController extends Controller
                     )
                 ) as total')
             ])
-            // ->having('total', '>', 0)
+            ->having('total', '>', 0)
             ->orderBy('total', 'DESC')
             ->get();
 
