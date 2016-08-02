@@ -53,7 +53,10 @@ class PageModelService implements SearchableModelService
 
     public function hasEdits()
     {
-        $edits = SuggestedEdit::where('page_id', $this->page->id)->get();
+        $edits = SuggestedEdit::where('page_id', $this->page->id)
+            ->where('approved', 1)
+            ->get();
+            
         return $edits->count();
     }
 
