@@ -41,8 +41,8 @@ class AddBadgeEventToFeed
 
         FeedEvent::create([
             'feed_event_type_id' => $eventType->id,
-            'user_id' => $this->user->id,
-            'resource_id' => $badge->id
+            'user_id' => $badge->user_id,
+            'resource_id' => $badge->badge_id
         ]);
     }
 

@@ -26,7 +26,7 @@ class UserBadgeControllerService
             'badge_id' => $badgeId
         ]);
 
-        \Event::fire(new BadgeWasAddedToUser($badge->badge));
+        \Event::fire(new BadgeWasAddedToUser($badge));
 
         return $badge;
     }
