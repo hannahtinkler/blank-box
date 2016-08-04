@@ -958,6 +958,24 @@ class ServiceSeeder extends Seeder
         ]);
 
         Service::create([
+            'area' => 'Ingeus',
+            'name' => 'Ingeus',
+            'service_id' => 202,
+            'type' => 'NDPP',
+            'server_id' => $set5A->id,
+            'live_site_url' => 'ingeus-staging.iaptus.co.uk'
+        ]);
+
+        Service::create([
+            'area' => 'Avon & Wiltshire',
+            'name' => 'AWP CAMHS',
+            'service_id' => 203,
+            'type' => 'CAMHS',
+            'server_id' => $set5A->id,
+            'live_site_url' => null
+        ]);
+
+        Service::create([
             'area' => 'Lincolnshire',
             'name' => 'LPFT Lincolnshire',
             'service_id' => 157,
