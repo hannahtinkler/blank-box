@@ -23,17 +23,41 @@ class ServerSeeder extends Seeder
         */
 
         Server::create([
-            'name' => 'Cloud4',
-            'nickname' => 'Basement Server',
+            'name' => 'Cloud1',
+            'nickname' => 'Box server 1',
+            'location' => 'Box',
+            'ip_address' => '10.1.16.205',
+            'node_type' => 'VBox Host',
+            'access_type' => 'private'
+        ]);
+        Server::create([
+            'name' => 'Cloud2',
+            'nickname' => 'Basement Server1',
             'location' => 'Widcombe',
-            'ip_address' => null,
-            'node_type' => 'Dual (Application & Database)',
+            'ip_address' => '10.10.1.13,
+            'node_type' => 'VBox Host',
+            'access_type' => 'private'
+        ]);
+        Server::create([
+            'name' => 'Cloud3',
+            'nickname' => 'Box server 2',
+            'location' => 'Box',
+            'ip_address' => '10.1.16.200',
+            'node_type' => 'VBox Host',
+            'access_type' => 'private'
+        ]);
+        Server::create([
+            'name' => 'Cloud4',
+            'nickname' => 'Basement Server2',
+            'location' => 'Widcombe',
+            'ip_address' => '10.10.1.14',
+            'node_type' => 'VBox Host',
             'access_type' => 'private'
         ]);
 
         Server::create([
             'name' => 'maydenasvnode1',
-            'nickname' => 'iaptus Demo',
+            'nickname' => 'Mayden public wordpress sites',
             'location' => 'Bournemouth',
             'ip_address' => '192.168.60.1',
             'node_type' => 'application',
@@ -41,19 +65,46 @@ class ServerSeeder extends Seeder
         ]);
 
         Server::create([
-            'name' => 'maydenasvnode23',
-            'nickname' => 'Webforms DB (Slave)',
+            'name' => 'maydenasvnode2',
+            'nickname' => 'Mayden public wordpress test sites',
             'location' => 'Bournemouth',
-            'ip_address' => '192.168.60.23',
+            'ip_address' => '192.168.60.2',
+            'node_type' => 'application',
+            'access_type' => 'public'
+        ]);
+
+        Server::create([
+            'name' => 'maydenasvnode4',
+            'nickname' => 'HC2D Host',
+            'location' => 'Bournemouth',
+            'ip_address' => '192.168.60.4',
             'node_type' => 'application',
             'access_type' => 'public'
         ]);
 
         Server::create([
             'name' => 'maydenasvnod5',
-            'nickname' => 'Webforms DB',
+            'nickname' => 'Orbit / Webforms DB',
             'location' => 'Bournemouth',
             'ip_address' => '192.168.60.5',
+            'node_type' => 'application',
+            'access_type' => 'public'
+        ]);
+
+        Server::create([
+            'name' => 'maydenjmvnode17',
+            'nickname' => 'Secure Wordpess server',
+            'location' => 'Bournemouth',
+            'ip_address' => '192.168.60.17',
+            'node_type' => 'application',
+            'access_type' => 'public'
+        ]);
+
+        Server::create([
+            'name' => 'maydenasvnode23',
+            'nickname' => 'Orbit / Webforms DB (Slave)',
+            'location' => 'Bournemouth',
+            'ip_address' => '192.168.60.23',
             'node_type' => 'application',
             'access_type' => 'public'
         ]);
@@ -105,6 +156,24 @@ class ServerSeeder extends Seeder
         */
 
         Server::create([
+            'name' => 'maydenngxnode25',
+            'nickname' => 'Nginx Loadbalancer',
+            'location' => 'Bracknell',
+            'ip_address' => null,
+            'node_type' => 'Loadbalancer',
+            'access_type' => 'public'
+        ]);
+
+        Server::create([
+            'name' => 'mayden2fnode26',
+            'nickname' => '2factor authenticator',
+            'location' => 'Bracknell',
+            'ip_address' => null,
+            'node_type' => '2fa',
+            'access_type' => 'private'
+        ]);
+
+        Server::create([
             'name' => 'lbnode12',
             'nickname' => 'Nginx Loadbalancer',
             'location' => 'Bracknell',
@@ -119,6 +188,42 @@ class ServerSeeder extends Seeder
             'location' => 'Bracknell',
             'ip_address' => null,
             'node_type' => 'Loadbalancer',
+            'access_type' => 'private'
+        ]);
+
+        Server::create([
+            'name' => 'stqngxnode69',
+            'nickname' => 'Nginx Loadbalancer',
+            'location' => 'Bournemouth',
+            'ip_address' => null,
+            'node_type' => 'Loadbalancer',
+            'access_type' => 'public'
+        ]);
+
+        Server::create([
+            'name' => 'stqngxnode72',
+            'nickname' => 'Nginx Loadbalancer Failover',
+            'location' => 'Bournemouth',
+            'ip_address' => null,
+            'node_type' => 'Loadbalancer',
+            'access_type' => 'public'
+        ]);
+
+        Server::create([
+            'name' => 'stq2fanode70',
+            'nickname' => '2factor authenticator',
+            'location' => 'Bracknell',
+            'ip_address' => null,
+            'node_type' => '2fa',
+            'access_type' => 'private'
+        ]);
+
+        Server::create([
+            'name' => 'stq2fanode73',
+            'nickname' => '2factor authenticator',
+            'location' => 'Bracknell',
+            'ip_address' => null,
+            'node_type' => '2fa',
             'access_type' => 'private'
         ]);
 
@@ -315,5 +420,29 @@ class ServerSeeder extends Seeder
             'node_type' => 'application',
             'access_type' => 'public'
         ]);
+        /*
+        |--------------------------------------------------------------------------
+        | Mail Transport Agents (MTA) Servers
+        |--------------------------------------------------------------------------
+        |
+        */
+
+        Server::create([
+            'name' => 'maydenmtanode16',
+            'nickname' => 'Public MTA',
+            'location' => 'Bournemouth',
+            'ip_address' => '192.168.60.16',
+            'node_type' => 'Mail Transport Agents (MTA)',
+            'access_type' => 'public'
+        ]);
+        Server::create([
+            'name' => 'maydenmtanode21',
+            'nickname' => 'M3/Iaptus MTA',
+            'location' => 'Bournemouth',
+            'ip_address' => '192.168.60.21',
+            'node_type' => 'Mail Transport Agents (MTA)',
+            'access_type' => 'public'
+        ]);
+        
     }
 }
