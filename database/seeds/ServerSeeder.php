@@ -34,7 +34,7 @@ class ServerSeeder extends Seeder
             'name' => 'Cloud2',
             'nickname' => 'Basement Server1',
             'location' => 'Widcombe',
-            'ip_address' => '10.10.1.13,
+            'ip_address' => '10.10.1.13',
             'node_type' => 'VBox Host',
             'access_type' => 'private'
         ]);
