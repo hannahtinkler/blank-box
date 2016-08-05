@@ -210,3 +210,12 @@ $factory->define(App\Models\FeedEvent::class, function (Faker\Generator $faker) 
         'resource_id' => $page->id
     ];
 });
+
+$factory->define(App\Models\Contributor::class, function (Faker\Generator $faker) {
+    $user = factory(App\Models\User::class)->create();
+    
+    return [
+        'user_id' => $user->id,
+        'count' => $faker->randomNumber(1)
+    ];
+});

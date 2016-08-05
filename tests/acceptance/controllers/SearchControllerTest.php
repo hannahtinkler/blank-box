@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Category;
-use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class CategoryControllerTest extends TestCase
+class SearchControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -14,20 +12,21 @@ class CategoryControllerTest extends TestCase
      */
     public $user;
 
-    /**
-     * Test that a request to the route that shows a user the 'Show Category' Page
-     * shows the 'Show Category' page and returns a 200 response code (OK)
-     *
-     * @return void
-     */
-    public function testItCanAccessShowCategoryPage()
+    public function testItCanAccessSearchApiCall()
     {
         $this->logInAsUser();
 
-        $category = factory(App\Models\Category::class)->create();
+        $this->get('/search/care%20pathway')
+            ->seeJson(["title" => "Putting a Care Pathway Live"])
+            ->assertResponseStatus(200);
+    }
 
-        $this->get('/p/' . $category->slug)
-            ->see($category->title)
+    public function testItCanAccessSearchResultsPage()
+    {
+        $this->logInAsUser();
+
+        $this->get('/search/care%20pathway/results')
+            ->see("Search Results")
             ->assertResponseStatus(200);
     }
 

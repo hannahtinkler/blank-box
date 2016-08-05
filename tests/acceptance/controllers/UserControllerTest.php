@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Category;
-use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class CategoryControllerTest extends TestCase
+class UserControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -14,20 +12,12 @@ class CategoryControllerTest extends TestCase
      */
     public $user;
 
-    /**
-     * Test that a request to the route that shows a user the 'Show Category' Page
-     * shows the 'Show Category' page and returns a 200 response code (OK)
-     *
-     * @return void
-     */
-    public function testItCanAccessShowCategoryPage()
+    public function testItCanAccessShowUserPage()
     {
         $this->logInAsUser();
 
-        $category = factory(App\Models\Category::class)->create();
-
-        $this->get('/p/' . $category->slug)
-            ->see($category->title)
+        $this->get('/u/' . $this->user->slug)
+            ->see($this->user->name)
             ->assertResponseStatus(200);
     }
 

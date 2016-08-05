@@ -83,8 +83,17 @@ class UserBadgeControllerServiceTest extends TestCase
 
         $this->controllerService->addBadgesForUser($badges);
 
-        $lookup = UserBadge::all();
+        $lookup = UserBadge::where('user_id', $this->user->id)->get();
+        $actual = $lookup->first()->toArray();
 
-        $this->assertCount(2, $lookup);
+        $expected = [
+            'user_id' => $this->user->id,
+            'badge_id' => $badges->first()->id
+        ];
+
+        $this->assertEquals(
+            $this->comparableFields($expected),
+            $this->comparableFields($actual)
+        );
     }
 }
