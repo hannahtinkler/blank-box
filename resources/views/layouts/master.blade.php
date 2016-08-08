@@ -160,7 +160,11 @@
             <div class="navbar-header">
 
                 <div class="navbar-minimalize logo-space">
-                    <a href="#"><i class="fa fa-cube"></i> Black Box</a>
+                    @if($user->username == 'Andy Elsbury' || $user->username == 'Ana Hadjimitova')
+                        <a href="#"><i class="fa fa-cube"></i> Andy Box</a>
+                    @else
+                        <a href="#"><i class="fa fa-cube"></i> Black Box</a>
+                    @endif
                 </div>
                 
                 <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>
