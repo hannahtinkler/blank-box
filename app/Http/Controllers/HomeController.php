@@ -50,6 +50,11 @@ class HomeController extends Controller
     public function switchCategory($id)
     {
         \Session::set('currentCategoryId', $id);
+
+        $user = \Auth::user();
+        $user->default_category_id = $id;
+        $user->save();
+
         return redirect(\URL::previous());
     }
 }
