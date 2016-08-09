@@ -8796,6 +8796,9 @@ img.not-earned,
   border-radius: 50%;
   margin-left: 0.25em;
 }
+.row-first-content {
+  margin-bottom: 4em;
+}
 @media print {
   nav.navbar-static-side {
     display: none;
