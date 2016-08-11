@@ -22,10 +22,10 @@
 <div class="m-t-lg green-text">
     <small>Written by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>
     @if($page->hasEdits()) 
-        and updated by {!! $page->getUpdatorsString() !!}
-    @endif
-    @if(strip_tags($page->getUpdatorsString()) == $page->creator->name)
-        <span class="italic">(what, you're gonna let them do all the work?)</span>
+        @set('updators', $page->getUpdatorsString())
+        @if(strlen($updators) <= 160)
+            and updated by {!! $page->getUpdatorsString() !!}
+        @endif
     @endif
     </small>
 </div>

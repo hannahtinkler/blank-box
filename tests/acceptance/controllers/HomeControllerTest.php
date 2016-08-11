@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Page;
 use App\Models\Category;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -58,6 +59,28 @@ class HomeControllerTest extends TestCase
         
         $this->get('/')
             ->see('<span class="text-mutedblock" title="Switch Categories">'. $category->title .' <b class="caret"></b></span>');
+    }
+
+    public function testItCanAccessFeed()
+    {
+        $this->logInAsUser();
+
+        $this->get('/')
+            ->see('Black Box')
+            ->assertResponseStatus(200);
+    }
+
+    public function testItCanAccessFeedWithDeletedResource()
+    {
+        $this->logInAsUser();
+
+        $event = factory(App\Models\Category::class)->create();
+
+        Page::where('id', $event->resource_id)->delete();
+
+        $this->get('/')
+            ->see('Black Box')
+            ->assertResponseStatus(200);
     }
 
     /**

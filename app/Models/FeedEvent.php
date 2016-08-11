@@ -36,4 +36,9 @@ class FeedEvent extends Model
     {
         return $this->modelService->getText();
     }
+    
+    public function resourceExists()
+    {
+        return $this->modelService->resourceExists();
+    }
 }

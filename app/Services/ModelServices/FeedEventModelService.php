@@ -70,4 +70,24 @@ class FeedEventModelService
 
         return $image;
     }
+
+    public function resourceExists()
+    {
+        $type = $this->feedEvent->type->name;
+
+        switch ($type) {
+            case 'Page Added':
+                $resource = Page::find($this->feedEvent->resource_id);
+                break;
+
+            case 'Badge Earned':
+                $resource = Badge::find($this->feedEvent->resource_id);
+                break;
+
+            default:
+                throw new Exception("FeedEventType '$type' does not exist");
+        }
+
+        return is_object($resource);
+    }
 }

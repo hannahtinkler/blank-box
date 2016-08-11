@@ -13,23 +13,25 @@
             <div class="all-comments">
 
                 @foreach($feedEvents as $feedEvent)
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            @if($feedEvent->type->name == 'Page Added')
-                                <div class="icon-circle">{!! $feedEvent->getImage() !!}</div>
-                            @else
-                                {!! $feedEvent->getImage() !!}                                
-                            @endif
-                        </div>
+                    @if($feedEvent->resourceExists())
+                        <div class="vertical-timeline-block">
+                            <div class="vertical-timeline-icon navy-bg">
+                                @if($feedEvent->type->name == 'Page Added')
+                                    <div class="icon-circle">{!! $feedEvent->getImage() !!}</div>
+                                @else
+                                    {!! $feedEvent->getImage() !!}                                
+                                @endif
+                            </div>
 
-                        <div class="vertical-timeline-content">
-                                <h4>{!! $feedEvent->getText() !!}</h4>
-                            <span class="vertical-date">
-                                <small>{{ $feedEvent->created_at->format('jS M Y') }}</small><br />
-                                <small>{{ $feedEvent->created_at->format('H:i') }}</small>
-                            </span>
+                            <div class="vertical-timeline-content">
+                                    <h4>{!! $feedEvent->getText() !!}</h4>
+                                <span class="vertical-date">
+                                    <small>{{ $feedEvent->created_at->format('jS M Y') }}</small><br />
+                                    <small>{{ $feedEvent->created_at->format('H:i') }}</small>
+                                </span>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endforeach
             
             </div>
