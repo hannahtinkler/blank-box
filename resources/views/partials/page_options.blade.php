@@ -6,16 +6,15 @@
                     <a class="btn btn-default" href="/curation/new/approve/{{ $page->id }}"><i class="fa fa-check"></i> Approve</a>
                     <a class="btn btn-default" href="/curation/new/reject/{{ $page->id }}"><i class="fa fa-remove"></i> Reject</a>
                 </div>
-            @else
-                <form action="/pages/{{ $page->id }}" method="POST">
-                    {!! csrf_field() !!}
-                    {!! method_field('DELETE') !!}
-                    <button type="submit" id="delete-page-{{ $page->id }}" class="btn btn-default">
-                        <i class="fa fa-trash-o"></i> Delete
-                    </button>
-                </form>
-                <a class="btn btn-default" href="/pages/edit/{{ $page->id }}"><i class="fa fa-pencil"></i> Edit</a>
             @endif
+            <form action="/pages/{{ $page->id }}" method="POST">
+                {!! csrf_field() !!}
+                {!! method_field('DELETE') !!}
+                <button type="submit" id="delete-page-{{ $page->id }}" class="btn btn-default">
+                    <i class="fa fa-trash-o"></i> Delete
+                </button>
+            </form>
+            <a class="btn btn-default" href="/pages/edit/{{ $page->id }}"><i class="fa fa-pencil"></i> Edit</a>
         @endif
         
     </div>

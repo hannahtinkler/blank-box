@@ -4,6 +4,7 @@ namespace App\Services\ControllerServices;
 
 use Illuminate\Http\Request;
 
+use App\Models\Page;
 use App\Interfaces\SearchableModelService;
 
 class SearchControllerService
@@ -46,10 +47,16 @@ class SearchControllerService
         $formatted = [];
         foreach ($this->allResults as $resultSet) {
             foreach ($resultSet as $result) {
-                if ($this->formatForAjax) {
-                    $result = $this->formatSingleResultForAjax($result);
+                if ($result instanceof Page) {
+                    $page = Page::find($result->id);
                 }
-                $formatted[] = $result;
+
+                if (!isset($page) || $page->approved === 1) {
+                    if ($this->formatForAjax) {
+                        $result = $this->formatSingleResultForAjax($result);
+                    }
+                    $formatted[] = $result;
+                }
             }
         }
 

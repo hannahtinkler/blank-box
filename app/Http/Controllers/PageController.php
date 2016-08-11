@@ -97,7 +97,7 @@ class PageController extends Controller
             return \App::abort(401);
         }
         
-        $page = Page::find($id);
+        $page = Page::findOrFail($id);
         $page->delete();
 
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)

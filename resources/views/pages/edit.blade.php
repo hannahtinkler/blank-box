@@ -112,8 +112,6 @@
     $(document).ready(function () {
         CKEDITOR.replace('textboxCkeditor');
         CKEDITOR.config.height = 500;
-
-
         $('#category_id').change(function() {
             getChapters();
         });
