@@ -5,6 +5,7 @@ namespace App\Services\ControllerServices;
 use Illuminate\Http\Request;
 
 use cogpowered\FineDiff\Diff;
+use cogpowered\FineDiff\Granularity\Word;
 
 use App\Events\PageWasAddedToChapter;
 
@@ -72,7 +73,8 @@ class CurationControllerService
 
     public function getPageDiff($original, $new)
     {
-        $differ = new Diff;
+        $granularity =  new Word;
+        $differ = new Diff($granularity);
 
         $diff = [
             'category' => $differ->render($original->chapter->title, $new->chapter->title),

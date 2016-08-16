@@ -8684,10 +8684,12 @@ h5.tags {
   border-bottom-left-radius: 3px;
   margin-right: 0;
 }
-del {
+del,
+del li {
   margin-right: 0.5em;
 }
-ins {
+ins,
+ins li {
   background-color: #bde6a4;
 }
 .diff-container {
