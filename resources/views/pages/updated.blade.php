@@ -25,7 +25,7 @@
                         <div class="row">
                             <div class="col-md-6 m-t-sm">
                                     <a class="btn btn-primary btn-xs" target="_blank" href="/p/{{ $page->chapter->category->slug }}"><i class="fa fa-book"> </i> {{ $page->chapter->category->title }}</a>
-                                    <a class="btn btn-white btn-xs" target="_blank" href="/p/{{ $page->chapter->slug }}"><i class="fa fa-folder-o"> </i> {{ $page->chapter->title }}</a>
+                                    <a class="btn btn-white btn-xs" target="_blank" href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}"><i class="fa fa-folder-o"> </i> {{ $page->chapter->title }}</a>
                             </div>
                             <div class="col-md-6">
                                 <div class="text-right">
