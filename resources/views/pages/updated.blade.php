@@ -7,7 +7,7 @@
     
 <div class="row">
     <div class="wrapper wrapper-content  animated fadeInRight blog">
-        @foreach($updatedPages as $page)   
+        @foreach($updatedPages as $page)
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-content">
