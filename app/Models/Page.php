@@ -46,7 +46,7 @@ class Page extends Model implements SearchableModel
     
     public function bookmark()
     {
-        return $this->hasOne('App\Models\Bookmark');
+        return $this->hasOne('App\Models\Bookmark')->where('user_id', \Auth::user()->id);
     }
 
     public function creator()
