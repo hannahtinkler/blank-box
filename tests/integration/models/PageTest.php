@@ -31,8 +31,9 @@ class PageTest extends TestCase
      */
     public function testBookmarksRelationshipReturnsBookmark()
     {
+        $user = $this->createAndLoginAUser();
         $page = factory(Page::class)->create();
-        factory(Bookmark::class)->create(['page_id' => $page->id]);
+        factory(Bookmark::class)->create(['page_id' => $page->id, 'user_id' => $user->id]);
 
         $this->assertTrue($page->bookmark instanceof Bookmark);
     }
