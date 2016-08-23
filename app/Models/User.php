@@ -71,4 +71,9 @@ class User extends Authenticatable implements SearchableModel
     {
         return $this->modelService->getCommunityData();
     }
+    
+    public function getRawCommunityData()
+    {
+        return $this->modelService->getRawCommunityData();
+    }
 }
