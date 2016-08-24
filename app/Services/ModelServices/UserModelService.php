@@ -75,6 +75,7 @@ class UserModelService implements SearchableModelService
 
         $users = User::select([
                 'id',
+                'name',
                 \DB::raw('(
                     (
                         (

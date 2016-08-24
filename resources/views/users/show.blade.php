@@ -38,7 +38,7 @@ information a person has contributed to Black Box"></i></small></h3>
                 <p>Ranking:</p>
             </div>
             <div class="col-md-7">
-                <p><i class="fa fa-trophy"></i> {{ $communityData['rank'] }}</p>
+                <a href="/u/{{ $user->slug }}/rank"><p><i class="fa fa-trophy"></i> {{ $communityData['rank'] }}</p></a>
             </div>
             <div class="col-md-4">
                 <p>Score:</p>
