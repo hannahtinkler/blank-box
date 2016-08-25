@@ -8802,7 +8802,7 @@ img.not-earned,
   margin-bottom: 4em;
 }
 hr {
-  border-top: 1px solid #e6e3e3 !important;
+  border-top: 1px solid #e6e3e3;
 }
 @media print {
   nav.navbar-static-side {
