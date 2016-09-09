@@ -35,13 +35,15 @@ class CheckForBadgeQualification
      */
     public function handle(PageWasAddedToChapter $event)
     {
-        $this->page = $event->page;
+        if (config('global.badges_enabled')) {
+            $this->page = $event->page;
 
-        $count = $this->getPageCountForChapter();
-        $newBadges = $this->getNewlyQualifiedForBadges($count);
+            $count = $this->getPageCountForChapter();
+            $newBadges = $this->getNewlyQualifiedForBadges($count);
 
-        if (!$newBadges->isEmpty()) {
-            $this->userBadgeControllerService->addBadgesForUser($newBadges);
+            if (!$newBadges->isEmpty()) {
+                $this->userBadgeControllerService->addBadgesForUser($newBadges);
+            }
         }
     }
 

@@ -35,15 +35,17 @@ class AddBadgeEventToFeed
      */
     public function handle(BadgeWasAddedToUser $event)
     {
-        $badge = $event->badge;
+        if (config('global.badges_enabled')) {
+            $badge = $event->badge;
 
-        $eventType = $this->getEventType();
+            $eventType = $this->getEventType();
 
-        FeedEvent::create([
-            'feed_event_type_id' => $eventType->id,
-            'user_id' => $badge->user_id,
-            'resource_id' => $badge->badge_id
-        ]);
+            FeedEvent::create([
+                'feed_event_type_id' => $eventType->id,
+                'user_id' => $badge->user_id,
+                'resource_id' => $badge->badge_id
+            ]);
+        }
     }
 
     public function getEventType()
