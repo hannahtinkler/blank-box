@@ -984,5 +984,14 @@ class ServiceSeeder extends Seeder
             'live_site_url' => 'http://lpft.iaptus.nhs.uk'
         ]);
 
+        Service::create([
+            'area' => '5BP (Five Boroughs)',
+            'name' => 'North West England',
+            'service_id' => 190,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => 'http://5bp.iaptus.nhs.uk'
+        ]);
+
     }
 }
