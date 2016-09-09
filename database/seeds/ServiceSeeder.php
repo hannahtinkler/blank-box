@@ -985,8 +985,8 @@ class ServiceSeeder extends Seeder
         ]);
 
         Service::create([
-            'area' => '5BP (Five Boroughs)',
-            'name' => 'North West England',
+            'area' => 'North West England',
+            'name' => '5BP (Five Boroughs)',
             'service_id' => 190,
             'type' => 'IAPT',
             'server_id' => $set5A->id,
