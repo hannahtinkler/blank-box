@@ -1,0 +1,223 @@
+/*
+ *
+ *   INSPINIA - Responsive Admin Theme
+ *   NAME - AMT SKIN
+ *
+*/
+
+// Main colors
+@amt-skin-color: #735b62;
+@amt-skin-nav-bg: #511f32;
+@amt-skin-a-color: #C7CDD3;
+@amt-skin-page-bg: #f4f6fa;
+
+.amt-skin {
+  color: #505050;
+}
+
+.amt-skin .navbar-top-links li:last-child {
+  margin-right: 30px;
+}
+
+.amt-skin.fixed-nav .minimalize-styl-2 {
+  margin: 14px 5px 5px 15px;
+}
+
+.amt-skin .spin-icon {
+  background: @amt-skin-color !important;
+}
+
+.amt-skin .nav-header {
+  background: @amt-skin-color;
+  background: url('patterns/header-profile-amt-skin.png');
+}
+
+.amt-skin.mini-navbar .nav-second-level {
+  background: @amt-skin-nav-bg;
+}
+
+.amt-skin .breadcrumb {
+  background: transparent;
+}
+
+.amt-skin .page-heading {
+  border: none;
+}
+
+.amt-skin .nav > li > a {
+  color: @amt-skin-a-color;
+}
+
+.amt-skin .navbar-minimalize {
+  background: @amt-skin-color;
+  border-color: @amt-skin-color;
+}
+
+body.amt-skin:not(.gray-bg) {
+  background: @amt-skin-nav-bg;
+}
+
+.amt-skin .navbar-static-top {
+  background: #ffffff;
+}
+
+.amt-skin .dashboard-header {
+  background: transparent;
+  border-bottom: none !important;
+  border-top: none;
+  padding: 20px 30px 10px 30px;
+}
+
+.fixed-nav.amt-skin .navbar-fixed-top {
+  background: #fff;
+}
+
+.amt-skin .wrapper-content {
+  padding: 30px 15px;
+}
+
+.amt-skin #page-wrapper {
+  background: @amt-skin-page-bg;
+}
+
+.amt-skin .ibox-title, .amt-skin .ibox-content {
+  border-width: 1px;
+}
+
+.amt-skin .ibox-content:last-child {
+  border-style: solid solid solid solid;
+}
+
+.amt-skin .nav:not(.nav-second-level) > li.active {
+  border-left: @amt-skin-color;
+  border-left-style: solid;
+  border-left-width: 4px;
+  background: darken(@amt-skin-nav-bg, 3%);
+}
+
+.amt-skin .nav-header a.dropdown-toggle {
+  color: #fff;
+  margin-top: 10px;
+}
+
+.amt-skin .nav-header a.dropdown-toggle .text-muted {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.amt-skin .profile-element {
+  text-align: center;
+}
+
+.amt-skin .img-circle {
+  border-radius: 5px;
+}
+
+.amt-skin .navbar-default .nav li > a:hover,
+.amt-skin .navbar-default .nav li > a:focus,
+.amt-skin .navbar-default .nav li > a:active {
+  background: darken(@amt-skin-nav-bg, 5%);
+  color: #fff;
+}
+
+.amt-skin .navbar-default .nav li:not(.active) > li > a:hover,
+.amt-skin .navbar-default .nav li:not(.active) > li > a:focus,
+.amt-skin .navbar-default .nav li:not(.active) > li > a:active {
+  background: darken(@amt-skin-nav-bg, 5%);
+  color: #fff;
+}
+
+.amt-skin .navbar-default .nav-second-level > li > a:hover {
+  color: #fff;
+}
+
+.amt-skin .navbar-default .nav-second-level > li > a:focus {
+  background: darken(@amt-skin-nav-bg, 5%);
+  color: #fff;
+}
+
+.amt-skin .nav.nav-tabs > li.active > a {
+  color: #555;
+}
+
+.amt-skin .nav.nav-tabs > li.active {
+  background: transparent;
+}
+
+.amt-skin .nav li a {
+  color: #efe5ed;
+}
+
+.amt-skin .nav-header {
+  border-bottom-color: darken(@amt-skin-nav-bg, 5%);
+  border-width:1px;
+  border-bottom-style:solid;
+  box-shadow: inset 0 0 20px 0 darken(@amt-skin-nav-bg, 10%);
+}
+
+
+.amt-skin .btn-primary.btn-outline {
+  color: @amt-skin-color;
+}
+
+.amt-skin .btn-primary {
+  background-color: @amt-skin-color;
+  border-color: @amt-skin-color;
+}
+
+.amt-skin .btn-primary:hover, .amt-skin .btn-primary:focus, .amt-skin .btn-primary:active, .amt-skin .btn-primary.active, .amt-skin .open .dropdown-toggle .btn-primary, .amt-skin .btn-primary:active:focus, .amt-skin .btn-primary:active:hover, .amt-skin .btn-primary.active:hover, .amt-skin .btn-primary.active:focus {
+  background-color: darken(@amt-skin-color, 3%);
+  border-color: darken(@amt-skin-color, 3%);
+}
+
+.amt-skin .btn-primary.disabled, .amt-skin .btn-primary.disabled:hover, .amt-skin .btn-primary.disabled:focus, .amt-skin .btn-primary.disabled:active, .amt-skin .btn-primary.disabled.active, .amt-skin .btn-primary[disabled], .amt-skin .btn-primary[disabled]:hover, .amt-skin .btn-primary[disabled]:focus, .amt-skin .btn-primary[disabled]:active, .amt-skin .btn-primary.active[disabled], .amt-skin fieldset[disabled] .btn-primary, .amt-skin fieldset[disabled] .btn-primary:hover, .amt-skin fieldset[disabled] .btn-primary:focus, .amt-skin fieldset[disabled] .btn-primary:active, .amt-skin fieldset[disabled] .btn-primary.active {
+  background-color: lighten(@amt-skin-color, 4%);
+  border-color: lighten(@amt-skin-color, 4%);
+}
+
+
+.amt-skin .btn-link:hover, .amt-skin .btn-link:focus, .amt-skin .btn-link:active, .amt-skin .btn-link.active, .amt-skin .open .dropdown-toggle.btn-link {
+  color: @amt-skin-color;
+}
+
+.amt-skin button.btn-primary.dim {
+  box-shadow: inset 0 0 0 darken(@amt-skin-color, 6%), 0 5px 0 0 darken(@amt-skin-color, 6%), 0 10px 5px #999;
+}
+
+.amt-skin button.btn-primary.dim:active {
+  box-shadow: inset 0 0 0 darken(@amt-skin-color, 6%), 0 2px 0 0 darken(@amt-skin-color, 6%), 0 5px 3px #999;
+}
+
+.amt-skin .label-primary, .amt-skin .badge-primary {
+  background-color: @amt-skin-color;
+  color: #FFFFFF;
+}
+
+.nav-second-level li.active {
+  border-left:none;
+  background-color: darken(@amt-skin-nav-bg, 3%);
+}
+
+.amt-skin .pace .pace-progress {
+  background: @amt-skin-color;
+}
+
+.amt-skin li.spacer hr {
+    border-color: lighten(@amt-skin-nav-bg, 3%);
+}
+
+.amt-skin a, 
+.amt-skin .green-text, 
+.amt-skin a:visited {
+  color: #8c7b80;
+}
+
+.amt-skin a:active,
+.amt-skin a:focus,
+.amt-skin a:hover {
+  color: lighten(#716367, 10%);
+}
+
+.amt-skin .navbar-header .add-new .fa-plus {
+    color: #684553;
+}

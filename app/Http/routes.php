@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('test', function() {
+Route::get('test', function () {
     
 });
 
@@ -67,7 +67,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@show');
 
     Route::get('/u/{userSlug}/', 'UserController@show');
-    Route::get('/u/{userSlug}/badges', 'BadgeController@index');
+
+    if (config('global.badges_enabled')) {
+        Route::get('/u/{userSlug}/badges', 'BadgeController@index');
+    }
 
     // Route::group(['middleware' => ['mine']], function () {
         Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
@@ -80,11 +83,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
         Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
     // });
-        Route::get('/u/{slug}/rank', 'RankController@index');
+        Route::get('/rankings', 'RankController@index');
     
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
 });
-

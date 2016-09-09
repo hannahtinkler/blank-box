@@ -127,14 +127,18 @@
                                 </span>
                             </a>
                         </li>
-                        <li>
-                            <a href="/u/{{ $user->slug }}/badges">
-                                <i class="fa fa-shield"></i> 
-                                <span class="nav-label">Badges
-                                    <span {!! $newBadgeCount == 0 ? 'class="hidden"' : null !!} id="badge-count">(<span>{{ $newBadgeCount }}</span>)</span)
-                                </span>
-                            </a>
-                        </li>
+                        
+                        @if (config('global.badges_enabled'))
+                            <li>
+                                <a href="/u/{{ $user->slug }}/badges">
+                                    <i class="fa fa-shield"></i> 
+                                    <span class="nav-label">Badges
+                                        <span {!! $newBadgeCount == 0 ? 'class="hidden"' : null !!} id="badge-count">(<span>{{ $newBadgeCount }}</span>)</span)
+                                    </span>
+                                </a>
+                            </li>
+                        @endif
+                        
                         <li>
                             <a href="/u/{{ $user->slug }}/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Bookmarks</span></a>
                         </li>

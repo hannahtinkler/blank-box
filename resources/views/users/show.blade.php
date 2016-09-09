@@ -38,7 +38,7 @@ information a person has contributed to <?php echo config('global.site-name'); ?
                 <p>Ranking:</p>
             </div>
             <div class="col-md-7">
-                <a href="/u/{{ $user->slug }}/rank"><p><i class="fa fa-trophy"></i> {{ $communityData['rank'] }}</p></a>
+                <a href="/rankings"><p><i class="fa fa-trophy"></i> {{ $communityData['rank'] }}</p></a>
             </div>
             <div class="col-md-4">
                 <p>Score:</p>
@@ -46,22 +46,24 @@ information a person has contributed to <?php echo config('global.site-name'); ?
             <div class="col-md-7">
                 <p><i class="fa fa-star"></i> {{ $communityData['score'] }}</p>
             </div>
-            <div class="col-md-4">
-                <p>Badges:</p>
-            </div>
-            <div class="col-md-7">
-                <a href="/u/{{ $user->slug }}/badges">
-                    <p><i class="fa fa-shield"></i> {{ $communityData['badgeCount'] }}</p>
-                </a>
-            </div>
-            <div class="col-md-4">
-                <p>Best Badge:</p>
-            </div>
-            <div class="col-md-7">
-                <a href="/u/{{ $user->slug }}/badges">
-                    {{ $communityData['bestBadge'] == null ? 'None earned yet' : $communityData['bestBadge'] }}</p>
-                </a>
-            </div>
+            @if (config('global.badges_enabled'))
+                <div class="col-md-4">
+                    <p>Badges:</p>
+                </div>
+                <div class="col-md-7">
+                    <a href="/u/{{ $user->slug }}/badges">
+                        <p><i class="fa fa-shield"></i> {{ $communityData['badgeCount'] }}</p>
+                    </a>
+                </div>
+                <div class="col-md-4">
+                    <p>Best Badge:</p>
+                </div>
+                <div class="col-md-7">
+                    <a href="/u/{{ $user->slug }}/badges">
+                        {{ $communityData['bestBadge'] == null ? 'None earned yet' : $communityData['bestBadge'] }}</p>
+                    </a>
+                </div>
+            @endif
         </div>
     </div>
 </div>

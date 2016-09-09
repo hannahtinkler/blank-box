@@ -23,8 +23,11 @@ class RankController extends Controller
         $ranked = [];
         
         foreach ($communityData as $rank => $user) {
-           $ranked[$user['name']] = $user['total'];
-           $ranked[$user['name']] = $rank + 1;     
+            $ranked[$user['name']] = [
+                'slug' => $this->user->getByName($user['name'])->slug,
+                'rank' => $rank + 1,
+                'score' => $user['total']
+            ];
         }
         
         return $ranked;

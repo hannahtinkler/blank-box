@@ -60,10 +60,15 @@ class AppServiceProvider extends ServiceProvider
 
             $categories = Category::orderBy('order')->get();
             $draftCount = PageDraft::where('created_by', $user->id)->count();
-            $newBadgeCount = UserBadge::where('user_id', $user->id)
-                ->where('read', 0)
-                ->get()
-                ->count();
+
+            if (config('global.badges_enabled')) {
+                $newBadgeCount = UserBadge::where('user_id', $user->id)
+                    ->where('read', 0)
+                    ->get()
+                    ->count();
+            } else {
+                $newBadgeCount = 0;
+            }
 
             $view->with('categories', $categories)
                 ->with('current', $current)

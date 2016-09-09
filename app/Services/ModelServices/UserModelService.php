@@ -19,6 +19,12 @@ class UserModelService implements SearchableModelService
     {
         $this->user = $user;
     }
+    
+    public function getByName($name)
+    {
+        return User::where('name', $name)->firstOrFail();
+    }
+
     public function getSearchResults($term)
     {
         $query = [
@@ -39,24 +45,27 @@ class UserModelService implements SearchableModelService
             $userType = 'Curator';
         }
 
-        $bestBadge = $this->getBestBadge();
+        if (config('global.badges_enabled')) {
+            $bestBadge = $this->getBestBadge();
 
-        if ($bestBadge == null) {
-            $bestBadge = 'This loser has no badges';
+            if ($bestBadge == null) {
+                $bestBadge = 'This loser has no badges';
+            }
+
+            if (isset($userType)) {
+                $userType .= ' / ' . $bestBadge;
+            } else {
+                $userType = $bestBadge;
+            }
         }
 
-        if (isset($userType)) {
-            $userType .= ' / ' . $bestBadge;
-        } else {
-            $userType = $bestBadge;
-        }
-
-        return $userType;
+        return isset($userType) ? $userType : '';
     }
 
     public function searchResultString()
     {
-        return 'User: ' . $this->user->name . ' (' . $this->getUserType() . ')';
+        $userType = $this->getUserType();
+        return 'User: ' . $this->user->name . ($userType ? ' (' . $this->getUserType() . ')' : '');
     }
 
     public function searchResultUrl()
