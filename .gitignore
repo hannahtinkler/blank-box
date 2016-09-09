@@ -7,6 +7,9 @@ node_modules/
 bootstrap/compiled.php
 app/storage/
 
+#Configs
+config/global.php
+
 # Laravel 5 & Lumen specific
 bootstrap/cache/
 storage/

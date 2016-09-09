@@ -29,7 +29,7 @@
 
     <div class="col-md-6">
         <h3 class="m-b-md">Community: <small><i class="m-l-sm pointer fa fa-info-circle" title="Community ranks/scores are based on the quantity of
-information a person has contributed to Black Box"></i></small></h3>
+information a person has contributed to <?php echo config('global.site-name'); ?>"></i></small></h3>
 
         @set('communityData', $user->getCommunityData())
 
