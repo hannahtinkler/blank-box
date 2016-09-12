@@ -145,7 +145,7 @@ body.amt-skin:not(.gray-bg) {
 }
 
 .amt-skin .nav li a {
-  color: #efe5ed;
+  color: #efe5ed !important;
 }
 
 .amt-skin .nav-header {
@@ -213,10 +213,14 @@ body.amt-skin:not(.gray-bg) {
 }
 
 
-.amt-skin a:active,
-.amt-skin a:focus,
-.amt-skin a:hover {
+.amt-skin a:active:not(.btn),
+.amt-skin a:focus:not(.btn),
+.amt-skin a:hover:not(.btn) {
   color: lighten(#716367, 10%);
+}
+
+.amt-skin .btn-white {
+  border-color: #8c7b80;s
 }
 
 .amt-skin .navbar-header .add-new .fa-plus {
