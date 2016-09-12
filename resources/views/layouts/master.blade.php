@@ -37,7 +37,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="table_data_tables.html#">
                             <span class="clear">
                                 <span class="text-mutedblock" title="Switch Categories">{{ $current['category']->title }} 
-                                @if(!$categories->isEmpty())
+                                @if($categories->count() < 2)
                                     <b class="caret"></b></span>
                                 @endif
                             </span>
