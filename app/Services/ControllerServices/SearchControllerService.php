@@ -28,6 +28,7 @@ class SearchControllerService
             $searchable = 'App\Services\ModelServices\\'. $searchable . 'ModelService';
             $class = new $searchable(null, $this->user);
             $newResults = $this->getResults($class);
+            dd($newResults);
             $this->allResults[] = $newResults;
         }
 
