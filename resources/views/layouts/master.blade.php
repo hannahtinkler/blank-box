@@ -36,7 +36,10 @@
                      <div class="dropdown profile-element">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="table_data_tables.html#">
                             <span class="clear">
-                                <span class="text-mutedblock" title="Switch Categories">{{ $current['category']->title }} <b class="caret"></b></span>
+                                <span class="text-mutedblock" title="Switch Categories">{{ $current['category']->title }} 
+                                @if(!$categories->isEmpty())
+                                    <b class="caret"></b></span>
+                                @endif
                             </span>
                         </a>
                         <ul class="dropdown-menu animated module-menu fadeInRight m-t-xs">
