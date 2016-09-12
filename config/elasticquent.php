@@ -16,22 +16,6 @@ return array(
     'config' => [
         'hosts'     => ['localhost:9200'],
         'retries'   => 1,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Default Searchables
-    |--------------------------------------------------------------------------
-    |
-    | This is an array of models which should be used when performing a search
-    */
-
-    'searchables' => [
-        'Server',
-        'Service',
-        'Page',
-        'Chapter',
-        'User'
     ]
 
 );

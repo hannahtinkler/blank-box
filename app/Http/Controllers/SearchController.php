@@ -32,7 +32,7 @@ class SearchController extends Controller
         }
 
         $searchDetails = $this->getSearchDetails($term);
-        
+
         if (is_numeric($term)) {
             $searchDetails['searchables'] = ['Service'];
         }
@@ -52,7 +52,7 @@ class SearchController extends Controller
             $searchables = array_map('ucwords', $searchables);
             $term = $parts[1];
         } else {
-            $searchables = config('elasticquent.searchables');
+            $searchables = config('global.searchables');
         }
 
         return [
