@@ -74,6 +74,7 @@ class SearchControllerService
 
     private function sortResults()
     {
+        if(auth()->id() == 1) die(var_dump($this->allResults));
         usort($this->allResults, function ($a, $b) {
             if ($a['score'] == $b['score']) {
                 return 0;
