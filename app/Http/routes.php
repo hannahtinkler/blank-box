@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/mayden/servers/server-details/{id?}', 'ServerController@show');
     Route::get('/p/mayden/servers/ssh-config-generator', 'ServerController@configGenerator');
     Route::post('/p/mayden/servers/ssh-config-generator', 'ServerController@generateConfig');
-    Route::get('/p/iaptus/services/service-list/{id?}', 'ServiceController@show');
+    Route::get('/p/{chapterSlug}/services/service-list/{id?}', 'ServiceController@show');
 
     Route::get('/u/{userSlug}/', 'UserController@show');
 
