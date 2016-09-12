@@ -8086,9 +8086,9 @@ body.amt-skin:not(.gray-bg) {
 .amt-skin li.spacer hr {
   border-color: #60253b;
 }
-.amt-skin a,
-.amt-skin .green-text,
-.amt-skin a:visited {
+.amt-skin a:not(.btn),
+.amt-skin .green-text:not(.btn),
+.amt-skin a:visited:not(.btn) {
   color: #8c7b80;
 }
 .amt-skin a:active,
