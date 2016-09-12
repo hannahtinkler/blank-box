@@ -350,6 +350,10 @@
             },
             list: {
                 maxNumberOfElements: 10,
+                onChooseEvent: function() {
+                    var url = $('.easy-autocomplete-container ul li.selected div a').attr('href');
+                    window.location.href = url;
+                },
                 onShowListEvent: function() {
                     var list = $('body').find('#eac-container-top-search ul');
                     var term = $('#top-search').val();
