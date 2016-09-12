@@ -31,8 +31,12 @@ class UserBadgeControllerService
         return $badge;
     }
 
-    public function addBadgesForUser($newBadges)
+    public function addBadgesForUser($newBadges, $user = null)
     {
+        if ($user != null) {
+            $this->user = $user;
+        }
+
         foreach ($newBadges as $badge) {
             $this->addABadgeForUser($badge->id);
         }

@@ -42,7 +42,7 @@ class CheckForBadgeQualification
             $newBadges = $this->getNewlyQualifiedForBadges($count);
 
             if (!$newBadges->isEmpty()) {
-                $this->userBadgeControllerService->addBadgesForUser($newBadges);
+                $this->userBadgeControllerService->addBadgesForUser($newBadges, $this->page->creator);
             }
         }
     }
