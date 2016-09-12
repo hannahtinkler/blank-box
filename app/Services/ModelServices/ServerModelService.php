@@ -27,7 +27,7 @@ class ServerModelService implements SearchableModelService
             ]
         ];
 
-        return Server::searchByQuery($query);
+        return Server::searchByQuery($query, null, null, 100);
     }
 
     public function searchResultString()

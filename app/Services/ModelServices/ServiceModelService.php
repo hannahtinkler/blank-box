@@ -21,13 +21,13 @@ class ServiceModelService implements SearchableModelService
         $query = [
             "bool" => [
                 "should" => [
-                    [ "wildcard" => [ "_all" => "$term*"]],
+                    [ "wildcard" => [ "_all" => "*$term*"]],
                     [ "match" => [ "_all" => "$term" ]]
                 ]
             ]
         ];
 
-        return Service::searchByQuery($query);
+        return Service::searchByQuery($query, null, null, 100);
     }
 
     public function searchResultString()

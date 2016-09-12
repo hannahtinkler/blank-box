@@ -36,7 +36,7 @@ class UserModelService implements SearchableModelService
             ]
         ];
 
-        return User::searchByQuery($query);
+        return User::searchByQuery($query, null, null, 100);
     }
 
     public function getUserType()

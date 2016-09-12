@@ -27,7 +27,7 @@ class ChapterModelService implements SearchableModelService
             ]
         ];
 
-        return Chapter::searchByQuery($query);
+        return Chapter::searchByQuery($query, null, null, 100);
     }
 
     public function searchResultString()

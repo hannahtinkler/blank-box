@@ -28,7 +28,7 @@ class PageModelService implements SearchableModelService
             ]
         ];
 
-        return Page::searchByQuery($query);
+        return Page::searchByQuery($query, null, null, 100);
     }
 
     public function editableByUser($user)
