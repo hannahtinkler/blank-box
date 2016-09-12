@@ -27,11 +27,15 @@ class SearchController extends Controller
 
     public function performSearch(Request $request, $term)
     {
-        if (strlen($term) < 1 && !is_int($term)) {
+        if (strlen($term) < 1) {
             return $this->isAjaxRequest ? json_encode([]) : [];
         }
 
         $searchDetails = $this->getSearchDetails($term);
+        
+        if (is_numeric($term)) {
+            $searchDetails['searchables'] = ['Service'];
+        }
 
         $searchModelService = new SearchControllerService($request, $searchDetails['term'], $this->isAjaxRequest);
         $results = $searchModelService->processSearch($searchDetails['searchables']);

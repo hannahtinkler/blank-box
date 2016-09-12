@@ -81,15 +81,5 @@ class SearchControllerService
 
             return ($a['score'] < $b['score']) ? 1 : -1;
         });
-
-        if (is_numeric($this->term)) {
-            usort($this->allResults, function ($a, $b) {
-                if (strpos($a['content'], 'Service:') !== false && strpos($b['content'], 'Service:') !== false) {
-                    return 0;
-                }
-
-                return strpos($a['content'], 'Service:') !== false ? -1 : 1;
-            });
-        }
     }
 }
