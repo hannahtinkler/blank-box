@@ -27,7 +27,7 @@ class SearchController extends Controller
 
     public function performSearch(Request $request, $term)
     {
-        if (strlen($term) < 3 && !is_int($term)) {
+        if (strlen($term) < 1 && !is_int($term)) {
             return $this->isAjaxRequest ? json_encode([]) : [];
         }
 
