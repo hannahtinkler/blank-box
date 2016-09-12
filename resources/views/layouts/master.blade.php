@@ -42,13 +42,16 @@
                                 @endif
                             </span>
                         </a>
-                        <ul class="dropdown-menu animated module-menu fadeInRight m-t-xs">
-                            @foreach($categories as $category)
-                                @if($category->title != $current['category']->title)
-                                    <li><a href="/switchcategory/{{ $category->id }}">{{ $category->title }}</a></li>
-                                @endif
-                            @endforeach
-                        </ul>
+
+                        @if($categories->count() > 1)
+                            <ul class="dropdown-menu animated module-menu fadeInRight m-t-xs">
+                                @foreach($categories as $category)
+                                    @if($category->title != $current['category']->title)
+                                        <li><a href="/switchcategory/{{ $category->id }}">{{ $category->title }}</a></li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </li>
 
