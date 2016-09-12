@@ -18,7 +18,7 @@
     @endif
 </div>
 
-<form role="form" id="edit-draft-form" action="/u/{{ $user->slug }}/drafts/{{ $draft->id }}" method="POST">
+<form role="form" id="edit-draft-form" action="/pages" method="POST">
     {!! csrf_field() !!}
 
     <input type="hidden" name="page_id" value="{{ $draft->page_id }}" />
@@ -68,8 +68,6 @@
         </div>
         <small class="italic help-block last-saved pull-right m-b-lg">Not yet saved</small>
     </div>
-
-    <input type="hidden" id="last-draft-id" name="last_draft_id" value="">
 
     <div class="col-sm-12 m-t-md m-b-xl">
         <!-- IF is a curator -->
