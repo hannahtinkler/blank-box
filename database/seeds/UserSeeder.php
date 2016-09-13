@@ -18,14 +18,14 @@ class UserSeeder extends Seeder
             'name' => 'Hannah Tinkler',
             'email' => 'hannah.tinkler@mayden.co.uk',
             'slug' => str_slug('Hannah Tinkler'),
-            'curator' => 1
+            'curator' => 0
         ]);
 
         User::create([
-            'name' => 'Testy T. Test',
-            'email' => 'hello@mayden.co.uk',
-            'slug' => str_slug('Testy T. Test'),
-            'curator' => 0
+            'name' => 'Taryn Duncum',
+            'email' => 'taryn.duncum@mayden.co.uk',
+            'slug' => str_slug('Taryn Duncum'),
+            'curator' => 1
         ]);
     }
 }
