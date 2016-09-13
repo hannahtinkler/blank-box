@@ -9008,6 +9008,14 @@ img.not-earned,
 hr {
   border-top: 1px solid #e6e3e3;
 }
+code,
+pre {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
 @media print {
   nav.navbar-static-side {
     display: none;
