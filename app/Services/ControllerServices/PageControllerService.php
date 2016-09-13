@@ -36,7 +36,7 @@ class PageControllerService
             'chapter_id' => $data['chapter_id'],
             'title' => $data['title'],
             'description' => $data['description'],
-            'content' => $data['content'],
+            'content' => encodeForCkEditor($data['content']),
             'created_by' => $this->user->id,
             'slug' => str_slug($data['title']),
             'order' => $nextPageOrderValue,
@@ -61,7 +61,7 @@ class PageControllerService
             'chapter_id' => $data['chapter_id'],
             'title' => $data['title'],
             'description' => $data['description'],
-            'content' => $data['content'],
+            'content' => encodeForCkEditor($data['content']),
             'created_by' => $this->user->id,
             'approved' => $approved ? true : null
         ]);
@@ -76,7 +76,7 @@ class PageControllerService
         $page->chapter_id = $data['chapter_id'];
         $page->title = $data['title'];
         $page->description = $data['description'];
-        $page->content = $data['content'];
+        $page->content = encodeForCkEditor($data['content']);
         $page->slug = str_slug($data['title']);
         $page->approved = (int) isset($data['approved']) ? 1 : $page->approved;
         $page->save();

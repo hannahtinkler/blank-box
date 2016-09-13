@@ -102,7 +102,6 @@
         var currentDraft;
 
         CKEDITOR.replace('textboxCkeditor');
-        CKEDITOR.config.height = 500;
 
         if ($('#category_id').val() != '') {
            getChapters();

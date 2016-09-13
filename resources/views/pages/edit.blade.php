@@ -69,7 +69,7 @@
             <div class="col-sm-12 m-b-md">
                 <div class="form-group m-b-xs">
                     <label>Content</label>
-                    <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') ? old('content') : $page->content }}</textarea>
+                    <textarea class="form-control" name="content" id="textboxCkeditor">{{ (old('content')) ? old('content') : ($page->content) }}</textarea>
                 </div>
             </div>
         
@@ -109,13 +109,13 @@
         tokenSeparators: [','],
         minimumInputLength: 1
     });
+
     $(document).ready(function () {
         CKEDITOR.replace('textboxCkeditor');
-        CKEDITOR.config.height = 500;
+        
         $('#category_id').change(function() {
             getChapters();
         });
-
 
         function getChapters() {
             var categoryId = $('#category_id').val();
