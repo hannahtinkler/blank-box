@@ -9023,7 +9023,8 @@ pre {
 pre {
   padding: 0.6em 0.6em;
 }
-li pre {
+li pre,
+li code {
   margin-left: -3.6em;
 }
 li.no-bullet {
