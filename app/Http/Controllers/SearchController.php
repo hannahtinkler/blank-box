@@ -52,7 +52,7 @@ class SearchController extends Controller
             $searchables = array_map('ucwords', $searchables);
             $term = $parts[1];
         } else {
-            $searchables = config('global.searchables');
+            $searchables = config('elasticquent.searchables');
         }
 
         return [

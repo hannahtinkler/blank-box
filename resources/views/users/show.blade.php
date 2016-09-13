@@ -29,7 +29,7 @@
 
     <div class="col-md-6">
         <h3 class="m-b-md">Community: <small><i class="m-l-sm pointer fa fa-info-circle" title="Community ranks/scores are based on the quantity of
-information a person has contributed to <?php echo config('global.site-name'); ?>"></i></small></h3>
+information a person has contributed to <?php echo env('APP_NAME', 'Black Box'); ?>"></i></small></h3>
 
         @set('communityData', $user->getCommunityData())
 
@@ -46,7 +46,7 @@ information a person has contributed to <?php echo config('global.site-name'); ?
             <div class="col-md-7">
                 <p><i class="fa fa-star"></i> {{ $communityData['score'] }}</p>
             </div>
-            @if (config('global.badges_enabled'))
+            @if (env('FEATURE_BADGES_ENABLED', true))
                 <div class="col-md-4">
                     <p>Badges:</p>
                 </div>

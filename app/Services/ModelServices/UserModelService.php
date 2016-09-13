@@ -45,7 +45,7 @@ class UserModelService implements SearchableModelService
             $userType = 'Curator';
         }
 
-        if (config('global.badges_enabled')) {
+        if (env('FEATURE_BADGES_ENABLED', true)) {
             $bestBadge = $this->getBestBadge();
 
             if ($bestBadge == null) {

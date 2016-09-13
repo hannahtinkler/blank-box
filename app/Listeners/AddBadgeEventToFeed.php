@@ -35,7 +35,7 @@ class AddBadgeEventToFeed
      */
     public function handle(BadgeWasAddedToUser $event)
     {
-        if (config('global.badges_enabled')) {
+        if (env('FEATURE_BADGES_ENABLED', true)) {
             $badge = $event->badge;
 
             $eventType = $this->getEventType();

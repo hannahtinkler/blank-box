@@ -35,7 +35,7 @@ class CheckForBadgeQualification
      */
     public function handle(PageWasAddedToChapter $event)
     {
-        if (config('global.badges_enabled')) {
+        if (env('FEATURE_BADGES_ENABLED', true)) {
             $this->page = $event->page;
 
             $count = $this->getPageCountForChapter();

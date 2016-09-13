@@ -61,7 +61,7 @@ class AppServiceProvider extends ServiceProvider
             $categories = Category::orderBy('order')->get();
             $draftCount = PageDraft::where('created_by', $user->id)->count();
 
-            if (config('global.badges_enabled')) {
+            if (env('FEATURE_BADGES_ENABLED', true)) {
                 $newBadgeCount = UserBadge::where('user_id', $user->id)
                     ->where('read', 0)
                     ->get()

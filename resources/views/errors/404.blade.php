@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title><?php echo config('global.site-name'); ?> | 404 Error</title>
+    <title><?php echo env('APP_NAME', 'Black Box'); ?> | 404 Error</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">

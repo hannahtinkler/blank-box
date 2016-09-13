@@ -28,4 +28,6 @@ return array(
     */
 
     'default_index' => env('ELASTICSEARCH_INDEX', 'default'),
+
+    'searchables' => explode(', ', ENV('ELASTICSEARCH_SEARCHABLES', '')),
 );

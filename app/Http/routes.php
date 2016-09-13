@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('test', function () {
-    
-});
-
 Route::get('login', 'Auth\AuthController@redirectToProvider');
 Route::get('logout', 'Auth\AuthController@logout');
 Route::get('/login/callback', 'Auth\AuthController@handleProviderCallback');
@@ -68,7 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/u/{userSlug}/', 'UserController@show');
 
-    if (config('global.badges_enabled')) {
+    if (env('FEATURE_BADGES_ENABLED', true)) {
         Route::get('/u/{userSlug}/badges', 'BadgeController@index');
     }
 

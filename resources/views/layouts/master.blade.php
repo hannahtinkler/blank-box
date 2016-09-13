@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title><?php echo config('global.site-name'); ?></title>
+    <title><?php echo env('APP_NAME', 'Black Box'); ?></title>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -24,7 +24,7 @@
 </head>
 
 
-<body class="<?php echo config('global.theme'); ?>">
+<body class="<?php echo env('APP_THEME', 'mayden-skin'); ?>">
 
     <div id="wrapper">
 
@@ -115,7 +115,7 @@
                 >
                     <a href="/u/{{ $user->slug }}">
                         <span class="nav-label">
-                            <i class="fa fa-user"></i> Your <?php echo config('global.site-name'); ?>
+                            <i class="fa fa-user"></i> Your <?php echo env('APP_NAME', 'Black Box'); ?>
                             <span {!! $newBadgeCount + $draftCount == 0 ? 'class="hidden"' : null !!} id="your-count">(<span>{{ $newBadgeCount + $draftCount }}</span>)</span>
                         </span>
                         <span class="fa arrow"></span>
@@ -134,7 +134,7 @@
                             </a>
                         </li>
                         
-                        @if (config('global.badges_enabled'))
+                        @if (env('FEATURE_BADGES_ENABLED', true))
                             <li>
                                 <a href="/u/{{ $user->slug }}/badges">
                                     <i class="fa fa-shield"></i> 
@@ -170,7 +170,7 @@
             <div class="navbar-header">
 
                 <div class="navbar-minimalize logo-space">
-                    <a href="#"><i class="fa fa-cube"></i> <?php echo config('global.site-name'); ?></a>
+                    <a href="#"><i class="fa fa-cube"></i> <?php echo env('APP_NAME', 'Black Box'); ?></a>
                 </div>
                 
                 <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>
@@ -259,7 +259,7 @@
                 10GB of <strong>250GB</strong> Free.
             </div> -->
             <div>
-                <strong>&copy;</strong> <?php echo config('global.site-name'); ?> {{ date('Y') }}
+                <strong>&copy;</strong> <?php echo env('APP_NAME', 'Black Box'); ?> {{ date('Y') }}
             </div>
         </div>
 

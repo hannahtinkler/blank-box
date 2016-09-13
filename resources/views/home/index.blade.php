@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1><?php echo config('global.site-name'); ?></h1>
+<h1><?php echo env('APP_NAME', 'Black Box'); ?></h1>
 
 <hr>
 
