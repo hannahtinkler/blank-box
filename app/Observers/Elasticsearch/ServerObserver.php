@@ -27,7 +27,7 @@ class ServerObserver
     public function deleted(Server $server)
     {
         $this->elasticsearch->delete([
-            'index' => 'default',
+            'index' => env('ELASTICSEARCH_INDEX', 'default'),
             'type' => 'servers',
             'id' => $server->id
         ]);

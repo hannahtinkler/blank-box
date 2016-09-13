@@ -27,7 +27,7 @@ class UserObserver
     public function deleted(User $user)
     {
         $this->elasticsearch->delete([
-            'index' => 'default',
+            'index' => env('ELASTICSEARCH_INDEX', 'default'),
             'type' => 'users',
             'id' => $user->id
         ]);

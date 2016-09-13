@@ -16,6 +16,16 @@ return array(
     'config' => [
         'hosts'     => ['localhost:9200'],
         'retries'   => 1,
-    ]
+    ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Default Index Name
+    |--------------------------------------------------------------------------
+    |
+    | This is the index name that Elastiquent will use for all
+    | Elastiquent models.
+    */
+
+    'default_index' => env('ELASTICSEARCH_INDEX', 'default'),
 );

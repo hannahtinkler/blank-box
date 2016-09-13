@@ -27,7 +27,7 @@ class ServiceObserver
     public function deleted(Service $service)
     {
         $this->elasticsearch->delete([
-            'index' => 'default',
+            'index' => env('ELASTICSEARCH_INDEX', 'default'),
             'type' => 'services',
             'id' => $service->id
         ]);

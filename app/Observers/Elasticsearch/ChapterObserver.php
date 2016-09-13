@@ -27,7 +27,7 @@ class ChapterObserver
     public function deleted(Chapter $chapter)
     {
         $this->elasticsearch->delete([
-            'index' => 'default',
+            'index' => env('ELASTICSEARCH_INDEX', 'default'),
             'type' => 'chapters',
             'id' => $chapter->id
         ]);
