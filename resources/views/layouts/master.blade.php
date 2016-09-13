@@ -36,7 +36,8 @@
                      <div class="dropdown profile-element">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="table_data_tables.html#">
                             <span class="clear">
-                                <span class="text-mutedblock" title="Switch Categories">{{ $current['category']->title }} 
+                                <span class="text-mutedblock" title="Switch Categories" title="You are currently exploring the {{ $current['category']->title }} category">
+                                {{ $current['category']->title }}
                                 @if($categories->count() > 1)
                                     <b class="caret"></b></span>
                                 @endif
