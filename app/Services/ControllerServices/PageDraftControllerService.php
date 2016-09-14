@@ -21,7 +21,7 @@ class PageDraftControllerService
             'chapter_id' => isset($data['chapter_id']) ? $data['chapter_id'] : null,
             'title' => isset($data['title']) ? $data['title'] : null,
             'description' => isset($data['description']) ? $data['description'] : null,
-            'content' => isset($data['content']) ? encodeForCkEditor($data['content']) : null,
+            'content' => isset($data['content']) ? encodeFromCkEditor($data['content']) : null,
             'created_by' => $this->user->id,
         ]);
 
@@ -33,7 +33,7 @@ class PageDraftControllerService
         $draft->chapter_id = isset($data['chapter_id']) ? $data['chapter_id'] : null;
         $draft->title = isset($data['title']) ? $data['title'] : null;
         $draft->description = isset($data['description']) ? $data['description'] : null;
-        $draft->content = isset($data['content']) ? encodeForCkEditor($data['content']) : null;
+        $draft->content = isset($data['content']) ? encodeFromCkEditor($data['content']) : null;
         $draft->save();
 
         return $draft;

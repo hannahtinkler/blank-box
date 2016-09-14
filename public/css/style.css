@@ -8423,7 +8423,7 @@ body.md-skin {
     min-height: 1200px;
   }
   .navbar-static-side {
-    z-index: 2001;
+    z-index: 998;
     position: absolute;
     width: 300px;
   }
@@ -8441,7 +8441,7 @@ body.md-skin {
   }
   .body-small .navbar-static-side {
     display: none;
-    z-index: 2001;
+    z-index: 998;
     position: absolute;
     width: 70px;
   }
@@ -8474,7 +8474,7 @@ body.md-skin {
   }
   .fixed-sidebar.body-small .navbar-static-side {
     display: none;
-    z-index: 2001;
+    z-index: 998;
     position: fixed;
     width: 300px;
   }
