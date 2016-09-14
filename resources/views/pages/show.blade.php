@@ -19,7 +19,7 @@
     <p class="bg-success error-message m-b-xl">{!! session('message') !!}</p>
 @endif
 
-{!! $page->content !!}
+{!! html_entity_decode($page->content) !!}
 
 <div class="m-t-lg green-text">
     <small>Written by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>

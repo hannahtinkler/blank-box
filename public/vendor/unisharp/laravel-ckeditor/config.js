@@ -39,7 +39,8 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraAllowedContent = 'div(*);plist;dict;array;integer;key;string';
 
     config.height = 500;
-    config.startupMode = 'source';
+    // config.startupMode = 'source';
     config.entities = false;
 
+	config.protectedSource.push(/<\dict[\s\S]*?\>[\s\S]*?<\/dict\>/g);
 };
