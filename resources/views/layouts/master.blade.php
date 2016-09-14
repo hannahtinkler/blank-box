@@ -278,7 +278,6 @@
 <script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-<script src="https://www.draw.io/js/embed-static.min.js"></script>
 <script src="https://www.draw.io/js/viewer.min.js" type="text/javascript"></script>
 
 <!-- Custom and plugin javascript -->
