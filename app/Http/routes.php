@@ -14,6 +14,7 @@
 Route::get('login', 'Auth\AuthController@redirectToProvider');
 Route::get('logout', 'Auth\AuthController@logout');
 Route::get('/login/callback', 'Auth\AuthController@handleProviderCallback');
+Route::get('/login/retry', 'Auth\AuthController@retryLogin');
 Route::get('/accessdenied', 'Auth\AuthController@accessDeniedPage');
 
 Route::group(['middleware' => ['auth']], function () {

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+
 use Validator;
+use Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Laravel\Socialite\Two\InvalidStateException;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Socialite;
 
 class AuthController extends Controller
 {
@@ -90,18 +92,27 @@ class AuthController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('google')->user();
-        $success = $this->registerUserIfNotRegistered($user);
-        if ($success) {
-            return redirect('/');
-        } else {
-            return redirect('/accessdenied');
+        try {
+            $user = Socialite::driver('google')->user();
+            $success = $this->registerUserIfNotRegistered($user);
+            if ($success) {
+                return redirect('/');
+            } else {
+                return redirect('/accessdenied');
+            }
+        } catch (InvalidStateException $e) {
+            return redirect('/login/retry');
         }
     }
     
     public function accessDeniedPage()
     {
         return view('errors.accessdenied');
+    }
+    
+    public function retryLogin()
+    {
+        return view('home.retry');
     }
     
     public function registerUserIfNotRegistered($user)
