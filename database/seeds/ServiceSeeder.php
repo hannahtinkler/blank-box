@@ -993,5 +993,14 @@ class ServiceSeeder extends Seeder
             'live_site_url' => 'http://5bp.iaptus.nhs.uk'
         ]);
 
+        Service::create([
+            'area' => 'Ealing',
+            'name' => 'ECC (Ealing Counselling Consortium)',
+            'service_id' => 204,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
     }
 }
