@@ -13,6 +13,8 @@
     @endif
 </h2>
 
+<h4 class="m-t-xl m-b-lg">{{ $page->description }}</h4>
+
 <hr>
 
 @if(session('message'))
