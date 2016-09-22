@@ -60,9 +60,9 @@
                     <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
 
-                @if(is_object($current['category']->chapters))
+                @if(is_object($current['category']->chaptersWithApprovedPages))
 
-                    @foreach($current['category']->chapters as $chapter)
+                    @foreach($current['category']->chaptersWithApprovedPages as $chapter)
                         @if(!$chapter->approvedPages->isEmpty())
                             @if(isset($current['chapter']))
                                 <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>

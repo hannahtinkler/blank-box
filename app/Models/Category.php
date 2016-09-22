@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
+use App\Models\Page;
 
 class Category extends Model
 {
@@ -25,5 +26,13 @@ class Category extends Model
     public function chapters()
     {
         return $this->hasMany('App\Models\Chapter')->orderBy('title')->orderBy('order');
+    }
+
+    public function chaptersWithApprovedPages()
+    {
+        return $this->hasMany('App\Models\Chapter')->where(function ($q) {
+          $pages = Page::where('chapter_id', $this->id)->where('approved', 1)->get()->count();
+          $q->whereRaw("$pages > 0");
+        })->orderBy('order');
     }
 }
