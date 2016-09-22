@@ -37,7 +37,7 @@ class Chapter extends Model implements SearchableModel
     
     public function pages()
     {
-        return $this->hasMany('App\Models\Page')->orderBy('order');
+        return $this->hasMany('App\Models\Page')->where('approved', 1)->orderBy('title')->orderBy('order');
     }
     
     public function bookmark()
