@@ -36,7 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
 	// Simplify the dialog windows.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
 
-	config.extraAllowedContent = 'div[data-mxgraph](*){*};plist;dict;array;integer;key;string';
+	config.extraAllowedContent = 'div[data-mxgraph](*){*};plist;dict;array;integer;key;string;table(*){*};ul(*){*};li(*){*};ol(*){*}';
 
     config.height = 500;
     // config.startupMode = 'source';
