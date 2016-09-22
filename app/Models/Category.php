@@ -38,6 +38,8 @@ class Category extends Model
             ->count();
 
           $q->whereRaw("$pages > 0");
-        })->orderBy('order');
+        })
+        ->orderBy('title')
+        ->orderBy('order');
     }
 }
