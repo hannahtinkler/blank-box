@@ -31,7 +31,12 @@ class Category extends Model
     public function chaptersWithApprovedPages()
     {
         return $this->hasMany('App\Models\Chapter')->where(function ($q) {
-          $pages = Page::where('chapter_id', $this->id)->where('approved', 1)->get()->count();
+          $pages = Page::join('chapters', 'pages.chapter_id', '=', 'chapters.id')
+            ->where('category_id', $this->id)
+            ->where('pages.approved', 1)
+            ->get()
+            ->count();
+
           $q->whereRaw("$pages > 0");
         })->orderBy('order');
     }
