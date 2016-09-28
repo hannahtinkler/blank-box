@@ -61,7 +61,7 @@ class Page extends Model implements SearchableModel
     
     public function scopeLatestUpdated($query)
     {
-        return $query->where->('approved', 1)->orderBy('updated_at', 'DESC');
+        return $query->where('approved', 1)->orderBy('updated_at', 'DESC');
     }
     
     public function scopeFindBySlug($query, $slug)
