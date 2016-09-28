@@ -33,7 +33,7 @@ class CurationControllerService
             'chapter_id' => $edit->chapter_id,
             'title' => $edit->title,
             'description' => $edit->description,
-            'content' => $edit->content,
+            'content' => encodeFromCkEditor($edit->content),
             'approved' => 1
         ]);
 
