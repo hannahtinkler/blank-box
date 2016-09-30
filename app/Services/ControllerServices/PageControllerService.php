@@ -40,7 +40,7 @@ class PageControllerService
             'created_by' => $this->user->id,
             'slug' => str_slug($data['title']),
             'order' => $nextPageOrderValue,
-            'approved' => (int) isset($data['approved']) ? 1 : null
+            'approved' => $this->shouldBeApproved($data)
         ]);
 
         if (isset($data['tags'])) {
@@ -63,7 +63,7 @@ class PageControllerService
             'description' => $data['description'],
             'content' => encodeFromCkEditor($data['content']),
             'created_by' => $this->user->id,
-            'approved' => $approved ? true : null
+            'approved' => $this->shouldBeApproved($approved)
         ]);
 
         return $page;
@@ -78,7 +78,7 @@ class PageControllerService
         $page->description = $data['description'];
         $page->content = encodeFromCkEditor($data['content']);
         $page->slug = str_slug($data['title']);
-        $page->approved = (int) isset($data['approved']) ? 1 : $page->approved;
+        $page->approved = $this->shouldBeApproved($data, $page);
         $page->save();
 
         if (isset($data['last_draft_id']) && !empty($data['last_draft_id'])) {
@@ -108,6 +108,22 @@ class PageControllerService
         return Page::leftJoin('slug_forwarding_settings', 'pages.slug', '=', 'slug_forwarding_settings.new_slug')
             ->where('old_slug', $pageSlug)
             ->firstOrFail();
+    }
+
+    public function shouldBeApproved($incomingData, $currentPage = null)
+    {
+        if (!env('FEATURE_CURATION_ENABLED')) {
+            // If curation is turned off, return true (already approved)
+            return 1;
+        } else if (isset($incomingData['approved'])) {
+            // If new data specifies approved, listen
+            return 1;
+        } else if ($currentPage != null) {
+            // If no other data available but it was already approved, go
+            return $currentPage->approved;
+        }
+
+        return null;
     }
 
     public function registerSlugForwarding($oldPage, $newPage)

@@ -74,14 +74,17 @@ class PageModelService implements SearchableModelService
         $count = 1;
         $string = '';
         foreach ($edits as $edit) {
-            if ($count < $edit->count()) {
-                $string .= '<strong>' . $edit->creator->name . '</strong>, ';
+            $creator = $edit->creator;
+            $creatorString = '<a href="/u/' . $creator->slug . '">' . $creator->name . '</a>';
+
+            if ($count < $edits->count()) {
+                $string .= '<strong>' . $creatorString . '</strong>, ';
             } else {
-                $string = trim($string, ', ') . ' and <strong>' . $edit->creator->name . '</strong>';
+                $string = rtrim($string, ', ') . ' and <strong>' . $creatorString . '</strong>';
             }
             $count++;
         }
-        return $string;
 
+        return $string;
     }
 }

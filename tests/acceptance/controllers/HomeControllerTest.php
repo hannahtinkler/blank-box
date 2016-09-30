@@ -58,7 +58,7 @@ class HomeControllerTest extends TestCase
             ->assertResponseStatus(302);
         
         $this->get('/')
-            ->see('<span class="text-mutedblock" title="Switch Categories">'. $category->title .' <b class="caret"></b></span>');
+            ->see('<span class="text-mutedblock" title="You are currently exploring the '. $category->title .' category.');
     }
 
     public function testItCanAccessFeed()

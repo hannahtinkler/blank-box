@@ -31,8 +31,14 @@ class ChapterTest extends TestCase
     public function testPagesRelationshipReturnsPages()
     {
         $chapter = factory(Chapter::class)->create();
-        factory(Page::class)->create(['chapter_id' => $chapter->id]);
-        factory(Page::class)->create(['chapter_id' => $chapter->id]);
+
+        $overrides = [
+            'chapter_id' => $chapter->id,
+            'approved' => true
+        ];
+        
+        factory(Page::class)->create($overrides);
+        factory(Page::class)->create($overrides);
 
         $this->assertTrue($chapter->pages->first() instanceof Page);
     }

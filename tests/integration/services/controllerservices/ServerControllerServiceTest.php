@@ -108,9 +108,8 @@ ServerAliveInterval 90
     IdentityFile ~/.ssh/iaptus/BOURNEMOUTH_KEY
     
     # WEB FORWARDING
-        LocalForward 8000 localhost:6080
-        LocalForward 8443 localhost:443
-        LocalForward 9443 localhost:60443
+        LocalForward 8000 10.0.2.70:80
+        LocalForward 8443 10.0.2.70:443
     
     # DATABASE CONNECTIONS
         # iaptusdbvnode16 (Multi-Master-1a)

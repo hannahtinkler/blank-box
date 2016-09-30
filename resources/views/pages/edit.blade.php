@@ -91,9 +91,17 @@
                 <!-- IF is a curator -->
                 <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
                 <!-- END IF -->
-
+                
                 <div class="btn-toolbar pull-right">
-                    <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Review</strong></button></div>
+                    <div class="btn-group">
+                        <button class="btn btn-sm btn-primary m-t-n-xs" type="submit">
+                            @if (!env('FEATURE_CURATION_ENABLED'))
+                                <strong>Submit</strong>
+                            @else
+                                <strong>Submit for Review</strong>
+                            @endif
+                        </button>
+                    </div>
                 </div>
             </div>
         </form>

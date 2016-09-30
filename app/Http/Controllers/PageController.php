@@ -71,7 +71,7 @@ class PageController extends Controller
         
         $this->controllerService->storeSuggestedEdit($page, $request->input(), $editableByUser);
 
-        if ($editableByUser) {
+        if ($editableByUser || !env('FEATURE_CURATION_ENABLED')) {
             $this->controllerService->updatePage($page, $request->input());
             $message = 'This page has been edited successfully and you\'re now viewing it.';
         } else {
@@ -88,7 +88,14 @@ class PageController extends Controller
     public function store(PageRequest $request)
     {
         $page = $this->controllerService->storePage($request->input());
-        return redirect($page->searchResultUrl())->with('message', '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.');
+
+        if (env('FEATURE_CURATION_ENABLED')) {
+            $message = '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.';
+        } else {
+            $message = '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it.';
+        }
+
+        return redirect($page->searchResultUrl())->with('message', $message);
     }
     
     public function destroy($id)

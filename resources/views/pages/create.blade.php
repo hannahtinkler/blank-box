@@ -82,7 +82,16 @@
         <div class="btn-toolbar pull-right">
             <div class="btn-group"><a class="btn btn-sm btn-default m-t-n-xs save-as-draft"><strong>Save as Draft</strong></a></div>
             <div class="btn-group"><a class="btn btn-sm btn-default m-t-n-xs preview-page"><strong>Preview</strong></a></div>
-            <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Submit for Review</strong></button></div>
+
+            <div class="btn-group">
+                <button class="btn btn-sm btn-primary m-t-n-xs" type="submit">
+                    @if (!env('FEATURE_CURATION_ENABLED'))
+                        <strong>Submit</strong>
+                    @else
+                        <strong>Submit for Review</strong>
+                    @endif
+                </button>
+            </div>
         </div>
     </div>
 </form>

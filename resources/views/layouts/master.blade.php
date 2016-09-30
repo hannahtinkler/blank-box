@@ -36,7 +36,7 @@
                      <div class="dropdown profile-element">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="table_data_tables.html#">
                             <span class="clear">
-                                <span class="text-mutedblock" title="You are currently exploring the {{ $current['category']->title }} category. Click to switch categories. ">
+                                <span class="text-mutedblock" title="You are currently exploring the {{ $current['category']->title }} category. Click to switch categories.">
                                 {{ $current['category']->title }}
                                 @if($categories->count() > 1)
                                     <b class="caret"></b></span>
@@ -92,7 +92,7 @@
                     @endforeach
                 @endif
                 <li class="spacer"><hr></li>
-                @if($user->curator)
+                @if($user->curator && env('FEATURE_CURATION_ENABLED'))
                     <li{!! Request::is('curation/*') ? ' class="active"' : null !!}>
                         <a href="/curation">
                             <span class="nav-label"><i class="fa fa-check"></i> <span class="nav-label">Curation</span> ({{ $awaitingCurationCountNew + $awaitingCurationCountEdits }})</span>

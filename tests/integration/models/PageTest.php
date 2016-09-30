@@ -72,9 +72,18 @@ class PageTest extends TestCase
      */
     public function testTheLatestUpdatedQueryScope()
     {
-        $page1 = factory(Page::class)->create(['updated_at' => '2020-05-01 12:43:23']);
-        $page2 = factory(Page::class)->create(['updated_at' => '2020-05-10 12:43:23']);
-        $page3 = factory(Page::class)->create(['updated_at' => '2020-05-06 12:43:23']);
+        $timestamps = [
+            'created_at' => '2020-05-01 12:43:23',
+            'updated_at' => '2020-05-01 12:43:23',
+            'deleted_at' => null,
+            'approved' => true
+        ];
+
+        $page1 = factory(Page::class)->create($timestamps);
+        $page2 = factory(Page::class)->create(
+            array_merge($timestamps, ['updated_at' => '2021-05-01 12:43:23'])
+        );
+        $page3 = factory(Page::class)->create($timestamps);
         
         $expected = Page::find($page2->id)->toArray();
         $actual = Page::latestUpdated()->first()->toArray();
@@ -107,9 +116,17 @@ class PageTest extends TestCase
     public function testTheLargestOrderValueQueryScope()
     {
         $chapter = factory(Chapter::class)->create();
-        $page1 = factory(Page::class)->create(['chapter_id' => $chapter->id, 'order' => 5]);
-        $page2 = factory(Page::class)->create(['chapter_id' => $chapter->id, 'order' => 25]);
-        $page3 = factory(Page::class)->create(['chapter_id' => $chapter->id, 'order' => 15]);
+
+        $overrides = [
+            'chapter_id' => $chapter->id,
+            'created_at' => '2020-05-01 12:43:23',
+            'updated_at' => '2020-05-01 12:43:23',
+            'deleted_at' => null
+        ];
+
+        $page1 = factory(Page::class)->create(array_merge($overrides, ['order' => 5]));
+        $page2 = factory(Page::class)->create(array_merge($overrides, ['order' => 9999]));
+        $page3 = factory(Page::class)->create(array_merge($overrides, ['order' => 15]));
         
         $expected = Page::find($page2->id)->toArray();
         $actual = Page::largestOrderValue($chapter->id)->toArray();
