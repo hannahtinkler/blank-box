@@ -100,7 +100,7 @@ class PageController extends Controller
     
     public function destroy($id)
     {
-        if (!$this->controllerService->user->curator || !env('FEATURE_CURATION_ENABLED')) {
+        if (!$this->controllerService->user->curator && env('FEATURE_CURATION_ENABLED')) {
             return \App::abort(401);
         }
         
