@@ -82,6 +82,8 @@ information a person has contributed to <?php echo env('APP_NAME', 'Black Box');
             @endforeach
         @endif
     </div>
+
+    @if(false)
     <div class="col-md-6">
         <h3 class="m-b-md">Recent Page Updates:</h3>
         @if($user->suggestedEdits->isEmpty())
@@ -95,6 +97,7 @@ information a person has contributed to <?php echo env('APP_NAME', 'Black Box');
             @endforeach
         @endif
     </div>
+    @endif
 </div>
 
 @if(session('message'))
