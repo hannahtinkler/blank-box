@@ -8105,6 +8105,9 @@ body.amt-skin:not(.gray-bg) {
 .amt-skin .logo-space a {
   color: #4D5356 !important;
 }
+.amt-skin .dropdown.profile-element ul li a {
+  color: #511f32 !important;
+}
 body.md-skin {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #ffffff;
