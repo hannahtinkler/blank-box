@@ -1011,5 +1011,32 @@ class ServiceSeeder extends Seeder
             'live_site_url' => ''
         ]);
 
+        Service::create([
+            'area' => 'South Stafforshire & Shropshire',
+            'name' => 'SSSFT (South Stafforshire & Shropshire Foundation Trust)',
+            'service_id' => 205,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'Sunderland',
+            'name' => 'Sunderland Counselling Service',
+            'service_id' => 206,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'Online',
+            'name' => 'ELHT CAMHS (East Lancashire Hospitals Trust)',
+            'service_id' => 207,
+            'type' => 'CYP',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
     }
 }
