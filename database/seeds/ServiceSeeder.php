@@ -1002,5 +1002,14 @@ class ServiceSeeder extends Seeder
             'live_site_url' => ''
         ]);
 
+        Service::create([
+            'area' => 'Online',
+            'name' => 'BWW (Big White Wall)',
+            'service_id' => 208,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
     }
 }
