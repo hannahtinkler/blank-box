@@ -1,4 +1,4 @@
-@if($user->curator && !env('FEATURE_CURATION_ENABLED'))
+@if($user->curator || !env('FEATURE_CURATION_ENABLED'))
     <div class="m-t-sm btn-group pull-right page-options">
         @if($page->approved === null)
             <div class="m-t-sm btn-group pull-right">
