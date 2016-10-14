@@ -23,7 +23,7 @@
             <tr id="{{ $service->id }}" {!! $service->id == Request::segment(5) ? ' class="highlight-row"' : null !!}>
                 <td>
                     @if($service->live_site_url)
-                        <a target="_blank" href="{{ $service->live_site_url }}:8000"><i class="fa fa-share-square-o"></i></a>
+                        <a target="_blank" href="https://{{ $service->live_site_url }}:8443"><i class="fa fa-share-square-o"></i></a>
                     @endif
                 </td>
                 <td>{{ $service->service_id }}</td>
