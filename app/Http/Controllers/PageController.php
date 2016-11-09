@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use League\CommonMark\CommonMarkConverter;
 
 use App\Http\Requests\PageRequest;
 use App\Services\ControllerServices\PageControllerService;
@@ -17,12 +18,16 @@ class PageController extends Controller
 {
     private $controllerService;
 
-    public function __construct(Request $request, PageControllerService $controllerService)
-    {
+    public function __construct(
+        Request $request,
+        PageControllerService $controllerService,
+        CommonMarkConverter $converter
+    ) {
         $this->user = $request->user();
         $this->controllerService = $controllerService;
+        $this->converter = $converter;
     }
-    
+
     public function show($categorySlug, $chapterSlug, $pageSlug)
     {
         $page = Page::findBySlug($pageSlug);
@@ -35,12 +40,14 @@ class PageController extends Controller
             \App::abort(401);
         }
 
+        $page->content = $this->converter->convertToHtml($page->content);
+
         return view('pages.show', [
             'page' => $page,
             'user' => $this->controllerService->user
         ]);
     }
-    
+
     public function create()
     {
         $categories = Category::orderBy('title')->get();

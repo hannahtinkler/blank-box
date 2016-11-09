@@ -10,6 +10,7 @@
     <title><?php echo env('APP_NAME', 'Black Box'); ?></title>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/simplemde.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -283,6 +284,7 @@
 <!-- Custom and plugin javascript -->
 <script src="/js/inspinia.js"></script>
 <script src="/js/plugins/pace/pace.min.js"></script>
+<script src="/js/simplemde.min.js"></script>
 
 </body>
 

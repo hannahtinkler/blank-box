@@ -43,6 +43,15 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
+use League\CommonMark\CommonMarkConverter;
+
+$app->bind(CommonMarkConverter::class, function ($app) {
+    return new CommonMarkConverter([
+        'html_input' => 'escape',
+        'allow_unsafe_links' => false,
+    ]);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Return The Application

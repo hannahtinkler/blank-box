@@ -112,6 +112,10 @@
 @section('scripts')
 
 <script>
+    var simpleMde = new SimpleMDE({
+      element: document.getElementById('textboxCkeditor')
+    })
+
     $('#tag-select').select2({
         tags: true,
         tokenSeparators: [','],
@@ -119,8 +123,6 @@
     });
 
     $(document).ready(function () {
-        CKEDITOR.replace('textboxCkeditor');
-        
         $('#category_id').change(function() {
             getChapters();
         });
