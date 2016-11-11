@@ -16,16 +16,16 @@
 @endif
 
 <div class="diff-container m-t-xl">
-    <h2>{!! decodeFromCkEditor($diff['category']) !!} - {!! decodeFromCkEditor($diff['chapter']) !!}</h2>
+    <h2>{!! $diff['category'] !!} - {!! $diff['chapter'] !!}</h2>
     <h3 class="m-b-lg">
-        {!! decodeFromCkEditor($diff['title']) !!}
+        {!! $diff['title'] !!}
     </h3>
 
-    {!! decodeFromCkEditor($diff['description']) !!}
+    {!! $diff['description'] !!}
 
     <hr class="m-t-lg">
 
-    {!! decodeFromCkEditor($diff['content']) !!}
+    {!! $diff['content'] !!}
 </div>
 
 
