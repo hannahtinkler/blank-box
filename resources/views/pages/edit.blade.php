@@ -1,11 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    @if($editable)
-        <h1>Edit Page</h1>
-    @else
-        <h1>Suggest an Edit</h1>
-    @endif
+    <h1>Suggest an Edit</h1>
 
     <hr>
     <div class="col-sm-12">

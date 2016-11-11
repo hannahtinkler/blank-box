@@ -98,9 +98,4 @@ class Page extends Model implements SearchableModel
     {
         return $this->modelService->searchResultIcon();
     }
-
-    public function editableByUser($user)
-    {
-        return $this->modelService->editableByUser($user);
-    }
 }

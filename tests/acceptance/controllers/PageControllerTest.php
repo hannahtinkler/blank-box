@@ -53,14 +53,15 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanNotAccessUnapprovedPageAsReader()
+    public function testItCanAccessUnapprovedPageAsReader()
     {
         $this->logInAsUser();
 
         $page = factory(App\Models\Page::class)->create();
 
         $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
-            ->assertResponseStatus(401);
+            ->see($page->title)
+            ->assertResponseStatus(200);
     }
 
     /**
@@ -110,42 +111,6 @@ class PageControllerTest extends TestCase
 
         $this->get('/pages/create')
             ->see('Create New Page')
-            ->assertResponseStatus(200);
-    }
-
-    /**
-     * Test that a request to the route that shows a user the 'Edit Page' Page
-     * shows the 'Edit Page' page and returns a 200 response code (OK) when
-     * logged in as a curator
-     *
-     * @return void
-     */
-    public function testItCanAccessEditPageAsCurator()
-    {
-        $this->logInAsUser(['curator' => true]);
-
-        $page = factory(App\Models\Page::class)->create();
-
-        $this->get('/pages/edit/' . $page->id)
-            ->see('Edit Page')
-            ->assertResponseStatus(200);
-    }
-
-    /**
-     * Test that a request to the route that shows a user the 'Edit Page' Page
-     * shows the 'Edit Page' page and returns a 200 response code (OK) when
-     * logged in as the author of the page
-     *
-     * @return void
-     */
-    public function testItCanAccessEditPageAsAuthor()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create(['created_by' => $this->user->id]);
-
-        $this->get('/pages/edit/' . $page->id)
-            ->see('Edit Page')
             ->assertResponseStatus(200);
     }
 
@@ -219,43 +184,6 @@ class PageControllerTest extends TestCase
     }
 
     /**
-     * Test that a request to the route that updates an existing page works when
-     * logged in as a curator and passed all available data from the edit
-     * form
-     *
-     * @return void
-     */
-    public function testItCanUpdateAnExistingPageAsCuratorWithAllData()
-    {
-        $this->logInAsUser(['curator' => true]);
-
-        $page = factory(App\Models\Page::class)->create();
-
-        $data = [
-            '_token' => csrf_token(),
-            'category_id' => $page->chapter->category->id,
-            'chapter_id' => $page->chapter->id,
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
-            'content' => $this->faker->text,
-            'last_draft_id' => null
-        ];
-
-        $this->put('/pages/' . $page->id, $data)
-            ->assertResponseStatus(302);
-
-        $expected = $data;
-        $expected['created_by'] = $page->created_by;
-
-        $actual = Page::find($page->id)->toArray();
-
-        $this->assertEquals(
-            $this->comparableFields($expected),
-            $this->comparableFields($actual)
-        );
-    }
-
-    /**
      * Test that a request to the route that updates an existing page returns
      * errors when logged in as a curator and passed no available data from
      * the edit form
@@ -274,45 +202,8 @@ class PageControllerTest extends TestCase
 
         $this->put('/pages/' . $page->id, $data)
             ->assertResponseStatus(302);
-        
+
         $this->assertSessionHasErrors();
-    }
-
-    /**
-     * Test that a request to the route that updates an existing page works
-     * when logged in as the page author and passed all available data from
-     * the edit form
-     *
-     * @return void
-     */
-    public function testItCanUpdateAnExistingPageAsAuthorWithAllData()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create(['created_by' => $this->user->id]);
-
-        $data = [
-            '_token' => csrf_token(),
-            'category_id' => $page->chapter->category->id,
-            'chapter_id' => $page->chapter->id,
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->sentence,
-            'content' => $this->faker->text,
-            'last_draft_id' => null
-        ];
-
-        $this->put('/pages/' . $page->id, $data)
-            ->assertResponseStatus(302);
-
-        $expected = $data;
-        $expected['created_by'] = $page->created_by;
-
-        $actual = Page::find($page->id)->toArray();
-
-        $this->assertEquals(
-            $this->comparableFields($expected),
-            $this->comparableFields($actual)
-        );
     }
 
     /**
@@ -334,7 +225,7 @@ class PageControllerTest extends TestCase
 
         $this->put('/pages/' . $page->id, $data)
             ->assertResponseStatus(302);
-        
+
         $this->assertSessionHasErrors();
     }
 
@@ -356,7 +247,7 @@ class PageControllerTest extends TestCase
 
         $this->put('/pages/' . $page->id, $data)
             ->assertResponseStatus(302);
-        
+
         $this->assertSessionHasErrors();
     }
 

@@ -31,11 +31,6 @@ class PageModelService implements SearchableModelService
         return Page::searchByQuery($query, null, null, 100);
     }
 
-    public function editableByUser($user)
-    {
-        return $this->page->created_by == $user->id || $user->curator;
-    }
-
     public function searchResultString()
     {
         return 'Page: ' . $this->page->title;
