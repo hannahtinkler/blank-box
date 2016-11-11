@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use League\CommonMark\CommonMarkConverter;
 
 use App\Http\Requests\PageDraftRequest;
 
@@ -17,9 +18,10 @@ class PageDraftController extends Controller
 {
     private $controllerService;
 
-    public function __construct(PageDraftControllerService $controllerService)
+    public function __construct(PageDraftControllerService $controllerService, CommonMarkConverter $converter)
     {
         $this->controllerService = $controllerService;
+        $this->converter = $converter;
     }
 
     public function index(Request $request, $userSlug)
@@ -64,7 +66,9 @@ class PageDraftController extends Controller
     public function preview(Request $request, $userSlug, $id)
     {
         $page = PageDraft::findOrFail($id);
-        
+
+        $page->content = $this->converter->convertToHtml($page->content);
+
         return view('pages.preview', compact('page'));
     }
 

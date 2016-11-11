@@ -7,7 +7,7 @@
 
 <hr>
 
-{!! decodeFromCkEditor($page->content) !!}
+{!! $page->content !!}
 
 <div class="btn-toolbar pull-right m-t-xl">
     <div class="btn-group"><button class="btn btn-primary" id="close-preview"><strong>Close Preview</strong></button></div>

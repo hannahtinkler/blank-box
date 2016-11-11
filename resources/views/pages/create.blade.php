@@ -190,7 +190,7 @@
         }
 
         function getFormContent() {
-            $('#textboxCkeditor').text(CKEDITOR.instances.textboxCkeditor.getData());
+            $('#textboxCkeditor').text(simpleMde.value());
             return $('#new-page-form').serializeArray();
         }
 
