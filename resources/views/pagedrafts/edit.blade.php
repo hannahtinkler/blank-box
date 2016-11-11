@@ -88,10 +88,9 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        var currentDraft = parseInt($('#last-draft-id').val());
-
-        CKEDITOR.replace('textboxCkeditor');
-        CKEDITOR.config.height = 500;
+        var simpleMde = new SimpleMDE({
+          element: document.getElementById('textboxCkeditor')
+        })
 
         if ($('#category_id').val() != '') {
            getChapters();
@@ -164,7 +163,7 @@
         }
 
         function getFormContent() {
-            $('#textboxCkeditor').text(CKEDITOR.instances.textboxCkeditor.getData());
+            $('#textboxCkeditor').text(simpleMde.value());
             return $('#edit-draft-form').serializeArray();
         }
 
