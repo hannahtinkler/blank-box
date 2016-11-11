@@ -8405,17 +8405,6 @@ navbar .form-control,
   left: 10px;
   font-size: 14px;
 }
-code,
-pre {
-  background-color: #E0E8ED;
-  border-radius: 0;
-  border: none;
-  color: #222;
-  padding-left: 0;
-}
-code span {
-  color: #9CA6AB;
-}
 .text-right {
   text-align: right;
 }
@@ -8683,7 +8672,6 @@ ol li {
 img.not-earned,
 .not-earned img {
   opacity: 0.2;
-  -webkit-filter: grayscale(60%);
   -moz-filter: grayscale(60%);
   filter: grayscale(60%);
 }
@@ -8758,16 +8746,6 @@ img.not-earned,
 }
 hr {
   border-top: 1px solid #e6e3e3;
-}
-code,
-pre {
-  white-space: pre-wrap;
-  white-space: -moz-pre-wrap;
-  white-space: -pre-wrap;
-  white-space: -o-pre-wrap;
-  word-wrap: break-word;
-  margin: 1em 0 3em;
-  padding: 0.2em 0.6em;
 }
 pre {
   padding: 0.6em 0.6em;

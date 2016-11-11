@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/simplemde.min.css">
+    <link rel="stylesheet" href="/css/prism.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -285,6 +286,7 @@
 <script src="/js/inspinia.js"></script>
 <script src="/js/plugins/pace/pace.min.js"></script>
 <script src="/js/simplemde.min.js"></script>
+<script src="/js/prism.min.js"></script>
 
 </body>
 
@@ -310,7 +312,7 @@
                 $.ajax('/u/{{ $user->slug }}/bookmarks/create/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
-                  },                  
+                  },
                   error: function() {
                     $('.bookmark').removeClass('active');
                     alert('Bookmark creation failed');
