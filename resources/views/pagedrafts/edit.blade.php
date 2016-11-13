@@ -64,7 +64,7 @@
     <div class="col-sm-12">
         <div class="form-group m-b-xs">
             <label>Content</label>
-            <textarea class="form-control" name="content" id="textboxCkeditor">{{ $draft->content == '' ? $draft->content : $draft->content }}</textarea>
+            <textarea class="form-control" name="content" id="content">{{ $draft->content == '' ? $draft->content : $draft->content }}</textarea>
         </div>
         <small class="italic help-block last-saved pull-right m-b-lg">Not yet saved</small>
     </div>
@@ -89,7 +89,7 @@
 <script>
     $(document).ready(function () {
         var simpleMde = new SimpleMDE({
-          element: document.getElementById('textboxCkeditor')
+          element: document.getElementById('content')
         })
 
         if ($('#category_id').val() != '') {
@@ -163,7 +163,7 @@
         }
 
         function getFormContent() {
-            $('#textboxCkeditor').text(simpleMde.value());
+            $('#content').text(simpleMde.value());
             return $('#edit-draft-form').serializeArray();
         }
 

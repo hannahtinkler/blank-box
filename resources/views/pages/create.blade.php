@@ -56,7 +56,7 @@
     <div class="col-sm-12">
         <div class="form-group m-b-xs">
             <label>Content</label>
-            <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') }}</textarea>
+            <textarea class="form-control" name="content" id="content">{{ old('content') }}</textarea>
         </div>
         <small class="italic help-block last-saved pull-right m-b-sm">Not yet saved</small>
     </div>
@@ -102,7 +102,7 @@
 @section('scripts')
 <script>
     var simpleMde = new SimpleMDE({
-      element: document.getElementById('textboxCkeditor')
+      element: document.getElementById('content')
     })
 
     $('#tag-select').select2({
@@ -190,7 +190,7 @@
         }
 
         function getFormContent() {
-            $('#textboxCkeditor').text(simpleMde.value());
+            $('#content').text(simpleMde.value());
             return $('#new-page-form').serializeArray();
         }
 

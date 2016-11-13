@@ -9,12 +9,11 @@
         "laravel/framework": "5.2.*",
         "elasticquent/elasticquent": "dev-master",
         "cogpowered/finediff": "0.3.*",
-        "unisharp/laravel-ckeditor": "^4.5",
         "laravel/socialite": "^2.0",
-        "phpspec/prophecy": "~1.0",
         "league/commonmark": "^0.15.1"
     },
     "require-dev": {
+        "phpspec/prophecy": "~1.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "^5",
