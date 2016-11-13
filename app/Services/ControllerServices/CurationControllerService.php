@@ -4,8 +4,6 @@ namespace App\Services\ControllerServices;
 
 use Illuminate\Http\Request;
 
-use League\CommonMark\CommonMarkConverter;
-
 use cogpowered\FineDiff\Diff;
 use cogpowered\FineDiff\Granularity\Sentence;
 
@@ -20,13 +18,10 @@ class CurationControllerService
 {
     public $user;
 
-    public function __construct(
-        Request $request,
-        PageControllerService $pageControllerService
-    ) {
+    public function __construct(Request $request, PageControllerService $pageControllerService)
+    {
         $this->user = $request->user();
         $this->pageControllerService = $pageControllerService;
-        $this->converter = \App::make('unsafe-markdown');
     }
 
     public function approveSuggestedEdit($id)
@@ -66,7 +61,6 @@ class CurationControllerService
         $page->save();
         
         \Event::fire(new PageWasAddedToChapter($page, $page->creator));
-
     }
 
     public function rejectNewPage($id)
@@ -80,13 +74,14 @@ class CurationControllerService
     {
         $granularity =  new Sentence;
         $differ = new Diff($granularity);
+        $converter = \App::make('unsafe-markdown');
 
         $diff = [
             'category' => $differ->render($original->chapter->title, $new->chapter->title),
             'chapter' => $differ->render($original->chapter->category->title, $new->chapter->category->title),
             'title' => $differ->render($original->title, $new->title),
             'description' => $differ->render($original->description, $new->description),
-            'content' => $this->converter->convertToHtml($differ->render($original->content, $new->content)),
+            'content' => $converter->convertToHtml($differ->render($original->content, $new->content)),
         ];
 
         return $diff;
