@@ -57,7 +57,7 @@ pre {
     overflow: auto
 }
 
-:not(pre)>code,
+pre > code,
 pre {
     background: #282c34
 }
