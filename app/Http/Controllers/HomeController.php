@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;
 use App\Models\Page;
 use App\Models\FeedEvent;
 use App\Models\User;
@@ -14,7 +15,9 @@ class HomeController extends Controller
     {
         $feedEvents = FeedEvent::orderBy('created_at', 'DESC')->paginate(20);
 
-        return view('home.index', compact('feedEvents'));
+        $daysTilXmas = Carbon::createFromDate(2016, 12, 25)->diff(Carbon::createFromDate())->days;
+
+        return view('home.index', compact('feedEvents', 'daysTilXmas'));
     }
     
     public function contributors()
