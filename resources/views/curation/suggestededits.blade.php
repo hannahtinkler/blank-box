@@ -21,7 +21,7 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-md-12">
-                                <a target="_blank" href="/curation/viewdiff/{{ $edit->id }}">
+                                <a href="/curation/viewdiff/{{ $edit->id }}">
                                     <h2>
                                         {{ $edit->title }}
                                     </h2>
