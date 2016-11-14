@@ -52,15 +52,15 @@
             <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
         </div>
     </div>
-        
+
     <div class="col-sm-12">
         <div class="form-group m-b-xs">
-            <label>Content</label> 
-            <textarea class="form-control" name="content" id="textboxCkeditor">{{ old('content') }}</textarea>
+            <label>Content</label>
+            <textarea class="form-control" name="content" id="content">{{ old('content') }}</textarea>
         </div>
         <small class="italic help-block last-saved pull-right m-b-sm">Not yet saved</small>
     </div>
-        
+
     <div class="col-sm-12 m-b-lg">
         <div class="form-group">
             <label>Tags <span class="italic">(comma separated)</span> <i class="fa fa-question-circle pointer" title="These tags will be used to suggest help pages for Orbit tasks based on task title"></i></label>
@@ -101,6 +101,10 @@
 
 @section('scripts')
 <script>
+    var simpleMde = new SimpleMDE({
+      element: document.getElementById('content')
+    })
+
     $('#tag-select').select2({
         tags: true,
         tokenSeparators: [','],
@@ -109,8 +113,6 @@
 
     $(document).ready(function () {
         var currentDraft;
-
-        CKEDITOR.replace('textboxCkeditor');
 
         if ($('#category_id').val() != '') {
            getChapters();
@@ -188,7 +190,7 @@
         }
 
         function getFormContent() {
-            $('#textboxCkeditor').text(CKEDITOR.instances.textboxCkeditor.getData());
+            $('#content').text(simpleMde.value());
             return $('#new-page-form').serializeArray();
         }
 

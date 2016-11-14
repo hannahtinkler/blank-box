@@ -15,8 +15,6 @@ $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
-require 'helpers.php';
-
 /*
 |--------------------------------------------------------------------------
 | Bind Important Interfaces
@@ -42,6 +40,21 @@ $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
     App\Exceptions\Handler::class
 );
+
+use League\CommonMark\CommonMarkConverter;
+
+$app->bind(CommonMarkConverter::class, function ($app) {
+    return new CommonMarkConverter([
+        'html_input' => 'escape',
+        'allow_unsafe_links' => false,
+    ]);
+});
+
+$app->bind('unsafe-markdown', function ($app) {
+    return new CommonMarkConverter([
+        'allow_unsafe_links' => false,
+    ]);
+});
 
 /*
 |--------------------------------------------------------------------------

@@ -10,6 +10,8 @@
     <title><?php echo env('APP_NAME', 'Black Box'); ?></title>
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/simplemde.min.css">
+    <link rel="stylesheet" href="/css/prism.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/style.css">
@@ -275,7 +277,6 @@
 <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <script src="/js/easyAutocomplete.js"></script>
-<script src="/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 <script src="https://www.draw.io/js/viewer.min.js" type="text/javascript"></script>
@@ -283,6 +284,8 @@
 <!-- Custom and plugin javascript -->
 <script src="/js/inspinia.js"></script>
 <script src="/js/plugins/pace/pace.min.js"></script>
+<script src="/js/simplemde.min.js"></script>
+<script src="/js/prism.min.js"></script>
 
 </body>
 
@@ -308,7 +311,7 @@
                 $.ajax('/u/{{ $user->slug }}/bookmarks/create/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
-                  },                  
+                  },
                   error: function() {
                     $('.bookmark').removeClass('active');
                     alert('Bookmark creation failed');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use League\CommonMark\CommonMarkConverter;
 
 use App\Http\Requests\PageRequest;
 use App\Services\ControllerServices\PageControllerService;
@@ -17,12 +18,16 @@ class PageController extends Controller
 {
     private $controllerService;
 
-    public function __construct(Request $request, PageControllerService $controllerService)
-    {
+    public function __construct(
+        Request $request,
+        PageControllerService $controllerService,
+        CommonMarkConverter $converter
+    ) {
         $this->user = $request->user();
         $this->controllerService = $controllerService;
+        $this->converter = $converter;
     }
-    
+
     public function show($categorySlug, $chapterSlug, $pageSlug)
     {
         $page = Page::findBySlug($pageSlug);
@@ -31,16 +36,14 @@ class PageController extends Controller
             $page = $this->controllerService->retrieveSlugForwardingSetting($pageSlug);
         }
 
-        if (!$page->editableByUser($this->user) && !$page->approved) {
-            \App::abort(401);
-        }
+        $page->content = $this->converter->convertToHtml($page->content);
 
         return view('pages.show', [
             'page' => $page,
             'user' => $this->controllerService->user
         ]);
     }
-    
+
     public function create()
     {
         $categories = Category::orderBy('title')->get();
@@ -54,24 +57,21 @@ class PageController extends Controller
     public function edit($id)
     {
         $page = Page::findOrFail($id);
-        
-        $editable = $page->editableByUser($this->user);
 
         $categories = Category::orderBy('title')->get();
         $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
         $tags = Tag::orderBy('tag')->get();
 
-        return view('pages.edit', compact('page', 'categories', 'chapters', 'editable', 'tags'));
+        return view('pages.edit', compact('page', 'categories', 'chapters', 'tags'));
     }
 
     public function update(PageRequest $request, $id)
     {
         $page = Page::findOrFail($id);
-        $editableByUser = $page->editableByUser($this->user);
-        
-        $this->controllerService->storeSuggestedEdit($page, $request->input(), $editableByUser);
 
-        if ($editableByUser || !env('FEATURE_CURATION_ENABLED')) {
+        $this->controllerService->storeSuggestedEdit($page, $request->input());
+
+        if (!env('FEATURE_CURATION_ENABLED')) {
             $this->controllerService->updatePage($page, $request->input());
             $message = 'This page has been edited successfully and you\'re now viewing it.';
         } else {

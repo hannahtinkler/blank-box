@@ -5,7 +5,7 @@ namespace App\Services\ControllerServices;
 use Illuminate\Http\Request;
 
 use cogpowered\FineDiff\Diff;
-use cogpowered\FineDiff\Granularity\Word;
+use cogpowered\FineDiff\Granularity\Sentence;
 
 use App\Events\PageWasAddedToChapter;
 
@@ -33,7 +33,7 @@ class CurationControllerService
             'chapter_id' => $edit->chapter_id,
             'title' => $edit->title,
             'description' => $edit->description,
-            'content' => encodeFromCkEditor($edit->content),
+            'content' => $edit->content,
             'approved' => 1
         ]);
 
@@ -61,7 +61,6 @@ class CurationControllerService
         $page->save();
         
         \Event::fire(new PageWasAddedToChapter($page, $page->creator));
-
     }
 
     public function rejectNewPage($id)
@@ -73,15 +72,16 @@ class CurationControllerService
 
     public function getPageDiff($original, $new)
     {
-        $granularity =  new Word;
+        $granularity =  new Sentence;
         $differ = new Diff($granularity);
+        $converter = \App::make('unsafe-markdown');
 
         $diff = [
             'category' => $differ->render($original->chapter->title, $new->chapter->title),
             'chapter' => $differ->render($original->chapter->category->title, $new->chapter->category->title),
             'title' => $differ->render($original->title, $new->title),
             'description' => $differ->render($original->description, $new->description),
-            'content' => $differ->render($original->content, $new->content)
+            'content' => $converter->convertToHtml($differ->render($original->content, $new->content)),
         ];
 
         return $diff;

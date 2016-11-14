@@ -35,14 +35,15 @@ class SearchControllerServiceTest extends TestCase
 
     public function testProcessSearchReturnsResults()
     {
-        $controllerService = new SearchControllerService($this->request, '');
+        $controllerService = new SearchControllerService($this->request, 'Cloud1');
 
         $actual = $controllerService->processSearch(config('elasticquent.searchables'));
         $expected = [
             'content' => "Server: Cloud1 / Box server 1 - Box  (VBox Host)",
             'url' => "/p/mayden/servers/server-details/1",
-            'score' => 0.5
-          ];
+        ];
+
+        unset($actual[0]['score']);
 
         $this->assertEquals($expected, $actual[0]);
     }

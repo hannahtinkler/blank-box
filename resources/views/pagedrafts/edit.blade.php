@@ -64,7 +64,7 @@
     <div class="col-sm-12">
         <div class="form-group m-b-xs">
             <label>Content</label>
-            <textarea class="form-control" name="content" id="textboxCkeditor">{{ $draft->content == '' ? $draft->content : $draft->content }}</textarea>
+            <textarea class="form-control" name="content" id="content">{{ $draft->content == '' ? $draft->content : $draft->content }}</textarea>
         </div>
         <small class="italic help-block last-saved pull-right m-b-lg">Not yet saved</small>
     </div>
@@ -88,10 +88,9 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        var currentDraft = parseInt($('#last-draft-id').val());
-
-        CKEDITOR.replace('textboxCkeditor');
-        CKEDITOR.config.height = 500;
+        var simpleMde = new SimpleMDE({
+          element: document.getElementById('content')
+        })
 
         if ($('#category_id').val() != '') {
            getChapters();
@@ -164,7 +163,7 @@
         }
 
         function getFormContent() {
-            $('#textboxCkeditor').text(CKEDITOR.instances.textboxCkeditor.getData());
+            $('#content').text(simpleMde.value());
             return $('#edit-draft-form').serializeArray();
         }
 

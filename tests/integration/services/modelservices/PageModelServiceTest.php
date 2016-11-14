@@ -61,42 +61,6 @@ class PageModelServiceTest extends TestCase
     }
 
     /**
-     * Tests that a call to the method which determines whether a page should
-     * be editable by the logged in user returns false for a reader
-     *
-     * @return void
-     */
-    public function testPageIsNotEditableByReader()
-    {
-        $modelService = $this->getPageModelService();
-        $this->assertFalse($modelService->editableByUser($this->user));
-    }
-
-    /**
-     * Tests that a call to the method which determines whether a page should
-     * be editable by the logged in user returns true for an author
-     *
-     * @return void
-     */
-    public function testPageIsEditableByAuthor()
-    {
-        $modelService = $this->getPageModelService([], true);
-        $this->assertTrue($modelService->editableByUser($this->user));
-    }
-
-    /**
-     * Tests that a call to the method which determines whether a page should
-     * be editable by the logged in user returns true for a curator
-     *
-     * @return void
-     */
-    public function testPageIsEditableByCurator()
-    {
-        $modelService = $this->getPageModelService(['curator' => true]);
-        $this->assertTrue($modelService->editableByUser($this->user));
-    }
-    
-    /**
      * Create instance of PageModelService class using any configurations
      * passed in
      *

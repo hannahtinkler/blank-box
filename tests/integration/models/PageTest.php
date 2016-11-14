@@ -183,45 +183,6 @@ class PageTest extends TestCase
     }
 
     /**
-     * Tests that any page is not editable by a reader/non-author
-     *
-     * @return void
-     */
-    public function testPageIsNotEditableByReader()
-    {
-        $user = $this->createAndLoginAUser();
-        $page = factory(Page::class)->create();
-
-        $this->assertFalse($page->editableByUser($user));
-    }
-
-    /**
-     * Tests that any page is editable by an author
-     *
-     * @return void
-     */
-    public function testPageIsEditableByAuthor()
-    {
-        $user = $this->createAndLoginAUser();
-        $page = factory(Page::class)->create(['created_by' => $user->id]);
-
-        $this->assertTrue($page->editableByUser($user));
-    }
-
-    /**
-     * Tests that any page is editable by a curator
-     *
-     * @return void
-     */
-    public function testPageIsEditableByCurator()
-    {
-        $user = $this->createAndLoginAUser(['curator' => true]);
-        $page = factory(Page::class)->create();
-
-        $this->assertTrue($page->editableByUser($user));
-    }
-    
-    /**
      * Tests that a call to the method that returns the search result string
      * for a given record works as expected
      *

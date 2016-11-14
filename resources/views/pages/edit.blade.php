@@ -1,11 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    @if($editable)
-        <h1>Edit Page</h1>
-    @else
-        <h1>Suggest an Edit</h1>
-    @endif
+    <h1>Suggest an Edit</h1>
 
     <hr>
     <div class="col-sm-12">
@@ -24,7 +20,7 @@
     <div class="row">
         <form role="form" id="new-page-form" action="/pages/{{ $page->id }}" method="POST">
             {!! csrf_field() !!}
-            
+
             {!! method_field('PUT') !!}
 
             <input type="hidden" name="page_id" value="{{ $page->id }}" />
@@ -69,10 +65,10 @@
             <div class="col-sm-12 m-b-md">
                 <div class="form-group m-b-xs">
                     <label>Content</label>
-                    <textarea class="form-control" name="content" id="textboxCkeditor">{{ (old('content')) ? old('content') : $page->content }}</textarea>
+                    <textarea class="form-control" name="content" id="content">{{ (old('content')) ? old('content') : $page->content }}</textarea>
                 </div>
             </div>
-        
+
             <div class="col-sm-12  m-b-lg">
                 <div class="form-group">
                     <label>Tags <span class="italic">(comma separated)</span> <i class="fa fa-question-circle pointer" title="These tags will be used to suggest help pages for Orbit tasks based on task title"></i></label>
@@ -91,7 +87,7 @@
                 <!-- IF is a curator -->
                 <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
                 <!-- END IF -->
-                
+
                 <div class="btn-toolbar pull-right">
                     <div class="btn-group">
                         <button class="btn btn-sm btn-primary m-t-n-xs" type="submit">
@@ -112,6 +108,10 @@
 @section('scripts')
 
 <script>
+    var simpleMde = new SimpleMDE({
+      element: document.getElementById('content')
+    })
+
     $('#tag-select').select2({
         tags: true,
         tokenSeparators: [','],
@@ -119,8 +119,6 @@
     });
 
     $(document).ready(function () {
-        CKEDITOR.replace('textboxCkeditor');
-        
         $('#category_id').change(function() {
             getChapters();
         });
