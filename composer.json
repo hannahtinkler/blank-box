@@ -10,7 +10,8 @@
         "elasticquent/elasticquent": "dev-master",
         "cogpowered/finediff": "0.3.*",
         "laravel/socialite": "^2.0",
-        "league/commonmark": "^0.15.1"
+        "league/commonmark": "^0.15.1",
+        "league/html-to-markdown": "^4.3"
     },
     "require-dev": {
         "phpspec/prophecy": "~1.0",
