@@ -8108,6 +8108,198 @@ body.amt-skin:not(.gray-bg) {
 .amt-skin .dropdown.profile-element ul li a {
   color: #511f32 !important;
 }
+/*
+ *
+ *   INSPINIA - Responsive Admin Theme
+ *   NAME - CHRISTMAS SKIN
+ *
+*/
+.christmas-skin .navbar-top-links li:last-child {
+  margin-right: 30px;
+}
+.christmas-skin.fixed-nav .minimalize-styl-2 {
+  margin: 14px 5px 5px 15px;
+}
+.christmas-skin .spin-icon {
+  background: #ad514f !important;
+}
+.christmas-skin .nav-header {
+  background: #ad514f;
+  background: url('patterns/header-profile-christmas-skin.png');
+}
+.christmas-skin.mini-navbar .nav-second-level {
+  background: #6f111b;
+}
+.christmas-skin .breadcrumb {
+  background: transparent;
+}
+.christmas-skin .page-heading {
+  border: none;
+}
+.christmas-skin .nav > li > a {
+  color: #f3e8e8;
+}
+.christmas-skin .navbar-minimalize {
+  background: #ad514f;
+  border-color: #ad514f;
+}
+body.christmas-skin:not(.gray-bg) {
+  background: #6f111b;
+}
+.christmas-skin .navbar-static-top {
+  background: #ffffff;
+}
+.christmas-skin .dashboard-header {
+  background: transparent;
+  border-bottom: none !important;
+  border-top: none;
+  padding: 20px 30px 10px 30px;
+}
+.fixed-nav.christmas-skin .navbar-fixed-top {
+  background: #fff;
+}
+.christmas-skin .wrapper-content {
+  padding: 30px 15px;
+}
+.christmas-skin #page-wrapper {
+  background: #f4f6fa;
+}
+.christmas-skin .ibox-title,
+.christmas-skin .ibox-content {
+  border-width: 1px;
+}
+.christmas-skin .ibox-content:last-child {
+  border-style: solid solid solid solid;
+}
+.christmas-skin .nav:not(.nav-second-level) > li.active {
+  border-left: #ad514f;
+  border-left-style: solid;
+  border-left-width: 4px;
+  background: #661019;
+}
+.christmas-skin .nav-header a.dropdown-toggle {
+  color: #fff;
+  margin-top: 10px;
+}
+.christmas-skin .nav-header a.dropdown-toggle .text-muted {
+  color: #fff;
+  opacity: 0.8;
+}
+.christmas-skin .profile-element {
+  text-align: center;
+}
+.christmas-skin .img-circle {
+  border-radius: 5px;
+}
+.christmas-skin .navbar-default .nav li > a:hover,
+.christmas-skin .navbar-default .nav li > a:focus,
+.christmas-skin .navbar-default .nav li > a:active {
+  background: #5d0e17;
+  color: #fff;
+}
+.christmas-skin .navbar-default .nav li:not(.active) > li > a:hover,
+.christmas-skin .navbar-default .nav li:not(.active) > li > a:focus,
+.christmas-skin .navbar-default .nav li:not(.active) > li > a:active {
+  background: #590e16;
+  color: #fff;
+}
+.christmas-skin .navbar-default .nav-second-level > li > a:hover {
+  color: #fff;
+}
+.christmas-skin .navbar-default .nav-second-level > li > a:focus {
+  background: #590e16;
+  color: #fff;
+}
+.christmas-skin .nav.nav-tabs > li.active > a {
+  color: #555;
+}
+.christmas-skin .nav.nav-tabs > li.active {
+  background: transparent;
+}
+.christmas-skin .navbar li a {
+  color: #ad6262;
+}
+.christmas-skin .nav-header {
+  border-bottom-color: #590e16;
+  border-width: 1px;
+  border-bottom-style: solid;
+  box-shadow: inset 0 0 20px 0 #430a10;
+}
+.christmas-skin .btn-primary.btn-outline {
+  color: #ad514f;
+}
+.christmas-skin .btn-primary {
+  background-color: #ad514f;
+  border-color: #ad514f;
+}
+.christmas-skin .btn-primary:hover,
+.christmas-skin .btn-primary:focus,
+.christmas-skin .btn-primary:active,
+.christmas-skin .btn-primary.active,
+.christmas-skin .open .dropdown-toggle .btn-primary,
+.christmas-skin .btn-primary:active:focus,
+.christmas-skin .btn-primary:active:hover,
+.christmas-skin .btn-primary.active:hover,
+.christmas-skin .btn-primary.active:focus {
+  background-color: #a24c4a;
+  border-color: #a24c4a;
+}
+.christmas-skin .btn-primary.disabled,
+.christmas-skin .btn-primary.disabled:hover,
+.christmas-skin .btn-primary.disabled:focus,
+.christmas-skin .btn-primary.disabled:active,
+.christmas-skin .btn-primary.disabled.active,
+.christmas-skin .btn-primary[disabled],
+.christmas-skin .btn-primary[disabled]:hover,
+.christmas-skin .btn-primary[disabled]:focus,
+.christmas-skin .btn-primary[disabled]:active,
+.christmas-skin .btn-primary.active[disabled],
+.christmas-skin fieldset[disabled] .btn-primary,
+.christmas-skin fieldset[disabled] .btn-primary:hover,
+.christmas-skin fieldset[disabled] .btn-primary:focus,
+.christmas-skin fieldset[disabled] .btn-primary:active,
+.christmas-skin fieldset[disabled] .btn-primary.active {
+  background-color: #b55e5c;
+  border-color: #b55e5c;
+}
+.christmas-skin .btn-link:hover,
+.christmas-skin .btn-link:focus,
+.christmas-skin .btn-link:active,
+.christmas-skin .btn-link.active,
+.christmas-skin .open .dropdown-toggle.btn-link {
+  color: #ad514f;
+}
+.christmas-skin button.btn-primary.dim {
+  box-shadow: inset 0 0 0 #984745, 0 5px 0 0 #984745, 0 10px 5px #999;
+}
+.christmas-skin button.btn-primary.dim:active {
+  box-shadow: inset 0 0 0 #984745, 0 2px 0 0 #984745, 0 5px 3px #999;
+}
+.christmas-skin .label-primary,
+.christmas-skin .badge-primary {
+  background-color: #ad514f;
+  color: #FFFFFF;
+}
+.nav-second-level li.active {
+  border-left: none;
+  background-color: #620f18;
+}
+.christmas-skin .pace .pace-progress {
+  background: #ad514f;
+}
+.fa-cube:before {
+  content: "\f2dc";
+}
+.christmas-skin li.spacer hr {
+  border-color: #84181b;
+}
+.christmas-skin .topbar-icons a i,
+.christmas-skin .topbar-icons a i {
+  color: #619257 !important;
+}
+.christmas-skin i.bookmark {
+  color: #619257;
+}
 body.md-skin {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #ffffff;

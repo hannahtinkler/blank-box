@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/simplemde.min.css">
     <link rel="stylesheet" href="/css/prism.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/animate.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/easy-autocomplete.min.css">
@@ -273,6 +273,7 @@
 
 <!-- Main scripts -->
 <script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/snowstorm.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
