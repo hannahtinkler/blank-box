@@ -15,7 +15,7 @@
                 @if(date('Y-m-d') < '2016-12-14')
                     <div class="vertical-timeline-block">
                         <div class="vertical-timeline-icon navy-bg">
-                            <div class="icon-circle"><i class="fa fa-page"></i></div>
+                            <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
                         </div>
 
                         <div class="vertical-timeline-content">
