@@ -12,7 +12,6 @@ pre.line-numbers>code {
 code,
 pre:not(.CodeMirror-line) {
     color: #ABB2BF;
-    background: 0 0;
     font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
     text-align: left;
     white-space: pre;
