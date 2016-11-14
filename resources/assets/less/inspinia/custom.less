@@ -540,18 +540,19 @@ hr {
   border-top: 1px solid #e6e3e3;
 }
 
-code, pre {
+code, pre:not(.CodeMirror-line) {
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
     word-wrap: break-word;
-    margin: 1em 0 3em;
-    padding: 0.2em 0.6em;
+    margin: 1rem 0 2rem;
+    padding: 0.2rem 0.6rem;
 }
 
-pre {
+pre:not(.CodeMirror-line) {
     padding: 0.6em 0.6em;
+    border-radius: 4px;
 }
 
 li pre {
@@ -574,5 +575,20 @@ li.no-bullet {
 .row-first-content img,
 pre.code-toolbar,
 .row-first-content ol {
+  margin-bottom: 2rem;
+}
+
+pre:not(.CodeMirror-line) + pre:not(.CodeMirror-line) {
+  margin-top: -1rem;
+}
+
+.CodeMirror-fullscreen,
+.editor-toolbar.fullscreen {
+  z-index: 9999;
+}
+
+.editor-preview pre,
+.editor-preview-side pre {
+  background: #282c34;
   margin-bottom: 2rem;
 }
