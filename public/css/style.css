@@ -8287,7 +8287,7 @@ body.christmas-skin:not(.gray-bg) {
 .christmas-skin .pace .pace-progress {
   background: #ad514f;
 }
-.fa-cube:before {
+.christmas-skin .fa-cube:before {
   content: "\f2dc";
 }
 .christmas-skin li.spacer hr {
