@@ -9025,6 +9025,7 @@ li.no-bullet {
 .row-first-content p,
 .row-first-content ul,
 .row-first-content img,
+pre.code-toolbar,
 .row-first-content ol {
   margin-bottom: 2rem;
 }

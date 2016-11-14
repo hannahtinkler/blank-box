@@ -17,7 +17,7 @@ class DiagramController extends Controller
     
     public function webformsProcessDiagram()
     {
-        $page = Page::findBySlug('webforms-process-diagram');
+        $page = Page::findBySlug('webform-process-diagram');
 
         return view('diagrams.webforms_process_diagram', compact('page'));
     }
@@ -41,5 +41,12 @@ class DiagramController extends Controller
         $page = Page::findBySlug('server-map-diagram');
 
         return view('diagrams.server_map_diagram', compact('page'));
+    }
+
+    public function publicLiveSitesList()
+    {
+        $page = Page::findBySlug('public-live-sites-list');
+
+        return view('diagrams.public_live_sites_list', compact('page'));
     }
 }

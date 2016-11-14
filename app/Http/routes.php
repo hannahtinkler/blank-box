@@ -58,8 +58,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
 
     //Data driven pages requiring controllers
+    Route::get('/p/devops/mayden/public-live-sites-list', 'DiagramController@publicLiveSitesList');
     Route::get('/p/mayden/testing/what-kind-of-test-should-i-write', 'DiagramController@whatKindOfTestShouldIWrite');
-    Route::get('/p/iaptus-integrations/webforms/webforms-process-diagram', 'DiagramController@webformsProcessDiagram');
+    Route::get('/p/iaptus-integrations/webforms/webform-process-diagram', 'DiagramController@webformsProcessDiagram');
     Route::get('/p/mayden/servers/server-node-diagram', 'DiagramController@serverNodeDiagram');
     Route::get('/p/mayden/monitoring/sensu-process-diagram', 'DiagramController@sensuProcessDiagram');
     Route::get('/p/mayden/servers/server-map-diagram', 'DiagramController@serverMapDiagram');
