@@ -88,8 +88,17 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        var simpleMde = new SimpleMDE({
-          element: document.getElementById('content')
+        var simplemde = new window.SimpleMDE({
+          element: document.getElementById('content'),
+
+          // override the preview renderer to allow Prism.js highlighting
+          previewRender: function (plainText, preview) {
+            window.requestAnimationFrame(function () {
+              window.Prism.highlightAll()
+            })
+
+            return this.parent.markdown(plainText)
+          }
         })
 
         if ($('#category_id').val() != '') {
