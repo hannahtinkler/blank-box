@@ -105,7 +105,8 @@ class PageControllerService
 
     public function retrieveSlugForwardingSetting($pageSlug)
     {
-        return Page::leftJoin('slug_forwarding_settings', 'pages.slug', '=', 'slug_forwarding_settings.new_slug')
+        return Page::select('pages.*')
+            ->leftJoin('slug_forwarding_settings', 'pages.slug', '=', 'slug_forwarding_settings.new_slug')
             ->where('old_slug', $pageSlug)
             ->firstOrFail();
     }
