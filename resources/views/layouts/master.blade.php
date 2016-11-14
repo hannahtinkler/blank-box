@@ -272,7 +272,7 @@
 
 
 <!-- Main scripts -->
-@if(env(APP_THEME) == 'christmas-skin')
+@if(env('APP_THEME') == 'christmas-skin')
     <script src="/js/snowstorm.js"></script>
 @endif
 
