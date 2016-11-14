@@ -23,12 +23,12 @@
                             <p>Only {{ $daysTilXmas }} Days Until Christmas!</p>
                             <span class="vertical-date">
                                 <small>{{ date('jS M Y') }}</small><br />
-                                <small>17:11</small>
+                                <small>{{ date('H:i') }}</small>
                             </span>
                         </div>
                     </div>
                 @endif
-                
+
                 @if(date('Y-m-d') < '2016-12-14')
                     <div class="vertical-timeline-block">
                         <div class="vertical-timeline-icon navy-bg">
