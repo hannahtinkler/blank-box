@@ -382,7 +382,6 @@ var snowStorm = (function(window, document) {
     this.o.classList.add('fa')
     this.o.classList.add('fa-snowflake-o')
     this.o.style.fontFamily = 'FontAwesome,arial,verdana';
-    this.o.style.mixBlendMode = 'multiply';
     this.o.style.cursor = 'default';
     this.o.style.overflow = 'hidden';
     this.o.style.fontWeight = 'normal';
