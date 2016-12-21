@@ -999,7 +999,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 204,
             'type' => 'IAPT',
             'server_id' => $set5A->id,
-            'live_site_url' => ''
+            'live_site_url' => 'ecc.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -1008,7 +1008,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 208,
             'type' => 'IAPT',
             'server_id' => $set5A->id,
-            'live_site_url' => ''
+            'live_site_url' => 'https://bww.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -1030,10 +1030,37 @@ class ServiceSeeder extends Seeder
         ]);
 
         Service::create([
-            'area' => 'Online',
+            'area' => 'East Lancashire',
             'name' => 'ELHT CAMHS (East Lancashire Hospitals Trust)',
             'service_id' => 207,
-            'type' => 'CYP',
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'Australia',
+            'name' => 'ACT PHN (Australia Capital Territory Primary Health Network)',
+            'service_id' => 209,
+            'type' => 'Australian IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => 'https://actphn.iaptus.co.uk'
+        ]);
+
+        Service::create([
+            'area' => 'London',
+            'name' => 'Bikur Cholim',
+            'service_id' => 210,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'London',
+            'name' => 'Derman',
+            'service_id' => 211,
+            'type' => 'IAPT',
             'server_id' => $set5A->id,
             'live_site_url' => ''
         ]);
