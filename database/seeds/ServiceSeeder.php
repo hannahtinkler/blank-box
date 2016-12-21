@@ -27,7 +27,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 176,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://barnet.iaptus.nhs.uk'
+            'live_site_url' => 'barnet.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -36,7 +36,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 188,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://bedford.iaptus.nhs.uk'
+            'live_site_url' => 'bedford.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -45,7 +45,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 164,
             'type' => 'CYP',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://boltoncyp.iaptus.nhs.uk'
+            'live_site_url' => 'boltoncyp.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -54,7 +54,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 178,
             'type' => 'CAMHS',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://calderdalecamhs.iaptus.nhs.uk'
+            'live_site_url' => 'calderdalecamhs.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -63,7 +63,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 174,
             'type' => 'CAMHS',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://camhsafc.iaptus.nhs.uk'
+            'live_site_url' => 'camhsafc.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -72,7 +72,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 166,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://candi.iaptus.nhs.uk'
+            'live_site_url' => 'candi.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -81,7 +81,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 179,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://catalyst.iaptus.nhs.uk'
+            'live_site_url' => 'catalyst.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -90,7 +90,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 160,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://ealing.iaptus.nhs.uk'
+            'live_site_url' => 'ealing.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -99,7 +99,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 186,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://fyldeandwyre.iaptus.nhs.uk'
+            'live_site_url' => 'fyldeandwyre.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -108,7 +108,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 107,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://hillingdon.iaptus.nhs.uk'
+            'live_site_url' => 'hillingdon.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -117,7 +117,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 117,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://hounslow.iaptus.nhs.uk'
+            'live_site_url' => 'hounslow.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -126,7 +126,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 173,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://lancashire.iaptus.nhs.uk'
+            'live_site_url' => 'lancashire.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -135,7 +135,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 165,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://luton.iaptus.nhs.uk'
+            'live_site_url' => 'luton.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -144,7 +144,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 175,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://makingspace.iaptus.nhs.uk'
+            'live_site_url' => 'makingspace.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -153,7 +153,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 167,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://miltonkeynes.iaptus.nhs.uk'
+            'live_site_url' => 'miltonkeynes.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -162,7 +162,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 168,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://mindblmk.iaptus.nhs.uk'
+            'live_site_url' => 'mindblmk.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -171,7 +171,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 161,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://ntw.iaptus.nhs.uk'
+            'live_site_url' => 'ntw.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -180,7 +180,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 181,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://norfolk.iaptus.nhs.uk'
+            'live_site_url' => 'norfolk.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -189,7 +189,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 177,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://nkm.iaptus.nhs.uk/'
+            'live_site_url' => 'nkm.iaptus.nhs.uk/'
         ]);
 
         Service::create([
@@ -198,7 +198,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 25,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://northants.iaptus.nhs.uk'
+            'live_site_url' => 'northants.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -207,7 +207,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 30,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://sm.iaptus.nhs.uk'
+            'live_site_url' => 'sm.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -216,7 +216,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 195,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://southstaffs.iaptus.nhs.uk'
+            'live_site_url' => 'southstaffs.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -225,7 +225,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 172,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://starfishsc.iaptus.nhs.uk'
+            'live_site_url' => 'starfishsc.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -234,7 +234,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 187,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://suffolk.iaptus.nhs.uk'
+            'live_site_url' => 'suffolk.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -243,7 +243,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 191,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://tmn.iaptus.nhs.uk'
+            'live_site_url' => 'tmn.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -252,7 +252,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 196,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://thrive.iaptus.nhs.uk'
+            'live_site_url' => 'thrive.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -261,7 +261,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 171,
             'type' => 'CYP',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://torbaycyp.iaptus.nhs.uk'
+            'live_site_url' => 'torbaycyp.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -270,7 +270,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 13,
             'type' => 'IAPT',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://wandsworth.iaptus.nhs.uk'
+            'live_site_url' => 'wandsworth.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -279,7 +279,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 169,
             'type' => 'CYP',
             'server_id' => $set4A->id,
-            'live_site_url' => 'http://wandsworthcyp.iaptus.nhs.uk'
+            'live_site_url' => 'wandsworthcyp.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -288,7 +288,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 158,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://banes.iaptus.nhs.uk'
+            'live_site_url' => 'banes.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -297,7 +297,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 40,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://bexley.iaptus.nhs.uk'
+            'live_site_url' => 'bexley.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -306,7 +306,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 149,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://resolve.iaptus.nhs.uk'
+            'live_site_url' => 'resolve.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -315,7 +315,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 115,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://brent.iaptus.nhs.uk'
+            'live_site_url' => 'brent.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -324,7 +324,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 23,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://outlooksw.iaptus.nhs.uk'
+            'live_site_url' => 'outlooksw.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -333,7 +333,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 147,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://westminster.iaptus.nhs.uk'
+            'live_site_url' => 'westminster.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -342,7 +342,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 136,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => "http://croydon.iaptus.nhs.uk"
+            'live_site_url' => "croydon.iaptus.nhs.uk"
         ]);
 
         Service::create([
@@ -351,7 +351,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 155,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://dorking.iaptus.nhs.uk'
+            'live_site_url' => 'dorking.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -360,7 +360,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 145,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://dover.iaptus.nhs.uk'
+            'live_site_url' => 'dover.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -369,7 +369,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 111,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://durhamdarlington.iaptus.nhs.uk'
+            'live_site_url' => 'durhamdarlington.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -378,7 +378,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 143,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://faversham.iaptus.nhs.uk'
+            'live_site_url' => 'faversham.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -387,7 +387,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 12,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://2gether.iaptus.nhs.uk'
+            'live_site_url' => '2gether.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -396,7 +396,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 123,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://2gether.iaptus.nhs.uk'
+            'live_site_url' => '2gether.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -405,7 +405,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 156,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://hmsurrey.iaptus.nhs.uk'
+            'live_site_url' => 'hmsurrey.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -414,7 +414,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 17,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://hammersmith.iaptus.nhs.uk'
+            'live_site_url' => 'hammersmith.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -423,7 +423,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 137,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://mindrecovery.iaptus.nhs.uk'
+            'live_site_url' => 'mindrecovery.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -432,7 +432,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 150,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://hull.iaptus.nhs.uk'
+            'live_site_url' => 'hull.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -441,7 +441,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 9,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://cwlcs-kc-ph.iaptus.nhs.uk'
+            'live_site_url' => 'cwlcs-kc-ph.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -459,7 +459,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 102,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://northtyneside.iaptus.nhs.uk'
+            'live_site_url' => 'northtyneside.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -468,7 +468,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 29,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://oxleas.iaptus.nhs.uk'
+            'live_site_url' => 'oxleas.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -477,7 +477,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 110,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://rushmoor.iaptus.nhs.uk'
+            'live_site_url' => 'rushmoor.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -486,7 +486,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 19,
             'type' => 'IAPT',
             'server_id' => $set1A->id,
-            'live_site_url' => 'http://westsussex.iaptus.nhs.uk'
+            'live_site_url' => 'westsussex.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -495,7 +495,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 139,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://avon.iaptus.nhs.uk'
+            'live_site_url' => 'avon.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -504,7 +504,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 153,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://bmht.iaptus.nhs.uk'
+            'live_site_url' => 'bmht.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -513,7 +513,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 18,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://berkshire.iaptus.nhs.uk'
+            'live_site_url' => 'berkshire.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -522,7 +522,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 114,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://bromley.iaptus.nhs.uk'
+            'live_site_url' => 'bromley.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -531,7 +531,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 7,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://cumbria.iaptus.nhs.uk'
+            'live_site_url' => 'cumbria.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -540,7 +540,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 28,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://devonandtorbay.iaptus.nhs.uk'
+            'live_site_url' => 'devonandtorbay.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -549,7 +549,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 38,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://gateshead.iaptus.nhs.uk'
+            'live_site_url' => 'gateshead.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -558,7 +558,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 116,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://harrow.iaptus.nhs.uk'
+            'live_site_url' => 'harrow.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -567,7 +567,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 185,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://mcliverpool.iaptus.nhs.uk'
+            'live_site_url' => 'mcliverpool.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -576,7 +576,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 180,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://hartlepoolmind.iaptus.nhs.uk'
+            'live_site_url' => 'hartlepoolmind.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -585,7 +585,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 184,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://otr.iaptus.nhs.uk'
+            'live_site_url' => 'otr.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -594,7 +594,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 142,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://portsmouth.iaptus.nhs.uk'
+            'live_site_url' => 'portsmouth.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -603,7 +603,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 8,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://southtyneside.iaptus.nhs.uk'
+            'live_site_url' => 'southtyneside.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -612,7 +612,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 194,
             'type' => 'CAMHS',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://stftcamhs.iaptus.nhs.uk'
+            'live_site_url' => 'stftcamhs.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -621,7 +621,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 108,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://somerset.iaptus.nhs.uk'
+            'live_site_url' => 'somerset.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -630,7 +630,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 35,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://southampton.iaptus.nhs.uk'
+            'live_site_url' => 'southampton.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -639,7 +639,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 124,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://southampton.iaptus.nhs.uk'
+            'live_site_url' => 'southampton.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -648,7 +648,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 5,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://southwark.iaptus.nhs.uk'
+            'live_site_url' => 'southwark.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -657,7 +657,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 10,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://lambeth.iaptus.nhs.uk'
+            'live_site_url' => 'lambeth.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -666,7 +666,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 15,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => "http://lewisham.iaptus.nhs.uk"
+            'live_site_url' => "lewisham.iaptus.nhs.uk"
         ]);
 
         Service::create([
@@ -675,7 +675,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 140,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://surreyborders.iaptus.nhs.uk'
+            'live_site_url' => 'surreyborders.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -684,7 +684,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 36,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://telfordandwrekin.iaptus.nhs.uk'
+            'live_site_url' => 'telfordandwrekin.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -693,7 +693,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 146,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://umc.iaptus.nhs.uk'
+            'live_site_url' => 'umc.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -702,7 +702,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 120,
             'type' => 'IAPT',
             'server_id' => $set2A->id,
-            'live_site_url' => 'http://warrington.iaptus.nhs.uk'
+            'live_site_url' => 'warrington.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -711,7 +711,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 27,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://cw.iaptus.nhs.uk'
+            'live_site_url' => 'cw.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -720,7 +720,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 121,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://cw.iaptus.nhs.uk'
+            'live_site_url' => 'cw.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -729,7 +729,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 125,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://derbyshire.iaptus.nhs.uk'
+            'live_site_url' => 'derbyshire.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -738,7 +738,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 1,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://dorset.iaptus.nhs.uk'
+            'live_site_url' => 'dorset.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -747,7 +747,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 106,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://hampshire.iaptus.nhs.uk'
+            'live_site_url' => 'hampshire.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -756,7 +756,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 189,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://imwirral.iaptus.nhs.uk'
+            'live_site_url' => 'imwirral.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -765,7 +765,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 16,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://iow.iaptus.nhs.uk'
+            'live_site_url' => 'iow.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -774,7 +774,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 41,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://kingston.iaptus.nhs.uk'
+            'live_site_url' => 'kingston.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -783,7 +783,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 100,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://newham.iaptus.nhs.uk'
+            'live_site_url' => 'newham.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -792,7 +792,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 31,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://northstaffs.iaptus.nhs.uk'
+            'live_site_url' => 'northstaffs.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -801,7 +801,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 21,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://plymouth.iaptus.nhs.uk'
+            'live_site_url' => 'plymouth.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -810,7 +810,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 134,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://richmond.iaptus.nhs.uk'
+            'live_site_url' => 'richmond.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -819,7 +819,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 37,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://shropshire.iaptus.nhs.uk'
+            'live_site_url' => 'shropshire.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -828,7 +828,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 127,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://signhealth.iaptus.nhs.uk'
+            'live_site_url' => 'signhealth.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -837,7 +837,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 170,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://starfish.iaptus.nhs.uk'
+            'live_site_url' => 'starfish.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -846,7 +846,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 152,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://stoke.iaptus.nhs.uk'
+            'live_site_url' => 'stoke.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -855,7 +855,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 182,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://swindon.iaptus.nhs.uk'
+            'live_site_url' => 'swindon.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -864,7 +864,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 132,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://towerhamlets.iaptus.nhs.uk'
+            'live_site_url' => 'towerhamlets.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -873,7 +873,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 126,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://wakefield.iaptus.nhs.uk'
+            'live_site_url' => 'wakefield.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -882,7 +882,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 20,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://westminster.iaptus.nhs.uk'
+            'live_site_url' => 'westminster.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -891,7 +891,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 183,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://wiltshire.iaptus.nhs.uk'
+            'live_site_url' => 'wiltshire.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -900,7 +900,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 113,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://worcestershire.iaptus.nhs.uk'
+            'live_site_url' => 'worcestershire.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -909,7 +909,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 151,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'http://yahvos.iaptus.nhs.uk'
+            'live_site_url' => 'yahvos.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -917,8 +917,8 @@ class ServiceSeeder extends Seeder
             'name' => 'THN Newcastle',
             'service_id' => 197,
             'type' => 'IAPT',
-            'server_id' => $set5A->id,
-            'live_site_url' => 'http://thn.iaptus.nhs.uk'
+            'server_id' => $set1A->id,
+            'live_site_url' => 'thn.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -927,7 +927,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 199,
             'type' => 'IAPT',
             'server_id' => $set5A->id,
-            'live_site_url' => 'http://thurrock.iaptus.nhs.uk'
+            'live_site_url' => 'thurrock.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -936,7 +936,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 192,
             'type' => 'IAPT',
             'server_id' => $set5A->id,
-            'live_site_url' => 'http://bth.iaptus.nhs.uk'
+            'live_site_url' => 'bth.iaptus.nhs.uk'
         ]);
 
         Service::create([
@@ -958,12 +958,111 @@ class ServiceSeeder extends Seeder
         ]);
 
         Service::create([
+            'area' => 'Ingeus',
+            'name' => 'Ingeus',
+            'service_id' => 202,
+            'type' => 'NDPP',
+            'server_id' => $set5A->id,
+            'live_site_url' => 'ingeus-staging.iaptus.co.uk'
+        ]);
+
+        Service::create([
+            'area' => 'Avon & Wiltshire',
+            'name' => 'AWP CAMHS',
+            'service_id' => 203,
+            'type' => 'CAMHS',
+            'server_id' => $set5A->id,
+            'live_site_url' => null
+        ]);
+
+        Service::create([
             'area' => 'Lincolnshire',
             'name' => 'LPFT Lincolnshire',
             'service_id' => 157,
             'type' => 'CAMHS',
             'server_id' => $set5A->id,
-            'live_site_url' => 'http://lpft.iaptus.nhs.uk'
+            'live_site_url' => 'lpft.iaptus.nhs.uk'
+        ]);
+
+        Service::create([
+            'area' => 'North West England',
+            'name' => '5BP (Five Boroughs)',
+            'service_id' => 190,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => '5bp.iaptus.nhs.uk'
+        ]);
+
+        Service::create([
+            'area' => 'Ealing',
+            'name' => 'ECC (Ealing Counselling Consortium)',
+            'service_id' => 204,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => 'ecc.iaptus.nhs.uk'
+        ]);
+
+        Service::create([
+            'area' => 'Online',
+            'name' => 'BWW (Big White Wall)',
+            'service_id' => 208,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => 'https://bww.iaptus.nhs.uk'
+        ]);
+
+        Service::create([
+            'area' => 'South Stafforshire & Shropshire',
+            'name' => 'SSSFT (South Stafforshire & Shropshire Foundation Trust)',
+            'service_id' => 205,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'Sunderland',
+            'name' => 'Sunderland Counselling Service',
+            'service_id' => 206,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'East Lancashire',
+            'name' => 'ELHT CAMHS (East Lancashire Hospitals Trust)',
+            'service_id' => 207,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'Australia',
+            'name' => 'ACT PHN (Australia Capital Territory Primary Health Network)',
+            'service_id' => 209,
+            'type' => 'Australian IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => 'https://actphn.iaptus.co.uk'
+        ]);
+
+        Service::create([
+            'area' => 'London',
+            'name' => 'Bikur Cholim',
+            'service_id' => 210,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
+        Service::create([
+            'area' => 'London',
+            'name' => 'Derman',
+            'service_id' => 211,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
         ]);
 
     }
