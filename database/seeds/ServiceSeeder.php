@@ -1065,5 +1065,14 @@ class ServiceSeeder extends Seeder
             'live_site_url' => ''
         ]);
 
+        Service::create([
+            'area' => 'London',
+            'name' => 'C & H Mind (CHWF)',
+            'service_id' => 212,
+            'type' => 'IAPT',
+            'server_id' => $set5A->id,
+            'live_site_url' => ''
+        ]);
+
     }
 }
