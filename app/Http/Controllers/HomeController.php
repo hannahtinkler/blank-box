@@ -15,7 +15,7 @@ class HomeController extends Controller
     {
         $feedEvents = FeedEvent::orderBy('created_at', 'DESC')->paginate(20);
 
-        $daysTilXmas = Carbon::createFromDate(2016, 12, 25)->diff(Carbon::createFromDate())->days;
+        $daysTilXmas = Carbon::createFromDate(2017, 12, 25)->diff(Carbon::createFromDate())->days;
 
         return view('home.index', compact('feedEvents', 'daysTilXmas'));
     }

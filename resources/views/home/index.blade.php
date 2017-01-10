@@ -12,7 +12,7 @@
 
             <div class="all-comments">
 
-                @if(date('Y-m-d') < '2016-12-24')
+                @if(date('Y-m-d') < '2017-12-24')
                     <div class="vertical-timeline-block">
                         <div class="vertical-timeline-icon navy-bg">
                             <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
