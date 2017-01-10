@@ -29,27 +29,6 @@
                     </div>
                 @endif
 
-                @if(date('Y-m-d') < '2016-12-14')
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <div class="icon-circle"><i class="feed-icon fa fa-gift"></i></div>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h4><strong>New updates to Black Box:</strong></h4>
-                            <ul>
-                                <li>Text editor replaced with Markdown editor</li>
-                                <li>Page drafts now visible to anyone</li>
-                                <li>Code block syntax highlighting</li>
-                                <li>Code block 'Copy' button</li>
-                            </ul>
-                            <span class="vertical-date">
-                                <small>14th Nov 2016</small><br />
-                                <small>17:11</small>
-                            </span>
-                        </div>
-                    </div>
-                @endif
                 @foreach($feedEvents as $feedEvent)
                     @if($feedEvent->resourceExists())
                         <div class="vertical-timeline-block">

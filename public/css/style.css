@@ -9233,6 +9233,12 @@ pre:not(.CodeMirror-line) + pre:not(.CodeMirror-line) {
   background: #282c34;
   margin-bottom: 2rem;
 }
+.row-first-content {
+  width: 100%;
+}
+.row-first-content img {
+  max-width: 100%;
+}
 @media print {
   nav.navbar-static-side {
     display: none;
