@@ -199,7 +199,7 @@
         }
 
         function getFormContent() {
-            $('#content').text(simpleMde.value());
+            $('#content').text(simplemde.value());
             return $('#new-page-form').serializeArray();
         }
 
