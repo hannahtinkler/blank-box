@@ -293,9 +293,44 @@
 
 </body>
 
-@yield('scripts')
-
 <script>
+    function getSimpleMde(element) {
+        return new window.SimpleMDE({
+            element: element,
+
+            // override the preview renderer to allow Prism.js highlighting
+            previewRender: function(plainText, preview) { // Async method
+                if (plainText.trim() === '') {
+                    return '';
+                }
+
+                identifier = performance.now()
+
+                $(preview).data('identifier', identifier)
+
+                $.post(
+                    '/ajax/endpoints/pagepreview',
+                    {
+                        _token: '{{ csrf_token() }}',
+                        content: plainText,
+                        identifier: identifier
+                    }
+                ).done(function (response) {
+                    response = JSON.parse(response)
+                    console.log(identifier, response.identifier)
+                    if (identifier == response.identifier) {
+                        preview.innerHTML = response.content
+                        window.requestAnimationFrame(function () {
+                            window.Prism.highlightAll()
+                        })
+                    }
+                })
+
+                return "Loading...";
+            },
+        })
+    }
+
     $(document).ready(function() {
         @if(isset($current['chapter']))
             var category = {!! $current['category'] ? $current['category']->id : '""' !!};
@@ -374,6 +409,8 @@
         });
     });
 </script>
+
+@yield('scripts')
 
 </html>
 

@@ -101,18 +101,7 @@
 
 @section('scripts')
 <script>
-    var simplemde = new window.SimpleMDE({
-      element: document.getElementById('content'),
-
-      // override the preview renderer to allow Prism.js highlighting
-      previewRender: function (plainText, preview) {
-        window.requestAnimationFrame(function () {
-          window.Prism.highlightAll()
-        })
-
-        return this.parent.markdown(plainText)
-      }
-    })
+    var simpleMde = getSimpleMde(document.getElementById('content'))
 
     $('#tag-select').select2({
         tags: true,
@@ -199,7 +188,7 @@
         }
 
         function getFormContent() {
-            $('#content').text(simplemde.value());
+            $('#content').text(simpleMde.value());
             return $('#new-page-form').serializeArray();
         }
 

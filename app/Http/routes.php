@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use League\CommonMark\CommonMarkConverter;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -56,6 +59,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/ajax/modal/server/{id}', 'ServerController@showServerModal');
     Route::get('/ajax/modal/badges/{id}', 'BadgeController@showBadgeModal');
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
+    Route::get('/ajax/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
+    
+    Route::post('/ajax/endpoints/pagepreview', function (Request $request, CommonMarkConverter $converter) {
+        return json_encode([
+            'identifier' => $request->input('identifier'),
+            'content' => $converter->convertToHtml($request->input('content'))
+        ]);
+    });
 
     //Data driven pages requiring controllers
     Route::get('/p/devops/mayden/public-live-sites-list', 'DiagramController@publicLiveSitesList');
@@ -75,18 +86,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/u/{userSlug}/badges', 'BadgeController@index');
     }
 
-    // Route::group(['middleware' => ['mine']], function () {
-        Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
-        Route::get('/u/{slug}/drafts', 'PageDraftController@index');
-        Route::get('/u/{slug}/drafts/{id}', 'PageDraftController@edit');
-        Route::get('/u/{slug}/drafts/preview/{id}', 'PageDraftController@preview');
-        Route::get('/u/{slug}/drafts/delete/{id}', 'PageDraftController@destroy');
+    Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
+    Route::get('/u/{slug}/drafts', 'PageDraftController@index');
+    Route::get('/u/{slug}/drafts/{id}', 'PageDraftController@edit');
+    Route::get('/u/{slug}/drafts/preview/{id}', 'PageDraftController@preview');
+    Route::get('/u/{slug}/drafts/delete/{id}', 'PageDraftController@destroy');
 
-        Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
-        Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
-        Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
-    // });
-        Route::get('/rankings', 'RankController@index');
+    Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
+    Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
+    Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
+    
+    Route::get('/rankings', 'RankController@index');
     
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
