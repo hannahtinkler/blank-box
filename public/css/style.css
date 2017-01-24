@@ -8112,6 +8112,9 @@ body.glass-box-skin:not(.gray-bg) {
 .glass-box-skin a:hover:not(.btn) {
   color: #6999b0;
 }
+.glass-box-skin .module-menu {
+  background-color: #edeff1;
+}
 .glass-box-skin .btn-white {
   border-color: #8c7b80;
 }
