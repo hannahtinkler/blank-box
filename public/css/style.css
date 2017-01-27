@@ -7963,6 +7963,7 @@ body.glass-box-skin:not(.gray-bg) {
 }
 .glass-box-skin #page-wrapper {
   background: #f4f6fa;
+  overflow: visible;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
   -mox-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
   -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
