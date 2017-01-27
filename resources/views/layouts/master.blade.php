@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/prism.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/animate.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css?v=1.1">
     <link rel="stylesheet" href="/css/easy-autocomplete.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
 
