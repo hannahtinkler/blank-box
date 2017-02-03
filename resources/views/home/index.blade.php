@@ -20,10 +20,10 @@
                     <div class="vertical-timeline-content">
                         @if(env('APP_NAME') == 'Glass Box')
                             <h4><strong>Black Box:</strong></h4>
-                            <p><a href="http://black-box.mayden.co.uk/">The developer specific Black Box can now be found here!</a></p>
+                            <p><a href="http://black-box.mayden.co.uk/">The developer specific Black Box can be found here</a></p>
                         @else
                             <h4><strong>Glass Box:</strong></h4>
-                            <p><a href="http://amt.mayden.co.uk/">The generic company Glass Box can be found here</a></p>
+                            <p><a href="http://amt.mayden.co.uk/">The generic company Glass Box can now be found here!</a></p>
                         @endif
                         <span class="vertical-date">
                             <small>{{ date('jS M Y') }}</small><br />
