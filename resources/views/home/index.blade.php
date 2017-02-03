@@ -12,7 +12,39 @@
 
             <div class="all-comments">
 
-                @if(date('Y-m-d') < '2017-12-24')
+                @if(env('APP_NAME') == 'Black Box')
+                    <div class="vertical-timeline-block">
+                        <div class="vertical-timeline-icon navy-bg">
+                            <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h4><strong>Glass Box:</strong></h4>
+                            <p><a href="http://amt.mayden.co.uk/">The generic company Glass Box can be found here</a></p>
+                            <span class="vertical-date">
+                                <small>{{ date('jS M Y') }}</small><br />
+                                <small>{{ date('H:i') }}</small>
+                            </span>
+                        </div>
+                    </div>
+                @else
+                    <div class="vertical-timeline-block">
+                        <div class="vertical-timeline-icon navy-bg">
+                            <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
+                        </div>
+
+                        <div class="vertical-timeline-content">
+                            <h4><strong>Black Box:</strong></h4>
+                            <p><a href="http://black-box.mayden.co.uk/">The developer specific Black Box can now be found here!</a></p>
+                            <span class="vertical-date">
+                                <small>{{ date('jS M Y') }}</small><br />
+                                <small>{{ date('H:i') }}</small>
+                            </span>
+                        </div>
+                    </div>
+                @endif
+
+                @if(date('Y-m-d') < '2017-12-24' && env('APP_NAME') == 'Black Box')
                     <div class="vertical-timeline-block">
                         <div class="vertical-timeline-icon navy-bg">
                             <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
