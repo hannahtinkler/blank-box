@@ -12,37 +12,25 @@
 
             <div class="all-comments">
 
-                @if(env('APP_NAME') == 'Black Box')
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
-                        </div>
-
-                        <div class="vertical-timeline-content">
-                            <h4><strong>Glass Box:</strong></h4>
-                            <p><a href="http://amt.mayden.co.uk/">The generic company Glass Box can be found here</a></p>
-                            <span class="vertical-date">
-                                <small>{{ date('jS M Y') }}</small><br />
-                                <small>{{ date('H:i') }}</small>
-                            </span>
-                        </div>
+                <div class="vertical-timeline-block">
+                    <div class="vertical-timeline-icon navy-bg">
+                        <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
                     </div>
-                @else
-                    <div class="vertical-timeline-block">
-                        <div class="vertical-timeline-icon navy-bg">
-                            <div class="icon-circle"><i class="feed-icon fa fa-exclamation"></i></div>
-                        </div>
 
-                        <div class="vertical-timeline-content">
+                    <div class="vertical-timeline-content">
+                        @if(env('APP_NAME') == 'Glass Box')
                             <h4><strong>Black Box:</strong></h4>
                             <p><a href="http://black-box.mayden.co.uk/">The developer specific Black Box can now be found here!</a></p>
-                            <span class="vertical-date">
-                                <small>{{ date('jS M Y') }}</small><br />
-                                <small>{{ date('H:i') }}</small>
-                            </span>
-                        </div>
+                        @else
+                            <h4><strong>Glass Box:</strong></h4>
+                            <p><a href="http://amt.mayden.co.uk/">The generic company Glass Box can be found here</a></p>
+                        @endif
+                        <span class="vertical-date">
+                            <small>{{ date('jS M Y') }}</small><br />
+                            <small>{{ date('H:i') }}</small>
+                        </span>
                     </div>
-                @endif
+                </div>
 
                 @if(date('Y-m-d') < '2017-12-24' && env('APP_NAME') == 'Black Box')
                     <div class="vertical-timeline-block">
