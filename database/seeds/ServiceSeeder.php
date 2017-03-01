@@ -869,7 +869,7 @@ class ServiceSeeder extends Seeder
 
         Service::create([
             'area' => 'Wakefield',
-            'name' => 'TP Wakefield',
+            'name' => 'TP Wakefield (Turning Point)',
             'service_id' => 126,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
