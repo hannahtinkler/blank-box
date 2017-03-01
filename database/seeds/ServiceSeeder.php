@@ -873,7 +873,7 @@ class ServiceSeeder extends Seeder
             'service_id' => 126,
             'type' => 'IAPT',
             'server_id' => $set3A->id,
-            'live_site_url' => 'wakefield.iaptus.nhs.uk'
+            'live_site_url' => 'turning-point.iaptus.co.uk'
         ]);
 
         Service::create([
