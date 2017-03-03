@@ -89,7 +89,7 @@ class ServiceSeeder extends Seeder
             'name' => 'Ealing',
             'service_id' => 160,
             'type' => 'IAPT',
-            'server_id' => $set4A->id,
+            'server_id' => $set5A->id,
             'live_site_url' => 'ealing.iaptus.nhs.uk'
         ]);
 
