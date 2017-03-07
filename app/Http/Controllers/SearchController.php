@@ -33,10 +33,6 @@ class SearchController extends Controller
 
         $searchDetails = $this->getSearchDetails($term);
 
-        if (is_numeric($term)) {
-            $searchDetails['searchables'] = ['Service'];
-        }
-
         $searchModelService = new SearchControllerService($request, $searchDetails['term'], $this->isAjaxRequest);
         $results = $searchModelService->processSearch($searchDetails['searchables']);
 

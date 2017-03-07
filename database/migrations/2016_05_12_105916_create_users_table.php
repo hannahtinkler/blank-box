@@ -17,6 +17,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('slug')->nullable();
+            $table->integer('default_category_id');
             $table->boolean('curator')->default(false);
             $table->rememberToken();
             $table->timestamps();

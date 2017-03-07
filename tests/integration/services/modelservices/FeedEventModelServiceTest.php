@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FeedEventModelServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /**
      * The current feedEvent being used in the test
      * @var object FeedEvent

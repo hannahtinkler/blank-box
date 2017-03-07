@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ChapterControllerServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-    
     /**
      * The current user being worked on behalf of in the test
      * @var object User

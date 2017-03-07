@@ -12,8 +12,6 @@ use App\Services\ControllerServices\PageTagControllerService;
 
 class CurationControllerServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-    
     /**
      * The current user being worked on behalf of in the test
      * @var object User

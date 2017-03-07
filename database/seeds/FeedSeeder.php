@@ -16,9 +16,6 @@ class FeedSeeder extends Seeder
      */
     public function run()
     {
-        FeedEventType::truncate();
-        FeedEvent::truncate();
-
         $page = Page::where('title', 'Server Details')->first();
         $badge = Badge::first();
 

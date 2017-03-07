@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserModelServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /**
      * The current user being used in the test
      * @var object User
@@ -28,25 +26,6 @@ class UserModelServiceTest extends TestCase
         
         $actual = $modelService->getUserType();
         $expected = 'Curator / This loser has no badges';
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * Tests that a call to the method which retrieves the user type works for
-     * a contributor and returns the expected value
-     *
-     * @return void
-     */
-    public function testItCanGetUserTypeForContributor()
-    {
-        $contributor = factory(App\Models\User::class)->create();
-        factory(App\Models\Page::class)->create(['created_by' => $contributor->id]);
-
-        $modelService = new UserModelService($contributor);
-        
-        $actual = $modelService->getUserType();
-        $expected = 'This loser has no badges';
 
         $this->assertEquals($expected, $actual);
     }

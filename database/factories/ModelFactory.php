@@ -79,35 +79,6 @@ $factory->define(App\Models\Bookmark::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\Server::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'nickname' => $faker->word,
-        'location' => $faker->state,
-        'ip_address' => $faker->ipv4,
-        'node_type' => $faker->word,
-        'access_type' => $faker->word
-    ];
-});
-
-$factory->define(App\Models\Service::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'area' => $faker->state,
-        'type' => $faker->word,
-        'server_id' => factory(App\Models\Server::class)->create()->id,
-        'live_site_url' => $faker->url
-    ];
-});
-
-$factory->define(App\Models\ServerPortForwardingSetting::class, function (Faker\Generator $faker) {
-    return [
-        'server_id' => factory(App\Models\Server::class)->create()->id,
-        'source_port_number' => $faker->randomDigit,
-        'target_port_number' => $faker->randomDigit
-    ];
-});
-
 $factory->define(App\Models\SuggestedEdit::class, function (Faker\Generator $faker) {
     $title = $faker->sentence;
     return [
@@ -208,14 +179,5 @@ $factory->define(App\Models\FeedEvent::class, function (Faker\Generator $faker) 
         'feed_event_type_id' => $type->id,
         'user_id' => $user->id,
         'resource_id' => $page->id
-    ];
-});
-
-$factory->define(App\Models\Contributor::class, function (Faker\Generator $faker) {
-    $user = factory(App\Models\User::class)->create();
-    
-    return [
-        'user_id' => $user->id,
-        'count' => $faker->randomNumber(1)
     ];
 });

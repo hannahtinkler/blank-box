@@ -20,30 +20,6 @@ class HomeController extends Controller
         return view('home.index', compact('feedEvents', 'daysTilXmas'));
     }
     
-    public function contributors()
-    {
-        $contributors = User::select([
-                'users.*',
-                \DB::raw('(
-                    COALESCE(
-                        (SELECT COUNT(*) FROM pages WHERE pages.created_by=users.id),
-                        0
-                    ) + COALESCE(
-                        (SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by=users.id AND approved=1),
-                        0
-                    ) + COALESCE(
-                        (SELECT count FROM contributors WHERE contributors.user_id=users.id),
-                        0
-                    )
-                ) as total')
-            ])
-            ->having('total', '>', 0)
-            ->orderBy('total', 'DESC')
-            ->get();
-
-        return view('home.contributors', compact('contributors'));
-    }
-    
     public function getRandomPage()
     {
         $page = Page::where('approved', 1)->orderByRaw("RAND()")->first();

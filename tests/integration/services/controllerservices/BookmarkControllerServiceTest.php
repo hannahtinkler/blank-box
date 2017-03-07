@@ -7,8 +7,6 @@ use App\Services\ControllerServices\BookmarkControllerService;
 
 class BookmarkControllerServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-    
     /**
      * The current user being worked on behalf of in the test
      * @var object User

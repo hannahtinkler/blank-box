@@ -63,7 +63,7 @@ class PageModelService implements SearchableModelService
             ->get();
 
         if ($edits->count() == 1) {
-            return '<strong>' . $edits->first()->creator->name . '</strong>';
+            return '<strong><a href="/u/' . $edits->first()->creator->slug . '">' . $edits->first()->creator->name . '</a></strong>';
         }
 
         $count = 1;

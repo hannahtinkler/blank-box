@@ -4,36 +4,55 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SearchControllerTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /**
-     * The current user being worked on behalf of in the test
-     * @var object User
+     * @var User
      */
     public $user;
 
+    /**
+     * Elasticsearch takes a while to index new items; hence the sleep :(
+     * @return void
+     */
     public function testItCanAccessSearchApiCall()
     {
         $this->logInAsUser();
 
-        $this->get('/search/care%20pathway')
-            ->seeJson(["title" => "Putting a Care Pathway Live"])
+        $page = factory(App\Models\Page::class)->create([
+            'approved' => true
+        ]);
+
+        $page->addToIndex();
+
+        sleep(1);
+
+        $this->get('/search/' . substr($page->title, 0, 10))
+            ->seeJson(["title" => $page->title])
             ->assertResponseStatus(200);
     }
 
+    /**
+     * Elasticsearch takes a while to index new items; hence the sleep :(
+     * @return void
+     */
     public function testItCanAccessSearchResultsPage()
     {
         $this->logInAsUser();
 
-        $this->get('/search/care%20pathway/results')
+        $page = factory(App\Models\Page::class)->create([
+            'approved' => true
+        ]);
+
+        $page->addToIndex();
+
+        sleep(1);
+
+        $this->get('/search/' . substr($page->title, 0, 10) . '/results')
             ->see("Search Results")
             ->assertResponseStatus(200);
     }
 
     /**
-     * Logs in a new user so that we can path successfully though
-     * authentication
-     *
+     * @param array $overrides
      * @return void
      */
     public function logInAsUser($overrides = [])

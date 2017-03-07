@@ -12,27 +12,11 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        Category::truncate();
-
         Category::create([
-            'title' => 'Mayden',
-            'description' => 'Chapters involving the company as a whole and its resources.',
-            'slug' => str_slug('Mayden'),
+            'title' => 'General',
+            'description' => 'General chapters go here.',
+            'slug' => str_slug('General'),
             'order' => 1
-        ]);
-
-        Category::create([
-            'title' => 'iaptus',
-            'description' => 'Chapters involving iaptus in general.',
-            'slug' => str_slug('iaptus'),
-            'order' => 2
-        ]);
-
-        Category::create([
-            'title' => 'iaptus Integrations',
-            'description' => 'Chapters involving external services that integrate with iaptus like APIs, monitoring etc',
-            'slug' => str_slug('Iaptus Integrations'),
-            'order' => 3
         ]);
     }
 }

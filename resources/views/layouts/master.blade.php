@@ -111,14 +111,16 @@
                         </ul>
                     </li>
                 @endif
+                
                 <li
                     @if(Request::is('u/' . $user->slug . '*') || Request::is('bookmarks'))
                     class="active"
                     @endif
                 >
                     <a href="/u/{{ $user->slug }}">
+                        <i class="fa fa-user"></i>
                         <span class="nav-label">
-                            <i class="fa fa-user"></i> Your <?php echo env('APP_NAME', 'Black Box'); ?>
+                            Your <?php echo env('APP_NAME', 'Black Box'); ?>
                             <span {!! $newBadgeCount + $draftCount == 0 ? 'class="hidden"' : null !!} id="your-count">(<span>{{ $newBadgeCount + $draftCount }}</span>)</span>
                         </span>
                         <span class="fa arrow"></span>
@@ -153,22 +155,13 @@
                         </li>
                     </ul>
                 </li>
-
-                <li class="spacer"><hr></li>
-                
-                <li{!! Request::is('pages/latestupdates') ? ' class="active"' : null !!}>
-                    <a href="/pages/latestupdates"><i class="glyphicon glyphicon-hourglass"></i> <span class="nav-label">Latest Updated Pages</span></a>
-                </li>
-                <li{!! Request::is('contributors') ? ' class="active"' : null !!}>
-                    <a href="/contributors"><i class="fa fa-hand-peace-o"></i> <span class="nav-label">Contributors</span></a>
-                </li>
             </ul>
 
         </div>
     </nav>
 
-        <div id="page-wrapper" class="gray-bg">
-        <div class="row">
+<div id="page-wrapper" class="gray-bg">
+    <div class="row">
         <nav class="navbar navbar-fixed-top fixed-nav" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
 
@@ -193,88 +186,29 @@
                     <a href="/random" title="Take me to a random page"><i class="fa fa-random"></i></a>
                 </div>
             </div>
-            <!-- <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="article.html#">
-                        <i class="fa fa-bell"></i>  <span class="label label-primary">8</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                        <li>
-                            <a href="mailbox.html">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="profile.html">
-                                <div>
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small">12 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="grid_options.html">
-                                <div>
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="text-center link-block">
-                                <a href="notifications.html">
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-
-
-                <li>
-                    <a href="/logout">
-                        <i class="fa fa-sign-out"></i> Log out
-                    </a>
-                </li>
-            </ul> -->
 
         </nav>
+    </div>
+
+    <div class="row row-first-content">
+        @if(isset($current['page']))
+            <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['page']->bookmark) ? 'active' : null }}" title="Click to bookmark this page"></i>
+        @elseif(isset($current['chapter']))
+            <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['chapter']->bookmark) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
+        @endif
+
+        @yield ('content') 
+    </div>
+
+    <div class="footer">
+        <div>
+            <strong>&copy;</strong> <?php echo env('APP_NAME', 'Black Box'); ?> {{ date('Y') }}
         </div>
+    </div>
 
-        <div class="row row-first-content">
-            @if(isset($current['page']))
-                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['page']->bookmark) ? 'active' : null }}" title="Click to bookmark this page"></i>
-            @elseif(isset($current['chapter']))
-                <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['chapter']->bookmark) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
-            @endif
-            @yield ('content') 
-        </div>
+    </div>
+</div>
 
-        <div class="footer">
-            <!-- <div class="pull-right">
-                10GB of <strong>250GB</strong> Free.
-            </div> -->
-            <div>
-                <strong>&copy;</strong> <?php echo env('APP_NAME', 'Black Box'); ?> {{ date('Y') }}
-            </div>
-        </div>
-
-        </div>
-        </div>
-
-
-
-<!-- Main scripts -->
-@if(env('APP_THEME') == 'christmas-skin')
-    <script src="/js/snowstorm.js"></script>
-@endif
 
 <script src="/js/jquery-2.1.1.js"></script>
 <script src="/js/bootstrap.min.js"></script>
@@ -375,6 +309,11 @@
 
         $('#topbar-search-form').submit(function(e) {
             var term = $('#top-search').val();
+            
+            if (!term.length) {
+                return false;
+            }
+
             window.location.href ='/search/' + term + '/results';
             e.preventDefault();
             return false;

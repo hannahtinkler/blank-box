@@ -66,7 +66,7 @@ class HomeControllerTest extends TestCase
         $this->logInAsUser();
 
         $this->get('/')
-            ->see('Black Box')
+            ->see('Page Title')
             ->assertResponseStatus(200);
     }
 
@@ -79,7 +79,7 @@ class HomeControllerTest extends TestCase
         Page::where('id', $event->resource_id)->delete();
 
         $this->get('/')
-            ->see('Black Box')
+            ->see('Page Title')
             ->assertResponseStatus(200);
     }
 

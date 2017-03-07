@@ -23,8 +23,6 @@ class ObserverServiceProvider extends ServiceProvider
     {
         Page::observe($this->app->make(PageObserver::class));
         Chapter::observe($this->app->make(ChapterObserver::class));
-        Server::observe($this->app->make(ServerObserver::class));
-        Service::observe($this->app->make(ServiceObserver::class));
         User::observe($this->app->make(UserObserver::class));
     }
 
@@ -38,16 +36,6 @@ class ObserverServiceProvider extends ServiceProvider
         $this->app->singleton(ChapterObserver::class, function () {
             $client = ClientBuilder::create()->build();
             return new ChapterObserver($client);
-        });
-
-        $this->app->singleton(ServerObserver::class, function () {
-            $client = ClientBuilder::create()->build();
-            return new ServerObserver($client);
-        });
-
-        $this->app->singleton(ServiceObserver::class, function () {
-            $client = ClientBuilder::create()->build();
-            return new ServiceObserver($client);
         });
 
         $this->app->singleton(UserObserver::class, function () {

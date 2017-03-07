@@ -40,21 +40,21 @@ folders:
       to: /home/vagrant/sites
 
 sites:
-    - map: black-box.app
-      to: /home/vagrant/sites/black-box/public
+    - map: blank-box.app
+      to: /home/vagrant/sites/blank-box/public
 
 databases:
-    - black_box
+    - blank_box
 
 ```
 
-Replace C:/Directory/To/Your/Git/Repos with the location you plan to clone the Black Box repo to, eg C:/Sites.
+Replace C:/Directory/To/Your/Git/Repos with the location you plan to clone the Blank Box repo to, eg C:/Sites.
 
 <hr>
 
 <h3 id="section3">3. Setting Up the Repository</h3>
 Clone the repository to the location you changed above:
-```git clone git@github.com:hannahtinkler/black-box.git```
+```git clone git@github.com:hannahtinkler/blank-box.git```
 
 From the root of the new directory, install the dependencies:
 ```
@@ -82,9 +82,9 @@ Navigate to the Homestead directory. On Windows, this is located in C:/Users/You
 vagrant ssh
 ```
 
-Navigate into the root of the Black Box directory, eg:
+Navigate into the root of the Blank Box directory, eg:
 ```
-cd sites/black-box
+cd sites/blank-box
 ```
 
 Migrate the databases and run the seeders:
@@ -136,7 +136,7 @@ sudo vim /etc/elasticsearch/elasticsearch.yml
 
 Then change/add the following config values to as below. You will also need to uncomment then (obviously).
 ```
-node.name: "Black Box 1"
+node.name: "Blank Box 1"
 cluster.name: Cluster1
 index.number_of_shards: 1
 index.number_of_replicas: 0
@@ -153,7 +153,7 @@ curl --ipv4 -XGET "http://localhost:9200"
 Some JSON should be output; if it is and it looks a bit like this, you win:
 ```
 {
-  "name" : "Black Box 1",
+  "name" : "Blank Box 1",
   "cluster_name" : "Cluster1",
   "version" : {
     "number" : "2.3.2",
@@ -167,7 +167,7 @@ Some JSON should be output; if it is and it looks a bit like this, you win:
 ```
 
 <h3 id="section6">6. Notes</h3>
-Any data added to the database will need to be added via seeder (located in black-box/databases/seeds) and committed to the repo. You can generate new seeders by running the following command and adding the class into black-box/databases/seeds/DatabaseSeeder.php.
+Any data added to the database will need to be added via seeder (located in blank-box/databases/seeds) and committed to the repo. You can generate new seeders by running the following command and adding the class into blank-box/databases/seeds/DatabaseSeeder.php.
 ```
 php artisan make:seeder SeederNameSeeder
 ```

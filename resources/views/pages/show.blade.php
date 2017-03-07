@@ -27,6 +27,7 @@
     <small>Written by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>
     @if($page->hasEdits()) 
         @set('updators', $page->getUpdatorsString())
+        
         @if(strlen($updators) <= 160)
             and updated by {!! $page->getUpdatorsString() !!}
         @else

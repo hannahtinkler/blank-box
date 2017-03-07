@@ -5,8 +5,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SearchControllerServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-    
     /**
      * The current user being worked on behalf of in the test
      * @var object User
@@ -35,12 +33,21 @@ class SearchControllerServiceTest extends TestCase
 
     public function testProcessSearchReturnsResults()
     {
-        $controllerService = new SearchControllerService($this->request, 'Cloud1');
+        $page = factory(App\Models\Page::class)->create([
+            'approved' => true
+        ]);
+
+        $page->addToIndex();
+
+        sleep(1);
+
+        $controllerService = new SearchControllerService($this->request, $page->title);
 
         $actual = $controllerService->processSearch(config('elasticquent.searchables'));
+        
         $expected = [
-            'content' => "Server: Cloud1 / Box server 1 - Box  (VBox Host)",
-            'url' => "/p/mayden/servers/server-details/1",
+            'content' => 'Page: ' . $page->title,
+            'url' => '/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug,
         ];
 
         unset($actual[0]['score']);

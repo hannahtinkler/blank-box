@@ -24,7 +24,6 @@
         <h3 class="font-bold">You don't have access to this resource.</h3>
 
         <div class="error-desc m-t-xl">
-            Please make sure you are logged into Google Plus/Mail with a '@mayden.co.uk' account.
             Try again? <br/><a href="/login" class="btn btn-primary m-t">Login</a>
         </div>
     </div>

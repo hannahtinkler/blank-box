@@ -12,8 +12,6 @@ use App\Services\ControllerServices\PageTagControllerService;
 
 class PageControllerServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-    
     /**
      * The current user being worked on behalf of in the test
      * @var object User
@@ -235,6 +233,8 @@ class PageControllerServiceTest extends TestCase
 
     public function testItUpdatesAllRecordsWhenAddingAdditionalSlugForwards()
     {
+        SlugForwardingSetting::truncate();
+        
         $page1 = factory(App\Models\Page::class)->create();
         $page2 = factory(App\Models\Page::class)->create();
         $page3 = factory(App\Models\Page::class)->create();

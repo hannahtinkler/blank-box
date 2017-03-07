@@ -7,8 +7,6 @@ use App\Services\ControllerServices\UserBadgeControllerService;
 
 class UserBadgeControllerServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-    
     /**
      * The current user being worked on behalf of in the test
      * @var object User

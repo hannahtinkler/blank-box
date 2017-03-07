@@ -7,8 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PageModelServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-
     public $user;
     public $page;
 

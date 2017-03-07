@@ -2,51 +2,28 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-
+use Auth;
 use Validator;
 use Socialite;
+
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Laravel\Socialite\Two\InvalidStateException;
+
+use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
+use App\Models\User;
 
 class AuthController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Registration & Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users, as well as the
-    | authentication of existing users. By default, this controller uses
-    | a simple trait to add these behaviors. Why don't you explore it?
-    |
-    */
-
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
-     * Where to redirect users after login / registration.
-     *
      * @var string
      */
     protected $redirectTo = '/';
-    protected $acceptedEmailDomain = '@mayden.co.uk';
 
     /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
-    }
-
-    /**
-     * Get a validator for an incoming registration request.
-     *
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -60,8 +37,6 @@ class AuthController extends Controller
     }
 
     /**
-     * Create a new user instance after a valid registration.
-     *
      * @param  array  $data
      * @return User
      */
@@ -74,27 +49,34 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function logout()
     {
-        \Auth::logout();
+        Auth::logout();
+
         return redirect('/');
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirectToProvider()
     {
         return Socialite::driver('google')->redirect();
     }
 
     /**
-     * Obtain the user information from Google.
-     *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function handleProviderCallback()
     {
         try {
             $user = Socialite::driver('google')->user();
+
             $success = $this->registerUserIfNotRegistered($user);
+
             if ($success) {
                 return redirect('/');
             } else {
@@ -105,32 +87,40 @@ class AuthController extends Controller
         }
     }
     
+    /**
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function accessDeniedPage()
     {
         return view('errors.accessdenied');
     }
     
+    /**
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function retryLogin()
     {
         return view('home.retry');
     }
     
+    /**
+     * @param  User $user
+     * @return boolean
+     */
     public function registerUserIfNotRegistered($user)
     {
-        $eloquentUser = User::where('email', $user->getEmail())->first();
+        $eloquentUser = User::where('email', 'grsrg')->first();
 
-        if (!is_object($eloquentUser)) {
-            if (strpos($user->getEmail(), $this->acceptedEmailDomain)) {
-                $eloquentUser = User::create([
-                    'name' => $user->getName(),
-                    'email' => $user->getEmail(),
-                    'slug' => str_slug($user->getname()),
-                ]);
-            } else {
-                return false;
-            }
+        if (!$eloquentUser) {
+            $eloquentUser = User::create([
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'slug' => str_slug($user->getname()),
+            ]);
         }
 
-        return  \Auth::login($eloquentUser);
+        Auth::login($eloquentUser);
+
+        return $eloquentUser;
     }
 }

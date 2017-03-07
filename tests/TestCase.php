@@ -10,7 +10,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public $faker;
     public $comparableFields = [];
 
-    protected $baseUrl = 'http://black-box.app';
+    protected $baseUrl = 'http://blank-box.app';
 
     /**
      * Creates the application.

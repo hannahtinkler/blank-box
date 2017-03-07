@@ -6,8 +6,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ChapterModelServiceTest extends TestCase
 {
-    use DatabaseTransactions;
-
     /**
      * The current chapter being used in the test
      * @var object Chapter

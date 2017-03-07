@@ -363,17 +363,6 @@ class PageControllerTest extends TestCase
             ->assertResponseStatus(401);
     }
 
-    public function testItCanAccessTheLatestPagesPage()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create();
-
-        $this->get('/pages/latestupdates')
-            ->assertResponseStatus(200)
-            ->see("Latest Updated Pages:");
-    }
-
     /**
      * Logs in a new user so that we can path successfully though
      * authentication
