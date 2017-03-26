@@ -12,7 +12,6 @@ Route::get('/accessdenied', 'Auth\AuthController@accessDeniedPage');
 Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/', 'HomeController@index');
-    
     Route::get('/random', 'HomeController@getRandomPage');
     Route::get('/switchcategory/{id}', 'HomeController@switchCategory');
 
@@ -23,48 +22,23 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/pages', 'PageController@store');
     Route::get('/pages/edit/{id}', 'PageController@edit');
     Route::put('/pages/{id}', 'PageController@update');
-    Route::delete('/pages/{id}', 'PageController@destroy');
     
     Route::get('/chapters/create', 'ChapterController@create');
     Route::post('/chapters', 'ChapterController@store');
-    Route::get('/chapters/edit/{id}', 'ChapterController@edit');
-    Route::put('/chapters/{id}', 'ChapterController@update');
-    Route::delete('/chapters/{id}', 'ChapterController@destroy');
 
-    Route::get('/ajax/modal/badges/{id}', 'BadgeController@showBadgeModal');
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
-    Route::get('/ajax/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
-    
-    Route::post('/ajax/endpoints/pagepreview', function (Request $request, CommonMarkConverter $converter) {
-        return json_encode([
-            'identifier' => $request->input('identifier'),
-            'content' => $converter->convertToHtml($request->input('content'))
-        ]);
-    });
 
-    Route::get('/u/{userSlug}/', 'UserController@show');
-
-    if (env('FEATURE_BADGES_ENABLED', true)) {
-        Route::get('/u/{userSlug}/badges', 'BadgeController@index');
-    }
-
-    if (env('FEATURE_CURATION_ENABLED', true)) {
-        Route::get('/curation', 'CurationController@index');
-        Route::get('/curation/new', 'CurationController@newPagesAwaitingApproval');
-        Route::get('/curation/edits', 'CurationController@suggestedEditsAwaitingApproval');
-        Route::get('/curation/viewdiff/{id}', 'CurationController@viewdiff');
-        Route::get('/curation/new/approve/{id}', 'CurationController@approveNewPage');
-        Route::get('/curation/new/reject/{id}', 'CurationController@rejectNewPage');
-        Route::get('/curation/edits/approve/{id}', 'CurationController@approveSuggestedEdit');
-        Route::get('/curation/edits/approve/{id}', 'CurationController@approveEdit');
-        Route::get('/curation/edits/reject/{id}', 'CurationController@rejectEdit');
-    }
-
+    Route::get('/u/{slug}/', 'UserController@show');
     Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
     Route::get('/u/{slug}/drafts', 'PageDraftController@index');
     Route::get('/u/{slug}/drafts/{id}', 'PageDraftController@edit');
     Route::get('/u/{slug}/drafts/preview/{id}', 'PageDraftController@preview');
     Route::get('/u/{slug}/drafts/delete/{id}', 'PageDraftController@destroy');
+
+    if (env('FEATURE_BADGES_ENABLED', true)) {
+        Route::get('/u/{userSlug}/badges', 'BadgeController@index');
+        Route::get('/ajax/modal/badges/{userId}/{badgeId}', 'BadgeController@showBadgeModal');
+    }
 
     Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
     Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
@@ -76,4 +50,37 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
+    
+    Route::post('/ajax/endpoints/pagepreview', function (Request $request, CommonMarkConverter $converter) {
+        return json_encode([
+            'identifier' => $request->input('identifier'),
+            'content' => $converter->convertToHtml($request->input('content'))
+        ]);
+    });
+
+    if (env('FEATURE_CURATION_ENABLED', true)) {
+        Route::group(['middleware' => ['curator']], function () {
+            Route::get('/curation', 'CurationController@index');
+            Route::get('/curation/new', 'CurationController@newPagesAwaitingApproval');
+            Route::get('/curation/edits', 'CurationController@suggestedEditsAwaitingApproval');
+            Route::get('/curation/viewdiff/{id}', 'CurationController@viewDiff');
+            Route::get('/curation/new/approve/{id}', 'CurationController@approveNewPage');
+            Route::get('/curation/new/reject/{id}', 'CurationController@rejectNewPage');
+            Route::get('/curation/edits/approve/{id}', 'CurationController@approveSuggestedEdit');
+            Route::get('/curation/edits/approve/{id}', 'CurationController@approveEdit');
+            Route::get('/curation/edits/reject/{id}', 'CurationController@rejectEdit');
+
+            Route::get('/chapters/edit/{id}', 'ChapterController@edit');
+            Route::put('/chapters/{id}', 'ChapterController@update');
+            Route::delete('/chapters/{id}', 'ChapterController@destroy');
+
+            Route::delete('/pages/{id}', 'PageController@destroy');
+        });
+    } else {
+        Route::get('/chapters/edit/{id}', 'ChapterController@edit');
+        Route::put('/chapters/{id}', 'ChapterController@update');
+        Route::delete('/chapters/{id}', 'ChapterController@destroy');
+
+        Route::delete('/pages/{id}', 'PageController@destroy');
+    }
 });

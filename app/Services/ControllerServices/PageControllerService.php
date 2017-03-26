@@ -4,7 +4,7 @@ namespace App\Services\ControllerServices;
 
 use Illuminate\Http\Request;
 
-use App\Events\PageWasAddedToChapter;
+use App\Events\PageWasAdded;
 
 use App\Models\Page;
 use App\Models\PageDraft;
@@ -48,7 +48,7 @@ class PageControllerService
         }
 
         if ($page->approved) {
-            \Event::fire(new PageWasAddedToChapter($page, $page->creator));
+            \Event::fire(new PageWasAdded($page, $page->creator));
         }
 
         return $page;
@@ -109,22 +109,6 @@ class PageControllerService
             ->leftJoin('slug_forwarding_settings', 'pages.slug', '=', 'slug_forwarding_settings.new_slug')
             ->where('old_slug', $pageSlug)
             ->firstOrFail();
-    }
-
-    public function shouldBeApproved($incomingData, $currentPage = null)
-    {
-        if (!env('FEATURE_CURATION_ENABLED')) {
-            // If curation is turned off, return true (already approved)
-            return 1;
-        } else if (isset($incomingData['approved'])) {
-            // If new data specifies approved, listen
-            return 1;
-        } else if ($currentPage != null) {
-            // If no other data available but it was already approved, go
-            return $currentPage->approved;
-        }
-
-        return null;
     }
 
     public function registerSlugForwarding($oldPage, $newPage)

@@ -8,8 +8,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     public $faker;
+
+    /**
+     * @var array
+     */
     public $comparableFields = [];
 
+    /**
+     * @var string
+     */
     protected $baseUrl = 'http://blank-box.app';
 
     /**
@@ -35,8 +42,11 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function setUp()
     {
         parent::setUp();
+
         $this->faker = Faker\Factory::create();
+
         $this->mockObservers();
+        $this->truncateElasticSearch();
     }
     
     /**
@@ -67,11 +77,30 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function mockObservers()
     {
         foreach (config('elasticquent.searchables') as $searchable) {
-            $mock = $this->mockProvider = Mockery::mock('App\Observers\Elasticsearch\\' . $searchable . 'Observer');
+            $observer = sprintf('App\Observers\Elasticsearch\%sObserver', $searchable);
+
+            $mock = Mockery::mock($observer);
+
             $mock->shouldReceive('created')->andReturn(true);
             $mock->shouldReceive('updated')->andReturn(true);
             $mock->shouldReceive('deleted')->andReturn(true);
-            $this->app->instance('App\Observers\Elasticsearch\\' . $searchable . 'Observer', $this->mockProvider);
-        }   
+
+            $this->app->instance($observer, $mock);
+        }
+    }
+
+    public function truncateElasticSearch()
+    {
+        return file_get_contents(
+            "http://localhost:9200/" . env('ELASTICSEARCH_INDEX'),
+            false,
+            stream_context_create(
+                [
+                    'http' => [
+                        ['method' => 'DELETE']
+                    ]
+                ]
+            )
+        );
     }
 }

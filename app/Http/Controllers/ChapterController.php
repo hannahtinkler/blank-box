@@ -2,65 +2,99 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chapter;
-use App\Models\Category;
+use Illuminate\Http\Request;
+
+use App\Services\ChapterService;
+use App\Services\CategoryService;
 
 use App\Http\Requests\ChapterRequest;
 
-use App\Services\ControllerServices\ChapterControllerService;
-
 class ChapterController extends Controller
 {
-    private $controllerService;
+    /**
+     * @var ChapterService
+     */
+    private $chapters;
 
-    public function __construct(ChapterControllerService $controllerService)
-    {
-        $this->controllerService = $controllerService;
+    /**
+     * @var CategoryService
+     */
+    private $categories;
+
+    /**
+     * @param ChapterService  $chapters
+     * @param CategoryService $categories
+     */
+    public function __construct(
+        ChapterService $chapters,
+        CategoryService $categories
+    ) {
+        $this->chapters = $chapters;
+        $this->categories = $categories;
     }
 
-    public function show($categorySlug, $chapterSlug)
+    /**
+     * @param  Request $request
+     * @param  string  $categorySlug
+     * @param  string  $chapterSlug
+     * @return View
+     */
+    public function show(Request $request, $categorySlug, $chapterSlug)
     {
-        $chapter = Chapter::findBySlug($chapterSlug);
+        $user = $request->user();
+        $chapter = $this->chapters->getBySlug($chapterSlug);
         
-        return view('chapters.show', compact('chapter'));
+        return view('chapters.show', compact('chapter', 'user'));
     }
 
+    /**
+     * @return View
+     */
     public function create()
     {
-        $categories = Category::orderBy('title')->get();
+        $categories = $this->categories->getAll();
 
         return view('chapters.create', compact('categories'));
     }
 
+    /**
+     * @param  ChapterRequest $request
+     * @return Redirect
+     */
     public function store(ChapterRequest $request)
     {
-        $chapter = $this->controllerService->storeChapter($request->input());
+        $chapter = $this->chapters->store($request->input());
 
-        return redirect($chapter->searchResultUrl())->with('message', '<i class="fa fa-check"></i> New chapter has been created');
+        return redirect($chapter->searchResultUrl())->with(
+            'message',
+            '<i class="fa fa-check"></i> New chapter has been created'
+        );
     
     }
 
-
-    public function edit($id)
+    /**
+     * @param  Request $request
+     * @param  int  $id
+     * @return View
+     */
+    public function edit(Request $request, $id)
     {
-        if (!$this->controllerService->user->curator) {
-            return \App::abort(401);
-        }
-
-        $chapter = Chapter::findOrFail($id);
-        $categories = Category::orderBy('title')->get();
+        $chapter = $this->chapters->getById($id);
+        $categories = $this->categories->getAll();
 
         return view('chapters.edit', compact('chapter', 'categories'));
     }
 
-    public function update($id, ChapterRequest $request)
+    /**
+     * @param  ChapterRequest $request
+     * @param  int         $id
+     * @return Redirect
+     */
+    public function update(ChapterRequest $request, $id)
     {
-        if (!$this->controllerService->user->curator) {
-            return \App::abort(401);
-        }
+        $chapter = $this->chapters->getById($id);
 
-        $chapter = Chapter::findOrFail($id);
-        $this->controllerService->updateChapter($chapter, $request->input());
+        $this->chapters->update($chapter, $request->input());
 
         return redirect($chapter->searchResultUrl())->with(
             'message',
@@ -68,25 +102,29 @@ class ChapterController extends Controller
         );
     }
 
+    /**
+     * @param  int $id
+     * @return Redirect
+     */
     public function destroy($id)
     {
-        if (!$this->controllerService->user->curator) {
-            return \App::abort(401);
-        }
+        $chapter = $this->chapters->getById($id);
 
-        $chapter = Chapter::findOrFail($id);
         $chapter->delete();
 
-        return redirect('/p/' . $chapter->category->slug)
-        ->with(
+        return redirect('/p/' . $chapter->category->slug)->with(
             'message',
             '<i class="fa fa-check"></i> This chapter has been successfully deleted'
         );
     }
 
+    /**
+     * @param  int $categoryId
+     * @return string
+     */
     public function getChaptersForCategory($categoryId)
     {
-        $chapters = Chapter::where('category_id', $categoryId)->orderBy('title')->get();
+        $chapters = $this->chapters->getByCategoryId($categoryId);
 
         return json_encode($chapters);
     }

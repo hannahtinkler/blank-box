@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Models\FeedEvent;
 use App\Models\FeedEventType;
 
-use App\Events\PageWasAddedToChapter;
+use App\Events\PageWasAdded;
 
 use Illuminate\Http\Request;
 
@@ -30,10 +30,10 @@ class AddPageEventToFeed
     /**
      * Handle the event.
      *
-     * @param  PageWasAddedToChapter  $event
+     * @param  PageWasAdded  $event
      * @return void
      */
-    public function handle(PageWasAddedToChapter $event)
+    public function handle(PageWasAdded $event)
     {
         $page = $event->page;
 

@@ -33,13 +33,15 @@ class SearchControllerServiceTest extends TestCase
 
     public function testProcessSearchReturnsResults()
     {
+        putenv('ELASTICSEARCH_INDEX=blank_box_test');
+        
         $page = factory(App\Models\Page::class)->create([
             'approved' => true
         ]);
 
         $page->addToIndex();
 
-        sleep(1);
+        // sleep(1);
 
         $controllerService = new SearchControllerService($this->request, $page->title);
 

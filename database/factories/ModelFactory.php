@@ -53,7 +53,23 @@ $factory->define(App\Models\Page::class, function (Faker\Generator $faker) {
         'approved' => null,
         'slug' => str_slug($title),
         'order' => $faker->randomDigit,
-        'created_by' => factory(App\Models\User::class)->create()->id
+        'created_by' => factory(App\Models\User::class)->create()->id,
+        'deleted_at' => null,
+    ];
+});
+
+$factory->define(App\Models\SuggestedEdit::class, function (Faker\Generator $faker) {
+    $title = $faker->sentence;
+    return [
+        'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
+        'title' => $title,
+        'description' => $faker->sentence,
+        'content' => $faker->text,
+        'approved' => null,
+        'slug' => str_slug($title),
+        'order' => $faker->randomDigit,
+        'created_by' => factory(App\Models\User::class)->create()->id,
+        'deleted_at' => null,
     ];
 });
 
@@ -110,24 +126,12 @@ $factory->define(App\Models\BadgeType::class, function (Faker\Generator $faker) 
     ];
 });
 
-$factory->define(App\Models\BadgeGroup::class, function (Faker\Generator $faker) {
-    $badgeType = factory(App\Models\BadgeType::class)->create();
-    $chapter = factory(App\Models\Chapter::class)->create();
-    
-    return [
-        'badge_type_id' => $badgeType->id,
-        'name' => $faker->sentence(3),
-        'description' => $faker->sentence,
-        'metric_entity' => $chapter->id
-    ];
-});
-
 $factory->define(App\Models\Badge::class, function (Faker\Generator $faker) {
-    $badgeGroup = factory(App\Models\BadgeGroup::class)->create();
+    $badgeType = factory(App\Models\BadgeType::class)->create();
     $user = factory(App\Models\User::class)->create();
     
     return [
-        'badge_group_id' => $badgeGroup->id,
+        'badge_type_id' => $badgeType->id,
         'name' => $faker->sentence(3),
         'description' => $faker->sentence,
         'level' => $faker->numberBetween(1, 5),

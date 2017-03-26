@@ -2,13 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
-    public function show($categorySlug)
+    /**
+     * @var Category
+     */
+    private $categories;
+
+    /**
+     * @param CategoryService $categories
+     */
+    public function __construct(CategoryService $categories)
     {
-        $category = Category::where('slug', $categorySlug)->firstOrFail();
+        $this->categories = $categories;
+    }
+
+    /**
+     * @param  string $slug
+     * @return View
+     */
+    public function show($slug)
+    {
+        $category = $this->categories->getBySlug($slug);
 
         return view('categories.show', compact('category'));
     }

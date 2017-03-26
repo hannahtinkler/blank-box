@@ -24,7 +24,7 @@
         <h3 class="font-bold">Access denied</h3>
 
         <div class="error-desc m-t-xl">
-            Sorry, you don't have access to this page. 
+            Sorry, you don't have access to this area. 
             Want to go back to the main page? <br/><a href="/" class="btn btn-primary m-t">Home</a>
         </div>
     </div>

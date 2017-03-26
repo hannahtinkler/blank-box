@@ -14,7 +14,7 @@ class CreateBadgesTable extends Migration
     {
         Schema::create('badges', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('badge_group_id');
+            $table->integer('badge_type_id');
             $table->string('name');
             $table->string('description')->nullable()->default(null);;
             $table->string('image')->nullable()->default(null);;

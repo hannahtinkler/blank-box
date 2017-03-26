@@ -109,7 +109,7 @@ class AuthController extends Controller
      */
     public function registerUserIfNotRegistered($user)
     {
-        $eloquentUser = User::where('email', 'grsrg')->first();
+        $eloquentUser = User::where('email', $user->getEmail())->first();
 
         if (!$eloquentUser) {
             $eloquentUser = User::create([

@@ -7214,12 +7214,14 @@ body.blank-box-skin:not(.gray-bg) {
   border-radius: 5px;
 }
 .blank-box-skin .navbar-default .nav li > a:hover,
-.blank-box-skin .navbar-default .nav li > a:focus {
+.blank-box-skin .navbar-default .nav li > a:focus,
+.blank-box-skin .navbar-default .nav li > a:active {
   background: rgba(255, 255, 255, 0.64);
   color: #222;
 }
 .blank-box-skin .navbar-default .nav li:not(.active) > li > a:hover,
-.blank-box-skin .navbar-default .nav li:not(.active) > li > a:focus {
+.blank-box-skin .navbar-default .nav li:not(.active) > li > a:focus,
+.blank-box-skin .navbar-default .nav li:not(.active) > li > a:active {
   background: #e2e2e2;
   color: #fff;
 }
@@ -7725,7 +7727,7 @@ table tr.table-heading td {
 }
 .modal-dialog {
   margin: 180px auto;
-  margin: 25vh auto;
+  margin: 15vh auto;
 }
 a.tooltip-trigger i {
   color: #929292;

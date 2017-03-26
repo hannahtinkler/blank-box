@@ -50,11 +50,6 @@ class Chapter extends Model implements SearchableModel
         return $this->hasMany('App\Models\Page')->where('approved', true)->orderBy('order');
     }
     
-    public function scopeFindBySlug($query, $slug)
-    {
-        return $query->where('slug', $slug)->firstOrFail();
-    }
-    
     public function scopeLargestOrderValue($query, $categoryId)
     {
         return $query->where('category_id', $categoryId)->orderBy('order', 'desc')->first();

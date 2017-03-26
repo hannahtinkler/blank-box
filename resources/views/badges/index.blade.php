@@ -14,27 +14,25 @@
     <div class="row badge-container">
         <div class="col-lg-12">
             @set('x', 0)
-            @foreach($badgeGroups as $badgeGroup)
-                @foreach($badgeGroup->badges as $badge)
-                    @if(is_int($x / 7))
-                        <div class="row">
-                    @endif
-                        <div class="col-lg-2 badge-cell">
-                            <a {!! !in_array($badge->id, $userBadges) ? 'class="not-earned"' : null !!} data-toggle="modal" href="/ajax/modal/badges/{{ $badge->id }}" data-target="#more-info">
-                                <div class="badge-image left">
-                                    <img class="m-b-sm" src="{{ $badge->image }}" />
-                                    <p>
-                                        <strong>{{ $badgeGroup->name }}</strong><br />
-                                        {{ $badge->name }}
-                                    </p>
-                                </div>
-                            </a>
-                        </div>
-                    @if(is_int(($x + 1) / 7))
-                        </div>
-                    @endif
-                    @set('x', $x + 1)
-                @endforeach
+            @foreach($badges as $badge)
+                @if(is_int($x / 7))
+                    <div class="row">
+                @endif
+                    <div class="col-lg-2 badge-cell">
+                        <a {!! !in_array($badge->id, $userBadges) ? 'class="not-earned"' : null !!} data-toggle="modal" href="/ajax/modal/badges/{{ $user->id }}/{{ $badge->id }}" data-target="#more-info">
+                            <div class="badge-image left">
+                                <img class="m-b-sm" src="{{ $badge->image }}" />
+                                <p>
+                                    <strong>{{ $badge->type->name }}</strong><br />
+                                    {{ $badge->name }}
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                @if(is_int(($x + 1) / 7))
+                    </div>
+                @endif
+                @set('x', $x + 1)
             @endforeach
         </div>
     </div>

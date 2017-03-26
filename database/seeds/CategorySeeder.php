@@ -12,6 +12,8 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
+        Category::truncate();
+
         Category::create([
             'title' => 'General',
             'description' => 'General chapters go here.',

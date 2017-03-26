@@ -2,76 +2,65 @@
 
 namespace App\Listeners;
 
+use App\Events\Event;
+
 use App\Models\Page;
 use App\Models\Badge;
 
-use App\Events\PageWasAddedToChapter;
-
-use App\Services\ControllerServices\UserBadgeControllerService;
+use App\Services\UserService;
+use App\Services\PageService;
+use App\Services\BadgeService;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CheckForBadgeQualification
 {
-    private $page;
-    private $metric = 'pagesSubmittedInChapter';
+  /**
+   * @var Badges
+   */
+    private $badges;
+
+  /**
+   * @var User
+   */
+    private $users;
 
     /**
-     * Create the event listener.
-     *
-     * @return void
+     * @param BadgeService $badges
+     * @param User         $users
      */
-    public function __construct(UserBadgeControllerService $userBadgeControllerService)
-    {
-        $this->userBadgeControllerService = $userBadgeControllerService;
+    public function __construct(
+        BadgeService $badges,
+        UserService $users,
+        PageService $pages
+    ) {
+        $this->badges = $badges;
+        $this->users = $users;
+        $this->pages = $pages;
     }
 
     /**
      * Handle the event.
      *
-     * @param  PageWasAddedToChapter  $event
+     * @param  Event  $event
      * @return void
      */
-    public function handle(PageWasAddedToChapter $event)
+    public function handle(Event $event)
     {
         if (env('FEATURE_BADGES_ENABLED', true)) {
-            $this->page = $event->page;
+            $page = $event->page;
+            $creator = $page->creator;
 
-            $count = $this->getPageCountForChapter();
-            $newBadges = $this->getNewlyQualifiedForBadges($count);
+            $count = $this->pages->getApprovedByUserId($page->created_by)->count();
 
-            if (!$newBadges->isEmpty()) {
-                $this->userBadgeControllerService->addBadgesForUser($newBadges, $this->page->creator);
+            $badges = $this->badges->getNewByUserId($creator->id, $event->metric, $count);
+
+            if (!$badges->isEmpty()) {
+                $badgeIds = array_pluck($badges, 'id');
+
+                $this->badges->addManyForUser($creator->id, $badgeIds);
             }
         }
-    }
-
-    public function getPageCountForChapter()
-    {
-        return Page::where('chapter_id', $this->page->chapter_id)
-            ->where('created_by', $this->page->created_by)
-            ->where('approved', 1)
-            ->get()
-            ->count();
-    }
-
-    public function getNewlyQualifiedForBadges($count)
-    {
-        $userId = $this->page->created_by;
-        
-        return Badge::select('badges.*')
-            ->leftJoin('badge_groups', 'badges.badge_group_id', '=', 'badge_groups.id')
-            ->leftJoin('badge_types', 'badge_groups.badge_type_id', '=', 'badge_types.id')
-            ->where('badge_types.metric', $this->metric)
-            ->where('badge_groups.metric_entity', $this->page->chapter_id)
-            ->where('badges.metric_boundary', '<=', $count)
-            ->whereNotIn('badges.id', function ($query) use ($userId) {
-                $query->select('badge_id')
-                  ->from('user_badges')
-                  ->where('user_id', $userId);
-            })
-            ->orderBy('badges.metric_boundary')
-            ->get();
     }
 }

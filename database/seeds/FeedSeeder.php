@@ -16,8 +16,8 @@ class FeedSeeder extends Seeder
      */
     public function run()
     {
-        $page = Page::where('title', 'Server Details')->first();
-        $badge = Badge::first();
+        FeedEventType::truncate();
+        FeedEvent::truncate();
 
         $pageFeedEvent = FeedEventType::create([
             'name' => 'Page Added',

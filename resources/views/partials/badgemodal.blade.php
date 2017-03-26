@@ -1,6 +1,6 @@
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h2 class="modal-title text-center" id="myModalLabel">{{ $badge->group->name }}</h2>
+    <h2 class="modal-title text-center" id="myModalLabel">{{ $badge->type->name }}</h2>
 </div>
 <div class="modal-body text-center">
     <h3>{{ $badge->name }}</h3>

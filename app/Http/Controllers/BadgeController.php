@@ -4,39 +4,60 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\User;
-use App\Models\Badge;
-use App\Models\UserBadge;
-use App\Models\BadgeGroup;
-
-use App\Services\ControllerServices\UserBadgeControllerService;
+use App\Services\UserService;
+use App\Services\BadgeService;
 
 class BadgeController extends Controller
 {
-    private $controllerService;
+    /**
+     * @var BadgeService
+     */
+    private $badge;
 
-    public function __construct(UserBadgeControllerService $controllerService)
+    /**
+     * @var UserService
+     */
+    private $users;
+
+    /**
+     * @param BadgeService $badges
+     * @param UserService  $user
+     */
+    public function __construct(BadgeService $badges, UserService $users)
     {
-        $this->controllerService = $controllerService;
+        $this->badges = $badges;
+        $this->users = $user;
     }
 
-    public function index(Request $request, $userSlug)
+    /**
+     * @param  Request $request
+     * @param  string  $slug
+     * @return View
+     */
+    public function index(Request $request, $slug)
     {
-        UserBadge::where('read', false)->update(['read' => true]);
-        
-        $user = User::where('slug', $userSlug)->firstOrFail();
+        $me = $request->user();
+        $user = $this->users->getBySlug($slug);
 
-        $userBadges = array_pluck($this->controllerService->getBadgesForUser($user->id)->toArray(), 'id');
+        if ($user->id == $me->id) {
+            $this->badges->markAllAsSeen($me->id);
+        }
 
-        $badgeGroups = BadgeGroup::all();
+        $userBadges = array_pluck(
+            $this->badges->getByUserId($user->id)->toArray(),
+            'id'
+        );
 
-        return view('badges.index', compact('badgeGroups', 'userBadges', 'user'));
+        $badges = $this->badges->getAll();
+
+        return view('badges.index', compact('badges', 'userBadges', 'user'));
     }
 
-    public function showBadgeModal($id)
+    public function showBadgeModal($userId, $badgeId)
     {
-        $badge = Badge::findOrFail($id);
-        $earned = $this->controllerService->userHasBadge($id);
+        $badge = $this->badges->getById($badgeId);
+
+        $earned = $this->badges->userHasBadge($userId, $badgeId);
         
         return view('partials.badgemodal', compact('badge', 'earned'));
     }

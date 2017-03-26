@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Badge;
 use App\Models\UserBadge;
-use App\Models\BadgeGroup;
+use App\Models\BadgeType;
 
 class BadgeTest extends TestCase
 {
@@ -25,16 +25,16 @@ class BadgeTest extends TestCase
     }
 
     /**
-     * Tests that a call to the badgeGroup relationship returns an
-     * object of the BadgeGroup class
+     * Tests that a call to the badgeType relationship returns an
+     * object of the BadgeType class
      *
      * @return void
      */
-    public function testGroupRelationshipReturnsGroup()
+    public function testTypeRelationshipReturnsType()
     {
-        $badgeGroup = factory(App\Models\BadgeGroup::class)->create();
-        $badge = factory(App\Models\Badge::class)->create(['badge_group_id' => $badgeGroup->id]);
+        $badgeType = factory(App\Models\BadgeType::class)->create();
+        $badge = factory(App\Models\Badge::class)->create(['badge_type_id' => $badgeType->id]);
 
-        $this->assertTrue($badge->group instanceof BadgeGroup);
+        $this->assertTrue($badge->type instanceof BadgeType);
     }
 }

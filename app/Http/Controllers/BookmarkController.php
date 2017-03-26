@@ -4,48 +4,78 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Bookmark;
-
-use App\Services\ControllerServices\BookmarkControllerService;
+use App\Services\UserService;
+use App\Services\BookmarkService;
 
 class BookmarkController extends Controller
 {
-    private $controllerService;
+    /**
+     * @var BookmarkService
+     */
+    private $user;
 
-    public function __construct(BookmarkControllerService $controllerService)
+    /**
+     * @var UserService
+     */
+    private $bookmarks;
+
+    /**
+     * @param BookmarkService $bookmarks
+     * @param UserService     $users
+     */
+    public function __construct(BookmarkService $bookmarks, UserService $users)
     {
-        $this->controllerService = $controllerService;
+        $this->bookmarks = $bookmarks;
+        $this->users = $users;
     }
 
+    /**
+     * @param  Request $request
+     * @param  string  $userSlug
+     * @return View
+     */
     public function index(Request $request, $userSlug)
     {
-        $bookmarks = Bookmark::join('users', 'bookmarks.user_id', '=', 'users.id')
-            ->where('users.slug', $userSlug)
-            ->orderBy('bookmarks.created_at', 'DESC')
-            ->get();
+        $bookmarks = $this->bookmarks->getByUserSlug($userSlug);
 
         return view('bookmarks.index', compact('bookmarks'));
     }
 
+    /**
+     * @param  string $userSlug
+     * @param  int $categoryId
+     * @param  int $chapterId
+     * @param  int $pageId
+     * @return string
+     */
     public function create($userSlug, $categoryId, $chapterId, $pageId = null)
     {
-        $bookmark = $this->controllerService->storeBookmark($categoryId, $chapterId, $pageId);
+        $user = $this->users->getBySlug($userSlug);
+        $bookmark = $this->bookmarks->store($user->id, $chapterId, $pageId);
 
         return json_encode([
             'success' => true,
             'entity' =>  $bookmark,
-            'count' => Bookmark::all()->count()
+            'count' => $this->bookmarks->getByUserSlug($userSlug)->count(),
         ]);
     }
 
+    /**
+     * @param  string $userSlug
+     * @param  int $categoryId
+     * @param  int $chapterId
+     * @param  int $pageId
+     * @return string
+     */
     public function destroy($userSlug, $categoryId, $chapterId, $pageId = null)
     {
-        $this->controllerService->deleteBookmark($categoryId, $chapterId, $pageId);
+        $user = $this->users->getBySlug($userSlug);
+        $this->bookmarks->delete($user->id, $chapterId, $pageId);
 
         return json_encode([
             'success' => true,
             'message' =>  'Bookmark has been removed',
-            'count' => Bookmark::all()->count()
+            'count' => $this->bookmarks->getByUserSlug($userSlug)->count(),
         ]);
     }
 }

@@ -3,23 +3,24 @@
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\UserBadge;
-use App\Models\BadgeGroup;
+use App\Models\Badge;
 
 class BadgeTypeTest extends TestCase
 {
     use DatabaseTransactions;
 
     /**
-     * Tests that a call to the badgeGroups relationship returns a collection
-     * object containing instances of the BadgeGroup class
+     * Tests that a call to the badgeBadges relationship returns a collection
+     * object containing instances of the Badge class
      *
      * @return void
      */
-    public function testGroupsRelationshipReturnsGroups()
+    public function testBadgesRelationshipReturnsBadges()
     {
         $badgeType = factory(App\Models\BadgeType::class)->create();
-        factory(App\Models\BadgeGroup::class, 2)->create(['badge_type_id' => $badgeType->id]);
 
-        $this->assertTrue($badgeType->groups->first() instanceof BadgeGroup);
+        factory(App\Models\Badge::class, 2)->create(['badge_type_id' => $badgeType->id]);
+
+        $this->assertTrue($badgeType->badges->first() instanceof Badge);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use App\Events\PageWasAddedToChapter;
+use App\Events\PageWasAdded;
 
-class PageWasAddedToChapterTest extends TestCase
+class PageWasAddedTest extends TestCase
 {
     public function testItReturnsCorrectProperties()
     {
@@ -10,11 +10,11 @@ class PageWasAddedToChapterTest extends TestCase
         $user = factory(App\Models\User::class)->create();
 
         $expected = $page;
-        $actual = (new PageWasAddedToChapter($page, $user))->page;
+        $actual = (new PageWasAdded($page, $user))->page;
         $this->assertEquals($expected, $actual);
 
         $expected = $user;
-        $actual = (new PageWasAddedToChapter($page, $user))->user;
+        $actual = (new PageWasAdded($page, $user))->user;
         $this->assertEquals($expected, $actual);
 
     }

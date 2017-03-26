@@ -2,38 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use URL;
+use Session;
 
-use Carbon\Carbon;
-use App\Models\Page;
-use App\Models\FeedEvent;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    /**
+     * @return View
+     */
     public function index()
     {
-        $feedEvents = FeedEvent::orderBy('created_at', 'DESC')->paginate(20);
+        $feedEvents = $this->feedEvents->getAllPaginated();
 
-        $daysTilXmas = Carbon::createFromDate(2017, 12, 25)->diff(Carbon::createFromDate())->days;
-
-        return view('home.index', compact('feedEvents', 'daysTilXmas'));
+        return view('home.index', compact('feedEvents'));
     }
     
+    /**
+     * @return Redirect
+     */
     public function getRandomPage()
     {
-        $page = Page::where('approved', 1)->orderByRaw("RAND()")->first();
+        $page = $this->pages->getRandom();
+
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug);
     }
     
-    public function switchCategory($id)
+    /**
+     * @param  Request $request
+     * @param  int  $id
+     * @return Redirect
+     */
+    public function switchCategory(Request $request, $id)
     {
-        \Session::set('currentCategoryId', $id);
+        Session::set('currentCategoryId', $id);
 
-        $user = \Auth::user();
+        $user = $request->user();
         $user->default_category_id = $id;
         $user->save();
 
-        return redirect(\URL::previous());
+        return redirect(URL::previous());
     }
 }

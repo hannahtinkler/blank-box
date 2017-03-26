@@ -39,7 +39,6 @@ class Category extends Model
 
           $q->whereRaw("$pages > 0");
         })
-        ->orderBy('title')
-        ->orderBy('order');
+        ->orderBy('title');
     }
 }

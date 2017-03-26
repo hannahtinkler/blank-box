@@ -2,7 +2,11 @@
 
 @section('content')
 
-<h1>{{ $chapter->category->title }} - {{ $chapter->title }}</h1>
+<h1>{{ $chapter->category->title }}</h1>
+
+@include('partials.chapter_options')
+
+<h2>{{ $chapter->title }}</h2>
 
 <hr>
 
