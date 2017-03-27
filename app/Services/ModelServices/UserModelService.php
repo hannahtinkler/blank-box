@@ -78,44 +78,6 @@ class UserModelService implements SearchableModelService
         return '<i class="fa fa-user"></i>';
     }
 
-    public function getRawCommunityData()
-    {
-        \DB::statement(\DB::raw('set @row:=0'));
-
-        $users = User::select([
-                'id',
-                'name',
-                \DB::raw('(
-                    (
-                        (
-                            SELECT COUNT(*) FROM pages WHERE pages.created_by=users.id
-                        ) 
-                        * ' . $this->communityPageMultiplier . '
-                    ) + (
-                        SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by=users.id AND approved=1
-                    ) + (
-                        (
-                            SELECT COUNT(*) FROM contributors WHERE contributors.user_id=users.id
-                        )
-                        * ' . $this->contributingMultiplier . '
-                    )
-                ) as total')
-            ])
-            ->orderBy('total', 'DESC')
-            ->get()
-            ->toArray();
-
-        usort($users, function ($a, $b) {
-            if ($a['total'] == $b['total']) {
-                return 0;
-            }
-
-            return ($a['total'] < $b['total']) ? 1 : -1;
-        });
-
-        return $users;
-    }
-
     public function getCommunityData()
     {
         $communityData = $this->getRawCommunityData();

@@ -196,9 +196,12 @@ class PageController extends Controller
     public function destroy(Request $request, $id)
     {
         $page = $this->pages->getById($id);
+        
         $page->delete();
 
-        return redirect($page->chapter->searchResultUrl())
-        ->with('message', '<i class="fa fa-check"></i> This page has been successfully deleted');
+        return redirect($page->chapter->searchResultUrl())->with(
+            'message',
+            '<i class="fa fa-check"></i> This page has been successfully deleted'
+        );
     }
 }

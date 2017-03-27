@@ -2,10 +2,21 @@
 
 namespace App\Services;
 
+use DB;
+
 use App\Models\User;
 
 class UserService
 {
+    /**
+     * @param  string $id
+     * @return User
+     */
+    public function getById($id)
+    {
+        return User::findOrFail($id);
+    }
+
     /**
      * @param  string $slug
      * @return User
@@ -13,5 +24,26 @@ class UserService
     public function getBySlug($slug)
     {
         return User::where('slug', $slug)->firstOrFail();
+    }
+
+    public function getAllContributionTotals()
+    {
+        DB::statement(DB::raw('set @row:=0'));
+
+        $users = User::select([
+                'id',
+                'name',
+                DB::raw(
+                    '(
+                        ((SELECT COUNT(*) FROM pages WHERE pages.created_by = users.id AND approved = 1) * 3)
+                        + (SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by = users.id AND approved=1)
+                    ) as total'
+                )
+            ])
+            ->orderBy('total', 'DESC')
+            ->get()
+            ->toArray();
+
+        return $users;
     }
 }

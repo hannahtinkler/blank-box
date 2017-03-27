@@ -26,7 +26,7 @@ class BadgeController extends Controller
     public function __construct(BadgeService $badges, UserService $users)
     {
         $this->badges = $badges;
-        $this->users = $user;
+        $this->users = $users;
     }
 
     /**

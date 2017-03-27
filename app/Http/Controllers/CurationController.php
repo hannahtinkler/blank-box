@@ -6,9 +6,6 @@ use Event;
 
 use Illuminate\Http\Request;
 
-use App\Models\Page;
-use App\Models\SuggestedEdit;
-
 use App\Events\PageWasAdded;
 
 use App\Services\CurationService;

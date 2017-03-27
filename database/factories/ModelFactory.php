@@ -58,21 +58,6 @@ $factory->define(App\Models\Page::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Models\SuggestedEdit::class, function (Faker\Generator $faker) {
-    $title = $faker->sentence;
-    return [
-        'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
-        'title' => $title,
-        'description' => $faker->sentence,
-        'content' => $faker->text,
-        'approved' => null,
-        'slug' => str_slug($title),
-        'order' => $faker->randomDigit,
-        'created_by' => factory(App\Models\User::class)->create()->id,
-        'deleted_at' => null,
-    ];
-});
-
 $factory->define(App\Models\PageDraft::class, function (Faker\Generator $faker) {
     $title = $faker->sentence;
     return [
@@ -97,14 +82,16 @@ $factory->define(App\Models\Bookmark::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\SuggestedEdit::class, function (Faker\Generator $faker) {
     $title = $faker->sentence;
+    $page = factory(App\Models\Page::class)->create();
+    
     return [
         'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
-        'page_id' => factory(App\Models\Page::class)->create()->id,
+        'page_id' => $page->id,
         'title' => $title,
         'description' => $faker->sentence,
         'content' => $faker->text,
         'approved' => null,
-        'created_by' => factory(App\Models\User::class)->create()->id
+        'created_by' => $page->created_by,
     ];
 });
 

@@ -4,28 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Services\UserService;
+
 class RankController extends Controller
 {
-    public function __construct(Request $request)
+    /**
+     * @var UserService
+     */
+    private $users;
+
+    /**
+     * @param UserService $users
+     */
+    public function __construct(UserService $users)
     {
-        $this->user = $request->user();
+        $this->users = $users;
     }
     
     public function index()
     {
-        $ranked = $this->getRankings();
+        $ranked = $this->getFormattedRankings();
+
         return view('rank.index', compact('ranked'));
     }
     
-    private function getRankings()
+    private function getFormattedRankings()
     {
-        $communityData = $this->user->getRawCommunityData();
+        $communityData = $this->users->getAllContributionTotals();
+
         $ranked = [];
-        
-        foreach ($communityData as $rank => $user) {
+
+        foreach ($communityData as $key => $user) {
             $ranked[$user['name']] = [
-                'slug' => $this->user->getByName($user['name'])->slug,
-                'rank' => $rank + 1,
+                'slug' => $this->users->getById($user['id'])->slug,
+                'rank' => $key + 1,
                 'score' => $user['total']
             ];
         }
