@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Event;
+
 use Illuminate\Http\Request;
 
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 
-use App\Events\Event;
-use App\Events\PageWasAddedToChapter;
+use App\Events\PageWasAdded;
 
 use App\Services\CurationService;
 use App\Services\PageService;
@@ -82,7 +83,7 @@ class CurationController extends Controller
     {
         $this->pages->approve($id);
 
-        Event::fire(new PageWasAddedToChapter($page, $page->creator));
+        Event::fire(new PageWasAdded($page, $page->creator));
 
         return redirect('/curation/new')->with(
             'message',

@@ -3,8 +3,8 @@
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Page;
+use App\Models\SlugForwardingSetting;
 
-use App\Models\UserBadge;
 use App\Services\PageService;
 
 class PageServiceTest extends TestCase
@@ -13,7 +13,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetPageById()
     {
-        $page = factory(Page::class)->create(['approved' => true]);
+        $page = factory(Page::class)->create();
 
         $service = new PageService;
 
@@ -24,7 +24,38 @@ class PageServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testItCanGetPagesForUser()
+    public function testItCanGetPageBySlug()
+    {
+        $page = factory(Page::class)->create(['approved' => true]);
+
+        $service = new PageService;
+
+        $expected = $page->toArray();
+
+        $actual = $service->getApprovedBySlug($page->slug)->toArray();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testItCanGetPageBySlugForwardingSettings()
+    {
+        $page = factory(Page::class)->create(['approved' => true]);
+
+        factory(SlugForwardingSetting::class)->create([
+            'old_slug' => 'abcdef',
+            'new_slug' => $page->slug,
+        ]);
+
+        $service = new PageService;
+
+        $expected = $page->toArray();
+
+        $actual = $service->getApprovedByForwardedSlug('abcdef')->toArray();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testItCanGetApprovedPagesForUser()
     {
         $page = factory(Page::class)->create(['approved' => true]);
 
@@ -39,7 +70,7 @@ class PageServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testItCanGetAllApprovedPages()
+    public function testItCanGetAllUnapprovedPages()
     {
         $page = factory(Page::class)->create(['approved' => null]);
 
@@ -60,9 +91,43 @@ class PageServiceTest extends TestCase
 
         $service = new PageService;
 
-        $actual = $service->getAllUnapproved()->toArray();
+        $actual = $service->getRandom()->toArray();
 
         $this->assertInstanceOf(Page::class, $page);
+    }
+
+    public function testItCanStorePage()
+    {
+        $service = new PageService;
+
+        $expected = [
+            'chapter_id' => 999,
+            'title' => "Page 999",
+            'description' => "An emergency page!",
+            'content' => "Some stuff here",
+            'slug' => "page-999",
+            'order' => 0,
+            'approved' => null,
+            'created_by' => 1,
+        ];
+
+        $actual = $service->store([
+            'chapter_id' => 999,
+            'title' => "Page 999",
+            'description' => "An emergency page!",
+            'content' => "Some stuff here",
+            'slug' => "page-999",
+            'order' => 0,
+            'approved' => null,
+            'user_id' => 1,
+        ])->toArray();
+
+        unset($actual['id']);
+        unset($actual['created_at']);
+        unset($actual['updated_at']);
+        unset($actual['deleted_at']);
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testItCanUpdatePage()
@@ -107,10 +172,10 @@ class PageServiceTest extends TestCase
 
         $service->approve($page->id);
 
-        $expected = 1;
-        $acual = Page::find($page->id)->approved;
-
-        $this->assertEquals($expected, $acual);
+        $this->seeInDatabase('pages', [
+            'id' => $page->id,
+            'approved' => 1,
+        ]);
     }
     
     public function testItCanRejectPage()
@@ -121,63 +186,9 @@ class PageServiceTest extends TestCase
 
         $service->reject($page->id);
 
-        $expected = 0;
-        $acual = Page::find($page->id)->approved;
-
-        $this->assertEquals($expected, $acual);
-    }
-
-    public function testItCanTellIfPageShouldBeApprovedIfCurationIsOff()
-    {
-        putenv('FEATURE_CURATION_ENABLED=false');
-
-        $service = new PageService;
-
-        $expected = 1;
-        $actual = $service->shouldBeApproved(['approved' => null]);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testItCanTellIfPageShouldBeApprovedIfDataHasApprovedTrue()
-    {
-        putenv('FEATURE_CURATION_ENABLED=true');
-
-        $page = factory(Page::class)->create();
-
-        $service = new PageService;
-
-        $expected = 1;
-        $actual = $service->shouldBeApproved(['approved' => 1], $page);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testItCanTellIfPageShouldBeApprovedIfCurrentPageIsAlreadyApproved()
-    {
-        putenv('FEATURE_CURATION_ENABLED=true');
-
-        $page = factory(Page::class)->create(['approved' => true]);
-
-        $service = new PageService;
-
-        $expected = 1;
-        $actual = $service->shouldBeApproved([], $page);
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    public function testItCanTellIfPageShouldBeApprovedIfCureationIsOff()
-    {
-        putenv('FEATURE_CURATION_ENABLED=true');
-
-        $page = factory(Page::class)->create();
-
-        $service = new PageService;
-
-        $expected = null;
-        $actual = $service->shouldBeApproved([], $page);
-
-        $this->assertEquals($expected, $actual);
+        $this->seeInDatabase('pages', [
+            'id' => $page->id,
+            'approved' => 0,
+        ]);
     }
 }

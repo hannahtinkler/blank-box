@@ -2,119 +2,203 @@
 
 namespace App\Http\Controllers;
 
+use Event;
+
 use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
 
 use App\Http\Requests\PageRequest;
-use App\Services\ControllerServices\PageControllerService;
-use App\Services\ModelServices\PageModelService;
 
-use App\Models\Tag;
-use App\Models\Page;
-use App\Models\Chapter;
-use App\Models\Category;
+use App\Services\TagService;
+use App\Services\PageService;
+use App\Services\ChapterService;
+use App\Services\CategoryService;
+use App\Services\SuggestedEditService;
+
+use App\Events\PageWasAdded;
 
 class PageController extends Controller
 {
-    private $controllerService;
+    /**
+     * @var PageService
+     */
+    private $pages;
 
+    /**
+     * @var CategoryService
+     */
+    private $categories;
+
+    /**
+     * @var ChapterService
+     */
+    private $chapters;
+
+    /**
+     * @var SuggestedEditService
+     */
+    private $suggestedEdits;
+
+    /**
+     * @var TagService
+     */
+    private $tags;
+
+    /**
+     * @var CommonMarkConverter
+     */
+    private $converter;
+
+    /**
+     * @param PageService          $pages
+     * @param CategoryService      $categories
+     * @param ChapterService       $chapters
+     * @param SuggestedEditService $suggestedEdits
+     * @param TagService           $tags
+     * @param CommonMarkConverter  $converter
+     */
     public function __construct(
-        Request $request,
-        PageControllerService $controllerService,
+        PageService $pages,
+        CategoryService $categories,
+        ChapterService $chapters,
+        SuggestedEditService $suggestedEdits,
+        TagService $tags,
         CommonMarkConverter $converter
     ) {
-        $this->user = $request->user();
-        $this->controllerService = $controllerService;
+        $this->pages = $pages;
+        $this->categories = $categories;
+        $this->chapters = $chapters;
+        $this->suggestedEdits = $suggestedEdits;
+        $this->tags = $tags;
         $this->converter = $converter;
     }
 
-    public function show($categorySlug, $chapterSlug, $pageSlug)
+    /**
+     * @param  Request $request
+     * @param  string  $categorySlug
+     * @param  string  $chapterSlug
+     * @param  string  $pageSlug
+     * @return View
+     */
+    public function show(Request $request, $categorySlug, $chapterSlug, $pageSlug)
     {
-        $page = Page::findBySlug($pageSlug);
-
-        if (!$page instanceof Page) {
-            $page = $this->controllerService->retrieveSlugForwardingSetting($pageSlug);
-        }
+        $page = $this->pages->getApprovedBySlug($pageSlug);
 
         $page->content = $this->converter->convertToHtml($page->content);
 
         return view('pages.show', [
             'page' => $page,
-            'user' => $this->controllerService->user
+            'user' => $request->user()
         ]);
     }
 
-    public function create()
+    /**
+     * @param  Request $request
+     * @return View
+     */
+    public function create(Request $request)
     {
-        $categories = Category::orderBy('title')->get();
-        $chapters = Chapter::orderBy('title')->get();
-        $tags = Tag::orderBy('tag')->get();
-        $user = $this->user;
+        $user = $request->user();
+        $tags = $this->tags->getAll();
+        $categories = $this->categories->getAll();
 
-        return view('pages.create', compact('categories', 'chapters', 'tags', 'user'));
+        return view('pages.create', compact('categories', 'tags', 'user'));
     }
 
-    public function edit($id)
-    {
-        $page = Page::findOrFail($id);
-
-        $categories = Category::orderBy('title')->get();
-        $chapters = Chapter::where('category_id', $page->chapter->category_id)->orderBy('title')->get();
-        $tags = Tag::orderBy('tag')->get();
-
-        return view('pages.edit', compact('page', 'categories', 'chapters', 'tags'));
-    }
-
-    public function update(PageRequest $request, $id)
-    {
-        $page = Page::findOrFail($id);
-
-        $this->controllerService->storeSuggestedEdit($page, $request->input());
-
-        if (!env('FEATURE_CURATION_ENABLED')) {
-            $this->controllerService->updatePage($page, $request->input());
-            $message = 'This page has been edited successfully and you\'re now viewing it.';
-        } else {
-            $message = 'Your suggested edit has been submitted. It will now be reviewed and actioned by a curator.';
-        }
-
-
-        return redirect($page->searchResultUrl())->with(
-            'message',
-            '<i class="fa fa-check"></i>  ' . $message
-        );
-    }
-
+    /**
+     * @param  PageRequest $request
+     * @return Redirect
+     */
     public function store(PageRequest $request)
     {
-        $page = $this->controllerService->storePage($request->input());
+        $user = $request->user();
+        $data = $request->input();
+        
+        $data['user_id'] = $user->id;
+        $data['approved'] = $this->pages->shouldBeApproved($user, $data);
 
+        $page = $this->pages->store($data);
+
+        if (isset($data['last_draft_id']) && !empty($data['last_draft_id'])) {
+            $this->drafts->delete($data['last_draft_id']);
+        }
+
+        if (isset($data['tags'])) {
+            $this->tags->store($page, $data['tags']);
+        }
+
+        if ($page->approved) {
+            Event::fire(new PageWasAdded($page, $user));
+        }
+
+        $message = '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it.';
+        
         if (env('FEATURE_CURATION_ENABLED')) {
-            $message = '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it. Only you will be able to see it until it has been curated.';
-        } else {
-            $message = '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it.';
+            $message .= " It will only be added to the chapter after it has been curated.";
         }
 
         return redirect($page->searchResultUrl())->with('message', $message);
     }
-    
-    public function destroy($id)
-    {
-        if (!$this->controllerService->user->curator && env('FEATURE_CURATION_ENABLED')) {
-            return \App::abort(401);
-        }
-        
-        $page = Page::findOrFail($id);
-        $page->delete();
 
-        return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug)
-        ->with('message', '<i class="fa fa-check"></i> This page has been successfully deleted');
+    /**
+     * @param  int $id
+     * @return View
+     */
+    public function edit($id)
+    {
+        $page = $this->pages->getById($id);
+
+        $tags = $this->tags->getAll();
+        $categories = $this->categories->getAll();
+        $chapters = $this->chapters->getByCategoryId($page->chapter->category_id);
+
+        return view('pages.edit', compact('page', 'categories', 'chapters', 'tags'));
+    }
+
+    /**
+     * @param  PageRequest $request
+     * @param  int      $id
+     * @return Redirect
+     */
+    public function update(PageRequest $request, $id)
+    {
+        $user = $request->user();
+        $page = $this->pages->getById($id);
+
+        $data = $request->input();
+        $data['user_id'] = $user->id;
+        $data['approved'] = $this->pages->shouldBeApproved($user, $data);
+
+        $this->suggestedEdits->store($page->id, $data);
+
+        if (isset($data['tags'])) {
+            $this->tags->store($page, $data['tags']);
+        }
+
+        if (env('FEATURE_CURATION_ENABLED')) {
+            $message = 'Your suggested edit has been submitted. It will now be reviewed and actioned by a curator.';
+        } else {
+            $page = $this->pages->update($page->id, $data);
+            $message = "This page has been edited successfully and you're now viewing it.";
+        }
+
+        return redirect($page->searchResultUrl())->with(
+            'message',
+            sprintf('<i class="fa fa-check"></i>%s', $message)
+        );
     }
     
-    public function latestPages()
+    /**
+     * @param  Request $request
+     * @param  int  $id
+     * @return Redirect
+     */
+    public function destroy(Request $request, $id)
     {
-        $updatedPages = Page::latestUpdated()->paginate(10);
+        $page = $this->pages->getById($id);
+        $page->delete();
 
-        return view('pages.updated', compact('updatedPages'));
+        return redirect($page->chapter->searchResultUrl())
+        ->with('message', '<i class="fa fa-check"></i> This page has been successfully deleted');
     }
 }

@@ -43,8 +43,8 @@ class PageTagControllerService
     public function storeANewTag($tag)
     {
         return Tag::create([
-                'tag' => $tag
-            ]);
+            'tag' => $tag
+        ]);
     }
 
     public function removeDeletedPageTags($pageId, $tagIds)

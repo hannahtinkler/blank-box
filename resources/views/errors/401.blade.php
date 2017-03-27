@@ -16,8 +16,7 @@
 
 </head>
 
-<body class="gray-bg mayden-skin">
-
+<body class="gray-bg <?php echo env('APP_THEME', 'blank-box-skin'); ?> no-gradient">
 
     <div class="middle-box text-center animated fadeInDown">
         <h1>401</h1>

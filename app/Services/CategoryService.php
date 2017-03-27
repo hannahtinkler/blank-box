@@ -15,6 +15,9 @@ class CategoryService
         return Category::where('slug', $slug)->firstOrFail();
     }
 
+    /**
+     * @return Collection
+     */
     public function getAll()
     {
         return Category::orderBy('title')->get();

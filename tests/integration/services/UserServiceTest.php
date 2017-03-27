@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Models\UserBadge;
 use App\Services\UserService;
 
 class UserServiceTest extends TestCase

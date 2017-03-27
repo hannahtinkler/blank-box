@@ -7,8 +7,23 @@ use Session;
 
 use Illuminate\Http\Request;
 
+use App\Services\FeedEventService;
+
 class HomeController extends Controller
 {
+    /**
+     * @var FeedEventService
+     */
+    private $feedEvents;
+
+    /**
+     * @param FeedEventService $feedEvents
+     */
+    public function __construct(FeedEventService $feedEvents)
+    {
+        $this->feedEvents = $feedEvents;
+    }
+
     /**
      * @return View
      */

@@ -3,8 +3,11 @@
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
-     * The base URL to use while testing the application.
-     *
+     * @var Prophet
+     */
+    public $prophet;
+    
+    /**
      * @var string
      */
     public $faker;
@@ -47,6 +50,15 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $this->mockObservers();
         $this->truncateElasticSearch();
+    }
+
+    public function mock($class)
+    {
+        if (!$this->prophet) {
+            $this->prophet = new Prophecy\Prophet;
+        }
+
+        return $this->prophet->prophesize($class);
     }
     
     /**
