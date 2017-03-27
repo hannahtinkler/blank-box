@@ -9,7 +9,7 @@ use App\Models\Page;
 use App\Models\UserBadge;
 use App\Models\SuggestedEdit;
 
-class UserModelService implements SearchableModelService
+class UserModelService
 {
     public $user;
     public $communityPageMultiplier = 3;
@@ -60,22 +60,6 @@ class UserModelService implements SearchableModelService
         }
 
         return isset($userType) ? $userType : '';
-    }
-
-    public function searchResultString()
-    {
-        $userType = $this->getUserType();
-        return 'User: ' . $this->user->name . ($userType ? ' (' . $this->getUserType() . ')' : '');
-    }
-
-    public function searchResultUrl()
-    {
-        return '/u/' . $this->user->slug;
-    }
-
-    public function searchResultIcon()
-    {
-        return '<i class="fa fa-user"></i>';
     }
 
     public function getCommunityData()

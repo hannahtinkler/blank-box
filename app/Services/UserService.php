@@ -5,9 +5,28 @@ namespace App\Services;
 use DB;
 
 use App\Models\User;
+use App\Interfaces\SearchableService;
 
-class UserService
+class UserService implements SearchableService
 {
+    /**
+     * @param  string $term
+     * @return Collection
+     */
+    public function search($term)
+    {
+        $query = [
+            "bool" => [
+                "should" => [
+                    [ "wildcard" => [ "_all" => "*$term*"]],
+                    [ "match" => [ "_all" => "$term" ]]
+                ]
+            ]
+        ];
+
+        return User::searchByQuery($query, null, null, 100);
+    }
+
     /**
      * @param  string $id
      * @return User

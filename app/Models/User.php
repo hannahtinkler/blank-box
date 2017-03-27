@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Interfaces\SearchableModel;
-use App\Services\ModelServices\UserModelService;
-use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements SearchableModel
+use App\Repositories\UserRepository;
+
+class User extends Authenticatable
 {
     use ElasticquentTrait;
 
@@ -21,10 +20,15 @@ class User extends Authenticatable implements SearchableModel
         ]
     );
 
-    public function __construct(array $attributes = array())
+    public function __get($name)
     {
-        parent::__construct($attributes);
-        $this->modelService = new UserModelService($this);
+        $repository = new UserRepository($this);
+
+        if (method_exists($repository, $name)) {
+            return $repository->$name();
+        }
+
+        return parent::__get($name);
     }
     
     public function pages()
@@ -34,51 +38,11 @@ class User extends Authenticatable implements SearchableModel
     
     public function suggestedEdits()
     {
-        return $this->hasMany('App\Models\SuggestedEdit', 'created_by')->orderBy('updated_at', 'desc');;
+        return $this->hasMany('App\Models\SuggestedEdit', 'created_by')->orderBy('updated_at', 'desc');
     }
 
     public function userBadges()
     {
         return $this->hasMany('App\Models\UserBadge');
-    }
-    
-    public function specialistAreas($limit = null)
-    {
-        return $this->modelService->specialistAreas($limit);
-    }
-    
-    public function searchResultString()
-    {
-        return $this->modelService->searchResultString();
-    }
-    
-    public function searchResultUrl()
-    {
-        return $this->modelService->searchResultUrl();
-    }
-    
-    public function searchResultIcon()
-    {
-        return $this->modelService->searchResultIcon();
-    }
-    
-    public function getUserType()
-    {
-        return $this->modelService->getUserType();
-    }
-    
-    public function getCommunityData()
-    {
-        return $this->modelService->getCommunityData();
-    }
-    
-    public function getRawCommunityData()
-    {
-        return $this->modelService->getRawCommunityData();
-    }
-    
-    public function getByName($name)
-    {
-        return $this->modelService->getByName($name);
     }
 }

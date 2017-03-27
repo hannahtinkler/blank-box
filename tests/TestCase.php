@@ -1,5 +1,7 @@
 <?php
 
+use Elasticsearch\ClientBuilder;
+
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -48,8 +50,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $this->faker = Faker\Factory::create();
 
-        $this->mockObservers();
-        $this->truncateElasticSearch();
+        // $this->mockObservers();
     }
 
     public function mock($class)
@@ -99,20 +100,5 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
             $this->app->instance($observer, $mock);
         }
-    }
-
-    public function truncateElasticSearch()
-    {
-        return file_get_contents(
-            "http://localhost:9200/" . env('ELASTICSEARCH_INDEX'),
-            false,
-            stream_context_create(
-                [
-                    'http' => [
-                        ['method' => 'DELETE']
-                    ]
-                ]
-            )
-        );
     }
 }

@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-use App\Interfaces\SearchableModel;
-use App\Services\ModelServices\ChapterModelService;
-use Illuminate\Database\Eloquent\Model;
 use Elasticquent\ElasticquentTrait;
+use Illuminate\Database\Eloquent\Model;
 
-class Chapter extends Model implements SearchableModel
+use App\Repositories\ChapterRepository;
+
+class Chapter extends Model
 {
     use ElasticquentTrait;
     
     public $guarded = [];
-    private $modelService;
+    private $repository;
     protected $mappingProperties = array(
         'title' => [
           'type' => 'string',
@@ -27,7 +27,18 @@ class Chapter extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->modelService = new ChapterModelService($this);
+        $this->repository = new ChapterRepository($this);
+    }
+
+    public function __get($name)
+    {
+        $repository = new ChapterRepository($this);
+
+        if (method_exists($repository, $name)) {
+            return $repository->$name();
+        }
+
+        return parent::__get($name);
     }
     
     public function category()
@@ -53,20 +64,5 @@ class Chapter extends Model implements SearchableModel
     public function scopeLargestOrderValue($query, $categoryId)
     {
         return $query->where('category_id', $categoryId)->orderBy('order', 'desc')->first();
-    }
-    
-    public function searchResultString()
-    {
-        return $this->modelService->searchResultString();
-    }
-    
-    public function searchResultUrl()
-    {
-        return $this->modelService->searchResultUrl();
-    }
-
-    public function searchResultIcon()
-    {
-        return $this->modelService->searchResultIcon();
     }
 }

@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 use Elasticquent\ElasticquentTrait;
 
-use App\Interfaces\SearchableModel;
-use App\Services\ModelServices\PageModelService;
+use App\Repositories\PageRepository;
 
-class Page extends Model implements SearchableModel
+class Page extends Model
 {
     use ElasticquentTrait;
     use SoftDeletes;
@@ -36,7 +35,18 @@ class Page extends Model implements SearchableModel
     public function __construct(array $attributes = array())
     {
         parent::__construct($attributes);
-        $this->modelService = new PageModelService($this);
+        $this->repository = new PageRepository($this);
+    }
+
+    public function __get($name)
+    {
+        $repository = new PageRepository($this);
+
+        if (method_exists($repository, $name)) {
+            return $repository->$name();
+        }
+
+        return parent::__get($name);
     }
     
     public function chapter()
@@ -74,11 +84,6 @@ class Page extends Model implements SearchableModel
         return $query->where('chapter_id', $chapterId)->orderBy('order', 'desc')->first();
     }
     
-    public function searchResultString()
-    {
-        return $this->modelService->searchResultString();
-    }
-    
     public function getUpdatorsString()
     {
         return $this->modelService->getUpdatorsString();
@@ -87,15 +92,5 @@ class Page extends Model implements SearchableModel
     public function hasEdits()
     {
         return $this->modelService->hasEdits();
-    }
-    
-    public function searchResultUrl()
-    {
-        return $this->modelService->searchResultUrl();
-    }
-
-    public function searchResultIcon()
-    {
-        return $this->modelService->searchResultIcon();
     }
 }

@@ -4,10 +4,29 @@ namespace App\Services;
 
 use App\Models\Page;
 use App\Traits\Sluggable;
+use App\Interfaces\SearchableService;
 
-class PageService
+class PageService implements SearchableService
 {
     use Sluggable;
+
+    /**
+     * @param  string $term
+     * @return Collection
+     */
+    public function search($term)
+    {
+        $query = [
+            "bool" => [
+                "should" => [
+                    [ "wildcard" => [ "_all" => "*$term*"]],
+                    [ "match" => [ "_all" => "$term" ]]
+                ]
+            ]
+        ];
+
+        return Page::searchByQuery($query, null, null, 100);
+    }
 
     /**
      * @param  int $id

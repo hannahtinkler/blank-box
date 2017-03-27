@@ -4,10 +4,28 @@ namespace App\Services;
 
 use App\Models\Chapter;
 use App\Traits\Sluggable;
+use App\Interfaces\SearchableService;
 
-class ChapterService
+class ChapterService implements SearchableService
 {
     use Sluggable;
+    /**
+     * @param  string $term
+     * @return Collection
+     */
+    public function search($term)
+    {
+        $query = [
+            "bool" => [
+                "should" => [
+                    [ "wildcard" => [ "_all" => "*$term*"]],
+                    [ "match" => [ "_all" => "$term" ]]
+                ]
+            ]
+        ];
+
+        return Chapter::searchByQuery($query, null, null, 100);
+    }
 
     /**
      * @param  int $id

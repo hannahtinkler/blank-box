@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\ControllerServices;
+use Elasticsearch\Client;
 
 use Illuminate\Http\Request;
 
@@ -68,7 +69,7 @@ class SearchControllerService
         return [
             'content' => $result->searchResultString(),
             'url' => $result->searchResultUrl(),
-            'score' => $result->documentScore()
+            'score' => $result->documentScore(),
         ];
     }
 

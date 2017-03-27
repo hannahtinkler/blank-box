@@ -8,7 +8,7 @@ use App\Models\Page;
 use App\Models\SuggestedEdit;
 use App\Interfaces\SearchableModelService;
 
-class PageModelService implements SearchableModelService
+class PageModelService
 {
     public $page;
 
@@ -29,21 +29,6 @@ class PageModelService implements SearchableModelService
         ];
 
         return Page::searchByQuery($query, null, null, 100);
-    }
-
-    public function searchResultString()
-    {
-        return 'Page: ' . $this->page->title;
-    }
-
-    public function searchResultUrl()
-    {
-        return '/p/' . $this->page->chapter->category->slug . '/' . $this->page->chapter->slug . '/' . $this->page->slug;
-    }
-
-    public function searchResultIcon()
-    {
-        return '<i class="fa fa-file-o"></i>';
     }
 
     public function hasEdits()
