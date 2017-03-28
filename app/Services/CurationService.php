@@ -2,9 +2,6 @@
 
 namespace App\Services;
 
-use App;
-use App\Models\User;
-
 use App\Services\TagService;
 
 use cogpowered\FineDiff\Diff;
@@ -12,18 +9,30 @@ use cogpowered\FineDiff\Granularity\Sentence;
 
 class CurationService
 {
+    /**
+     * @var TagService
+     */
     private $tags;
     
+        /**
+         * @param TagService $tags
+         */
     public function __construct(TagService $tags)
     {
         $this->tags = $tags;
     }
+
+    /**
+     * @param  Page $original
+     * @param  SuggestedEdit $new
+     * @return array
+     */
     public function getPageDiff($original, $new)
     {
         $granularity =  new Sentence;
         $differ = new Diff($granularity);
 
-        $converter = App::make('unsafe-markdown');
+        $converter = app()->make('unsafe-markdown');
 
         $originalTags = implode(
             ',',

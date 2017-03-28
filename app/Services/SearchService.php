@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use DB;
-
 use Illuminate\Http\Request;
 
 use App\Services\PageService;
