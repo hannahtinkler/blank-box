@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use League\CommonMark\CommonMarkConverter;
 
 use App\Http\Requests\PageDraftRequest;
+
+use League\CommonMark\CommonMarkConverter;
 
 use App\Services\PageDraftService;
 use App\Services\CategoryService;
@@ -34,7 +35,7 @@ class PageDraftController extends Controller
     private $converter;
 
     /**
-     * @param PageDraftService        $drafts
+     * @param PageDraftService    $drafts
      * @param CategoryService     $categories
      * @param ChapterService      $chapters
      * @param CommonMarkConverter $converter

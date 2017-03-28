@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
     Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
     
-    Route::get('/rankings', 'RankController@index');
+    Route::get('/rankings', 'RankingController@index');
     
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');

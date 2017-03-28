@@ -152,8 +152,7 @@ class CurationController extends Controller
         $edit = $this->suggestedEdits->getById($id);
 
         $page = $this->pages->getById($edit->page_id);
-        $page->tags = implode(',', array_column($page->pageTags->toArray(), 'tag_id'));
-exit(var_dump($page->tags));
+
         $diff = $this->curation->getPageDiff($page, $edit);
 
         return view('curation.viewdiff', compact('edit', 'diff', 'user'));

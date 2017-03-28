@@ -53,6 +53,11 @@ class BadgeController extends Controller
         return view('badges.index', compact('badges', 'userBadges', 'user'));
     }
 
+    /**
+     * @param  int $userId
+     * @param  int $badgeId
+     * @return View
+     */
     public function showBadgeModal($userId, $badgeId)
     {
         $badge = $this->badges->getById($badgeId);

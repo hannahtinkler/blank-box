@@ -2,7 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class RankControllerTest extends TestCase
+class RankingControllerTest extends TestCase
 {
     use DatabaseTransactions;
 

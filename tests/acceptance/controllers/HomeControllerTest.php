@@ -38,12 +38,12 @@ class HomeControllerTest extends TestCase
             ->assertResponseStatus(302);
 
         $expected = $category->id;
-        $actual = \Session::get('currentCategoryId');
+        $actual = session()->get('currentCategoryId');
 
         $this->assertEquals($expected, $actual);
 
         $expected = $this->user->default_category_id;
-        $actual = \Session::get('currentCategoryId');
+        $actual = session()->get('currentCategoryId');
 
         $this->assertEquals($expected, $actual);
     }

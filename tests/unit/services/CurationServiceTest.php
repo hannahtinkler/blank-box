@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Services\TagService;
 use App\Services\CurationService;
 
 class CurationServiceTest extends TestCase
@@ -11,7 +12,7 @@ class CurationServiceTest extends TestCase
     public function testItCanGetDiff()
     {
 
-        $page1 = factory('App\Models\Page')->create([
+        $page1 = factory('App\Models\SuggestedEdit')->create([
             'title' => 'Doloremque voluptas eveniet quod ullam.',
             'description' => 'Eum sint voluptatibus autem.',
             'content' => 'Nulla harum dicta ipsa recusandae. Distinctio nisi quidem maiores ad quaerat. Cum quibusdam magnam dolores voluptates.',
@@ -23,7 +24,7 @@ class CurationServiceTest extends TestCase
             'content' => 'Quasi aliquam eos at saepe dolores. Quibusdam est necessitatibus nam reprehenderit magnam ut et. Fugit eum quis et ipsum. Cumque dolorem ut excepturi enim velit et.',
         ]);
 
-        $service = new CurationService;
+        $service = new CurationService(new TagService);
 
         $expected = [
             'category' => '<del>' . $page1->chapter->category->title . '</del><ins>' . $page2->chapter->category->title . '</ins>',
@@ -32,6 +33,7 @@ class CurationServiceTest extends TestCase
             'description' => "<del>Eum sint voluptatibus autem.</del><ins>Quibusdam quasi dignissimos fugit odit voluptatem placeat officia.</ins>",
             'content' => "<p><del>Nulla harum dicta ipsa recusandae. Distinctio nisi quidem maiores ad quaerat. Cum quibusdam magnam dolores voluptates.</del><ins>Quasi aliquam eos at saepe dolores. Quibusdam est necessitatibus nam reprehenderit magnam ut et. Fugit eum quis et ipsum. Cumque dolorem ut excepturi enim velit et.</ins></p>
 ",
+            'tags' => '',
         ];
 
         $actual = $service->getPageDiff($page1, $page2);

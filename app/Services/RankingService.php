@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
+namespace App\Services;
 
 use App\Services\UserService;
 
-class RankController extends Controller
+class RankingService
 {
     /**
      * @var UserService
      */
     private $users;
-
+    
     /**
      * @param UserService $users
      */
@@ -22,21 +20,11 @@ class RankController extends Controller
     }
     
     /**
-     * @return View
-     */
-    public function index()
-    {
-        $ranked = $this->getFormattedRankings();
-
-        return view('rank.index', compact('ranked'));
-    }
-    
-    /**
      * @return array
      */
-    private function getFormattedRankings()
+    public function getAllRankings()
     {
-        $communityData = $this->users->getAllContributionTotals();
+        $communityData = $this->users->getAllContributionTotals()->toArray();
 
         $ranked = [];
 

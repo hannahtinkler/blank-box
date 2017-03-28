@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Services\SearchService;
 
 class SearchController extends Controller
@@ -33,11 +31,10 @@ class SearchController extends Controller
     }
     
     /**
-     * @param  Request $request
      * @param  string  $term
      * @return View
      */
-    public function showSearchResults(Request $request, $term)
+    public function showSearchResults($term)
     {
         $searchables = config('elasticquent.searchables');
         

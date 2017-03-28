@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Services\TagService;
 use App\Services\PageService;
 
 class PageServiceTest extends TestCase
@@ -14,7 +15,7 @@ class PageServiceTest extends TestCase
 
         putenv('FEATURE_CURATION_ENABLED=false');
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = 1;
         $actual = $service->shouldBeApproved($user, ['approved' => null]);
@@ -28,7 +29,7 @@ class PageServiceTest extends TestCase
 
         putenv('FEATURE_CURATION_ENABLED=true');
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = 1;
         $actual = $service->shouldBeApproved($user, ['approved' => null]);
@@ -44,7 +45,7 @@ class PageServiceTest extends TestCase
 
         $page = factory('App\Models\Page')->create();
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = 1;
         $actual = $service->shouldBeApproved($user, ['approved' => 1], $page);
@@ -60,7 +61,7 @@ class PageServiceTest extends TestCase
 
         $page = factory('App\Models\Page')->create(['approved' => true]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = 1;
         $actual = $service->shouldBeApproved($user, [], $page);
@@ -76,7 +77,7 @@ class PageServiceTest extends TestCase
 
         $page = factory('App\Models\Page')->create();
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = null;
         $actual = $service->shouldBeApproved($user, [], $page);

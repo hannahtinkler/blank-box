@@ -93,13 +93,13 @@ class AppServiceProvider extends ServiceProvider
     public function getCurrentCategory()
     {
         $user = \Auth::user();
-        if (\Session::has('currentCategoryId')) {
-            $category = Category::find(\Session::get('currentCategoryId'));
+        if (session()->has('currentCategoryId')) {
+            $category = Category::find(session()->get('currentCategoryId'));
         } else if ($user->default_category_id != null) {
             $category = Category::find($user->default_category_id);
         } else {
             $category = Category::first();
-            \Session::set('currentCategoryId', $category->id);
+            session()->set('currentCategoryId', $category->id);
         }
 
         return $category;

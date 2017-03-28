@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Models\Page;
 use App\Models\SlugForwardingSetting;
 
+use App\Services\TagService;
 use App\Services\PageService;
 
 class PageServiceTest extends TestCase
@@ -15,7 +16,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory(Page::class)->create();
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = $page->toArray();
 
@@ -28,7 +29,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory(Page::class)->create(['approved' => true]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = $page->toArray();
 
@@ -46,7 +47,7 @@ class PageServiceTest extends TestCase
             'new_slug' => $page->slug,
         ]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = $page->toArray();
 
@@ -59,7 +60,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory(Page::class)->create(['approved' => true]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = [
             $page->toArray()
@@ -74,7 +75,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory(Page::class)->create(['approved' => null]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = [
             $page->toArray()
@@ -89,7 +90,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory(Page::class)->create(['approved' => 1]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $actual = $service->getRandom()->toArray();
 
@@ -98,7 +99,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanStorePage()
     {
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = [
             'chapter_id' => 999,
@@ -134,7 +135,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory('App\Models\Page')->create();
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $expected = [
             'id' => $page->id,
@@ -168,7 +169,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory(Page::class)->create(['approved' => null]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $service->approve($page->id);
 
@@ -182,7 +183,7 @@ class PageServiceTest extends TestCase
     {
         $page = factory(Page::class)->create(['approved' => null]);
 
-        $service = new PageService;
+        $service = new PageService(new TagService);
 
         $service->reject($page->id);
 

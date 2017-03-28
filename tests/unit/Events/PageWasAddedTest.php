@@ -13,8 +13,8 @@ class PageWasAddedTest extends TestCase
         $actual = (new PageWasAdded($page, $user))->page;
         $this->assertEquals($expected, $actual);
 
-        $expected = $user;
-        $actual = (new PageWasAdded($page, $user))->user;
+        $expected = 'pagesSubmitted';
+        $actual = (new PageWasAdded($page, $user))->metric;
         $this->assertEquals($expected, $actual);
 
     }

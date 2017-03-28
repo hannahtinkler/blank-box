@@ -184,7 +184,6 @@ class PageService implements SearchableService
      */
     public function shouldBeApproved($user, array $data, $currentPage = null)
     {
-        return null;
         if (!env('FEATURE_CURATION_ENABLED')) {
             $approved = 1;
         } else if (env('FEATURE_CURATION_ENABLED') && $user->curator) {

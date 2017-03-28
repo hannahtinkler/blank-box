@@ -7,6 +7,8 @@ use Event;
 use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
 
+use App\Events\PageWasAdded;
+
 use App\Http\Requests\PageRequest;
 
 use App\Services\TagService;
@@ -14,8 +16,6 @@ use App\Services\PageService;
 use App\Services\ChapterService;
 use App\Services\CategoryService;
 use App\Services\SuggestedEditService;
-
-use App\Events\PageWasAdded;
 
 class PageController extends Controller
 {

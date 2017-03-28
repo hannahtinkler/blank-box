@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use URL;
-use Session;
-
 use Illuminate\Http\Request;
 
+use App\Services\PageService;
 use App\Services\FeedEventService;
 
 class HomeController extends Controller
@@ -18,10 +16,14 @@ class HomeController extends Controller
 
     /**
      * @param FeedEventService $feedEvents
+     * @param PageService      $pages
      */
-    public function __construct(FeedEventService $feedEvents)
-    {
+    public function __construct(
+        FeedEventService $feedEvents,
+        PageService $pages
+    ) {
         $this->feedEvents = $feedEvents;
+        $this->pages = $pages;
     }
 
     /**
@@ -51,12 +53,12 @@ class HomeController extends Controller
      */
     public function switchCategory(Request $request, $id)
     {
-        Session::set('currentCategoryId', $id);
+        session()->set('currentCategoryId', $id);
 
         $user = $request->user();
         $user->default_category_id = $id;
         $user->save();
 
-        return redirect(URL::previous());
+        return redirect(url()->previous());
     }
 }

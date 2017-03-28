@@ -45,11 +45,14 @@ class UserService implements SearchableService
         return User::where('slug', $slug)->firstOrFail();
     }
 
+    /**
+     * @return Array
+     */
     public function getAllContributionTotals()
     {
         DB::statement(DB::raw('set @row:=0'));
 
-        $users = User::select([
+        return User::select([
                 'id',
                 'name',
                 DB::raw(
@@ -60,9 +63,6 @@ class UserService implements SearchableService
                 )
             ])
             ->orderBy('total', 'DESC')
-            ->get()
-            ->toArray();
-
-        return $users;
+            ->get();
     }
 }

@@ -27,7 +27,7 @@
 
     {!! $diff['content'] !!}
     
-    <p>Tags: {!! $diff['tags'] !!}</p>
+    Tags: {!! $diff['tags'] !!}
 </div>
 
 

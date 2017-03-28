@@ -16,6 +16,16 @@ class TagService
     }
 
     /**
+     * @return Collection
+     */
+    public function getByPageId()
+    {
+        return Tag::select(['tags.*'])
+            ->join('page_tags', 'page_tags.tag_id', '=', 'tags.id')
+            ->get();
+    }
+
+    /**
      * Delete all tags for page, then create missing tags and add them for the
      * page.
      *

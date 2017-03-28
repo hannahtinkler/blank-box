@@ -26,9 +26,10 @@ class PageDraftRequestTest extends TestCase
     public function testItReturnsValidationRules()
     {
         $expected = [
+            'chapter_id' => 'numeric',
             'title' => 'min:5',
             'description' => 'min:10',
-            'content' => 'min:10'
+            'content' => 'min:10',
         ];
 
         $actual = $this->request->rules();
