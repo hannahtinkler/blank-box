@@ -13,14 +13,13 @@
 <div class="row m-b-lg m-t-lg">
     <div class="col-md-6">
         <h3 class="m-b-md">Most Submitted To Chapters:</h3>
-        @if($user->specialistAreas(4)->isEmpty())
+        @if($user->specialistAreas->isEmpty())
             <p class="italic">{{ $user->name }} has not submitted any content yet.</p>
         @else
-            @set('specialistAreas', $user->specialistAreas(4))
-            @if($specialistAreas->isEmpty())
+            @if($user->specialistAreas->isEmpty())
                 <p class="italic">{{ $user->name }} doesn't have any specialist areas yet :(.</p>
             @else
-                @foreach($specialistAreas as $specialistArea)
+                @foreach($user->specialistAreas as $specialistArea)
                     <p><a target="_blank" href="/p/{{ $specialistArea->chapter->category->slug }}/{{ $specialistArea->chapter->slug }}">{{ $specialistArea->chapter->title }} ({{ $specialistArea->total }})</a></p>
                 @endforeach
             @endif
@@ -31,7 +30,7 @@
         <h3 class="m-b-md">Community: <small><i class="m-l-sm pointer fa fa-info-circle" title="Community ranks/scores are based on the quantity of
 information a person has contributed to <?php echo env('APP_NAME', 'Black Box'); ?>"></i></small></h3>
 
-        @set('communityData', $user->getCommunityData())
+        @set('communityData', $user->communityData)
 
         <div class="row">
             <div class="col-md-4">
@@ -60,7 +59,7 @@ information a person has contributed to <?php echo env('APP_NAME', 'Black Box');
                 </div>
                 <div class="col-md-7">
                     <a href="/u/{{ $user->slug }}/badges">
-                        {{ $communityData['bestBadge'] == null ? 'None earned yet' : $communityData['bestBadge'] }}</p>
+                        {{ $communityData['bestBadge']->name or 'None earned yet' }}</p>
                     </a>
                 </div>
             @endif

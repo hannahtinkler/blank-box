@@ -52,6 +52,31 @@ class BadgeServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
     
+    public function testItCanGetBestBadgeByUserId()
+    {
+        factory('App\Models\UserBadge')->create(['badge_id' => 2, 'user_id' => 1]);
+        factory('App\Models\UserBadge')->create(['badge_id' => 3, 'user_id' => 1]);
+        factory('App\Models\UserBadge')->create(['badge_id' => 4, 'user_id' => 1]);
+
+        $service = new BadgeService;
+
+        $expected = [
+            'id' => '4',
+            'badge_type_id' => '1',
+            'name' => 'Rank 4',
+            'description' => 'Earned by submitting 50 pages',
+            'image' => '/images/badges/code_platinum.png',
+            'level' => '4',
+            'metric_boundary' => '50',
+            'created_at' => '2016-09-30 14:47:33',
+            'updated_at' => '2016-09-30 14:47:33',
+        ];
+
+        $actual = $service->getBestByUserId(1)->toArray();
+
+        $this->assertEquals($expected, $actual);
+    }
+    
     public function testItCanGetNewlyEarnedBadgesByUserId()
     {
         $service = new BadgeService;

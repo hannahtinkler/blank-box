@@ -5,6 +5,8 @@ namespace App\Models;
 use Elasticquent\ElasticquentTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+use App\Services\UserService;
+use App\Services\BadgeService;
 use App\Repositories\UserRepository;
 
 class User extends Authenticatable
@@ -22,7 +24,11 @@ class User extends Authenticatable
 
     public function __get($name)
     {
-        $repository = new UserRepository($this);
+        $repository = new UserRepository(
+            $this,
+            new UserService,
+            new BadgeService
+        );
 
         if (method_exists($repository, $name)) {
             return $repository->$name();

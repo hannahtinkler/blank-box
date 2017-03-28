@@ -24,11 +24,11 @@ class RankingService
      */
     public function getAllRankings()
     {
-        $communityData = $this->users->getAllContributionTotals()->toArray();
+        $contribution = $this->users->getAllContributionTotals()->toArray();
 
         $ranked = [];
 
-        foreach ($communityData as $key => $user) {
+        foreach ($contribution as $key => $user) {
             $ranked[$user['name']] = [
                 'slug' => $this->users->getById($user['id'])->slug,
                 'rank' => $key + 1,

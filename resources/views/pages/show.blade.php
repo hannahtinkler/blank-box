@@ -25,11 +25,11 @@
 
 <div class="m-t-lg green-text">
     <small>Written by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>
-    @if($page->hasEdits()) 
-        @set('updators', $page->getUpdatorsString())
+    @if($page->hasEdits)
+        @set('updators', $page->updatorsString)
         
         @if(strlen($updators) <= 160)
-            and updated by {!! $page->getUpdatorsString() !!}
+            and updated by {!! $page->updatorsString !!}
         @else
             and updated by many other lovely people
         @endif
