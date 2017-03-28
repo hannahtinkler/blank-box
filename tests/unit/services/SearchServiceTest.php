@@ -98,16 +98,49 @@ class SearchServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testItCanSortResults()
+    {
+        $request = $this->mock(Request::class);
+        $pageService = $this->mock(PageService::class);
+        $chapterService = $this->mock(ChapterService::class);
+        $userService = $this->mock(UserService::class);
+
+        $request->ajax()->willReturn(true)->shouldBeCalled();
+
+        $service = new SearchService(
+            $request->reveal(),
+            $pageService->reveal(),
+            $chapterService->reveal(),
+            $userService->reveal()
+        );
+
+        $user = $this->mock(User::class);
+        $page = $this->mock(Page::class);
+
+        $user->documentScore()->willReturn(1)->shouldBeCalled();
+        $page->documentScore()->willReturn(5)->shouldBeCalled();
+        $user->getAttribute('name')->willReturn('user')->shouldBeCalled();
+        $page->getAttribute('name')->willReturn('page')->shouldBeCalled();
+
+        $sorted = $service->sort([
+            $user->reveal(),
+            $page->reveal(),
+        ]);
+
+        $this->assertEquals('page', $sorted[0]->name);
+        $this->assertEquals('user', $sorted[1]->name);
+    }
+
     private function getUser()
     {
-        $user = new User;
+        $user = new User();
         $user->id = 1;
         $user->name = 'Hannah Tinkler';
         $user->email = 'hannah.tinkler@gmail.com';
         $user->slug = 'hannah-tinkler';
         $user->default_category_id = 0;
         $user->curator = 0;
-        $user->remember_token = 'WQa7Px52bgmBOJLULU53rhXMtUKE0ryTqRGPugtWUfiFratq5SyeJv9Z594m';
+        $user->remember_token = 'WQa7Px52bgmBOJLULU53rhXMtUKE0';
         $user->created_at = '2017-03-06 15:28:19';
         $user->updated_at = '2017-03-26 11:43:00';
 
@@ -117,6 +150,7 @@ class SearchServiceTest extends TestCase
     private function getPage()
     {
         $page = new Page;
+        $page->id = 6;
         $page->chapter_id = '1';
         $page->title = 'Hannah';
         $page->description = 'Cum quaerat eveniet, adipisci nobis';
@@ -127,7 +161,6 @@ class SearchServiceTest extends TestCase
         $page->approved = 1;
         $page->updated_at = '2017-03-27 16:26:14';
         $page->created_at = '2017-03-27 16:26:14';
-        $page->id = 6;
 
         return $page;
     }

@@ -13,8 +13,8 @@
         @foreach($results as $result)
             <li>
                 <h4>
-                    {!! $result->searchResultIcon() !!}
-                    <a href="{{ $result->searchResultUrl() }}">{{ $result->searchResultString() }}</a>
+                    {!! $result->searchResultIcon !!}
+                    <a href="{{ $result->searchResultUrl }}">{{ $result->searchResultString }}</a>
                 </h4>
 
                 @if(isset($result->description))

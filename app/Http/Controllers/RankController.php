@@ -21,6 +21,9 @@ class RankController extends Controller
         $this->users = $users;
     }
     
+    /**
+     * @return View
+     */
     public function index()
     {
         $ranked = $this->getFormattedRankings();
@@ -28,6 +31,9 @@ class RankController extends Controller
         return view('rank.index', compact('ranked'));
     }
     
+    /**
+     * @return array
+     */
     private function getFormattedRankings()
     {
         $communityData = $this->users->getAllContributionTotals();

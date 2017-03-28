@@ -8,6 +8,9 @@ use App\Services\SearchService;
 
 class SearchController extends Controller
 {
+    /**
+     * @var SearchService
+     */
     private $search;
     
     public function __construct(SearchService $search)
@@ -15,20 +18,30 @@ class SearchController extends Controller
         $this->search = $search;
     }
 
+    /**
+     * @param  Request $request
+     * @param  string  $term
+     * @return string
+     */
     public function performSearch(Request $request, $term)
     {
-        if (empty($term)) {
-            return $ajax ? json_encode([]) : [];
-        }
-
         $searchables = config('elasticquent.searchables');
 
-        return $this->search->process($term, $searchables);
+        return json_encode(
+            $this->search->process($term, $searchables)
+        );
     }
     
+    /**
+     * @param  Request $request
+     * @param  string  $term
+     * @return View
+     */
     public function showSearchResults(Request $request, $term)
     {
-        $results = $this->performSearch($request, $term);
+        $searchables = config('elasticquent.searchables');
+        
+        $results = $this->search->process($term, $searchables);
 
         return view('search.results', [
             'results' => $results,

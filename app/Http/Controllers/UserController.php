@@ -5,21 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\User;
-use App\Services\ControllerServices\PageDraftControllerService;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
-    private $pageDraftControllerService;
-    private $user;
+    /**
+     * @var UserService
+     */
+    private $users;
 
-    public function __construct(Request $request, PageDraftControllerService $pageDraftControllerService)
+    /**
+     * @param UserService $users
+     */
+    public function __construct(UserService $users)
     {
-        $this->user = $request->user();
+        $this->users = $users;
     }
 
-    public function show($slug)
+    /**
+     * @param  Request $request
+     * @param  string  $slug
+     * @return View
+     */
+    public function show(Request $request, $slug)
     {
-        $user = User::where('slug', $slug)->first();
+        $user = $this->users->getBySlug($slug);
 
         return view('users.show', compact('user'));
     }

@@ -36,7 +36,7 @@ class TagServiceTest extends TestCase
         $service = new TagService;
 
         $service->store(
-            $page,
+            $page->id,
             [
                 'abc',
                 'def',
@@ -61,7 +61,7 @@ class TagServiceTest extends TestCase
         $service = new TagService;
 
         $service->store(
-            $page,
+            $page->id,
             [
                 'def',
             ]

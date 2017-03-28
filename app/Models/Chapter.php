@@ -12,7 +12,7 @@ class Chapter extends Model
     use ElasticquentTrait;
     
     public $guarded = [];
-    private $repository;
+    
     protected $mappingProperties = array(
         'title' => [
           'type' => 'string',
@@ -23,13 +23,6 @@ class Chapter extends Model
           "analyzer" => "standard",
         ]
     );
-
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-        $this->repository = new ChapterRepository($this);
-    }
-
     public function __get($name)
     {
         $repository = new ChapterRepository($this);

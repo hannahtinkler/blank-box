@@ -32,12 +32,6 @@ class Page extends Model
         ]
     );
 
-    public function __construct(array $attributes = array())
-    {
-        parent::__construct($attributes);
-        $this->repository = new PageRepository($this);
-    }
-
     public function __get($name)
     {
         $repository = new PageRepository($this);

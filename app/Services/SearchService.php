@@ -67,6 +67,10 @@ class SearchService
         return $results;
     }
 
+    /**
+     * @param  array  $results
+     * @return array
+     */
     public function format(array $results)
     {
         $formatted = [];
@@ -86,7 +90,11 @@ class SearchService
         return $formatted;
     }
 
-    private function sort($results)
+    /**
+     * @param  array $results
+     * @return array
+     */
+    public function sort(array $results)
     {
         usort($results, function ($a, $b) {
             if ($a->documentScore() == $b->documentScore()) {

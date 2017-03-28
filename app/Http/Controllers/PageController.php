@@ -112,8 +112,8 @@ class PageController extends Controller
     public function store(PageRequest $request)
     {
         $user = $request->user();
-        $data = $request->input();
         
+        $data = $request->input();
         $data['user_id'] = $user->id;
         $data['approved'] = $this->pages->shouldBeApproved($user, $data);
 
@@ -121,10 +121,6 @@ class PageController extends Controller
 
         if (isset($data['last_draft_id']) && !empty($data['last_draft_id'])) {
             $this->drafts->delete($data['last_draft_id']);
-        }
-
-        if (isset($data['tags'])) {
-            $this->tags->store($page, $data['tags']);
         }
 
         if ($page->approved) {
@@ -171,10 +167,6 @@ class PageController extends Controller
 
         $this->suggestedEdits->store($page->id, $data);
 
-        if (isset($data['tags'])) {
-            $this->tags->store($page, $data['tags']);
-        }
-
         if (env('FEATURE_CURATION_ENABLED')) {
             $message = 'Your suggested edit has been submitted. It will now be reviewed and actioned by a curator.';
         } else {
@@ -182,7 +174,7 @@ class PageController extends Controller
             $message = "This page has been edited successfully and you're now viewing it.";
         }
 
-        return redirect($page->searchResultUrl())->with(
+        return redirect($page->searchResultUrl)->with(
             'message',
             sprintf('<i class="fa fa-check"></i>%s', $message)
         );

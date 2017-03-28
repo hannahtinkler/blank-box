@@ -23,6 +23,7 @@ class CurationService
             'title' => $differ->render($original->title, $new->title),
             'description' => $differ->render($original->description, $new->description),
             'content' => $converter->convertToHtml($differ->render($original->content, $new->content)),
+            'tags' => $converter->convertToHtml($differ->render($original->tags, $new->tags)),
         ];
 
         return $diff;

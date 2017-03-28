@@ -17,6 +17,7 @@ class SuggestedEditTest extends TestCase
     {
         $edit = factory(SuggestedEdit::class)->create(['approved' => null]);
 
+        $edit->tags = null;
         $edit->deleted_at = null;
 
         $service = new SuggestedEditService;

@@ -7,9 +7,10 @@ use App\Models\SuggestedEdit;
 class SuggestedEditService
 {
     /**
+     * @param  int $id
      * @return SuggestedEdit
      */
-    public function getById()
+    public function getById($id)
     {
         return SuggestedEdit::find($id);
     }
@@ -29,6 +30,8 @@ class SuggestedEditService
      */
     public function store($pageId, array $data)
     {
+        $tags = isset($data['tags']) ? implode(',', $data['tags']) : null;
+
         return SuggestedEdit::create([
             'page_id' => $pageId,
             'chapter_id' => $data['chapter_id'],
@@ -37,6 +40,7 @@ class SuggestedEditService
             'content' => $data['content'],
             'created_by' => $data['user_id'],
             'approved' => $data['approved'],
+            'tags' => $tags,
         ]);
     }
 

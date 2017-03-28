@@ -4,11 +4,19 @@ namespace App\Services;
 
 use App\Models\Page;
 use App\Traits\Sluggable;
+use App\Services\TagService;
 use App\Interfaces\SearchableService;
 
 class PageService implements SearchableService
 {
     use Sluggable;
+
+    private $tags;
+    
+    public function __construct(TagService $tags)
+    {
+        $this->tags = $tags;
+    }
 
     /**
      * @param  string $term
@@ -91,7 +99,7 @@ class PageService implements SearchableService
 
     public function store($data)
     {
-        return Page::create([
+        $page = Page::create([
             'chapter_id' => $data['chapter_id'],
             'title' => $data['title'],
             'description' => $data['description'],
@@ -101,6 +109,12 @@ class PageService implements SearchableService
             'order' => 0,
             'approved' => $data['approved']
         ]);
+
+        if (isset($data['tags'])) {
+            $this->tags->store($page->id, $data['tags']);
+        }
+
+        return $page;
     }
 
     /**
@@ -128,6 +142,10 @@ class PageService implements SearchableService
         $page->content = $data['content'];
 
         $page->save();
+
+        if (isset($data['tags'])) {
+            $this->tags->store($page->id, $data['tags']);
+        }
 
         return $page;
     }
@@ -166,6 +184,7 @@ class PageService implements SearchableService
      */
     public function shouldBeApproved($user, array $data, $currentPage = null)
     {
+        return null;
         if (!env('FEATURE_CURATION_ENABLED')) {
             $approved = 1;
         } else if (env('FEATURE_CURATION_ENABLED') && $user->curator) {

@@ -26,6 +26,8 @@
     <hr class="m-t-lg">
 
     {!! $diff['content'] !!}
+    
+    <p>Tags: {!! $diff['tags'] !!}</p>
 </div>
 
 
