@@ -3,10 +3,13 @@
 use App\Models\User;
 use App\Models\Chapter;
 use App\Models\PageDraft;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PageDraftTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * Test that a call to the chapter relationship returns the chapter that
      * this page draft belongs to

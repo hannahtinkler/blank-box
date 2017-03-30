@@ -75,7 +75,7 @@ class UserServiceTest extends TestCase
             ],
         ];
 
-        $actual = $service->getAllContributionTotals();
+        $actual = $service->getAllContributionTotals()->toArray();
 
         $this->assertEquals($expected, $actual);
     }

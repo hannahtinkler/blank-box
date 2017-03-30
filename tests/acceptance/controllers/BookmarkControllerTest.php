@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Bookmark;
-use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BookmarkControllerTest extends TestCase
@@ -33,10 +31,24 @@ class BookmarkControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
-        $this->get('/u/' . $this->user->slug .'/bookmarks/create/' . $page->chapter->category->id . '/' . $page->chapter->id . '/' . $page->id)
-            ->seeJson(['success' => true]);
+        $this->get(
+            sprintf(
+                '/u/%s/bookmarks/create/%s/%s/%s',
+                $this->user->slug,
+                $page->chapter->category->id,
+                $page->chapter->id,
+                $page->id
+            )
+        )->seeJson(['success' => true]);
+
+        $this->seeInDatabase('bookmarks', [
+            'user_id' => $this->user->id,
+            'category_id' => $page->chapter->category->id,
+            'chapter_id' => $page->chapter->id,
+            'page_id' => $page->id
+        ]);
     }
 
     /**
@@ -49,10 +61,16 @@ class BookmarkControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
-        $this->get('/u/' . $this->user->slug .'/bookmarks/create')
-            ->assertResponseStatus(404);
+        $this->get('/u/' . $this->user->slug .'/bookmarks/create')->assertResponseStatus(404);
+
+        $this->dontSeeInDatabase('bookmarks', [
+            'user_id' => $this->user->id,
+            'category_id' => $page->chapter->category->id,
+            'chapter_id' => $page->chapter->id,
+            'page_id' => $page->id
+        ]);
     }
 
     /**
@@ -65,10 +83,24 @@ class BookmarkControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
-        $this->get('/u/' . $this->user->slug .'/bookmarks/delete/' . $page->chapter->category->id . '/' . $page->chapter->id . '/' . $page->id)
-            ->seeJson(['success' => true]);
+        $this->get(
+            sprintf(
+                '/u/%s/bookmarks/delete/%s/%s/%s',
+                $this->user->slug,
+                $page->chapter->category->id,
+                $page->chapter->id,
+                $page->id
+            )
+        )->seeJson(['success' => true]);
+
+        $this->dontSeeInDatabase('bookmarks', [
+            'user_id' => $this->user->id,
+            'category_id' => $page->chapter->category->id,
+            'chapter_id' => $page->chapter->id,
+            'page_id' => $page->id
+        ]);
     }
 
     /**
@@ -81,10 +113,7 @@ class BookmarkControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
-
-        $this->get('/u/' . $this->user->slug .'/bookmarks/delete')
-            ->assertResponseStatus(404);
+        $this->get('/u/' . $this->user->slug .'/bookmarks/delete')->assertResponseStatus(404);
     }
 
     /**
@@ -95,7 +124,7 @@ class BookmarkControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

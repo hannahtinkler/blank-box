@@ -47,11 +47,19 @@ class ChapterService implements SearchableService
 
     /**
      * @param  int $id
-     * @return Chapter
+     * @return Collection
      */
     public function getByCategoryId($id)
     {
         return Chapter::where('category_id', $id)->orderBy('title')->get();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAll()
+    {
+        return Chapter::orderBy('title')->get();
     }
 
     /**

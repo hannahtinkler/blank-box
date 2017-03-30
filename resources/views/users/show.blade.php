@@ -13,16 +13,16 @@
 <div class="row m-b-lg m-t-lg">
     <div class="col-md-6">
         <h3 class="m-b-md">Most Submitted To Chapters:</h3>
-        @if($user->specialistAreas->isEmpty())
-            <p class="italic">{{ $user->name }} has not submitted any content yet.</p>
+        @if(count($user->specialistAreas) == 0)
+            <p class="italic">{{ $user->name }} doesn't have any specialist areas yet</p>
         @else
-            @if($user->specialistAreas->isEmpty())
-                <p class="italic">{{ $user->name }} doesn't have any specialist areas yet :(.</p>
-            @else
-                @foreach($user->specialistAreas as $specialistArea)
-                    <p><a target="_blank" href="/p/{{ $specialistArea->chapter->category->slug }}/{{ $specialistArea->chapter->slug }}">{{ $specialistArea->chapter->title }} ({{ $specialistArea->total }})</a></p>
-                @endforeach
-            @endif
+            @foreach($user->specialistAreas as $specialistArea)
+                <p>
+                    <a target="_blank" href="/p/{{ $specialistArea->categorySlug }}/{{ $specialistArea->chapterSlug }}">
+                        {{ $specialistArea->title }} ({{ $specialistArea->total }})
+                    </a>
+                </p>
+            @endforeach
         @endif
     </div>
 
@@ -43,7 +43,7 @@ information a person has contributed to <?php echo env('APP_NAME', 'Black Box');
                 <p>Score:</p>
             </div>
             <div class="col-md-7">
-                <p><i class="fa fa-star"></i> {{ $communityData['score'] }}</p>
+                <p><i class="fa fa-star"></i> {{ $communityData['total'] }}</p>
             </div>
             @if (env('FEATURE_BADGES_ENABLED', true))
                 <div class="col-md-4">

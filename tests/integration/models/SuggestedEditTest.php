@@ -1,9 +1,10 @@
 <?php
 
-use App\Models\SuggestedEdit;
 use App\Models\User;
-use App\Models\Chapter;
 use App\Models\Page;
+use App\Models\Chapter;
+use App\Models\SuggestedEdit;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SuggestedEditTest extends TestCase

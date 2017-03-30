@@ -77,7 +77,7 @@ class PageDraftController extends Controller
         $draft = $this->drafts->getById($id);
 
         $categories = $this->categories->getAll();
-        $chapters = $this->chapters->getByCategoryId($draft->chapter->category_id);
+        $chapters = $draft->chapter_id ? $this->chapters->getByCategoryId($draft->chapter->category_id) : [];
         $user = $request->user();
 
         return view('pagedrafts.edit', compact('draft', 'chapters', 'categories', 'user'));
@@ -95,7 +95,7 @@ class PageDraftController extends Controller
         $user = $request->user();
 
         if ($id) {
-            $draft = $this->drafts->update($draft->id, $data);
+            $draft = $this->drafts->update($id, $data);
         } else {
             $draft = $this->drafts->store($user->id, $data);
         }

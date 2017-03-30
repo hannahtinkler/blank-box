@@ -103,18 +103,25 @@ class UserRepositoryTest extends TestCase
             'created_by' => $user->id,
             'approved' => 1,
         ]);
+        
+        $row1 = new StdClass;
+        $row1->title = $page1->chapter->title;
+        $row1->chapterSlug = $page1->chapter->slug;
+        $row1->categorySlug = $page1->chapter->category->slug;
+        $row1->total = 3;
 
-        factory('App\Models\Page')->create([
-            'created_by' => $user->id,
-            'approved' => 1,
-        ]);
-
+        $row2 = new StdClass;
+        $row2->title = $page2->chapter->title;
+        $row2->chapterSlug = $page2->chapter->slug;
+        $row2->categorySlug = $page2->chapter->category->slug;
+        $row2->total = 2;
+        
         $expected = [
-            $page1->chapter_id => 3,
-            $page2->chapter_id => 2,
+            $row1,
+            $row2,
         ];
         
-        $actual = $user->specialistAreas->toArray();
+        $actual = $user->specialistAreas;
         
         $this->assertEquals($expected, $actual);
     }

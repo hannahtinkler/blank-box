@@ -6,11 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ChapterRequest extends FormRequest
 {
+    /**
+     * @return boolean
+     */
     public function authorize()
     {
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [

@@ -4,8 +4,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\User;
 use App\Models\Page;
-use App\Models\SuggestedEdit;
 use App\Models\UserBadge;
+use App\Models\SuggestedEdit;
 
 class UserTest extends TestCase
 {
@@ -51,53 +51,5 @@ class UserTest extends TestCase
         factory(App\Models\UserBadge::class, 2)->create(['user_id' => $user->id]);
 
         $this->assertTrue($user->userBadges->first() instanceof UserBadge);
-    }
-
-    /**
-     * Tests that a call to the method that returns the search result string
-     * for a given record works as expected
-     *
-     * @return void
-     */
-    public function testSearchResultStringIsCorrect()
-    {
-        $user = factory(User::class)->create();
-
-        $expected = 'User: ' . $user->name . ' (This loser has no badges)';
-        $actual = $user->searchResultString();
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * Tests that a call to the method that returns the search result url
-     * for a given record works as expected
-     *
-     * @return void
-     */
-    public function testSearchResultUrlIsCorrect()
-    {
-        $user = factory(User::class)->create();
-
-        $expected = '/u/' . $user->slug;
-        $actual = $user->searchResultUrl();
-
-        $this->assertEquals($expected, $actual);
-    }
-
-    /**
-     * Tests that a call to the method that returns the search result icon
-     * for a given record works as expected
-     *
-     * @return void
-     */
-    public function testSearchResultIconIsCorrect()
-    {
-        $user = factory(User::class)->create();
-
-        $expected = '<i class="fa fa-user"></i>';
-        $actual = $user->searchResultIcon();
-
-        $this->assertEquals($expected, $actual);
     }
 }

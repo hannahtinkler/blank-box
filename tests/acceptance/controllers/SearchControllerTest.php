@@ -4,6 +4,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SearchControllerTest extends TestCase
 {
+    use DatabaseTransactions;
+    
     /**
      * @var User
      */
@@ -31,22 +33,13 @@ class SearchControllerTest extends TestCase
     }
 
     /**
-     * Elasticsearch takes a while to index new items; hence the sleep :(
      * @return void
      */
     public function testItCanAccessSearchResultsPage()
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create([
-            'approved' => true
-        ]);
-
-        $page->addToIndex();
-
-        sleep(1);
-
-        $this->get('/search/' . substr($page->title, 0, 10) . '/results')
+        $this->get('/search/blah/results')
             ->see("Search Results")
             ->assertResponseStatus(200);
     }

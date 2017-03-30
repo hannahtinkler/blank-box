@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 use App\Services\ModelServices\PageModelService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CurationControllerTest extends TestCase
 {
@@ -24,45 +25,9 @@ class CurationControllerTest extends TestCase
      */
     public function testItCanAccessPagesPendingCurationPage()
     {
-        $this->logInAsUser();
+        $this->logInAsUser(['curator' => 1]);
 
-        $this->get('/curation/new')
-            ->see('Curation')
-            ->assertResponseStatus(200);
-    }
-
-    /**
-     * Test that a request to the route that approves a page awaiting curation
-     * works and returns a 200 response code (OK)
-     *
-     * @return void
-     */
-    public function testItCanApproveAPagePendingCuration()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create();
-
-        $this->get('/curation/new/approve/' . $page->id)
-            ->assertResponseStatus(302);
-
-        $lookup = Page::find($page->id);
-
-        $this->assertEquals(1, $lookup->approved);
-    }
-
-    public function testItCanRejectAPagePendingCuration()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create();
-
-        $this->get('/curation/new/reject/' . $page->id)
-            ->assertResponseStatus(302);
-
-        $lookup = Page::find($page->id);
-
-        $this->assertEquals(0, $lookup->approved);
+        $this->get('/curation/new')->see('Curation')->assertResponseStatus(200);
     }
 
     /**
@@ -74,11 +39,72 @@ class CurationControllerTest extends TestCase
      */
     public function testItCanAccessSuggestedEditsPendingCurationPage()
     {
-        $this->logInAsUser();
+        $this->logInAsUser(['curator' => 1]);
 
-        $this->get('/curation/edits')
-            ->see('Curation')
-            ->assertResponseStatus(200);
+        $this->get('/curation/edits')->see('Curation')->assertResponseStatus(200);
+    }
+
+    /**
+     * Test that a request to the route that shows a user the 'Pages Awaiting
+     * Curation' Page shows the 'Show Curation' page and returns a 200
+     * response code (OK)
+     *
+     * @return void
+     */
+    public function testItCanNotAccessPagesPendingCurationPage()
+    {
+        $this->logInAsUser(['curator' => 0]);
+
+        $this->get('/curation/new')->assertResponseStatus(401);
+    }
+
+    /**
+     * Test that a request to the route that shows a user the 'Pages Awaiting
+     * Curation' Page shows the 'Show Curation' page and returns a 200
+     * response code (OK)
+     *
+     * @return void
+     */
+    public function testItCanNotAccessSuggestedEditsPendingCurationPage()
+    {
+        $this->logInAsUser(['curator' => 0]);
+
+        $this->get('/curation/edits')->assertResponseStatus(401);
+    }
+
+    /**
+     * Test that a request to the route that approves a page awaiting curation
+     * works and returns a 200 response code (OK)
+     *
+     * @return void
+     */
+    public function testItCanApproveAPagePendingCuration()
+    {
+        $this->logInAsUser(['curator' => 1]);
+
+        $page = factory(App\Models\Page::class)->create();
+
+        $this->get('/curation/new/approve/' . $page->id)->assertResponseStatus(302);
+
+        $this->seeInDatabase('pages', [
+            'id' => $page->id,
+            'approved' => 1,
+        ]);
+    }
+
+    public function testItCanRejectAPagePendingCuration()
+    {
+        $this->logInAsUser(['curator' => 1]);
+
+        $page = factory(App\Models\Page::class)->create();
+
+        $this->get('/curation/new/reject/' . $page->id)
+            ->assertResponseStatus(302);
+
+        $this->seeInDatabase('pages', [
+            'id' => $page->id,
+            'approved' => 0,
+        ]);
     }
 
     /**
@@ -89,16 +115,16 @@ class CurationControllerTest extends TestCase
      */
     public function testItCanApproveASuggestedEditPendingCuration()
     {
-        $this->logInAsUser();
+        $this->logInAsUser(['curator' => 1]);
 
-        $page = factory(App\Models\SuggestedEdit::class)->create();
+        $edit = factory(App\Models\SuggestedEdit::class)->create();
 
-        $this->get('/curation/edits/approve/' . $page->id)
-            ->assertResponseStatus(302);
+        $this->get('/curation/edits/approve/' . $edit->id)->assertResponseStatus(302);
 
-        $lookup = SuggestedEdit::find($page->id);
-
-        $this->assertEquals(1, $lookup->approved);
+        $this->seeInDatabase('suggested_edits', [
+            'id' => $edit->id,
+            'approved' => 1,
+        ]);
     }
 
     /**
@@ -109,16 +135,16 @@ class CurationControllerTest extends TestCase
      */
     public function testItCanRejectASuggestedEditPendingCuration()
     {
-        $this->logInAsUser();
+        $this->logInAsUser(['curator' => 1]);
 
-        $page = factory(App\Models\SuggestedEdit::class)->create();
+        $edit = factory(App\Models\SuggestedEdit::class)->create();
 
-        $this->get('/curation/edits/reject/' . $page->id)
-            ->assertResponseStatus(302);
+        $this->get('/curation/edits/reject/' . $edit->id)->assertResponseStatus(302);
 
-        $lookup = SuggestedEdit::find($page->id);
-
-        $this->assertEquals(0, $lookup->approved);
+        $this->seeInDatabase('suggested_edits', [
+            'id' => $edit->id,
+            'approved' => 0,
+        ]);
     }
 
     /**
@@ -129,11 +155,11 @@ class CurationControllerTest extends TestCase
      */
     public function testItCanViewDiffForSuggestedEdit()
     {
-        $this->logInAsUser();
+        $this->logInAsUser(['curator' => 1]);
 
-        $page = factory(App\Models\SuggestedEdit::class)->create();
+        $edit = factory(App\Models\SuggestedEdit::class)->create();
 
-        $this->get('/curation/viewdiff/' . $page->id)
+        $this->get('/curation/viewdiff/' . $edit->id)
             ->see('<ins>')
             ->see('<del>')
             ->assertResponseStatus(200);

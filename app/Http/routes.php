@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/chapters', 'ChapterController@store');
 
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
+    Route::get('/ajax/actions/minimalise', 'HomeController@minimaliseNavbar');
 
     Route::get('/u/{slug}/', 'UserController@show');
     Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
@@ -34,11 +35,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/u/{slug}/drafts/{id}', 'PageDraftController@edit');
     Route::get('/u/{slug}/drafts/preview/{id}', 'PageDraftController@preview');
     Route::get('/u/{slug}/drafts/delete/{id}', 'PageDraftController@destroy');
-
-    if (env('FEATURE_BADGES_ENABLED', true)) {
-        Route::get('/u/{userSlug}/badges', 'BadgeController@index');
-        Route::get('/ajax/modal/badges/{userId}/{badgeId}', 'BadgeController@showBadgeModal');
-    }
 
     Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
     Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
@@ -57,6 +53,11 @@ Route::group(['middleware' => ['auth']], function () {
             'content' => $converter->convertToHtml($request->input('content'))
         ]);
     });
+
+    if (env('FEATURE_BADGES_ENABLED', true)) {
+        Route::get('/u/{userSlug}/badges', 'BadgeController@index');
+        Route::get('/ajax/modal/badges/{userId}/{badgeId}', 'BadgeController@showBadgeModal');
+    }
 
     if (env('FEATURE_CURATION_ENABLED', true)) {
         Route::group(['middleware' => ['curator']], function () {

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         App\Models\UserBadge::truncate();
 
         $this->call(CategorySeeder::class);
+        $this->call(ChapterSeeder::class);
         $this->call(BadgeSeeder::class);
         $this->call(FeedSeeder::class);
     }

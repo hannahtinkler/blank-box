@@ -48,7 +48,7 @@ class SearchServiceTest extends TestCase
             ],
             [
                 'content' => "Page: Hannah",
-                'url' => "/p/general/optio-saepe-provident-dolores-ratione-voluptas-dolore/hannah",
+                'url' => "/p/general/sample/hannah",
                 'score' => null,
             ]
         ];
@@ -85,7 +85,7 @@ class SearchServiceTest extends TestCase
             ],
             [
                 'content' => "Page: Hannah",
-                'url' => "/p/general/optio-saepe-provident-dolores-ratione-voluptas-dolore/hannah",
+                'url' => "/p/general/sample/hannah",
                 'score' => null,
             ]
         ];
@@ -151,7 +151,7 @@ class SearchServiceTest extends TestCase
     {
         $page = new Page;
         $page->id = 6;
-        $page->chapter_id = '1';
+        $page->chapter_id = 1;
         $page->title = 'Hannah';
         $page->description = 'Cum quaerat eveniet, adipisci nobis';
         $page->content = 'Cum quaerat eveniet, adipisci';

@@ -26,7 +26,7 @@
 </head>
 
 
-<body class="<?php echo env('APP_THEME', 'mayden-skin'); ?>">
+<body class="<?php echo env('APP_THEME', 'mayden-skin'); ?> <?php echo session()->get('minimaliseNavbar') ? 'mini-navbar' : null; ?>">
 
     <div id="wrapper">
 
@@ -81,7 +81,12 @@
                             
                                 @if(!$chapter->approvedPages->isEmpty())
                                     <ul class="nav nav-second-level collapse">
-                                        <li><a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a></li>
+                                        <li class="collapsed-chapter-title">
+                                            {{ $chapter->title }}
+                                        </li>
+                                        <li>
+                                            <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a>
+                                        </li>
                                         @foreach($chapter->pages as $page)
                                             <li>
                                                 <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
@@ -97,11 +102,17 @@
                 @if($user->curator && env('FEATURE_CURATION_ENABLED'))
                     <li{!! Request::is('curation/*') ? ' class="active"' : null !!}>
                         <a href="/curation">
-                            <span class="nav-label"><i class="fa fa-check"></i> <span class="nav-label">Curation</span> ({{ $awaitingCurationCountNew + $awaitingCurationCountEdits }})</span>
+                            <i class="fa fa-check"></i>
+                            <span class="nav-label">
+                                <span class="nav-label">Curation</span> ({{ $awaitingCurationCountNew + $awaitingCurationCountEdits }})
+                            </span>
                             <span class="fa arrow"></span>
                         </a>
                     
                         <ul class="nav nav-second-level collapse">
+                            <li class="collapsed-chapter-title">
+                                Curation
+                            </li>
                             <li>
                                 <a href="/curation/new"><i class="fa fa-file-o"></i> <span class="nav-label">New Pages </span>({{ $awaitingCurationCountNew }})</a>
                             </li>
@@ -112,11 +123,7 @@
                     </li>
                 @endif
                 
-                <li
-                    @if(Request::is('u/' . $user->slug . '*') || Request::is('bookmarks'))
-                    class="active"
-                    @endif
-                >
+                <li{!! Request::is('u/' . $user->slug . '*') || Request::is('bookmarks') ? ' class="active"' : null !!}>
                     <a href="/u/{{ $user->slug }}">
                         <i class="fa fa-user"></i>
                         <span class="nav-label">
@@ -127,6 +134,9 @@
                     </a>
                 
                     <ul class="nav nav-second-level collapse">
+                        <li class="collapsed-chapter-title">
+                            Your <?= env('APP_NAME', 'Blank Box') ?>
+                        </li>
                         <li>
                             <a href="/u/{{ $user->slug }}"><i class="fa fa-user"></i> <span class="nav-label">Profile</span></a>
                         </li>
@@ -224,47 +234,9 @@
 <script src="/js/plugins/pace/pace.min.js"></script>
 <script src="/js/simplemde.min.js"></script>
 <script src="/js/prism.min.js"></script>
-
-</body>
+<script src="/js/custom.js"></script>
 
 <script>
-    function getSimpleMde(element) {
-        return new window.SimpleMDE({
-            element: element,
-
-            // override the preview renderer to allow Prism.js highlighting
-            previewRender: function(plainText, preview) { // Async method
-                if (plainText.trim() === '') {
-                    return '';
-                }
-
-                identifier = performance.now()
-
-                $(preview).data('identifier', identifier)
-
-                $.post(
-                    '/ajax/endpoints/pagepreview',
-                    {
-                        _token: '{{ csrf_token() }}',
-                        content: plainText,
-                        identifier: identifier
-                    }
-                ).done(function (response) {
-                    response = JSON.parse(response)
-                    console.log(identifier, response.identifier)
-                    if (identifier == response.identifier) {
-                        preview.innerHTML = response.content
-                        window.requestAnimationFrame(function () {
-                            window.Prism.highlightAll()
-                        })
-                    }
-                })
-
-                return "Loading...";
-            },
-        })
-    }
-
     $(document).ready(function() {
         @if(isset($current['chapter']))
             var category = {!! $current['category'] ? $current['category']->id : '""' !!};
@@ -281,6 +253,7 @@
 
             function addBookmark() {
                 $('.bookmark').addClass('active');
+
                 $.ajax('/u/{{ $user->slug }}/bookmarks/create/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
@@ -294,6 +267,7 @@
 
             function removeBookmark() {
                 $('.bookmark').removeClass('active');
+
                 $.ajax('/u/{{ $user->slug }}/bookmarks/delete/' + category + '/' + chapter + '/' + page, {
                   success: function(data) {
                     data = JSON.parse(data);
@@ -306,48 +280,11 @@
             }
 
         @endif
-
-        $('#topbar-search-form').submit(function(e) {
-            var term = $('#top-search').val();
-            
-            if (!term.length) {
-                return false;
-            }
-
-            window.location.href ='/search/' + term + '/results';
-            e.preventDefault();
-            return false;
-        });
-
-        $('#top-search').easyAutocomplete({
-            adjustWidth: false,
-            url: function(term) {
-                    return "/search/" + term;
-            },
-            getValue: "content",
-            template: {
-                type: "links",
-                fields: {
-                    link: "url"
-                }
-            },
-            list: {
-                maxNumberOfElements: 10,
-                onChooseEvent: function() {
-                    var url = $('.easy-autocomplete-container ul li.selected div a').attr('href');
-                    window.location.href = url;
-                },
-                onShowListEvent: function() {
-                    var list = $('body').find('#eac-container-top-search ul');
-                    var term = $('#top-search').val();
-                    if (list.text().indexOf('View All Results') == -1) {
-                        list.append('<li id="view-all"><a href="/search/' + term + '/results"><strong>View All Results</strong></a></li>');
-                    }
-                }
-            }
-        });
     });
+
 </script>
+
+</body>
 
 @yield('scripts')
 

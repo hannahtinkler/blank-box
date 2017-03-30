@@ -43,6 +43,10 @@ class HomeController extends Controller
     {
         $page = $this->pages->getRandom();
 
+        if (!$page) {
+            abort(404);
+        }
+
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug);
     }
     
@@ -60,5 +64,13 @@ class HomeController extends Controller
         $user->save();
 
         return redirect(url()->previous());
+    }
+
+    public function minimaliseNavbar()
+    {
+        session()->set(
+            'minimaliseNavbar',
+            !session()->get('minimaliseNavbar')
+        );
     }
 }

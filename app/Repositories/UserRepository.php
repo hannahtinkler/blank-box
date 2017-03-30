@@ -99,51 +99,43 @@ class UserRepository implements SearchableRepository
     }
 
     /**
-     * Okay, this is ridiculous. We want a list of chapters the user has
-     * submitted pages and edits to along with the count of edits/pages per
-     * chapter, where the count is greater than 1. It shouldn't be this hard.
-     * Maybe it isn't. Maybe I'm just an idiot.
-     *
-     * @return Collection
+     * @return array
      */
     public function specialistAreas()
     {
-        $edits = SuggestedEdit::select([
-            'chapter_id',
-            DB::raw('COUNT(*) as total')
-        ])
-        ->where('created_by', $this->user->id)
-        ->groupBy('chapter_id')
-        ->get()
-        ->keyBy('chapter_id')
-        ->map(function ($row) {
-            return $row->total;
-        });
-        
-        $pages = Page::select([
-            'chapter_id',
-            DB::raw('COUNT(*) as total')
-        ])
-        ->where('created_by', $this->user->id)
-        ->groupBy('chapter_id')
-        ->get()
-        ->keyBy('chapter_id')
-        ->map(function ($row) {
-            return $row->total;
-        });
-
-        foreach ($edits as $chapterId => $total) {
-            if (isset($pages[$chapterId])) {
-                $pages[$chapterId] += $total;
-            } else {
-                $pages[$chapterId] = $total;
-            }
-        }
-
-        $pages = $pages->filter(function ($page) {
-            return $page > 1;
-        });
-
-        return $pages;
+        return DB::select(
+            DB::raw(
+                "SELECT
+                    chapters.title as title,
+                    chapters.slug as chapterSlug,
+                    categories.slug as categorySlug,
+                    IFNULL(
+                        (
+                            SELECT COUNT(*)
+                            FROM pages
+                            WHERE chapter_id = chapters.id
+                            AND created_by = ?
+                            GROUP BY chapter_id
+                        ),
+                        0
+                    ) + IFNULL(
+                        (
+                            SELECT COUNT(*)
+                            FROM suggested_edits
+                            WHERE chapter_id = chapters.id
+                            AND created_by = ?
+                            GROUP BY chapter_id
+                        ),
+                        0
+                    ) as total
+                FROM chapters
+                JOIN categories ON categories.id = chapters.category_id
+                HAVING total > 0"
+            ),
+            [
+                $this->user->id,
+                $this->user->id,
+            ]
+        );
     }
 }

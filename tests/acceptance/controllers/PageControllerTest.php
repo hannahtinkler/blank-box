@@ -1,9 +1,11 @@
 <?php
+
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 use App\Models\Page;
 use App\Models\SuggestedEdit;
 
 use App\Services\ModelServices\PageModelService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PageControllerTest extends TestCase
 {
@@ -14,37 +16,6 @@ class PageControllerTest extends TestCase
      * @var object User
      */
     public $user;
-    
-    /**
-     * An array of fields which should be used for comparison purposes when
-     * using assertEquals()
-     *
-     * @var array
-     */
-    public $comparableFields = array(
-        'chapter_id',
-        'title',
-        'description',
-        'content',
-        'created_by'
-    );
-
-    /**
-     * Test that a request to the route that shows a user an approved page
-     * works and returns a 200 response code (OK)
-     *
-     * @return void
-     */
-    public function testItCanAccessApprovedPage()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create(['approved' => true]);
-
-        $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
-            ->see($page->title)
-            ->assertResponseStatus(200);
-    }
 
     /**
      * Test that a request to the route that shows a user an unapproved page
@@ -53,50 +24,22 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanAccessUnapprovedPageAsReader()
+    public function testItCanAccessAnyPageAsReader()
     {
         $this->logInAsUser();
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
-            ->see($page->title)
-            ->assertResponseStatus(200);
-    }
-
-    /**
-     * Test that a request to the route that shows a user an unapproved page
-     * works and returns a 200 response code (OK) when logged in as the author
-     *
-     * @return void
-     */
-    public function testItCanAccessUnapprovedPageAsAuthor()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create(['created_by' => $this->user->id]);
-
-        $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
-            ->see($page->title)
-            ->assertResponseStatus(200);
-    }
-
-    /**
-     * Test that a request to the route that shows a user an unapproved page
-     * works and returns a 200 response code (OK) when logged in as a
-     * curator
-     *
-     * @return void
-     */
-    public function testItCanAccessUnapprovedPageAsCurator()
-    {
-        $this->logInAsUser(['curator' => true]);
-
-        $page = factory(App\Models\Page::class)->create();
-
-        $this->get('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug)
-            ->see($page->title)
-            ->assertResponseStatus(200);
+        $this->get(
+            sprintf(
+                '/p/%s/%s/%s',
+                $page->chapter->category->slug,
+                $page->chapter->slug,
+                $page->slug
+            )
+        )
+        ->see($page->title)
+        ->assertResponseStatus(200);
     }
 
     /**
@@ -109,9 +52,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $this->get('/pages/create')
-            ->see('Create New Page')
-            ->assertResponseStatus(200);
+        $this->get('/pages/create')->see('Create New Page')->assertResponseStatus(200);
     }
 
     /**
@@ -146,21 +87,24 @@ class PageControllerTest extends TestCase
 
         $chapter = factory(App\Models\Chapter::class)->create();
 
-        $this->post('/pages', [
-                '_token' => csrf_token(),
-                'category_id' => $chapter->category->id,
-                'chapter_id' => $chapter->id,
-                'title' => $this->faker->sentence,
-                'description' => $this->faker->sentence,
-                'content' => $this->faker->text,
-                'last_draft_id' => null
-            ])
-            ->assertResponseStatus(302);
+        $data = [
+            '_token' => csrf_token(),
+            'category_id' => $chapter->category->id,
+            'chapter_id' => $chapter->id,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+            'content' => $this->faker->text,
+            'last_draft_id' => null
+        ];
 
-        $expected = $currentCount + 1;
-        $actual = Page::all()->count();
+        $this->post('/pages', $data)->assertResponseStatus(302);
 
-        $this->assertEquals($expected, $actual);
+        $this->seeInDatabase('pages', [
+            'chapter_id' => $data['chapter_id'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'content' => $data['content'],
+        ]);
     }
 
     /**
@@ -176,9 +120,9 @@ class PageControllerTest extends TestCase
         $chapter = factory(App\Models\Chapter::class)->create();
 
         $this->post('/pages', [
-                '_token' => csrf_token(),
-            ])
-            ->assertResponseStatus(302);
+            '_token' => csrf_token(),
+        ])
+        ->assertResponseStatus(302);
         
         $this->assertSessionHasErrors();
     }
@@ -190,52 +134,7 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanNotUpdateAnExistingPageAsCuratorWithNoData()
-    {
-        $this->logInAsUser(['curator' => true]);
-
-        $page = factory(App\Models\Page::class)->create();
-
-        $data = [
-            '_token' => csrf_token(),
-        ];
-
-        $this->put('/pages/' . $page->id, $data)
-            ->assertResponseStatus(302);
-
-        $this->assertSessionHasErrors();
-    }
-
-    /**
-     * Test that a request to the route that updates an existing page returns
-     * errors when logged in as a the page author and passed no available
-     * data from the edit form
-     *
-     * @return void
-     */
-    public function testItCanUpdateAnExistingPageAsAuthorWithNoData()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create(['created_by' => $this->user->id]);
-
-        $data = [
-            '_token' => csrf_token(),
-        ];
-
-        $this->put('/pages/' . $page->id, $data)
-            ->assertResponseStatus(302);
-
-        $this->assertSessionHasErrors();
-    }
-
-    /**
-     * Test that a request to the route that updates an existing page returns
-     * errors when logged in as a reader/non-author/non-curator
-     *
-     * @return void
-     */
-    public function testItCanNotUpdateAnExistingPageAsReader()
+    public function testItCanNotUpdateAnExistingPageWithNoData()
     {
         $this->logInAsUser();
 
@@ -245,8 +144,7 @@ class PageControllerTest extends TestCase
             '_token' => csrf_token(),
         ];
 
-        $this->put('/pages/' . $page->id, $data)
-            ->assertResponseStatus(302);
+        $this->put('/pages/' . $page->id, $data)->assertResponseStatus(302);
 
         $this->assertSessionHasErrors();
     }
@@ -274,18 +172,14 @@ class PageControllerTest extends TestCase
             'last_draft_id' => null
         ];
 
-        $this->put('/pages/' . $page->id, $data)
-            ->assertResponseStatus(302);
+        $this->put('/pages/' . $page->id, $data)->assertResponseStatus(302);
 
-        $expected = $data;
-        $expected['created_by'] = $this->user->id;
-
-        $actual = SuggestedEdit::where('page_id', $page->id)->first()->toArray();
-
-        $this->assertEquals(
-            $this->comparableFields($expected),
-            $this->comparableFields($actual)
-        );
+        $this->seeInDatabase('suggested_edits', [
+            'chapter_id' => $data['chapter_id'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'content' => $data['content'],
+        ]);
     }
 
     /**
@@ -305,8 +199,7 @@ class PageControllerTest extends TestCase
             '_token' => csrf_token(),
         ];
 
-        $this->put('/pages/' . $page->id, $data)
-            ->assertResponseStatus(302);
+        $this->put('/pages/' . $page->id, $data)->assertResponseStatus(302);
         
         $this->assertSessionHasErrors();
     }
@@ -319,16 +212,15 @@ class PageControllerTest extends TestCase
      */
     public function testItCanDestroyPageAsACurator()
     {
-        $this->logInAsUser(['curator' => true]);
+        $this->logInAsUser(['curator' => 1]);
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->delete('/pages/' . $page->id)
-            ->assertResponseStatus(302);
+        $this->delete('/pages/' . $page->id)->assertResponseStatus(302);
 
-        $lookup = Page::find($page->id);
-
-        $this->assertNull($lookup);
+        $this->dontSeeInDatabase('suggested_edits', [
+            'id' => $page->id,
+        ]);
     }
 
     /**
@@ -337,30 +229,17 @@ class PageControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanNotDestroyPageAsAnAuthor()
-    {
-        $this->logInAsUser();
-
-        $page = factory(App\Models\Page::class)->create(['created_by' => $this->user->id]);
-
-        $this->delete('/pages/' . $page->id)
-            ->assertResponseStatus(401);
-    }
-
-    /**
-     * Test that a request to the route that destroys a page does not work when
-     * logged in as a reader
-     *
-     * @return void
-     */
-    public function testItCanNotDestroyPageAsAReader()
+    public function testItCanNotDestroyPageAsUser()
     {
         $this->logInAsUser();
 
         $page = factory(App\Models\Page::class)->create();
 
-        $this->delete('/pages/' . $page->id)
-            ->assertResponseStatus(401);
+        $this->delete('/pages/' . $page->id)->assertResponseStatus(401);
+
+        $this->seeInDatabase('pages', [
+            'id' => $page->id,
+        ]);
     }
 
     /**

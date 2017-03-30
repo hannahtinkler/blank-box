@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Category;
-use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryControllerTest extends TestCase
@@ -24,11 +22,11 @@ class CategoryControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $category = factory(App\Models\Category::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
-        $this->get('/p/' . $category->slug)
-            ->see($category->title)
-            ->assertResponseStatus(200);
+        $this->get('/p/' . $chapter->category->slug)->see($chapter->category->title)
+        ->see($chapter->title)
+        ->assertResponseStatus(200);
     }
 
     /**
@@ -39,7 +37,7 @@ class CategoryControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

@@ -17,6 +17,7 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $name,
         'email' => $faker->safeEmail,
+        'curator' => 0,
         'remember_token' => str_random(10),
         'slug' => str_slug($name)
     ];

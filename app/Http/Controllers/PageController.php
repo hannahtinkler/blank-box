@@ -82,7 +82,7 @@ class PageController extends Controller
      */
     public function show(Request $request, $categorySlug, $chapterSlug, $pageSlug)
     {
-        $page = $this->pages->getApprovedBySlug($pageSlug);
+        $page = $this->pages->getBySlug($pageSlug);
 
         $page->content = $this->converter->convertToHtml($page->content);
 
@@ -133,7 +133,7 @@ class PageController extends Controller
             $message .= " It will only be added to the chapter after it has been curated.";
         }
 
-        return redirect($page->searchResultUrl())->with('message', $message);
+        return redirect($page->searchResultUrl)->with('message', $message);
     }
 
     /**
@@ -191,7 +191,7 @@ class PageController extends Controller
         
         $page->delete();
 
-        return redirect($page->chapter->searchResultUrl())->with(
+        return redirect($page->chapter->searchResultUrl)->with(
             'message',
             '<i class="fa fa-check"></i> This page has been successfully deleted'
         );

@@ -78,7 +78,7 @@ class CurationController extends Controller
      */
     public function approveNewPage($id)
     {
-        $this->pages->approve($id);
+        $page = $this->pages->approve($id);
 
         Event::fire(new PageWasAdded($page, $page->creator));
 

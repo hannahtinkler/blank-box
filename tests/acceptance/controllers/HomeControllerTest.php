@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 use App\Models\Page;
 use App\Models\Category;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class HomeControllerTest extends TestCase
 {
@@ -24,8 +25,9 @@ class HomeControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $this->get('/random')
-            ->assertResponseStatus(302);
+        factory(App\Models\Page::class)->create(['approved' => 1]);
+
+        $this->get('/random')->assertResponseStatus(302);
     }
 
     public function testItSwitchesTheActiveCategoryForAUser()

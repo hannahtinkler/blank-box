@@ -50,7 +50,7 @@ class Page extends Model
     
     public function bookmark()
     {
-        return $this->hasOne('App\Models\Bookmark')->where('user_id', \Auth::user()->id);
+        return $this->hasOne('App\Models\Bookmark')->where('user_id', auth()->user()->id);
     }
 
     public function creator()
@@ -61,30 +61,5 @@ class Page extends Model
     public function pageTags()
     {
         return $this->hasMany('App\Models\PageTag');
-    }
-    
-    public function scopeLatestUpdated($query)
-    {
-        return $query->where('approved', 1)->orderBy('updated_at', 'DESC');
-    }
-    
-    public function scopeFindBySlug($query, $slug)
-    {
-        return $query->where('slug', $slug)->first();
-    }
-    
-    public function scopeLargestOrderValue($query, $chapterId)
-    {
-        return $query->where('chapter_id', $chapterId)->orderBy('order', 'desc')->first();
-    }
-    
-    public function getUpdatorsString()
-    {
-        return $this->modelService->getUpdatorsString();
-    }
-    
-    public function hasEdits()
-    {
-        return $this->modelService->hasEdits();
     }
 }

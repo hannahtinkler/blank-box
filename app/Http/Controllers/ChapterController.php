@@ -65,7 +65,7 @@ class ChapterController extends Controller
     {
         $chapter = $this->chapters->store($request->input());
 
-        return redirect($chapter->searchResultUrl())->with(
+        return redirect($chapter->searchResultUrl)->with(
             'message',
             '<i class="fa fa-check"></i> New chapter has been created'
         );
@@ -96,7 +96,7 @@ class ChapterController extends Controller
 
         $this->chapters->update($chapter, $request->input());
 
-        return redirect($chapter->searchResultUrl())->with(
+        return redirect($chapter->searchResultUrl)->with(
             'message',
             '<i class="fa fa-check"></i> This chapter has been updated successfully'
         );

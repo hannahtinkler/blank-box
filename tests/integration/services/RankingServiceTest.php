@@ -23,7 +23,7 @@ class RankingServiceTest extends TestCase
             ],
             'Sarina Lowe' => [
                 'slug' => "sarina-lowe",
-                'rank' => 1,
+                'rank' => 2,
                 'score' => 0,
             ],
         ];

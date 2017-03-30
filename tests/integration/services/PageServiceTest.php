@@ -27,20 +27,20 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetPageBySlug()
     {
-        $page = factory(Page::class)->create(['approved' => true]);
+        $page = factory(Page::class)->create();
 
         $service = new PageService(new TagService);
 
         $expected = $page->toArray();
 
-        $actual = $service->getApprovedBySlug($page->slug)->toArray();
+        $actual = $service->getBySlug($page->slug)->toArray();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testItCanGetPageBySlugForwardingSettings()
     {
-        $page = factory(Page::class)->create(['approved' => true]);
+        $page = factory(Page::class)->create();
 
         factory(SlugForwardingSetting::class)->create([
             'old_slug' => 'abcdef',
@@ -51,7 +51,7 @@ class PageServiceTest extends TestCase
 
         $expected = $page->toArray();
 
-        $actual = $service->getApprovedByForwardedSlug('abcdef')->toArray();
+        $actual = $service->getByForwardedSlug('abcdef')->toArray();
 
         $this->assertEquals($expected, $actual);
     }

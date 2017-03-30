@@ -49,20 +49,18 @@ class PageService implements SearchableService
      * @param  string $slug
      * @return Page
      */
-    public function getApprovedBySlug($slug)
+    public function getBySlug($slug)
     {
-        $page = Page::where('slug', $slug)
-            ->where('approved', 1)
-            ->first();
+        $page = Page::where('slug', $slug)->first();
 
         if (!$page) {
-            $page = $this->getApprovedByForwardedSlug($slug);
+            $page = $this->getByForwardedSlug($slug);
         }
             
         return $page;
     }
 
-    public function getApprovedByForwardedSlug($slug)
+    public function getByForwardedSlug($slug)
     {
         return Page::select('pages.*')
             ->leftJoin('slug_forwarding_settings', 'pages.slug', '=', 'slug_forwarding_settings.new_slug')
@@ -159,6 +157,8 @@ class PageService implements SearchableService
         $page = $this->getById($id);
         $page->approved = 1;
         $page->save();
+
+        return $page;
     }
 
     /**

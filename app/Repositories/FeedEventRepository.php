@@ -1,25 +1,27 @@
 <?php
 
-namespace App\Services\ModelServices;
-
-use Illuminate\Http\Request;
+namespace App\Repositories;
 
 use App\Models\Page;
 use App\Models\Badge;
 use App\Models\FeedEvent;
-use App\Models\FeedEventType;
-use App\Interfaces\SearchableModelService;
 
-class FeedEventModelService
+class FeedEventRepository
 {
-    public $feedEvent;
-
-    public function __construct($feedEvent)
+    /**
+     * @var FeedEvent
+     */
+    private $feedEvent;
+    
+    /**
+     * @param FeedEvent $feedEvent
+     */
+    public function __construct(FeedEvent $feedEvent)
     {
         $this->feedEvent = $feedEvent;
     }
 
-    public function getText()
+    public function text()
     {
         $type = $this->feedEvent->type->name;
 
@@ -50,7 +52,7 @@ class FeedEventModelService
         return $text;
     }
 
-    public function getImage()
+    public function image()
     {
         $type = $this->feedEvent->type->name;
 

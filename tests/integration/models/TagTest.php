@@ -1,11 +1,14 @@
 <?php
 
-use App\Models\PageTag;
 use App\Models\Tag;
+use App\Models\PageTag;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class TagTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * Test that a call to the pageTags relationship returns a collection
      * containing objects of the type 'PageTag'

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Services\ModelServices\FeedEventModelService;
+use App\Repositories\FeedEventRepository;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,10 +11,15 @@ class FeedEvent extends Model
     public $guarded = [];
     public $modelService;
 
-    public function __construct(array $attributes = array())
+    public function __get($name)
     {
-        parent::__construct($attributes);
-        $this->modelService = new FeedEventModelService($this);
+        $repository = new FeedEventRepository($this);
+
+        if (method_exists($repository, $name)) {
+            return $repository->$name();
+        }
+
+        return parent::__get($name);
     }
 
     public function type()

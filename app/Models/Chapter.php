@@ -23,6 +23,7 @@ class Chapter extends Model
           "analyzer" => "standard",
         ]
     );
+    
     public function __get($name)
     {
         $repository = new ChapterRepository($this);
@@ -52,10 +53,5 @@ class Chapter extends Model
     public function approvedPages()
     {
         return $this->hasMany('App\Models\Page')->where('approved', true)->orderBy('order');
-    }
-    
-    public function scopeLargestOrderValue($query, $categoryId)
-    {
-        return $query->where('category_id', $categoryId)->orderBy('order', 'desc')->first();
     }
 }

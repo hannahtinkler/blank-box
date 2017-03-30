@@ -33,6 +33,8 @@ class BadgeServiceTest extends TestCase
     {
         $service = new BadgeService;
 
+        factory('App\Models\UserBadge')->create(['badge_id' => 1, 'user_id' => 1]);
+
         $expected = [
             [
                 'id' => '1',
@@ -82,6 +84,17 @@ class BadgeServiceTest extends TestCase
         $service = new BadgeService;
 
         $expected = [
+            [
+                'id' => 1,
+                'badge_type_id' => 1,
+                'name' => "Rank 1",
+                'description' => "Earned by submitting 1 page",
+                'image' => "/images/badges/code_bronze.png",
+                'level' => 1,
+                'metric_boundary' => 1,
+                'created_at' => "2016-09-30 14:47:33",
+                'updated_at' => "2016-09-30 14:47:33",
+            ],
             [
                 'id' => 2,
                 'badge_type_id' => 1,

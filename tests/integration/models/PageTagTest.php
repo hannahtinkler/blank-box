@@ -3,10 +3,13 @@
 use App\Models\Tag;
 use App\Models\Page;
 use App\Models\PageTag;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PageTagTest extends TestCase
 {
+    use DatabaseTransactions;
+
     /**
      * Test that a call to the tag relationship returns an instance of the
      * 'Tag' class

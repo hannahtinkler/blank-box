@@ -9,7 +9,7 @@ use App\Models\SuggestedEdit;
 
 use App\Services\SuggestedEditService;
 
-class SuggestedEditTest extends TestCase
+class SuggestedEditServiceTest extends TestCase
 {
     use DatabaseTransactions;
 

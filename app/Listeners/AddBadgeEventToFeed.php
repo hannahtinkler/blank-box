@@ -4,27 +4,29 @@ namespace App\Listeners;
 
 use Illuminate\Http\Request;
 
-use App\Events\BadgeWasAddedToUser;
-
 use App\Models\FeedEvent;
-use App\Models\FeedEventType;
-
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Services\FeedEventService;
+use App\Events\BadgeWasAddedToUser;
 
 class AddBadgeEventToFeed
 {
-    public $user;
-    public $eventTypeName = 'Badge Earned';
+    /**
+     * @var FeedEventService
+     */
+    private $feedEvents;
 
     /**
-     * Create the event listener.
-     *
-     * @return void
+     * @var string
      */
-    public function __construct(Request $request)
-    {
-        $this->user = $request->user();
+    private $eventTypeName = 'Badge Earned';
+
+    /**
+     * @param FeedEventService $badges
+     */
+    public function __construct(
+        FeedEventService $feedEvents
+    ) {
+        $this->feedEvents = $feedEvents;
     }
 
     /**
@@ -38,18 +40,13 @@ class AddBadgeEventToFeed
         if (env('FEATURE_BADGES_ENABLED', true)) {
             $badge = $event->badge;
 
-            $eventType = $this->getEventType();
+            $eventType =  $this->feedEvents->getByName($this->eventTypeName);
 
             FeedEvent::create([
-                'feed_event_type_id' => $eventType->id,
+                'feed_event_type_id' =>$eventType->id,
                 'user_id' => $badge->user_id,
                 'resource_id' => $badge->badge_id
             ]);
         }
-    }
-
-    public function getEventType()
-    {
-        return FeedEventType::where('name', $this->eventTypeName)->first();
     }
 }

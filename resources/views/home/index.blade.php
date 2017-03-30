@@ -13,18 +13,18 @@
             <div class="all-comments">
 
                 @foreach($feedEvents as $feedEvent)
-                    @if($feedEvent->resourceExists())
+                    @if($feedEvent->resourceExists)
                         <div class="vertical-timeline-block">
                             <div class="vertical-timeline-icon navy-bg">
                                 @if($feedEvent->type->name == 'Page Added')
-                                    <div class="icon-circle">{!! $feedEvent->getImage() !!}</div>
+                                    <div class="icon-circle">{!! $feedEvent->image !!}</div>
                                 @else
-                                    {!! $feedEvent->getImage() !!}                                
+                                    {!! $feedEvent->image !!}                                
                                 @endif
                             </div>
 
                             <div class="vertical-timeline-content">
-                                    <h4>{!! $feedEvent->getText() !!}</h4>
+                                    <h4>{!! $feedEvent->text !!}</h4>
                                 <span class="vertical-date">
                                     <small>{{ $feedEvent->created_at->format('jS M Y') }}</small><br />
                                     <small>{{ $feedEvent->created_at->format('H:i') }}</small>

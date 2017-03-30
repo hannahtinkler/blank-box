@@ -7,6 +7,7 @@ use App\Models\Page;
 use App\Events\PageWasAdded;
 use App\Listeners\CheckForBadgeQualification;
 
+use App\Services\TagService;
 use App\Services\UserService;
 use App\Services\PageService;
 use App\Services\BadgeService;
@@ -24,7 +25,9 @@ class CheckForBadgeQualificationTest extends TestCase
         $listener = new CheckForBadgeQualification(
             new BadgeService,
             new UserService,
-            new PageService
+            new PageService(
+                new TagService
+            )
         );
 
         $listener->handle($event);

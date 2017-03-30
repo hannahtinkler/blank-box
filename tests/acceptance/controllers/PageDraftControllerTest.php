@@ -1,42 +1,26 @@
 <?php
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+
 use App\Models\PageDraft;
 use App\Services\ModelServices\PageModelService;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class PageDraftControllerTest extends TestCase
 {
     use DatabaseTransactions;
     
     /**
-     * The current user being worked on behalf of in the test
      * @var object User
      */
     public $user;
-
-    /**
-     * An array of fields which should be used for compasiron purposes when
-     * using assertEquals()
-     *
-     * @var array
-     */
-    public $comparableFields = array(
-        'chapter_id',
-        'title',
-        'description',
-        'content',
-        'created_by'
-    );
 
     public function testItCanAccessDraftsPage()
     {
         $this->logInAsUser();
 
-        $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
+        $draft = factory('App\Models\PageDraft')->create(['created_by' => $this->user->id]);
 
-        $this->get('/u/' . $this->user->slug . '/drafts')
-            ->see($draft->title)
-            ->assertResponseStatus(200);
+        $this->get('/u/' . $this->user->slug . '/drafts')->see($draft->title)->assertResponseStatus(200);
     }
 
     /**
@@ -48,50 +32,52 @@ class PageDraftControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $currentCount = PageDraft::all()->count();
+        $data = [
+            '_token' => csrf_token(),
+            'category_id' => 1,
+            'chapter_id' => 1,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+            'content' => $this->faker->text,
+            'last_draft_id' => null
+        ];
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $this->post('/u/' . $this->user->slug . '/drafts', $data)->seeJson(['success' => true]);
 
-        $this->post('/u/' . $this->user->slug . '/drafts', [
-                '_token' => csrf_token(),
-                'category_id' => $chapter->category->id,
-                'chapter_id' => $chapter->id,
-                'title' => $this->faker->sentence,
-                'description' => $this->faker->sentence,
-                'content' => $this->faker->text,
-                'last_draft_id' => null
-            ])
-            ->seeJson(['success' => true]);
-
-        $expectedCount = $currentCount + 1;
-        $actualCount = PageDraft::all()->count();
-
-        $this->assertEquals($expectedCount, $actualCount);
+        $this->seeInDatabase('page_drafts', [
+            'chapter_id' => $data['chapter_id'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'content' => $data['content'],
+            'created_by' => $this->user->id,
+        ]);
     }
 
     public function testItCanEditAPageDraft()
     {
         $this->logInAsUser();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
 
-        $this->post('/u/' . $this->user->slug . '/drafts', [
-                '_token' => csrf_token(),
-                'category_id' => $chapter->category->id,
-                'chapter_id' => $chapter->id,
-                'title' => $this->faker->sentence,
-                'description' => $this->faker->sentence,
-                'content' => $this->faker->text,
-            ])
-            ->seeJson(['success' => true]);
+        $data = [
+            '_token' => csrf_token(),
+            'category_id' => 1,
+            'chapter_id' => 1,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+            'content' => $this->faker->text,
+        ];
 
-        $draft = PageDraft::orderBy('id', 'DESC')->first();
+        $this->post('/u/' . $this->user->slug . '/drafts/' . $draft->id, $data)->seeJson(['success' => true]);
 
-        $this->get('/u/' . $this->user->slug . '/drafts/' . $draft->id)
-            ->see($draft->title)
-            ->see($draft->description)
-            ->see($draft->content)
-            ->assertResponseStatus(200);
+        $this->seeInDatabase('page_drafts', [
+            'id' => $draft->id,
+            'chapter_id' => $data['chapter_id'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'content' => $data['content'],
+            'created_by' => $this->user->id,
+        ]);
     }
 
     /**
@@ -104,19 +90,19 @@ class PageDraftControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $currentCount = PageDraft::all()->count();
+        $data = [
+            '_token' => csrf_token(),
+        ];
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $this->post('/u/' . $this->user->slug . '/drafts', $data)->seeJson(['success' => true]);
 
-        $this->post('/u/' . $this->user->slug . '/drafts', [
-                '_token' => csrf_token(),
-            ])
-            ->seeJson(['success' => true]);
-
-        $expectedCount = $currentCount + 1;
-        $actualCount = PageDraft::all()->count();
-
-        $this->assertEquals($expectedCount, $actualCount);
+        $this->seeInDatabase('page_drafts', [
+            'chapter_id' => null,
+            'title' => null,
+            'description' => null,
+            'content' => null,
+            'created_by' => $this->user->id,
+        ]);
     }
 
     /**

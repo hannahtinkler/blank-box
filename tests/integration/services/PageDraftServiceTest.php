@@ -41,7 +41,7 @@ class PageDraftServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testItCanStoreDraft()
+    public function testItCanStoreDraftWithData()
     {
         $user = factory('App\Models\User')->create();
         
@@ -59,6 +59,23 @@ class PageDraftServiceTest extends TestCase
             'title' => 'An Exciting Draft',
             'description' => 'Some exciting description',
             'content' => 'Some exciting content',
+        ]);
+    }
+
+    public function testItCanStoreDraftWithoutData()
+    {
+        $user = factory('App\Models\User')->create();
+        
+        $service = new PageDraftService;
+
+        $actual = $service->store($user->id, [])->toArray();
+
+        $this->seeInDatabase('page_drafts', [
+            'chapter_id' => null,
+            'title' => null,
+            'description' => null,
+            'content' => null,
+            'created_by' => $user->id,
         ]);
     }
 

@@ -4,27 +4,26 @@ namespace App\Listeners;
 
 use App\Events\Event;
 
-use App\Models\Page;
-use App\Models\Badge;
-
 use App\Services\UserService;
 use App\Services\PageService;
 use App\Services\BadgeService;
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-
 class CheckForBadgeQualification
 {
   /**
-   * @var Badges
+   * @var BadgeService
    */
     private $badges;
 
   /**
-   * @var User
+   * @var UserService
    */
     private $users;
+
+  /**
+   * @var PageService
+   */
+    private $pages;
 
     /**
      * @param BadgeService $badges

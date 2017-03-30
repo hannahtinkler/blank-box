@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\Chapter;
-use App\Services\ModelServices\PageModelService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ChapterControllerTest extends TestCase
@@ -13,20 +11,6 @@ class ChapterControllerTest extends TestCase
      * @var object User
      */
     public $user;
-    
-    /**
-     * An array of fields which should be used for comparison purposes when
-     * using assertEquals()
-     *
-     * @var array
-     */
-    public $comparableFields = array(
-        'category_id',
-        'title',
-        'description',
-        'order',
-        'slug',
-    );
 
     /**
      * Test that a request to the route that shows a user the 'Show Chapter' Page
@@ -38,7 +22,7 @@ class ChapterControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->get('/p/' . $chapter->category->slug . '/' . $chapter->slug)
             ->see($chapter->title)
@@ -54,7 +38,7 @@ class ChapterControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->get('/ajax/data/chapters/' . $chapter->category->id)
             ->seeJson(['title' => $chapter->title]);
@@ -85,23 +69,22 @@ class ChapterControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $currentCount = Chapter::all()->count();
+        $category = factory('App\Models\Category')->create();
 
-        $category = factory(App\Models\Category::class)->create();
+        $data = [
+            '_token' => csrf_token(),
+            'category_id' => $category->id,
+            'title' => $this->faker->sentence,
+            'description' => $this->faker->sentence,
+        ];
 
-        $this->post('/chapters', [
-                '_token' => csrf_token(),
-                'category_id' => $category->id,
-                'title' => $this->faker->sentence,
-                'description' => $this->faker->sentence,
-                'content' => $this->faker->text,
-            ])
-            ->assertResponseStatus(302);
+        $this->post('/chapters', $data)->assertResponseStatus(302);
 
-        $expectedCount = $currentCount + 1;
-        $actualCount = Chapter::all()->count();
-
-        $this->assertEquals($expectedCount, $actualCount);
+        $this->seeInDatabase('chapters', [
+            'category_id' => $data['category_id'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+        ]);
     }
 
     /**
@@ -114,12 +97,12 @@ class ChapterControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $category = factory(App\Models\Category::class)->create();
+        $category = factory('App\Models\Category')->create();
 
         $this->post('/chapters', [
-                '_token' => csrf_token(),
-            ])
-            ->assertResponseStatus(302);
+            '_token' => csrf_token(),
+        ])
+        ->assertResponseStatus(302);
         
         $this->assertSessionHasErrors();
     }
@@ -131,11 +114,11 @@ class ChapterControllerTest extends TestCase
      *
      * @return void
      */
-    public function testItCanUpdateAnExistingPageAsCuratorWithAllData()
+    public function testItCanUpdateAnExistinChapterAsCuratorWithAllData()
     {
-        $this->logInAsUser(['curator' => true]);
+        $this->logInAsUser(['curator' => 1]);
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $data = [
             '_token' => csrf_token(),
@@ -144,19 +127,14 @@ class ChapterControllerTest extends TestCase
             'description' => $this->faker->sentence,
         ];
 
-        $this->put('/chapters/' . $chapter->id, $data)
-            ->assertResponseStatus(302);
+        $this->put('/chapters/' . $chapter->id, $data)->assertResponseStatus(302);
 
-        $expected = $data;
-        $expected['order'] = $chapter->order;
-        $expected['slug'] = str_slug($data['title']);
-
-        $actual = Chapter::find($chapter->id)->toArray();
-
-        $this->assertEquals(
-            $this->comparableFields($expected),
-            $this->comparableFields($actual)
-        );
+        $this->seeInDatabase('chapters', [
+            'id' => $chapter->id,
+            'category_id' => $data['category_id'],
+            'title' => $data['title'],
+            'description' => $data['description'],
+        ]);
     }
 
     /**
@@ -168,9 +146,9 @@ class ChapterControllerTest extends TestCase
      */
     public function testItCanNotUpdateAnExistingChapterAsCuratorWithNoData()
     {
-        $this->logInAsUser(['curator' => true]);
+        $this->logInAsUser(['curator' => 1]);
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $data = [
             '_token' => csrf_token(),
@@ -191,9 +169,9 @@ class ChapterControllerTest extends TestCase
      */
     public function testItCanAccessEditChapterAsCurator()
     {
-        $this->logInAsUser(['curator' => true]);
+        $this->logInAsUser(['curator' => 1]);
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->get('/chapters/edit/' . $chapter->id)
             ->see('Edit Chapter')
@@ -211,7 +189,7 @@ class ChapterControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->get('/chapters/edit/' . $chapter->id)
             ->assertResponseStatus(401);
@@ -227,7 +205,7 @@ class ChapterControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $data = [
             '_token' => csrf_token(),
@@ -250,7 +228,7 @@ class ChapterControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->delete('/chapters/' . $chapter->id)
             ->assertResponseStatus(401);
@@ -264,9 +242,9 @@ class ChapterControllerTest extends TestCase
      */
     public function testItCanDestroyChapterAsCurator()
     {
-        $this->logInAsUser(['curator' => true]);
+        $this->logInAsUser(['curator' => 1]);
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->delete('/chapters/' . $chapter->id)
             ->assertResponseStatus(302);
@@ -280,7 +258,7 @@ class ChapterControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

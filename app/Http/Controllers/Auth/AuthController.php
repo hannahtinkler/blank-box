@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Auth;
 use Validator;
 use Socialite;
 
@@ -54,7 +53,7 @@ class AuthController extends Controller
      */
     public function logout()
     {
-        Auth::logout();
+        auth()->logout();
 
         return redirect('/');
     }
@@ -119,7 +118,7 @@ class AuthController extends Controller
             ]);
         }
 
-        Auth::login($eloquentUser);
+        auth()->login($eloquentUser);
 
         return $eloquentUser;
     }

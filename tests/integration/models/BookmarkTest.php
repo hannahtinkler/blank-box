@@ -4,10 +4,13 @@ use App\Models\Page;
 use App\Models\Chapter;
 use App\Models\Category;
 use App\Models\Bookmark;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BookmarkTest extends TestCase
 {
+    use DatabaseTransactions;
+    
     /**
      * Test that a call to the category relationship returns the category that
      * this bookmark belongs to

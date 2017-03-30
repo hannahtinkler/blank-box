@@ -14,18 +14,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AddPageEventToFeed
 {
-    public $user;
-    public $eventTypeName = 'Page Added';
-
     /**
-     * Create the event listener.
-     *
-     * @return void
+     * @var string
      */
-    public function __construct(Request $request)
-    {
-        $this->user = $request->user();
-    }
+    public $eventTypeName = 'Page Added';
 
     /**
      * Handle the event.

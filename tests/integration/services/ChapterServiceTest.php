@@ -34,7 +34,7 @@ class ChapterServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testItCanGetChapterByCategoryId()
+    public function testItCanGetChaptersByCategoryId()
     {
         $chapter = factory('App\Models\Chapter')->create();
 
@@ -43,6 +43,31 @@ class ChapterServiceTest extends TestCase
         $expected = [$chapter->toArray()];
 
         $actual = $service->getByCategoryId($chapter->category_id)->toArray();
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testItCanGetAllChapters()
+    {
+        $chapter = factory('App\Models\Chapter')->create(['title' => 'AAA']);
+
+        $service = new ChapterService;
+
+        $expected = [
+            $chapter->toArray(),
+            [
+                'id' => 1,
+                'category_id' => 1,
+                'title' => "Sample",
+                'description' => "Sample pages go here.",
+                'order' => 1,
+                'slug' => "sample",
+                'created_at' => "2017-03-30 13:30:52",
+                'updated_at' => "2017-03-30 13:30:52",
+            ],
+        ];
+
+        $actual = $service->getAll()->toArray();
 
         $this->assertEquals($expected, $actual);
     }

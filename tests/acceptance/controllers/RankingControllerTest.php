@@ -22,9 +22,7 @@ class RankingControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $this->get('/rankings')
-            ->see('Rankings')
-            ->assertResponseStatus(200);
+        $this->get('/rankings')->see('Rankings')->assertResponseStatus(200);
     }
 
     /**

@@ -34,9 +34,9 @@ class PageDraftService
     {
         return PageDraft::create([
             'chapter_id' => isset($data['chapter_id']) ? $data['chapter_id'] : null,
-            'title' => $data['title'] ?: null,
-            'description' => $data['description'] ?: null,
-            'content' => $data['content'] ?: null,
+            'title' => isset($data['title']) ? $data['title'] : null,
+            'description' => isset($data['description']) ? $data['description'] : null,
+            'content' => isset($data['content']) ? $data['content'] : null,
             'created_by' => $userId,
         ]);
     }
@@ -51,9 +51,9 @@ class PageDraftService
         $draft = $this->getById($id);
 
         $draft->chapter_id = isset($data['chapter_id']) ? $data['chapter_id'] : null;
-        $draft->title = $data['title'] ?: null;
-        $draft->description = $data['description'] ?: null;
-        $draft->content = $data['content'] ?: null;
+        $draft->title = isset($data['title']) ? $data['title'] : null;
+        $draft->description = isset($data['description']) ? $data['description'] : null;
+        $draft->content = isset($data['content']) ? $data['content'] : null;
 
         $draft->save();
 
