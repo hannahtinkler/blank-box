@@ -1,14 +1,14 @@
-<h2>How To Use</h2>  
+<h2>How To Use</h2><br />
 
 <hr>
 
 <h3>Contents</h3>
-<a href="#section1">1. Before You Start</a>  
-<a href="#section2">2. Configuring Homestead</a>  
-<a href="#section3">3. Setting Up the Repository</a>  
-<a href="#section4">4. Setting Up Local Databases</a>  
-<a href="#section5">5. Setting Up ElasticSearch</a>  
-<a href="#section6">6. Notes</a>  
+<a href="#section1">1. Before You Start</a><br />
+<a href="#section2">2. Configuring Homestead</a><br />
+<a href="#section3">3. Setting Up the Repository</a><br />
+<a href="#section4">4. Setting Up Local Databases</a><br />
+<a href="#section5">5. Setting Up ElasticSearch</a><br />
+<a href="#section6">6. Notes</a><br />
 
 <hr>
 

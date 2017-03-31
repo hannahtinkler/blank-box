@@ -11,6 +11,8 @@
 |
 */
 
+use League\CommonMark\CommonMarkConverter;
+
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
@@ -41,7 +43,6 @@ $app->singleton(
     App\Exceptions\Handler::class
 );
 
-use League\CommonMark\CommonMarkConverter;
 
 $app->bind(CommonMarkConverter::class, function ($app) {
     return new CommonMarkConverter([
