@@ -107,11 +107,12 @@ class ViewServiceProvider extends ServiceProvider
             'category' => $this->categoryService->getCurrent(),
         ];
 
-        if ($this->request->segment(1) == 'p') {
-            $current = array_merge($current, [
-                'chapter' => $this->chapterService->getBySlug($this->request->segment(3)),
-                'page' => $this->pageService->getBySlug($this->request->segment(4)),
-            ]);
+        if ($this->request->segment(1) == 'p' && $this->request->segment(3)) {
+            $current['chapter'] = $this->chapterService->getBySlug($this->request->segment(3));
+        }
+        
+        if ($this->request->segment(1) == 'p' && $this->request->segment(4)) {
+            $current['page'] = $this->pageService->getBySlug($this->request->segment(4));
         }
 
         return $current;

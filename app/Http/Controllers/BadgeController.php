@@ -20,6 +20,11 @@ class BadgeController extends Controller
     private $users;
 
     /**
+     * @var integer
+     */
+    private $badgesPerRow = 7;
+
+    /**
      * @param BadgeService $badges
      * @param UserService  $user
      */
@@ -50,7 +55,14 @@ class BadgeController extends Controller
 
         $badges = $this->badges->getAll();
 
-        return view('badges.index', compact('badges', 'userBadges', 'user'));
+        $badgesPerRow = $this->badgesPerRow;
+
+        return view('badges.index', compact(
+            'badges',
+            'userBadges',
+            'user',
+            'badgesPerRow'
+        ));
     }
 
     /**
