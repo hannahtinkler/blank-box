@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Models\UserBadge;
 use App\Models\Badge;
 
 class BadgeTypeTest extends TestCase
@@ -17,9 +20,9 @@ class BadgeTypeTest extends TestCase
      */
     public function testBadgesRelationshipReturnsBadges()
     {
-        $badgeType = factory(App\Models\BadgeType::class)->create();
+        $badgeType = factory('App\Models\BadgeType')->create();
 
-        factory(App\Models\Badge::class, 2)->create(['badge_type_id' => $badgeType->id]);
+        factory('App\Models\Badge', 2)->create(['badge_type_id' => $badgeType->id]);
 
         $this->assertTrue($badgeType->badges->first() instanceof Badge);
     }

@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use App\Models\Tag;
 use App\Models\Page;
-use App\Models\PageTag;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -18,9 +21,9 @@ class PageTagTest extends TestCase
      */
     public function testTagRelationshipReturnsTag()
     {
-        $tag = factory(Tag::class)->create();
+        $tag = factory('App\Models\Tag')->create();
 
-        $pageTag = factory(PageTag::class)->create(['tag_id' => $tag->id]);
+        $pageTag = factory('App\Models\PageTag')->create(['tag_id' => $tag->id]);
 
         $this->assertTrue($pageTag->tag instanceof Tag);
     }
@@ -33,9 +36,9 @@ class PageTagTest extends TestCase
      */
     public function testPageRelationshipReturnsPage()
     {
-        $page = factory(Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
-        $pageTag = factory(PageTag::class)->create(['page_id' => $page->id]);
+        $pageTag = factory('App\Models\PageTag')->create(['page_id' => $page->id]);
 
         $this->assertTrue($pageTag->page instanceof Page);
     }

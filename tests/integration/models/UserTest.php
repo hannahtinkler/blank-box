@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Models\User;
 use App\Models\Page;
 use App\Models\UserBadge;
 use App\Models\SuggestedEdit;
@@ -19,8 +22,8 @@ class UserTest extends TestCase
      */
     public function testPagesRelationshipReturnsPages()
     {
-        $user = factory(User::class)->create();
-        factory(App\Models\Page::class, 2)->create(['created_by' => $user->id]);
+        $user = factory('App\Models\User')->create();
+        factory('App\Models\Page', 2)->create(['created_by' => $user->id]);
 
         $this->assertTrue($user->pages->first() instanceof Page);
     }
@@ -33,8 +36,8 @@ class UserTest extends TestCase
      */
     public function testSuggestedEditsRelationshipReturnsSuggestedEdits()
     {
-        $user = factory(User::class)->create();
-        factory(App\Models\SuggestedEdit::class, 2)->create(['created_by' => $user->id]);
+        $user = factory('App\Models\User')->create();
+        factory('App\Models\SuggestedEdit', 2)->create(['created_by' => $user->id]);
 
         $this->assertTrue($user->suggestedEdits->first() instanceof SuggestedEdit);
     }
@@ -47,8 +50,8 @@ class UserTest extends TestCase
      */
     public function testUserBadgesRelationshipReturnsUserBadges()
     {
-        $user = factory(User::class)->create();
-        factory(App\Models\UserBadge::class, 2)->create(['user_id' => $user->id]);
+        $user = factory('App\Models\User')->create();
+        factory('App\Models\UserBadge', 2)->create(['user_id' => $user->id]);
 
         $this->assertTrue($user->userBadges->first() instanceof UserBadge);
     }

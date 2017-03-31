@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Integration\Listeners;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Services\FeedEventService;

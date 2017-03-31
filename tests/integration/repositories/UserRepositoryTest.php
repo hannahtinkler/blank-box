@@ -1,5 +1,10 @@
 <?php
 
+namespace Tests\Integration\Repositories;
+
+use StdClass;
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Repositories\UserRepository;

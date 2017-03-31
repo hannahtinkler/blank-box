@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Integration\Traits;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Models\Page;
 use App\Traits\Sluggable;
 
 class SluggableTest extends TestCase
@@ -13,7 +16,7 @@ class SluggableTest extends TestCase
     {
         $expected = 'slug';
 
-        $actual = $this->getSlug(Page::class, 'slug');
+        $actual = $this->getSlug('App\Models\Page', 'slug');
 
         $this->assertEquals($expected, $actual);
     }
@@ -25,7 +28,7 @@ class SluggableTest extends TestCase
 
         $expected = 'slug-2';
 
-        $actual = $this->getSlug(Page::class, 'slug');
+        $actual = $this->getSlug('App\Models\Page', 'slug');
 
         $this->assertEquals($expected, $actual);
     }
@@ -54,14 +57,14 @@ class SluggableTest extends TestCase
     {
         factory('App\Models\Page')->create(['slug' => 'slug']);
 
-        $actual = $this->slugExists(Page::class, 'slug');
+        $actual = $this->slugExists('App\Models\Page', 'slug');
 
         $this->assertTrue($actual);
     }
 
     public function testItCanSeeSlugDoesNotExists()
     {
-        $actual = $this->slugExists(Page::class, 'slug');
+        $actual = $this->slugExists('App\Models\Page', 'slug');
 
         $this->assertFalse($actual);
     }

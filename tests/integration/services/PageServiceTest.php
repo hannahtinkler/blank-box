@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+namespace Tests\Integration\Services;
 
-use App\Models\Page;
-use App\Models\SlugForwardingSetting;
+use TestCase;
+
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Services\TagService;
 use App\Services\PageService;
@@ -14,7 +15,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetPageById()
     {
-        $page = factory(Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $service = new PageService(new TagService);
 
@@ -27,7 +28,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetPageBySlug()
     {
-        $page = factory(Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $service = new PageService(new TagService);
 
@@ -40,9 +41,9 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetPageBySlugForwardingSettings()
     {
-        $page = factory(Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
-        factory(SlugForwardingSetting::class)->create([
+        factory('App\Models\SlugForwardingSetting')->create([
             'old_slug' => 'abcdef',
             'new_slug' => $page->slug,
         ]);
@@ -58,7 +59,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetApprovedPagesForUser()
     {
-        $page = factory(Page::class)->create(['approved' => true]);
+        $page = factory('App\Models\Page')->create(['approved' => true]);
 
         $service = new PageService(new TagService);
 
@@ -73,7 +74,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetAllUnapprovedPages()
     {
-        $page = factory(Page::class)->create(['approved' => null]);
+        $page = factory('App\Models\Page')->create(['approved' => null]);
 
         $service = new PageService(new TagService);
 
@@ -88,13 +89,13 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetRandomPage()
     {
-        $page = factory(Page::class)->create(['approved' => 1]);
+        $page = factory('App\Models\Page')->create(['approved' => 1]);
 
         $service = new PageService(new TagService);
 
         $actual = $service->getRandom()->toArray();
 
-        $this->assertInstanceOf(Page::class, $page);
+        $this->assertInstanceOf('App\Models\Page', $page);
     }
 
     public function testItCanStorePage()
@@ -167,7 +168,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanApprovePage()
     {
-        $page = factory(Page::class)->create(['approved' => null]);
+        $page = factory('App\Models\Page')->create(['approved' => null]);
 
         $service = new PageService(new TagService);
 
@@ -181,7 +182,7 @@ class PageServiceTest extends TestCase
     
     public function testItCanRejectPage()
     {
-        $page = factory(Page::class)->create(['approved' => null]);
+        $page = factory('App\Models\Page')->create(['approved' => null]);
 
         $service = new PageService(new TagService);
 

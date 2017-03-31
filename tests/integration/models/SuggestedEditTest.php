@@ -1,9 +1,12 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use App\Models\User;
 use App\Models\Page;
 use App\Models\Chapter;
-use App\Models\SuggestedEdit;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -19,7 +22,7 @@ class SuggestedEditTest extends TestCase
      */
     public function testChapterRelationshipReturnsChapter()
     {
-        $page = factory(SuggestedEdit::class)->create();
+        $page = factory('App\Models\SuggestedEdit')->create();
         $this->assertTrue($page->chapter instanceof Chapter);
     }
 
@@ -31,8 +34,8 @@ class SuggestedEditTest extends TestCase
      */
     public function testPageRelationshipReturnsPage()
     {
-        $page = factory(Page::class)->create();
-        $edit = factory(SuggestedEdit::class)->create(['page_id' => $page->id]);
+        $page = factory('App\Models\Page')->create();
+        $edit = factory('App\Models\SuggestedEdit')->create(['page_id' => $page->id]);
 
         $this->assertTrue($edit->page instanceof Page);
     }
@@ -45,7 +48,7 @@ class SuggestedEditTest extends TestCase
      */
     public function testCreatorRelationshipReturnsCreator()
     {
-        $page = factory(SuggestedEdit::class)->create();
+        $page = factory('App\Models\SuggestedEdit')->create();
         $this->assertTrue($page->creator instanceof User);
     }
     
@@ -57,7 +60,7 @@ class SuggestedEditTest extends TestCase
      */
     public function createAndLoginAUser($overrides = [])
     {
-        $user = factory(User::class)->create($overrides);
+        $user = factory('App\Models\User')->create($overrides);
         Auth::login($user);
 
         return $user;

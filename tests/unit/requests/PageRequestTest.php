@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Unit\Requests;
+
+use TestCase;
+
 use App\Http\Requests\PageRequest;
 
 class PageRequestTest extends TestCase

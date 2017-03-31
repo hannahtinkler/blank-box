@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Acceptance\Controllers;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Page;
@@ -82,7 +86,7 @@ class CurationControllerTest extends TestCase
     {
         $this->logInAsUser(['curator' => 1]);
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $this->get('/curation/new/approve/' . $page->id)->assertResponseStatus(302);
 
@@ -96,7 +100,7 @@ class CurationControllerTest extends TestCase
     {
         $this->logInAsUser(['curator' => 1]);
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $this->get('/curation/new/reject/' . $page->id)
             ->assertResponseStatus(302);
@@ -117,7 +121,7 @@ class CurationControllerTest extends TestCase
     {
         $this->logInAsUser(['curator' => 1]);
 
-        $edit = factory(App\Models\SuggestedEdit::class)->create();
+        $edit = factory('App\Models\SuggestedEdit')->create();
 
         $this->get('/curation/edits/approve/' . $edit->id)->assertResponseStatus(302);
 
@@ -137,7 +141,7 @@ class CurationControllerTest extends TestCase
     {
         $this->logInAsUser(['curator' => 1]);
 
-        $edit = factory(App\Models\SuggestedEdit::class)->create();
+        $edit = factory('App\Models\SuggestedEdit')->create();
 
         $this->get('/curation/edits/reject/' . $edit->id)->assertResponseStatus(302);
 
@@ -157,7 +161,7 @@ class CurationControllerTest extends TestCase
     {
         $this->logInAsUser(['curator' => 1]);
 
-        $edit = factory(App\Models\SuggestedEdit::class)->create();
+        $edit = factory('App\Models\SuggestedEdit')->create();
 
         $this->get('/curation/viewdiff/' . $edit->id)
             ->see('<ins>')
@@ -173,7 +177,7 @@ class CurationControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

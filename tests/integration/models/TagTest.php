@@ -1,6 +1,9 @@
 <?php
 
-use App\Models\Tag;
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use App\Models\PageTag;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -17,8 +20,8 @@ class TagTest extends TestCase
      */
     public function testPageTagsRelationshipReturnsPageTags()
     {
-        $tag = factory(Tag::class)->create();
-        factory(PageTag::class, 2)->create(['tag_id' => $tag->id]);
+        $tag = factory('App\Models\Tag')->create();
+        factory('App\Models\PageTag', 2)->create(['tag_id' => $tag->id]);
 
         $this->assertTrue($tag->pageTags->first() instanceof PageTag);
     }

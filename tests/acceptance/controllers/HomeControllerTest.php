@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Acceptance\Controllers;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Page;
@@ -25,7 +29,7 @@ class HomeControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        factory(App\Models\Page::class)->create(['approved' => 1]);
+        factory('App\Models\Page')->create(['approved' => 1]);
 
         $this->get('/random')->assertResponseStatus(302);
     }
@@ -34,7 +38,7 @@ class HomeControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $category = factory(App\Models\Category::class)->create();
+        $category = factory('App\Models\Category')->create();
 
         $this->get('/switchcategory/' . $category->id)
             ->assertResponseStatus(302);
@@ -54,7 +58,7 @@ class HomeControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $category = factory(App\Models\Category::class)->create();
+        $category = factory('App\Models\Category')->create();
 
         $this->get('/switchcategory/' . $category->id)
             ->assertResponseStatus(302);
@@ -76,7 +80,7 @@ class HomeControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $event = factory(App\Models\Category::class)->create();
+        $event = factory('App\Models\Category')->create();
 
         Page::where('id', $event->resource_id)->delete();
 
@@ -93,7 +97,7 @@ class HomeControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

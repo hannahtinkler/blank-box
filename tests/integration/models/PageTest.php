@@ -1,6 +1,10 @@
 <?php
 
-use App\Models\Page;
+namespace Tests\Integration\Models;
+
+use Auth;
+use TestCase;
+
 use App\Models\User;
 use App\Models\PageTag;
 use App\Models\Chapter;
@@ -20,7 +24,7 @@ class PageTest extends TestCase
      */
     public function testChapterRelationshipReturnsChapter()
     {
-        $page = factory(Page::class)->create();
+        $page = factory('App\Models\Page')->create();
         $this->assertTrue($page->chapter instanceof Chapter);
     }
 
@@ -33,8 +37,8 @@ class PageTest extends TestCase
     public function testBookmarksRelationshipReturnsBookmark()
     {
         $user = $this->createAndLoginAUser();
-        $page = factory(Page::class)->create();
-        factory(Bookmark::class)->create(['page_id' => $page->id, 'user_id' => $user->id]);
+        $page = factory('App\Models\Page')->create();
+        factory('App\Models\Bookmark')->create(['page_id' => $page->id, 'user_id' => $user->id]);
 
         $this->assertTrue($page->bookmark instanceof Bookmark);
     }
@@ -47,7 +51,7 @@ class PageTest extends TestCase
      */
     public function testCreatorRelationshipReturnsCreator()
     {
-        $page = factory(Page::class)->create();
+        $page = factory('App\Models\Page')->create();
         $this->assertTrue($page->creator instanceof User);
     }
 
@@ -59,8 +63,8 @@ class PageTest extends TestCase
      */
     public function testPageTagsRelationshipReturnsPageTags()
     {
-        $page = factory(Page::class)->create();
-        factory(PageTag::class, 3)->create(['page_id' => $page->id]);
+        $page = factory('App\Models\Page')->create();
+        factory('App\Models\PageTag', 3)->create(['page_id' => $page->id]);
 
         $this->assertTrue($page->pageTags->first() instanceof PageTag);
     }
@@ -73,7 +77,7 @@ class PageTest extends TestCase
      */
     public function createAndLoginAUser($overrides = [])
     {
-        $user = factory(User::class)->create($overrides);
+        $user = factory('App\Models\User')->create($overrides);
         Auth::login($user);
 
         return $user;

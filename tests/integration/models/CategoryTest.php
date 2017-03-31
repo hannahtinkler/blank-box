@@ -1,7 +1,10 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use App\Models\Chapter;
-use App\Models\Category;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -17,8 +20,8 @@ class CategoryTest extends TestCase
      */
     public function testChapterRelationshipReturnsChapter()
     {
-        $category = factory(Category::class)->create();
-        factory(Chapter::class, 2)->create(['category_id' => $category->id]);
+        $category = factory('App\Models\Category')->create();
+        factory('App\Models\Chapter', 2)->create(['category_id' => $category->id]);
 
         $this->assertTrue($category->chapters->first() instanceof Chapter);
     }

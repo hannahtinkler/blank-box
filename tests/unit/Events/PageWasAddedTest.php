@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Unit\Events;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Events\PageWasAdded;
@@ -10,8 +14,8 @@ class PageWasAddedTest extends TestCase
     
     public function testItReturnsCorrectProperties()
     {
-        $page = factory(App\Models\Page::class)->create();
-        $user = factory(App\Models\User::class)->create();
+        $page = factory('App\Models\Page')->create();
+        $user = factory('App\Models\User')->create();
 
         $expected = $page;
         $actual = (new PageWasAdded($page, $user))->page;

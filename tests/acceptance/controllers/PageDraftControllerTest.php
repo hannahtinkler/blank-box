@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Acceptance\Controllers;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\PageDraft;
@@ -57,7 +61,7 @@ class PageDraftControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
+        $draft = factory('App\Models\PageDraft')->create(['created_by' => $this->user->id]);
 
         $data = [
             '_token' => csrf_token(),
@@ -115,7 +119,7 @@ class PageDraftControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $draft = factory(App\Models\PageDraft::class)->create(['created_by' => $this->user->id]);
+        $draft = factory('App\Models\PageDraft')->create(['created_by' => $this->user->id]);
 
         $this->visit('/u/' . $this->user->slug . '/drafts/preview/' . $draft->id)
             ->see($draft->title)
@@ -130,7 +134,7 @@ class PageDraftControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

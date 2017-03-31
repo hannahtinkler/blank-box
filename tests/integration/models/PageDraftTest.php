@@ -1,8 +1,11 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use App\Models\User;
 use App\Models\Chapter;
-use App\Models\PageDraft;
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
@@ -18,7 +21,7 @@ class PageDraftTest extends TestCase
      */
     public function testChapterRelationshipReturnsChapter()
     {
-        $pageDraft = factory(PageDraft::class)->create();
+        $pageDraft = factory('App\Models\PageDraft')->create();
 
         $this->assertTrue($pageDraft->chapter instanceof Chapter);
     }
@@ -31,7 +34,7 @@ class PageDraftTest extends TestCase
      */
     public function testCreatorRelationshipReturnsCreator()
     {
-        $pageDraft = factory(PageDraft::class)->create();
+        $pageDraft = factory('App\Models\PageDraft')->create();
 
         $this->assertTrue($pageDraft->creator instanceof User);
     }

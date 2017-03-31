@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Unit\Services;
+
+use TestCase;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Foundation\Testing\DatabaseTransactions;

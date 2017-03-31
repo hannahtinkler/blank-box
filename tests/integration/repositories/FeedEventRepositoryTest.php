@@ -1,10 +1,13 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+namespace Tests\Integration\Repositories;
+
+use TestCase;
 
 use App\Models\Page;
 use App\Models\Badge;
-use App\Models\FeedEvent;
+
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FeedEventRepositoryTest extends TestCase
 {
@@ -12,7 +15,7 @@ class FeedEventRepositoryTest extends TestCase
     
     public function testItCanGetTextForPageAdded()
     {
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
         
         $feedEvent = factory('App\Models\FeedEvent')->create([
             'resource_id' => $page->id,
@@ -33,7 +36,7 @@ class FeedEventRepositoryTest extends TestCase
 
     public function testItCanGetTextForBadgeEarned()
     {
-        $badge = factory(App\Models\Badge::class)->create();
+        $badge = factory('App\Models\Badge')->create();
         
         $feedEvent = factory('App\Models\FeedEvent')->create([
             'resource_id' => $badge->id,
@@ -53,7 +56,7 @@ class FeedEventRepositoryTest extends TestCase
  
     public function testItCanGetImageForPageAdded()
     {
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
         
         $feedEvent = factory('App\Models\FeedEvent')->create([
             'resource_id' => $page->id,
@@ -69,7 +72,7 @@ class FeedEventRepositoryTest extends TestCase
 
     public function testItCanGetImageForBadgeEarned()
     {
-        $badge = factory(App\Models\Badge::class)->create();
+        $badge = factory('App\Models\Badge')->create();
         
         $feedEvent = factory('App\Models\FeedEvent')->create([
             'resource_id' => $badge->id,
@@ -85,7 +88,7 @@ class FeedEventRepositoryTest extends TestCase
  
     public function testItCanTellPageExists()
     {
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
         
         $feedEvent = factory('App\Models\FeedEvent')->create([
             'resource_id' => $page->id,
@@ -99,7 +102,7 @@ class FeedEventRepositoryTest extends TestCase
 
     public function testItCanTellBadgeExists()
     {
-        $badge = factory(App\Models\Badge::class)->create();
+        $badge = factory('App\Models\Badge')->create();
         
         $feedEvent = factory('App\Models\FeedEvent')->create([
             'resource_id' => $badge->id,

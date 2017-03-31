@@ -1,7 +1,10 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use App\Models\Page;
-use App\Models\Chapter;
 use App\Models\Category;
 use App\Models\Bookmark;
 
@@ -19,7 +22,7 @@ class ChapterTest extends TestCase
      */
     public function testCategoryRelationshipReturnsCategory()
     {
-        $chapter = factory(Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->assertTrue($chapter->category instanceof Category);
     }
@@ -31,15 +34,15 @@ class ChapterTest extends TestCase
      */
     public function testPagesRelationshipReturnsPages()
     {
-        $chapter = factory(Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $overrides = [
             'chapter_id' => $chapter->id,
             'approved' => true
         ];
         
-        factory(Page::class)->create($overrides);
-        factory(Page::class)->create($overrides);
+        factory('App\Models\Page')->create($overrides);
+        factory('App\Models\Page')->create($overrides);
 
         $this->assertTrue($chapter->pages->first() instanceof Page);
     }
@@ -51,8 +54,8 @@ class ChapterTest extends TestCase
      */
     public function testBookmarkRelationshipReturnsBookmark()
     {
-        $chapter = factory(Chapter::class)->create();
-        factory(Bookmark::class)->create(['chapter_id' => $chapter->id]);
+        $chapter = factory('App\Models\Chapter')->create();
+        factory('App\Models\Bookmark')->create(['chapter_id' => $chapter->id]);
 
         $this->assertTrue($chapter->bookmark instanceof Bookmark);
     }
@@ -65,9 +68,10 @@ class ChapterTest extends TestCase
      */
     public function testApprovedPagesRelationshipReturnsApprovedPages()
     {
-        $chapter = factory(Chapter::class)->create();
-        factory(Page::class)->create(['chapter_id' => $chapter->id, 'approved' => true]);
-        factory(Page::class)->create(['chapter_id' => $chapter->id, 'approved' => false]);
+        $chapter = factory('App\Models\Chapter')->create();
+        
+        factory('App\Models\Page')->create(['chapter_id' => $chapter->id, 'approved' => true]);
+        factory('App\Models\Page')->create(['chapter_id' => $chapter->id, 'approved' => false]);
 
         $this->assertCount(1, $chapter->approvedPages);
     }

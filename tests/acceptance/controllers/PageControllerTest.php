@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Acceptance\Controllers;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Page;
@@ -28,7 +32,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $this->get(
             sprintf(
@@ -66,7 +70,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $this->get('/pages/edit/' . $page->id)
             ->see('Suggest an Edit')
@@ -85,7 +89,7 @@ class PageControllerTest extends TestCase
 
         $currentCount = Page::all()->count();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $data = [
             '_token' => csrf_token(),
@@ -117,7 +121,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $chapter = factory(App\Models\Chapter::class)->create();
+        $chapter = factory('App\Models\Chapter')->create();
 
         $this->post('/pages', [
             '_token' => csrf_token(),
@@ -138,7 +142,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $data = [
             '_token' => csrf_token(),
@@ -160,7 +164,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $data = [
             '_token' => csrf_token(),
@@ -193,7 +197,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $data = [
             '_token' => csrf_token(),
@@ -214,7 +218,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser(['curator' => 1]);
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $this->delete('/pages/' . $page->id)->assertResponseStatus(302);
 
@@ -233,7 +237,7 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory(App\Models\Page::class)->create();
+        $page = factory('App\Models\Page')->create();
 
         $this->delete('/pages/' . $page->id)->assertResponseStatus(401);
 
@@ -250,7 +254,7 @@ class PageControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

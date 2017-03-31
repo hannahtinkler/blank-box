@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Acceptance\Controllers;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BadgeControllerTest extends TestCase

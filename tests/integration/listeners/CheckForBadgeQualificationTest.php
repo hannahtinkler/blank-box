@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+namespace Tests\Integration\Listeners;
 
-use App\Models\Page;
+use TestCase;
+
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Events\PageWasAdded;
 use App\Listeners\CheckForBadgeQualification;
@@ -18,7 +20,7 @@ class CheckForBadgeQualificationTest extends TestCase
 
     public function testItCanHandleEventAndAddBadges()
     {
-        $page = factory(Page::class)->create(['approved' => true]);
+        $page = factory('App\Models\Page')->create(['approved' => true]);
 
         $event = new PageWasAdded($page);
 

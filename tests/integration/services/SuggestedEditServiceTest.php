@@ -1,10 +1,13 @@
 <?php
 
+namespace Tests\Integration\Services;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Page;
 
-use App\Models\UserBadge;
 use App\Models\SuggestedEdit;
 
 use App\Services\SuggestedEditService;
@@ -15,7 +18,7 @@ class SuggestedEditServiceTest extends TestCase
 
     public function testItCanGetAllApprovedPages()
     {
-        $edit = factory(SuggestedEdit::class)->create(['approved' => null]);
+        $edit = factory('App\Models\SuggestedEdit')->create(['approved' => null]);
 
         $edit->tags = null;
         $edit->deleted_at = null;
@@ -33,29 +36,29 @@ class SuggestedEditServiceTest extends TestCase
 
     public function testItCanApproveSuggestedEdit()
     {
-        $edit = factory(SuggestedEdit::class)->create(['approved' => null]);
+        $edit = factory('App\Models\SuggestedEdit')->create(['approved' => null]);
 
         $service = new SuggestedEditService;
 
         $service->approve($edit->id);
 
-        $expected = 1;
-        $acual = SuggestedEdit::find($edit->id)->approved;
-
-        $this->assertEquals($expected, $acual);
+        $this->seeInDatabase('suggested_edits', [
+            'id' => $edit->id,
+            'approved' => 1,
+        ]);
     }
     
     public function testItCanRejectSuggestedEdit()
     {
-        $edit = factory(SuggestedEdit::class)->create(['approved' => null]);
+        $edit = factory('App\Models\SuggestedEdit')->create(['approved' => null]);
 
         $service = new SuggestedEditService;
 
         $service->reject($edit->id);
 
-        $expected = 0;
-        $acual = SuggestedEdit::find($edit->id)->approved;
-
-        $this->assertEquals($expected, $acual);
+        $this->seeInDatabase('suggested_edits', [
+            'id' => $edit->id,
+            'approved' => 0,
+        ]);
     }
 }

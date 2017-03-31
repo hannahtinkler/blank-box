@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Acceptance\Controllers;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserControllerTest extends TestCase
@@ -29,7 +33,7 @@ class UserControllerTest extends TestCase
      */
     public function logInAsUser($overrides = [])
     {
-        $this->user = factory(App\Models\User::class)->create($overrides);
+        $this->user = factory('App\Models\User')->create($overrides);
         $this->be($this->user);
     }
 }

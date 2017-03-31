@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Integration\Repositories;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Repositories\PageRepository;

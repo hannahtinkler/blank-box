@@ -1,5 +1,9 @@
 <?php
 
+namespace Tests\Integration\Models;
+
+use TestCase;
+
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\User;
@@ -17,8 +21,8 @@ class FeedEventTest extends TestCase
      */
     public function testFeedEventTypeRelationshipReturnsFeedEventType()
     {
-        $type = factory(App\Models\FeedEventType::class)->create();
-        $event = factory(App\Models\FeedEvent::class)->create(['feed_event_type_id' => $type->id]);
+        $type = factory('App\Models\FeedEventType')->create();
+        $event = factory('App\Models\FeedEvent')->create(['feed_event_type_id' => $type->id]);
 
         $this->assertTrue($event->type instanceof FeedEventType);
     }
@@ -31,8 +35,8 @@ class FeedEventTest extends TestCase
      */
     public function testUserTypeRelationshipReturnsUserType()
     {
-        $user = factory(App\Models\User::class)->create();
-        $event = factory(App\Models\FeedEvent::class)->create(['user_id' => $user->id]);
+        $user = factory('App\Models\User')->create();
+        $event = factory('App\Models\FeedEvent')->create(['user_id' => $user->id]);
 
         $this->assertTrue($event->user instanceof User);
     }
