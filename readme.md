@@ -1,4 +1,4 @@
-<h2>How To Use</h2><br />
+<h2>How To Use</h2>
 
 <h3>Contents</h3>
 <a href="#section1">1. Before You Start</a><br />
