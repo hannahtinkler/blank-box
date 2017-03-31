@@ -18,6 +18,8 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if (!Auth::check()) {
+            session()->set('url.target', $request->path());
+
             return redirect('/login');
         }
 

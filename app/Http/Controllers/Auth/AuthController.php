@@ -77,7 +77,11 @@ class AuthController extends Controller
             $success = $this->registerUserIfNotRegistered($user);
 
             if ($success) {
-                return redirect('/');
+                $url = session()->get('url.target') ?: '/';
+
+                session()->forget('url.target');
+
+                return redirect($url);
             } else {
                 return redirect('/accessdenied');
             }
