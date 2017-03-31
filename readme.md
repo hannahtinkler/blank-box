@@ -1,7 +1,5 @@
 <h2>How To Use</h2><br />
 
-<hr>
-
 <h3>Contents</h3>
 <a href="#section1">1. Before You Start</a><br />
 <a href="#section2">2. Configuring Homestead</a><br />
@@ -13,14 +11,12 @@
 <hr>
 
 <h3 id="section1">1. Before You Start</h3>
-Before you start setting up, please download and install the following if you do not already have them on your system:<br />
-- <a href="https://laravel.com/docs/5.2/homestead">Homestead</a><br />
-
-You also need to request access to the repository.
+If you do not have a vagrant box ready to put this on, it is recommended you install <a href="https://laravel.com/docs/5.2/homestead">Homestead</a>.<br />
 
 <hr>
 
 <h3 id="section2">2. Configuring Homestead</h3>
+This is only necessary if using Homestead.<br /><br />
 Find your Homestead.yaml located in /C:/Users/YourName/.homestead (for Windows - Mac users fend for yourselves). Then replace the contents with:
 
 ```
@@ -54,6 +50,7 @@ Replace C:/Directory/To/Your/Git/Repos with the location you plan to clone the B
 
 <h3 id="section3">3. Setting Up the Repository</h3>
 Clone the repository to the location you changed above:
+
 ```git clone git@github.com:hannahtinkler/blank-box.git```
 
 From the root of the new directory, install the dependencies:
@@ -78,6 +75,7 @@ php artisan key:generate
 
 <h3 id="section4">4. Setting Up Local Databases</h3>
 Navigate to the Homestead directory. On Windows, this is located in C:/Users/YourName/Homestead. From here, SSH into the Homestead box:
+
 ```
 vagrant ssh
 ```
@@ -147,7 +145,7 @@ Finally, start ElasticSearch and test it by running the following commands:
 sudo service elasticsearch start
 ```
 ```
-curl --ipv4 -XGET "http://localhost:9200"
+curl -XGET "http://localhost:9200"
 ```
 
 Some JSON should be output; if it is and it looks a bit like this, you win:
@@ -165,11 +163,3 @@ Some JSON should be output; if it is and it looks a bit like this, you win:
   "tagline" : "You Know, for Search"
 }
 ```
-
-<h3 id="section6">6. Notes</h3>
-Any data added to the database will need to be added via seeder (located in blank-box/databases/seeds) and committed to the repo. You can generate new seeders by running the following command and adding the class into blank-box/databases/seeds/DatabaseSeeder.php.
-```
-php artisan make:seeder SeederNameSeeder
-```
-
-Use the other seeders as a template if necessary.
