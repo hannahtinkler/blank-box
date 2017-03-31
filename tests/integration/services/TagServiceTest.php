@@ -31,6 +31,26 @@ class TagServiceTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
+    public function testItCanGetTagsByPageId()
+    {
+        $tag1 = factory('App\Models\Tag')->create(['tag' => 'def']);
+        $tag2 = factory('App\Models\Tag')->create(['tag' => 'abc']);
+
+        $pageTag = factory('App\Models\PageTag')->create([
+            'tag_id' => $tag2->id,
+        ]);
+
+        $service = new TagService;
+
+        $expected = [
+            $tag2->toArray(),
+        ];
+
+        $actual = $service->getByPageId($pageTag->page_id)->toArray();
+
+        $this->assertEquals($expected, $actual);
+    }
+
     public function testItOnlyAddsNewTagsWhenStoringPageTags()
     {
         $page = factory('App\Models\Page')->create();

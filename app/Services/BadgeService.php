@@ -44,6 +44,20 @@ class BadgeService
 
     /**
      * @param  int $userId
+     * @return Collection
+     */
+    public function getUnreadByUserId($userId)
+    {
+        return Badge::select('badges.*')
+            ->join('user_badges', 'badges.id', '=', 'user_badges.badge_id')
+            ->where('user_badges.user_id', $userId)
+            ->where('read', 0)
+            ->orderBy('badges.created_at', 'DESC')
+            ->get();
+    }
+
+    /**
+     * @param  int $userId
      * @return Badge
      */
     public function getBestByUserId($userId)

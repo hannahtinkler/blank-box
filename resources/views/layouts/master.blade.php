@@ -104,7 +104,7 @@
                         <a href="/curation">
                             <i class="fa fa-check"></i>
                             <span class="nav-label">
-                                <span class="nav-label">Curation</span> ({{ $awaitingCurationCountNew + $awaitingCurationCountEdits }})
+                                <span class="nav-label">Curation</span> ({{ $curation['new'] + $curation['edits'] }})
                             </span>
                             <span class="fa arrow"></span>
                         </a>
@@ -114,10 +114,10 @@
                                 Curation
                             </li>
                             <li>
-                                <a href="/curation/new"><i class="fa fa-file-o"></i> <span class="nav-label">New Pages </span>({{ $awaitingCurationCountNew }})</a>
+                                <a href="/curation/new"><i class="fa fa-file-o"></i> <span class="nav-label">New Pages </span>({{ $curation['new'] }})</a>
                             </li>
                             <li>
-                                <a href="/curation/edits"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Suggested Edits </span>({{ $awaitingCurationCountEdits }})</a>
+                                <a href="/curation/edits"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">Suggested Edits </span>({{ $curation['edits'] }})</a>
                             </li>
                         </ul>
                     </li>
@@ -128,7 +128,7 @@
                         <i class="fa fa-user"></i>
                         <span class="nav-label">
                             Your <?php echo env('APP_NAME', 'Black Box'); ?>
-                            <span {!! $newBadgeCount + $draftCount == 0 ? 'class="hidden"' : null !!} id="your-count">(<span>{{ $newBadgeCount + $draftCount }}</span>)</span>
+                            <span {!! $newBadgeCount + $drafts == 0 ? 'class="hidden"' : null !!} id="your-count">(<span>{{ $newBadgeCount + $drafts }}</span>)</span>
                         </span>
                         <span class="fa arrow"></span>
                     </a>
@@ -144,7 +144,7 @@
                             <a href="/u/{{ $user->slug }}/drafts">
                                 <i class="fa fa-pencil-square-o"></i> 
                                 <span class="nav-label">Drafts 
-                                    <span {!! $draftCount == 0 ? 'class="hidden"' : null !!} id="draft-count">(<span>{{ $draftCount }}</span>)</span>
+                                    <span {!! $drafts == 0 ? 'class="hidden"' : null !!} id="draft-count">(<span>{{ $drafts }}</span>)</span>
                                 </span>
                             </a>
                         </li>

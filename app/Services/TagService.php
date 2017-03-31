@@ -18,10 +18,11 @@ class TagService
     /**
      * @return Collection
      */
-    public function getByPageId()
+    public function getByPageId($pageId)
     {
         return Tag::select(['tags.*'])
             ->join('page_tags', 'page_tags.tag_id', '=', 'tags.id')
+            ->where('page_id', $pageId)
             ->get();
     }
 

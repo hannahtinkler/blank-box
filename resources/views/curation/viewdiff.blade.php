@@ -27,7 +27,7 @@
 
     {!! $diff['content'] !!}
     
-    Tags: {!! $diff['tags'] !!}
+    Tags: {!! $diff['tags'] != '' ? $diff['tags'] : '<small>(none)</small>' !!}
 </div>
 
 

@@ -67,6 +67,7 @@ class PageDraftController extends Controller
     }
 
     /**
+     * @mine
      * @param  Request $request
      * @param  string  $userSlug
      * @param  int  $id
@@ -84,6 +85,7 @@ class PageDraftController extends Controller
     }
 
     /**
+     * @mine - update
      * @param  PageDraftRequest $request
      * @param  string           $userSlug
      * @param  int              $id
@@ -124,6 +126,7 @@ class PageDraftController extends Controller
     }
 
     /**
+     * @mine
      * @param  string $userSlug
      * @param  int $id
      * @return Redirect

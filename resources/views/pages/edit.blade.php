@@ -84,9 +84,6 @@
             <input type="hidden" id="last-draft-id" name="last_draft_id" value="">
 
             <div class="col-sm-12 m-t-md m-b-xl">
-                <!-- IF is a curator -->
-                <!-- <input class="form-group" type="checkbox" value="true" /> Publish this page -->
-                <!-- END IF -->
 
                 <div class="btn-toolbar pull-right">
                     <div class="btn-group">

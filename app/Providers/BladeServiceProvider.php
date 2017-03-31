@@ -3,14 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\Chapter;
-use App\Models\SuggestedEdit;
-use App\Models\Page;
-use App\Models\PageDraft;
-use App\Models\Category;
-use App\Models\UserBadge;
 
-class AppServiceProvider extends ServiceProvider
+class BladeServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -19,7 +13,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
+        
+        $blade->extend(function ($value, $compiler) {
+            $value = preg_replace("/@set\('(.*?)'\,(.*)\)/", '<?php $$1 = $2; ?>', $value);
+            return $value;
+        });
     }
 
     /**
