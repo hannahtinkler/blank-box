@@ -1,9 +1,13 @@
 <h1>Blank Box</h1>
 
-Blank Box is a pages based knowledge repository concerned with creating a central resource of information that a team wants to engage with. It is sturctured around a category > chapter > page model allowing for easy organisation, and has a search feature driven by ElasticSearch so that looking up what you need with be zoom-zoom fast no matter how many pages you add. 
+Blank Box is a pages based knowledge repository concerned with creating a central resource for information that can be referenced easily, and that a team actually wants to engage with. It is structured around a Category > Chapter > Page model, allowing for easy organisation, and has a search feature driven by ElasticSearch so that looking up what you need will be zoom-zoom fast no matter how many pages you add. 
 
 Blank Box also offers bookmarking, and optional features such as curation (which hands page approval/resource quality management responsibility to selected users) and badges (listing visual accolades on a user's profile as they are earned for submissions). 
-  
+
+![Screenshot of feed](https://s17.postimg.org/6yimsghdb/Capture.png)
+
+![Screenshot of page](https://s17.postimg.org/syyz9301b/Capture2.png)
+
 <h2>How To Use</h2>
 
 <h3>Contents</h3>
