@@ -15,6 +15,7 @@ use App\Services\TagService;
 use App\Services\PageService;
 use App\Services\ChapterService;
 use App\Services\CategoryService;
+use App\Services\PageDraftService;
 use App\Services\SuggestedEditService;
 
 class PageController extends Controller
@@ -59,6 +60,7 @@ class PageController extends Controller
      */
     public function __construct(
         PageService $pages,
+        PageDraftService $drafts,
         CategoryService $categories,
         ChapterService $chapters,
         SuggestedEditService $suggestedEdits,
@@ -66,6 +68,7 @@ class PageController extends Controller
         CommonMarkConverter $converter
     ) {
         $this->pages = $pages;
+        $this->drafts = $drafts;
         $this->categories = $categories;
         $this->chapters = $chapters;
         $this->suggestedEdits = $suggestedEdits;
@@ -112,7 +115,7 @@ class PageController extends Controller
     public function store(PageRequest $request)
     {
         $user = $request->user();
-        
+
         $data = $request->input();
         $data['user_id'] = $user->id;
         $data['approved'] = $this->pages->shouldBeApproved($user, $data);
@@ -128,7 +131,7 @@ class PageController extends Controller
         }
 
         $message = '<i class="fa fa-check"></i> This page has been saved and you\'re now viewing it.';
-        
+
         if (env('FEATURE_CURATION_ENABLED')) {
             $message .= " It will only be added to the chapter after it has been curated.";
         }
@@ -179,7 +182,7 @@ class PageController extends Controller
             sprintf('<i class="fa fa-check"></i>%s', $message)
         );
     }
-    
+
     /**
      * @param  Request $request
      * @param  int  $id
@@ -188,7 +191,7 @@ class PageController extends Controller
     public function destroy(Request $request, $id)
     {
         $page = $this->pages->getById($id);
-        
+
         $page->delete();
 
         return redirect($page->chapter->searchResultUrl)->with(

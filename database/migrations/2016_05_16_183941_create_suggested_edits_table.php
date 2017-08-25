@@ -19,6 +19,7 @@ class CreateSuggestedEditsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->text('content')->nullable();
+            $table->text('tags')->nullable();
             $table->boolean('approved')->nullable()->default(null);
             $table->integer('created_by');
             $table->timestamps();

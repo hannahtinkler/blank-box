@@ -74,6 +74,12 @@ class AuthController extends Controller
         try {
             $user = Socialite::driver('google')->user();
 
+            if (env('DOMAIN_RESTRICTION')
+                && stripos($user->getEmail(), env('DOMAIN_RESTRICTION')) === false
+            ) {
+                return redirect('/accessdenied');
+            }
+
             $success = $this->registerUserIfNotRegistered($user);
 
             if ($success) {
@@ -89,7 +95,7 @@ class AuthController extends Controller
             return redirect('/login/retry');
         }
     }
-    
+
     /**
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -97,7 +103,7 @@ class AuthController extends Controller
     {
         return view('errors.accessdenied');
     }
-    
+
     /**
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
@@ -105,7 +111,7 @@ class AuthController extends Controller
     {
         return view('home.retry');
     }
-    
+
     /**
      * @param  User $user
      * @return boolean

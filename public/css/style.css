@@ -7471,9 +7471,11 @@ h2 {
 h3 {
   font-size: 24px;
   margin-bottom: 0.4em;
+  margin-top: 1.4em;
 }
 h4 {
-  font-size: 16px;
+  font-size: 18px;
+  margin-top: 2em;
 }
 h5 {
   font-size: 12px;
@@ -7984,6 +7986,18 @@ body .nav li.collapsed-chapter-title {
 }
 .mini-navbar .nav li.collapsed-chapter-title {
   display: block;
+}
+@media (max-width: 1170px) {
+  .vertical-timeline-content:before {
+    border-left: 0;
+  }
+}
+h1 code,
+h2 code,
+h3 code,
+h4 code,
+h5 code {
+  font-weight: bold;
 }
 @media print {
   nav.navbar-static-side {

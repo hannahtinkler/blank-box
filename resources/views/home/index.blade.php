@@ -19,7 +19,7 @@
                                 @if($feedEvent->type->name == 'Page Added')
                                     <div class="icon-circle">{!! $feedEvent->image !!}</div>
                                 @else
-                                    {!! $feedEvent->image !!}                                
+                                    {!! $feedEvent->image !!}
                                 @endif
                             </div>
 
@@ -33,7 +33,7 @@
                         </div>
                     @endif
                 @endforeach
-            
+
             </div>
         </div>
     </div>

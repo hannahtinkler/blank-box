@@ -20,14 +20,16 @@
                     <div class="row">
                 @endif
 
+                <?php $earned = in_array($badge->id, $userBadges); ?>
+
                 <div class="col-lg-2 badge-cell">
-                    <a 
-                        {!! !in_array($badge->id, $userBadges) ? 'class="not-earned"' : null !!}
+                    <a
+                        {!! !$earned ? 'class="not-earned"' : null !!}
                         data-toggle="modal" href="/ajax/modal/badges/{{ $user->id }}/{{ $badge->id }}"
                         data-target="#more-info"
                     >
                         <div class="badge-image left">
-                            <img class="m-b-sm" src="{{ $badge->image }}" />
+                            <img class="m-b-sm" style="opacity: {{ $earned ? 0.1 + ($badge->level / 10): 0.2 }} " src="{{ $badge->image ?: 'https://advantagegold.com/wp-content/uploads/2016/07/Gold_American_Eagle_Proof_video-placeholder-1.png' }}" />
                             <p>
                                 <strong>{{ $badge->type->name }}</strong><br />
                                 {{ $badge->name }}

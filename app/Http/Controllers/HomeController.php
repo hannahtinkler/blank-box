@@ -35,7 +35,7 @@ class HomeController extends Controller
 
         return view('home.index', compact('feedEvents'));
     }
-    
+
     /**
      * @return Redirect
      */
@@ -49,7 +49,7 @@ class HomeController extends Controller
 
         return redirect('/p/' . $page->chapter->category->slug . '/' . $page->chapter->slug . '/' . $page->slug);
     }
-    
+
     /**
      * @param  Request $request
      * @param  int  $id

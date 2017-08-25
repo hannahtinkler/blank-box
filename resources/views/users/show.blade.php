@@ -59,7 +59,7 @@ information a person has contributed to <?php echo env('APP_NAME', 'Black Box');
                 </div>
                 <div class="col-md-7">
                     <a href="/u/{{ $user->slug }}/badges">
-                        {{ $communityData['bestBadge']->name or 'None earned yet' }}</p>
+                        {{ $communityData['bestBadge'] or 'None earned yet' }}</p>
                     </a>
                 </div>
             @endif

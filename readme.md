@@ -1,8 +1,8 @@
 <h1>Blank Box</h1>
 
-Blank Box is a pages based knowledge repository concerned with creating a central resource for information that can be referenced easily, and that a team actually wants to engage with. It is structured around a Category > Chapter > Page model, allowing for easy organisation, and has a search feature driven by ElasticSearch so that looking up what you need will be zoom-zoom fast no matter how many pages you add. 
+Blank Box is a pages based knowledge repository concerned with creating a central resource for information that can be referenced easily, and that a team actually wants to engage with. It is structured around a Category > Chapter > Page model, allowing for easy organisation, and has a search feature driven by ElasticSearch so that looking up what you need will be zoom-zoom fast no matter how many pages you add.
 
-Blank Box also offers bookmarking, and optional features such as curation (which hands page approval/resource quality management responsibility to selected users) and badges (listing visual accolades on a user's profile as they are earned for submissions). 
+Blank Box also offers bookmarking, and optional features such as curation (which hands page approval/resource quality management responsibility to selected users) and badges (listing visual accolades on a user's profile as they are earned for submissions).
 
 ![Screenshot of feed](https://s17.postimg.org/6yimsghdb/Capture.png)
 
@@ -73,9 +73,12 @@ npm install
 
 Copy the .env.example from the root into a file called .env
 
-Run the following command to port configs into the main application:
+Run the following commands to port configs into the main application:
 ```
 php artisan vendor:publish
+```
+```
+cp .env.example .env
 ```
 ```
 php artisan key:generate
@@ -115,12 +118,6 @@ sudo add-apt-repository -y ppa:webupd8team/java
 sudo apt-get update
 ```
 ```
-sudo apt-get install openjdk-8-jre
-```
-```
-sudo apt-get update
-```
-```
 sudo apt-get -y install oracle-java8-installer
 ```
 
@@ -155,7 +152,7 @@ Finally, start ElasticSearch and test it by running the following commands:
 sudo service elasticsearch start
 ```
 ```
-curl -XGET "http://localhost:9200"
+curl -GET "http://localhost:9200"
 ```
 
 Some JSON should be output; if it is and it looks a bit like this, you win:
@@ -173,3 +170,14 @@ Some JSON should be output; if it is and it looks a bit like this, you win:
   "tagline" : "You Know, for Search"
 }
 ```
+
+<h3 id="section6">Final Notes:</h3>
+
+You will need to add blank-box.app to your `/etc/hosts` file in order to access it from the browser.
+
+You will also need to set up an OAuth credentials for the application on the [Google API console](https://console.developers.google.com/apis/credentials?project=blank-box-177912) in order to be able to log in. When prompted what kind of credientials you want to create, select 'OAuth client id' with application type of 'Web application'. Then enter the following details:
+Name: Blank Box (or whatever you want really)
+Authorized JavaScript origins: http://blank-box.app
+Authorized redirect URIs: http://blank-box.app/login/callback
+
+YOu will need to enable the Google Contacts API and Google+ API from your API console (under Library).

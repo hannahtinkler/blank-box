@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class FeedEvent extends Model
 {
     public $guarded = [];
-    public $modelService;
+    public $repository;
 
     public function __get($name)
     {
@@ -31,19 +31,19 @@ class FeedEvent extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
-    
+
     public function getImage()
     {
-        return $this->modelService->getImage();
+        return $this->repository->getImage();
     }
-    
+
     public function getText()
     {
-        return $this->modelService->getText();
+        return $this->repository->getText();
     }
-    
+
     public function resourceExists()
     {
-        return $this->modelService->resourceExists();
+        return $this->repository->resourceExists();
     }
 }

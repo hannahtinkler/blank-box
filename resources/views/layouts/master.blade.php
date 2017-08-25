@@ -62,40 +62,36 @@
                     <a href="/"><i class="fa fa-home"></i> <span class="nav-label">Home</span></a>
                 </li>
 
-                @if(is_object($current['category']->chaptersWithApprovedPages))
+                @if(is_object($current['category']->chapters))
 
-                    @foreach($current['category']->chaptersWithApprovedPages as $chapter)
-                        @if(!$chapter->approvedPages->isEmpty())
-                            @if(isset($current['chapter']))
-                                <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>
-                            @else
-                                <li>
-                            @endif
-                                <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}">
-                                    <i class="fa fa-folder-open-o"></i>
-                                    <span class="nav-label">{{ $chapter->title }}</span>
-                                    @if(!$chapter->approvedPages->isEmpty())
-                                        <span class="fa arrow"></span>
-                                    @endif
-                                </a>
-                            
-                                @if(!$chapter->approvedPages->isEmpty())
-                                    <ul class="nav nav-second-level collapse">
-                                        <li class="collapsed-chapter-title">
-                                            {{ $chapter->title }}
-                                        </li>
-                                        <li>
-                                            <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a>
-                                        </li>
-                                        @foreach($chapter->pages as $page)
-                                            <li>
-                                                <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                @endif
-                            </li>
+                    @foreach($current['category']->chapters as $chapter)
+                        @if(isset($current['chapter']))
+                            <li{!! $current['chapter']->id == $chapter->id ? ' class="active"' : null !!}>
+                        @else
+                            <li>
                         @endif
+                            <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}">
+                                <i class="fa fa-folder-open-o"></i>
+                                <span class="nav-label">{{ $chapter->title }}</span>
+                                @if(!$chapter->approvedPages->isEmpty())
+                                    <span class="fa arrow"></span>
+                                @endif
+                            </a>
+
+                            <ul class="nav nav-second-level collapse">
+                                <li class="collapsed-chapter-title">
+                                    {{ $chapter->title }}
+                                </li>
+                                <li>
+                                    <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}"><i class="fa fa-bars"></i> View All</a>
+                                </li>
+                                @foreach($chapter->pages as $page)
+                                    <li>
+                                        <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
                     @endforeach
                 @endif
                 <li class="spacer"><hr></li>
@@ -108,7 +104,7 @@
                             </span>
                             <span class="fa arrow"></span>
                         </a>
-                    
+
                         <ul class="nav nav-second-level collapse">
                             <li class="collapsed-chapter-title">
                                 Curation
@@ -122,7 +118,7 @@
                         </ul>
                     </li>
                 @endif
-                
+
                 <li{!! Request::is('u/' . $user->slug . '*') || Request::is('bookmarks') ? ' class="active"' : null !!}>
                     <a href="/u/{{ $user->slug }}">
                         <i class="fa fa-user"></i>
@@ -132,7 +128,7 @@
                         </span>
                         <span class="fa arrow"></span>
                     </a>
-                
+
                     <ul class="nav nav-second-level collapse">
                         <li class="collapsed-chapter-title">
                             Your <?= env('APP_NAME', 'Blank Box') ?>
@@ -142,29 +138,38 @@
                         </li>
                         <li>
                             <a href="/u/{{ $user->slug }}/drafts">
-                                <i class="fa fa-pencil-square-o"></i> 
-                                <span class="nav-label">Drafts 
+                                <i class="fa fa-pencil-square-o"></i>
+                                <span class="nav-label">Drafts
                                     <span {!! $drafts == 0 ? 'class="hidden"' : null !!} id="draft-count">(<span>{{ $drafts }}</span>)</span>
                                 </span>
                             </a>
                         </li>
-                        
+
                         @if (env('FEATURE_BADGES_ENABLED', true))
                             <li>
                                 <a href="/u/{{ $user->slug }}/badges">
-                                    <i class="fa fa-shield"></i> 
+                                    <i class="fa fa-shield"></i>
                                     <span class="nav-label">Badges
                                         <span {!! $newBadgeCount == 0 ? 'class="hidden"' : null !!} id="badge-count">(<span>{{ $newBadgeCount }}</span>)</span)
                                     </span>
                                 </a>
                             </li>
                         @endif
-                        
+
                         <li>
                             <a href="/u/{{ $user->slug }}/bookmarks"><i class="glyphicon glyphicon-bookmark"></i> <span class="nav-label">Bookmarks</span></a>
                         </li>
                     </ul>
                 </li>
+
+                <li{!! Request::is('/rankings') || Request::is('rankings') ? ' class="active"' : null !!}>
+                    <a href="/rankings">
+                        <i class="fa fa-hand-peace-o"></i>
+                        <span class="nav-label">
+                            Contributors
+                        </span>
+                    </a>
+                </li{!!>
             </ul>
 
         </div>
@@ -178,7 +183,7 @@
                 <div class="navbar-minimalize logo-space">
                     <a href="#"><i class="fa fa-cube"></i> <?php echo env('APP_NAME', 'Black Box'); ?></a>
                 </div>
-                
+
                 <i class="minimalize-styl-2 glyphicon glyphicon-search bigger-icon"></i>
                 <form role="search" class="navbar-form-custom" id="topbar-search-form">
                     <div class="form-group">
@@ -207,7 +212,7 @@
             <i class="glyphicon glyphicon-bookmark bookmark {{ is_object($current['chapter']->bookmark) ? 'active' : null }}" title="Click to bookmark this chapter"></i>
         @endif
 
-        @yield ('content') 
+        @yield ('content')
     </div>
 
     <div class="footer">
@@ -241,7 +246,7 @@
         @if(isset($current['chapter']))
             var category = {!! $current['category'] ? $current['category']->id : '""' !!};
             var chapter = {!! $current['chapter'] ? $current['chapter']->id : '""' !!};
-            var page = {!! $current['page'] ? $current['page']->id : '""' !!};
+            var page = {!! isset($current['page']) ? $current['page']->id : '""' !!};
 
             $('.bookmark').click(function() {
                 if($(this).hasClass('active')) {

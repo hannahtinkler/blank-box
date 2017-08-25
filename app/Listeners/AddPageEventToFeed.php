@@ -31,11 +31,13 @@ class AddPageEventToFeed
 
         $eventType = $this->getEventType();
 
-        FeedEvent::create([
-            'feed_event_type_id' => $eventType->id,
-            'user_id' => $page->created_by,
-            'resource_id' => $page->id
-        ]);
+        if ($eventType) {
+            FeedEvent::create([
+                'feed_event_type_id' => $eventType->id,
+                'user_id' => $page->created_by,
+                'resource_id' => $page->id
+            ]);
+        }
     }
 
     public function getEventType()

@@ -17,7 +17,6 @@ function getSimpleMde(element) {
             $.post(
                 '/ajax/endpoints/pagepreview',
                 {
-                    _token: '{{ csrf_token() }}',
                     content: plainText,
                     identifier: identifier
                 }
@@ -44,7 +43,7 @@ $(document).ready(function() {
 
     $('#topbar-search-form').submit(function(e) {
         var term = $('#top-search').val();
-        
+
         if (!term.length) {
             return false;
         }

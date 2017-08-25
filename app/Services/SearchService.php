@@ -14,7 +14,7 @@ class SearchService
      * @var array
      */
     private $repositories;
-    
+
     /**
      * @var boolean
      */
@@ -34,9 +34,9 @@ class SearchService
         $this->ajax = $request->ajax();
 
         $this->services = [
-            'pages' => $pages,
-            'chapters' => $chapters,
-            'users' => $users,
+            'page' => $pages,
+            'chapter' => $chapters,
+            'user' => $users,
         ];
     }
 
@@ -51,7 +51,7 @@ class SearchService
         $results = [];
 
         foreach ($searchables as $searchable) {
-            $class = $this->services[$searchable];
+            $class = $this->services[trim($searchable)];
 
             $results = array_merge(
                 $results,

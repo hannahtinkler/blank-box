@@ -126,7 +126,7 @@ class BadgeService
             ->where('user_id', $userId)
             ->update(['read' => true]);
     }
-    
+
     /**
      * @param  int $userId
      * @param  int $badgeId

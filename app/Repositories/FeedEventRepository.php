@@ -12,7 +12,7 @@ class FeedEventRepository
      * @var FeedEvent
      */
     private $feedEvent;
-    
+
     /**
      * @param FeedEvent $feedEvent
      */

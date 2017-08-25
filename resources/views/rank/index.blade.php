@@ -2,10 +2,10 @@
 
 @section('content')
 
-<h1>Rankings</h1>
+<h1>Contributors</h1>
 
 <hr>
-<p>Rankings are determined based on user contributions to pages, page updates and code. Higher = more awesome, thats all you need to know.</p>
+<p>Contributors help to build up this resource by adding pages and making edits that refine the quality of them. These rankings are determined based on user contributions to pages, page updates and code contributions. Higher = more awesome, thats all you need to know.</p>
 <table class="table table-striped table-bordered dataTables-example m-t-xl">
     <thead>
         <tr>
