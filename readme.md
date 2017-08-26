@@ -100,7 +100,7 @@ cd sites/blank-box
 
 Migrate the databases and run the seeders:
 ```
-php artisan migrate --seed
+php artisan migrate
 ```
 
 This will create the schema you need and insert the necessary data.
@@ -171,6 +171,10 @@ Some JSON should be output; if it is and it looks a bit like this, you win:
 }
 ```
 
+Now that elastic search is prepared to index your content,you can seed your database with the default content:
+```
+php artisan db:seed
+```
 <h3 id="section6">Final Notes:</h3>
 
 You will need to add blank-box.app to your `/etc/hosts` file in order to access it from the browser.
@@ -180,4 +184,4 @@ Name: Blank Box (or whatever you want really)
 Authorized JavaScript origins: http://blank-box.app
 Authorized redirect URIs: http://blank-box.app/login/callback
 
-YOu will need to enable the Google Contacts API and Google+ API from your API console (under Library).
+For OAuth to work, you will also need to enable the Google Contacts API and Google+ API from your API console (under Library).
