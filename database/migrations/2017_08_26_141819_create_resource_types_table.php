@@ -16,7 +16,6 @@ class CreateResourceTypesTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable()->default(null);
             $table->string('category')->nullable()->default(null);
-            $table->string('icon')->nullable()->default(null);
             $table->string('color')->nullable()->default(null);
             $table->timestamps();
         });

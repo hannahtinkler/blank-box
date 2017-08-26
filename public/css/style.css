@@ -7718,7 +7718,7 @@ table tr.table-heading td {
   padding: 0.2em 1em;
 }
 .chapter-list li {
-  margin: 2em 0;
+  margin: 1em 0;
 }
 .chapter-list li i {
   font-size: 77%;
@@ -8046,5 +8046,9 @@ tr:hover .hide-until-hover {
   visibility: visible;
 }
 
+.icon-column {
+  min-width: 55px;
+  text-align: right;
+}
 /*# sourceMappingURL=style.css.map */
 

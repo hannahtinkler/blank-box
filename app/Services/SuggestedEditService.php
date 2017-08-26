@@ -22,6 +22,17 @@ class SuggestedEditService
     {
         return SuggestedEdit::where('approved', null)->get();
     }
+    
+    /**
+     * @param  int $userId
+     * @return Page
+     */
+    public function getApprovedByUserId($userId)
+    {
+        return SuggestedEdit::where('created_by', $userId)
+            ->where('approved', 1)
+            ->get();
+    }
 
     /**
      * @param  int $pageId

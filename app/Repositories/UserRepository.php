@@ -48,8 +48,10 @@ class UserRepository implements SearchableRepository
     {
         $string = 'User: ' . $this->user->name;
 
-        if (env('FEATURE_CURATION_ENABLED') && $this->user->curator) {
-            $string .= ' (Curator)';
+        $bestBadge = $this->badgeService->getBestByUserId($this->user->id);
+
+        if ($bestBadge) {
+            $string .= ' (' . $bestBadge->name . ')';
         }
 
         return $string;

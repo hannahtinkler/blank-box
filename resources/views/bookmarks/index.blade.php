@@ -6,7 +6,7 @@
 
 <hr>
 
-<p>Add bookmarks by clicking the orange bookmark icon in the upper right of chapter and page windows. These bookmarks will appear on this page for future ease of access.</p>
+<p>Add bookmarks by clicking the large bookmark icon in the upper right of chapter and page windows. These bookmarks will appear on this page for future ease of access.</p>
 
 <ul class="chapter-list">
     @foreach($bookmarks as $bookmark)

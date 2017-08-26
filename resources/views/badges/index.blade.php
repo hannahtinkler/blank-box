@@ -29,7 +29,7 @@
                         data-target="#more-info"
                     >
                         <div class="badge-image left">
-                            <img class="m-b-sm" style="opacity: {{ $earned ? 0.1 + ($badge->level / 10): 0.2 }} " src="{{ $badge->image ?: 'https://advantagegold.com/wp-content/uploads/2016/07/Gold_American_Eagle_Proof_video-placeholder-1.png' }}" />
+                            <img class="m-b-sm" src="{{ $badge->image ?: 'https://advantagegold.com/wp-content/uploads/2016/07/Gold_American_Eagle_Proof_video-placeholder-1.png' }}" />
                             <p>
                                 <strong>{{ $badge->type->name }}</strong><br />
                                 {{ $badge->name }}

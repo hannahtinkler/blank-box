@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use League\CommonMark\CommonMarkConverter;
 
 use App\Events\PageWasAdded;
+use App\Events\PageWasEdited;
 
 use App\Http\Requests\PageRequest;
 
@@ -189,6 +190,8 @@ class PageController extends Controller
         } else {
             $page = $this->pages->update($page->id, $data);
             $message = "This page has been edited successfully and you're now viewing it.";
+
+            Event::fire(new PageWasEdited($page));
         }
 
         return redirect($page->searchResultUrl)->with(

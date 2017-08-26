@@ -28,7 +28,7 @@ class PageResourceObserver
     {
         $this->elasticsearch->delete([
             'index' => env('ELASTICSEARCH_INDEX', 'default'),
-            'type' => 'pageresource',
+            'type' => 'page_resources',
             'id' => $resource->id
         ]);
     }

@@ -23,7 +23,7 @@
 @if($chapter->pages->isEmpty())
     <p class="italic">There are no pages for this chapter yet.</p>
 @else
-    <ul class="chapter-list">
+    <ul class="chapter-list m-t--sm">
         @foreach($chapter->pages as $page)
             <li>
                 <h4><i class="glyphicon glyphicon-file"></i> <a href="/p/{{ $page->chapter->category->slug }}/{{ $page->chapter->slug }}/{{ $page->slug }}">{{ $page->title }}</a></h4>

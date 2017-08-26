@@ -45,6 +45,7 @@
                     </td>
                 </tr>
                 @foreach($items as $item)
+                    <?php $shortContent = strlen($item->content) > 75 ? substr($item->content, 0, 75) . '...' : $item->content; ?>
                     <tr>
                         <td class="text-left twenty-percent">
                             <span class="border-left" style="border-color: #{{ $item->resourceType->color }};">{{ $item->name }}</span>
@@ -53,15 +54,15 @@
                         <td class="text-left">
                             @if (filter_var($item->content, FILTER_VALIDATE_URL))
                                 <a href="{{ $item->content }}">
-                                    {{ strlen($item->content) > 75 ? substr($item->content, 0, 75) . '...' : $item->content }}
+                                    {{ $shortContent }}
                                 </a>
                             @elseif ($user = App\Models\User::where('name', $item->content)->first())
-                                <a href="/u/{{ $user->slug }}">{{ $item->content }}</a>
+                                <a href="/u/{{ $user->slug }}">{{ $shortContent }}</a>
                             @else
-                                {{ $item->content }}
+                                {{ $shortContent }}
                             @endif
                         </td>
-                        <td>
+                        <td class="icon-column">
                             <a class="hide-until-hover" href="/pageresources/edit/{{ $item->id }}"><i class="fa fa-pencil"></i></a>
                             <a class="hide-until-hover" href="/pageresources/delete/{{ $item->id }}"><i class="fa fa-trash m-l-sm"></i></a>
                         </td>

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Event;
 use Illuminate\Http\Request;
 use App\Http\Requests\PageResourceRequest;
 
+use App\Events\ResourceWasAdded;
 use App\Services\PageResourceService;
 use App\Services\ResourceTypeService;
 
@@ -43,6 +45,8 @@ class PageResourceController extends Controller
         $resource = $this->pageResources->store($data);
 
         $message = "This resource has been saved!";
+
+        Event::fire(new ResourceWasAdded($resource));
 
         return redirect($resource->page->searchResultUrl)->with(
             'message',

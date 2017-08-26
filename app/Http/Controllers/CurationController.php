@@ -7,6 +7,7 @@ use Event;
 use Illuminate\Http\Request;
 
 use App\Events\PageWasAdded;
+use App\Events\PageWasEdited;
 
 use App\Services\CurationService;
 use App\Services\PageService;
@@ -119,6 +120,8 @@ class CurationController extends Controller
         ]);
         
         $this->suggestedEdits->approve($edit->id);
+
+        Event::fire(new PageWasEdited($edit));
 
         return redirect('/curation/edits')->with(
             'message',

@@ -43,6 +43,15 @@ class PageResourceService implements SearchableService
     {
         return PageResource::findOrFail($id);
     }
+    
+    /**
+     * @param  int $userId
+     * @return Page
+     */
+    public function getByUserId($userId)
+    {
+        return PageResource::where('created_by', $userId)->get();
+    }
 
     /**
      * @return array

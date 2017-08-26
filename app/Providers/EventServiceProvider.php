@@ -17,6 +17,9 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\CheckForBadgeQualification',
             'App\Listeners\AddPageEventToFeed',
         ],
+        'App\Events\ResourceWasAdded' => [
+            'App\Listeners\CheckForBadgeQualification',
+        ],
         'App\Events\PageWasEdited' => [
             'App\Listeners\CheckForBadgeQualification',
         ],
