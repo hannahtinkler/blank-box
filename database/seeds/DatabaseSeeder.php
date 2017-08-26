@@ -17,10 +17,12 @@ class DatabaseSeeder extends Seeder
         App\Models\SuggestedEdit::truncate();
         App\Models\Tag::truncate();
         App\Models\UserBadge::truncate();
+        App\Models\ResourceType::truncate();
 
         $this->call(CategorySeeder::class);
         $this->call(ChapterSeeder::class);
         $this->call(BadgeSeeder::class);
         $this->call(FeedSeeder::class);
+        $this->call(ResourceTypeSeeder::class);
     }
 }

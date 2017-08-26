@@ -7,12 +7,12 @@ use Illuminate\Support\ServiceProvider;
 
 use App\Models\Page;
 use App\Models\Chapter;
-use App\Models\Server;
-use App\Models\Service;
 use App\Models\User;
+use App\Models\PageResource;
 
 use App\Observers\Elasticsearch\PageObserver;
 use App\Observers\Elasticsearch\ChapterObserver;
+use App\Observers\Elasticsearch\PageResourceObserver;
 use App\Observers\Elasticsearch\ServerObserver;
 use App\Observers\Elasticsearch\ServiceObserver;
 use App\Observers\Elasticsearch\UserObserver;
@@ -24,6 +24,7 @@ class ObserverServiceProvider extends ServiceProvider
         Page::observe($this->app->make(PageObserver::class));
         Chapter::observe($this->app->make(ChapterObserver::class));
         User::observe($this->app->make(UserObserver::class));
+        PageResource::observe($this->app->make(PageResourceObserver::class));
     }
 
     public function register()
@@ -41,6 +42,11 @@ class ObserverServiceProvider extends ServiceProvider
         $this->app->singleton(UserObserver::class, function () {
             $client = ClientBuilder::create()->build();
             return new UserObserver($client);
+        });
+
+        $this->app->singleton(PageResourceObserver::class, function () {
+            $client = ClientBuilder::create()->build();
+            return new PageResourceObserver($client);
         });
     }
 }

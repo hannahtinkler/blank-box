@@ -69,7 +69,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-12  m-b-lg">
+            <!-- <div class="col-sm-12  m-b-lg">
                 <div class="form-group">
                     <label>Tags <span class="italic">(comma separated)</span> <i class="fa fa-question-circle pointer" title="These tags will be used to suggest help pages for Orbit tasks based on task title"></i></label>
                     <select id="tag-select" name="tags[]" multiple="multiple">
@@ -79,7 +79,7 @@
                         @endforeach
                     </select>
                 </div>
-            </div>
+            </div> -->
 
             <input type="hidden" id="last-draft-id" name="last_draft_id" value="">
 

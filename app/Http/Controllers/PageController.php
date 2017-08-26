@@ -16,6 +16,8 @@ use App\Services\PageService;
 use App\Services\ChapterService;
 use App\Services\CategoryService;
 use App\Services\PageDraftService;
+use App\Services\PageResourceService;
+use App\Services\ResourceTypeService;
 use App\Services\SuggestedEditService;
 
 class PageController extends Controller
@@ -52,6 +54,9 @@ class PageController extends Controller
 
     /**
      * @param PageService          $pages
+     * @param PageDraftService     $drafts
+     * @param PageResourceService  $resources
+     * @param ResourceTypeService  $resourceTypes
      * @param CategoryService      $categories
      * @param ChapterService       $chapters
      * @param SuggestedEditService $suggestedEdits
@@ -61,6 +66,8 @@ class PageController extends Controller
     public function __construct(
         PageService $pages,
         PageDraftService $drafts,
+        PageResourceService $resources,
+        ResourceTypeService $resourceTypes,
         CategoryService $categories,
         ChapterService $chapters,
         SuggestedEditService $suggestedEdits,
@@ -69,6 +76,8 @@ class PageController extends Controller
     ) {
         $this->pages = $pages;
         $this->drafts = $drafts;
+        $this->resources = $resources;
+        $this->resourceTypes = $resourceTypes;
         $this->categories = $categories;
         $this->chapters = $chapters;
         $this->suggestedEdits = $suggestedEdits;
@@ -89,8 +98,13 @@ class PageController extends Controller
 
         $page->content = $this->converter->convertToHtml($page->content);
 
+        $resources = $this->resources->getAllCategorised();
+        $resourceTypes = $this->resourceTypes->getAllCategorised();
+
         return view('pages.show', [
             'page' => $page,
+            'resources' => $resources,
+            'resourceTypes' => $resourceTypes,
             'user' => $request->user()
         ]);
     }

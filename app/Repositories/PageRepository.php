@@ -25,7 +25,9 @@ class PageRepository
      */
     public function searchResultString()
     {
-        return 'Page: ' . $this->page->title;
+        $type = $this->page->chapter->projects_chapter ? 'Project' : 'Page';
+
+        return $type . ': ' . $this->page->title;
     }
 
     /**
@@ -46,7 +48,7 @@ class PageRepository
      */
     public function searchResultIcon()
     {
-        return '<i class="fa fa-file-o"></i>';
+        return $this->page->chapter->projects_chapter ? '<i class="fa fa-inbox"></i>' : '<i class="fa fa-file-o"></i>';;
     }
 
     public function updatorsString()

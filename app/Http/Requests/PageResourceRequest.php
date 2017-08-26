@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PageRequest extends FormRequest
+class PageResourceRequest extends FormRequest
 {
     /**
      * @return boolean
@@ -20,9 +20,10 @@ class PageRequest extends FormRequest
     public function rules()
     {
         return [
-            'chapter_id' => 'required|integer|exists:chapters,id',
-            'title' => 'required|min:5',
-            'description' => 'required|min:10',
+            'id' => 'required|integer|exists:pages,id',
+            'name' => 'required|min:2',
+            'type' => 'required|integer|exists:resource_types,id',
+            'content' => 'required|min:2',
         ];
     }
 }

@@ -54,6 +54,7 @@ $(document).ready(function() {
     });
 
     $('#top-search').easyAutocomplete({
+        requestDelay: 300,
         adjustWidth: false,
         url: function(term) {
                 return "/search/" + term;

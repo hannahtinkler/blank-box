@@ -23,6 +23,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/pages/edit/{id}', 'PageController@edit');
     Route::put('/pages/{id}', 'PageController@update');
     
+    Route::post('/pageresources', 'PageResourceController@store');
+    Route::get('/pageresources/update/{id}', 'PageResourceController@update');
+    Route::get('/pageresources/delete/{id}', 'PageResourceController@destroy');
+    Route::get('/pageresources/edit/{id}', 'PageResourceController@edit');
+    
     Route::get('/chapters/create', 'ChapterController@create');
     Route::post('/chapters', 'ChapterController@store');
 

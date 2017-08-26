@@ -59,6 +59,7 @@ class UserService implements SearchableService
                     '(
                         ((SELECT COUNT(*) FROM pages WHERE pages.created_by = users.id AND approved = 1) * 3)
                         + (SELECT COUNT(*) FROM suggested_edits WHERE suggested_edits.created_by = users.id AND approved=1)
+                        + (SELECT COUNT(*) FROM page_resources WHERE page_resources.created_by = users.id)
                     ) as total'
                 )
             ])

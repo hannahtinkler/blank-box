@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\PageService;
 use App\Services\UserService;
 use App\Services\ChapterService;
+use App\Services\PageResourceService;
 
 class SearchService
 {
@@ -29,6 +30,7 @@ class SearchService
         Request $request,
         PageService $pages,
         ChapterService $chapters,
+        PageResourceService $resources,
         UserService $users
     ) {
         $this->ajax = $request->ajax();
@@ -37,6 +39,7 @@ class SearchService
             'page' => $pages,
             'chapter' => $chapters,
             'user' => $users,
+            'pageresource' => $resources,
         ];
     }
 
