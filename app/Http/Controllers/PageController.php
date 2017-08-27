@@ -99,7 +99,7 @@ class PageController extends Controller
 
         $page->content = $this->converter->convertToHtml($page->content);
 
-        $resources = $this->resources->getAllCategorised();
+        $resources = $this->resources->getAllCategorisedByPageId($page->id);
         $resourceTypes = $this->resourceTypes->getAllCategorised();
 
         return view('pages.show', [

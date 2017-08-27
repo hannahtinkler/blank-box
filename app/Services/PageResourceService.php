@@ -54,13 +54,33 @@ class PageResourceService implements SearchableService
     }
 
     /**
+     * @param  int $id
+     * @return array
+     */
+    public function getAllCategorisedByPageId($id)
+    {
+        return $this->categoriseResources(
+            PageResource::where('page_id', $id)->get()
+        );
+    }
+
+    /**
      * @return array
      */
     public function getAllCategorised()
     {
+        return $this->categoriseResources($this->getAll());
+    }
+
+    /**
+     * @param  Collection $resources
+     * @return array
+     */
+    public function categoriseResources($resources)
+    {
         $all = [];
 
-        foreach ($this->getAll() as $resource) {
+        foreach ($resources as $resource) {
             if (!isset($all[$resource->resourceType->category])) {
                 $all[$resource->resourceType->category] = [];
             }
