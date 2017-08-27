@@ -87,7 +87,14 @@
                                 </li>
                                 @foreach($chapter->pages as $page)
                                     <li>
-                                        <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}/{{ $page->slug }}"><i class="fa fa-file-o"></i>  {{ $page->title }}</a>
+                                        <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}/{{ $page->slug }}">
+                                            @if($chapter->projects_chapter)
+                                                <i class="fa fa-inbox"></i> 
+                                            @else
+                                                <i class="fa fa-file-o"></i> 
+                                            @endif
+                                            {{ $page->title }}
+                                        </a>
                                     </li>
                                 @endforeach
                             </ul>
