@@ -17,13 +17,13 @@ class ResourceTypeSeeder extends Seeder
         ResourceType::create([
             'name' => 'Admin Server',
             'category' => 'Asset Locations',
-            'color' => 'e31a52',
+            'color' => 'dabc28',
         ]);
 
         ResourceType::create([
             'name' => 'Design Server',
             'category' => 'Asset Locations',
-            'color' => 'e31a52',
+            'color' => 'dabc28',
         ]);
 
         ResourceType::create([
@@ -51,9 +51,9 @@ class ResourceTypeSeeder extends Seeder
         ]);
 
         ResourceType::create([
-            'name' => 'LastPass Record',
-            'category' => 'Links',
-            'color' => '4BA2C9',
+            'name' => 'Development',
+            'category' => 'LastPass Recordsß',
+            'color' => 'D12F2E',
         ]);
 
         ResourceType::create([
@@ -90,6 +90,30 @@ class ResourceTypeSeeder extends Seeder
             'name' => 'Strategy & Planning Team',
             'category' => 'People',
             'color' => '8e39a3',
+        ]);
+
+        ResourceType::create([
+            'name' => 'Beanstalk Repository',
+            'category' => 'Links',
+            'color' => '4BA2C9',
+        ]);
+
+        ResourceType::create([
+            'name' => 'Staging',
+            'category' => 'LastPass Recordsß',
+            'color' => 'D12F2E',
+        ]);
+
+        ResourceType::create([
+            'name' => 'Production',
+            'category' => 'LastPass Recordsß',
+            'color' => 'D12F2E',
+        ]);
+
+        ResourceType::create([
+            'name' => 'Other',
+            'category' => 'LastPass Recordsß',
+            'color' => 'D12F2E',
         ]);
     }
 }

@@ -60,8 +60,10 @@ class PageResourceService implements SearchableService
     public function getAllCategorisedByPageId($id)
     {
         return $this->categoriseResources(
-            PageResource::where('page_id', $id)
+            PageResource::select('page_resources.*')
+                ->where('page_id', $id)
                 ->join('resource_types', 'page_resources.type', '=', 'resource_types.id')
+                ->orderBy('page_resources.name')
                 ->orderBy('resource_types.name')
                 ->get()
         );
