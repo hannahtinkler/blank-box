@@ -21,7 +21,7 @@ class PageRequest extends FormRequest
     {
         return [
             'chapter_id' => 'required|integer|exists:chapters,id',
-            'title' => 'required|min:5',
+            'title' => 'required|min:3',
             'description' => 'required|min:10',
         ];
     }
