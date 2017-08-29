@@ -25,7 +25,7 @@ class Category extends Model
 
     public function chapters()
     {
-        return $this->hasMany('App\Models\Chapter')->orderBy('order')->orderBy('title');
+        return $this->hasMany('App\Models\Chapter')->orderBy('order', 'DESC')->orderBy('title');
     }
 
     public function chaptersWithApprovedPages()

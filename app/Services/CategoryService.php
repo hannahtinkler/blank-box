@@ -54,6 +54,6 @@ class CategoryService
      */
     public function getAll()
     {
-        return Category::orderBy('order')->orderBy('title')->get();
+        return Category::orderBy('order', 'DESC')->orderBy('title')->get();
     }
 }

@@ -52,11 +52,11 @@
                         <td class="text-left fifteen-percent"><small>({{ $item->resourceType->name }})</small></td>
                         <td class="text-left">
                             @if (filter_var($item->content, FILTER_VALIDATE_URL))
-                                <a href="{{ $item->content }}">
+                                <a target="_blank" href="{{ $item->content }}">
                                     {{ $item->content }}
                                 </a>
                             @elseif ($user = App\Models\User::where('name', $item->content)->first())
-                                <a href="/u/{{ $user->slug }}">{{ $item->content }}</a>
+                                <a target="_blank" href="/u/{{ $user->slug }}">{{ $item->content }}</a>
                             @else
                                 {{ $item->content }}
                             @endif
