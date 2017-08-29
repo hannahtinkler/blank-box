@@ -45,7 +45,6 @@
                     </td>
                 </tr>
                 @foreach($items as $item)
-                    <?php $shortContent = strlen($item->content) > 75 ? substr($item->content, 0, 75) . '...' : $item->content; ?>
                     <tr>
                         <td class="text-left twenty-percent">
                             <span class="border-left" style="border-color: #{{ $item->resourceType->color }};">{{ $item->name }}</span>
@@ -54,12 +53,12 @@
                         <td class="text-left">
                             @if (filter_var($item->content, FILTER_VALIDATE_URL))
                                 <a href="{{ $item->content }}">
-                                    {{ $shortContent }}
+                                    {{ $item->content }}
                                 </a>
                             @elseif ($user = App\Models\User::where('name', $item->content)->first())
-                                <a href="/u/{{ $user->slug }}">{{ $shortContent }}</a>
+                                <a href="/u/{{ $user->slug }}">{{ $item->content }}</a>
                             @else
-                                {{ $shortContent }}
+                                {{ $item->content }}
                             @endif
                         </td>
                         <td class="icon-column">
@@ -85,13 +84,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label>Resource Name</label> 
+                    <label>Resource Name</label>
                     <input type="text" class="form-control" name="name" placeholder="E.g. 'Designer', 'Website Progress Board', 'User Stories' etc" value="{{ old('name') }}" />
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
-                    <label>Resource Type</label> 
+                    <label>Resource Type</label>
                     <select class="form-control" name="type">
                         <option value="">Select a type...</option>
                         @foreach ($resourceTypes as $category => $types)
@@ -106,7 +105,7 @@
             </div>
             <div class="col-sm-12">
                 <div class="form-group">
-                    <label>Resource Content</label> 
+                    <label>Resource Content</label>
                     <input placeholder="E.g. a server path, website link, document link, person name etc" type="text" class="form-control" name="content" value="{{ old('name') }}" />
                 </div>
             </div>
@@ -125,7 +124,7 @@
     <small>Written by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>
     @if($page->hasEdits)
         @set('updators', $page->updatorsString)
-        
+
         @if(strlen($updators) <= 160)
             and updated by {!! $page->updatorsString !!}
         @else

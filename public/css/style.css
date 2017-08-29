@@ -8010,6 +8010,31 @@ h4 code,
 h5 code {
   font-weight: bold;
 }
+.border-left {
+  border-left: solid 2px #4BA2C9;
+  padding-left: 1rem;
+}
+.twenty-percent {
+  width: 20%;
+  min-width: 220px;
+}
+.fifteen-percent {
+  width: 15%;
+  min-width: 150px;
+}
+.table-heading h4 {
+  margin: 0;
+}
+.hide-until-hover {
+  visibility: hidden;
+}
+tr:hover .hide-until-hover {
+  visibility: visible;
+}
+.icon-column {
+  min-width: 55px;
+  text-align: right;
+}
 @media print {
   nav.navbar-static-side {
     display: none;
@@ -8019,36 +8044,4 @@ h5 code {
   }
 }
 
-.border-left {
-  border-left: solid 2px #4BA2C9;
-  padding-left: 1rem;
-}
-
-.twenty-percent {
-  width: 20%;
-  min-width: 220px;
-}
-
-.fifteen-percent {
-  width: 15%;
-  min-width: 150px;
-}
-
-.table-heading h4 {
-  margin: 0;
-}
-
-.hide-until-hover {
-  visibility: hidden;
-}
-
-tr:hover .hide-until-hover {
-  visibility: visible;
-}
-
-.icon-column {
-  min-width: 55px;
-  text-align: right;
-}
 /*# sourceMappingURL=style.css.map */
-

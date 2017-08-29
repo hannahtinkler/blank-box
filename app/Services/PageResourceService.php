@@ -43,7 +43,7 @@ class PageResourceService implements SearchableService
     {
         return PageResource::findOrFail($id);
     }
-    
+
     /**
      * @param  int $userId
      * @return Page
@@ -60,7 +60,10 @@ class PageResourceService implements SearchableService
     public function getAllCategorisedByPageId($id)
     {
         return $this->categoriseResources(
-            PageResource::where('page_id', $id)->get()
+            PageResource::where('page_id', $id)
+                ->join('resource_types', 'page_resources.type', '=', 'resource_types.id')
+                ->orderBy('resource_types.name')
+                ->get()
         );
     }
 

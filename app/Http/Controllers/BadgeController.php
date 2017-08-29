@@ -75,7 +75,7 @@ class BadgeController extends Controller
         $badge = $this->badges->getById($badgeId);
 
         $earned = $this->badges->userHasBadge($userId, $badgeId);
-        
+
         return view('partials.badgemodal', compact('badge', 'earned'));
     }
 }
