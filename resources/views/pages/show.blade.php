@@ -44,14 +44,15 @@
         </ul>
     @endif
 
-    <h3 class="m-t-lg">Project Resources</h3>
+    <h3 class="m-t-xl">Project Resources</h3>
 
     @if($resources)
         <table class="table table-hover">
             @foreach($resources as $category => $items)
                 <tr class="table-heading">
                     <td colspan="4">
-                        <h4 class="m-t-md" id="category{{ $category }}">{{ $category }}:</h4>
+                        <div id="category{{ $category }}" class="hidden-anchor"></div>
+                        <h4 class="m-t-md m-b--xl"">{{ $category }}:</h4>
                     </td>
                 </tr>
 

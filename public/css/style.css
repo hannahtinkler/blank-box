@@ -8032,6 +8032,9 @@ h5 code {
 .table-heading h4 {
   margin: 0;
 }
+.table-heading:first-child td {
+  padding-top: 1em;
+}
 .hide-until-hover {
   visibility: hidden;
 }
@@ -8041,6 +8044,10 @@ tr:hover .hide-until-hover {
 .icon-column {
   min-width: 55px;
   text-align: right;
+}
+.hidden-anchor {
+  position: relative;
+  top: -75px;
 }
 @media print {
   nav.navbar-static-side {
