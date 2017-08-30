@@ -35,15 +35,26 @@
 </div>
 
 @if($page->chapter->projects_chapter)
+    @if(count($resources, COUNT_RECURSIVE) > 15)
+        <h3 class="m-t-lg m-b-sm">Contents</h3>
+        <ul class="no-bullet">
+            @foreach($resources as $category => $items)
+                <li><a href="#category{{ $category }}">{{ $category }}</a></li>
+            @endforeach
+        </ul>
+    @endif
+
     <h3 class="m-t-lg">Project Resources</h3>
+
     @if($resources)
         <table class="table table-hover">
             @foreach($resources as $category => $items)
                 <tr class="table-heading">
                     <td colspan="4">
-                        <h4 class="m-t-md">{{ $category }}:</h4>
+                        <h4 class="m-t-md" id="category{{ $category }}">{{ $category }}:</h4>
                     </td>
                 </tr>
+
                 @foreach($items as $item)
                     <tr>
                         <td class="text-left twenty-percent">
