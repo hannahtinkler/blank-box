@@ -28,7 +28,7 @@ class UserRepository implements SearchableRepository
      * @var BadgeService
      */
     private $badgeService;
-    
+
     /**
      * @param User         $user
      * @param UserService  $userService
@@ -116,6 +116,7 @@ class UserRepository implements SearchableRepository
                             SELECT COUNT(*)
                             FROM pages
                             WHERE chapter_id = chapters.id
+                            AND deleted_at IS NULL
                             AND created_by = ?
                             GROUP BY chapter_id
                         ),
@@ -125,6 +126,7 @@ class UserRepository implements SearchableRepository
                             SELECT COUNT(*)
                             FROM suggested_edits
                             WHERE chapter_id = chapters.id
+                            AND deleted_at IS NULL
                             AND created_by = ?
                             GROUP BY chapter_id
                         ),

@@ -10,13 +10,28 @@
 
 <hr>
 
+@if($user->status)
+    <div class="col-md-12 message status-message">
+        <h4 class="left m-r-sm">Status:</h4>
+        <p class="left m-t-sm">
+            {!! $user->status !!}
+            <span class="m-l-xs"><a href="/u/status"><i class="fa fa-pencil"></i></a></span>
+        </p>
+    </div>
+@elseif($user == $currentUser)
+    <div class="col-md-12 message status-message">
+        <h4 class="left m-r-sm">Status:</h4>
+        <p class="left m-t-sm">No status set yet. <a href="/u/status">Let people know what you're up to?</a></p>
+    </div>
+@endif
+
 <div class="row m-b-lg m-t-lg">
     <div class="col-md-6">
         <h3 class="m-b-md">Most Submitted To Chapters:</h3>
         @if(count($user->specialistAreas) == 0)
             <p class="italic">{{ $user->name }} doesn't have any specialist areas yet</p>
         @else
-            @foreach($user->specialistAreas as $specialistArea)
+            @foreach(array_slice($user->specialistAreas, 0, 5) as $specialistArea)
                 <p>
                     <a target="_blank" href="/p/{{ $specialistArea->categorySlug }}/{{ $specialistArea->chapterSlug }}">
                         {{ $specialistArea->title }} ({{ $specialistArea->total }})

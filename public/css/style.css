@@ -8049,6 +8049,13 @@ tr:hover .hide-until-hover {
   position: relative;
   top: -75px;
 }
+.status-message p {
+  margin-bottom: 0.9em;
+  margin-top: 0.9em;
+}
+.status-message i {
+  margin-right: 0.5em;
+}
 @media print {
   nav.navbar-static-side {
     display: none;

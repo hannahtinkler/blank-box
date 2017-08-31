@@ -22,17 +22,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/pages', 'PageController@store');
     Route::get('/pages/edit/{id}', 'PageController@edit');
     Route::put('/pages/{id}', 'PageController@update');
-    
+
     Route::post('/pageresources', 'PageResourceController@store');
     Route::get('/pageresources/update/{id}', 'PageResourceController@update');
     Route::get('/pageresources/delete/{id}', 'PageResourceController@destroy');
     Route::get('/pageresources/edit/{id}', 'PageResourceController@edit');
-    
+
     Route::get('/chapters/create', 'ChapterController@create');
     Route::post('/chapters', 'ChapterController@store');
 
     Route::get('/ajax/data/chapters/{category_id}', 'ChapterController@getChaptersForCategory');
     Route::get('/ajax/actions/minimalise', 'HomeController@minimaliseNavbar');
+
+    Route::get('/u/status', 'UserController@editStatus');
+    Route::put('/u/status', 'UserController@updateStatus');
 
     Route::get('/u/{slug}/', 'UserController@show');
     Route::post('/u/{slug}/drafts/{id?}', 'PageDraftController@store');
@@ -44,14 +47,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/u/{slug}/bookmarks', 'BookmarkController@index');
     Route::get('/u/{slug}/bookmarks/create/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@create');
     Route::get('/u/{slug}/bookmarks/delete/{categorySlug}/{chapterSlug}/{pageSlug?}', 'BookmarkController@destroy');
-    
+
     Route::get('/rankings', 'RankingController@index');
-    
+
     //Static content pages - catch all
     Route::get('/p/{categorySlug}/{chapterSlug}/{pageSlug}', 'PageController@show');
     Route::get('/p/{categorySlug}/{chapterSlug}', 'ChapterController@show');
     Route::get('/p/{categorySlug}/', 'CategoryController@show');
-    
+
     Route::post('/ajax/endpoints/pagepreview', function (Request $request, CommonMarkConverter $converter) {
         return json_encode([
             'identifier' => $request->input('identifier'),
