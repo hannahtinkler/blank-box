@@ -15,7 +15,10 @@
         <h4 class="left m-r-sm">Status:</h4>
         <p class="left m-t-sm">
             {!! $user->status !!}
-            <span class="m-l-xs"><a href="/u/status"><i class="fa fa-pencil"></i></a></span>
+
+            @if($user == $currentUser)
+                <span class="m-l-xs"><a href="/u/status"><i class="fa fa-pencil"></i></a></span>
+            @endif
         </p>
     </div>
 @elseif($user == $currentUser)
