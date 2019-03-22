@@ -11,10 +11,6 @@ $blank-box-skin-nav-bg: #efefef;
 $blank-box-skin-a-color: #3d3d3d;
 $blank-box-skin-page-bg: #f4f6fa;
 
-.blank-box-skin {
-}
-
-
 
 .blank-box-skin .navbar-top-links li:last-child {
   margin-right: 30px;
@@ -55,10 +51,6 @@ $blank-box-skin-page-bg: #f4f6fa;
 .blank-box-skin .navbar-minimalize {
   background: $blank-box-skin-color;
   border-color: $blank-box-skin-color;
-}
-
-body.blank-box-skin:not(.gray-bg) {
-  background: $blank-box-skin-nav-bg;
 }
 
 .blank-box-skin .navbar-static-top {

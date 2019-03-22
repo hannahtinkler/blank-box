@@ -3,10 +3,9 @@
 namespace Tests\Integration\Services;
 
 use TestCase;
-
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
+use App\Models\Chapter;
 use App\Services\ChapterService;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ChapterServiceTest extends TestCase
 {
@@ -14,7 +13,7 @@ class ChapterServiceTest extends TestCase
 
     public function testItCanGetChapterById()
     {
-        $chapter = factory('App\Models\Chapter')->create();
+        $chapter = factory(Chapter::class)->create();
 
         $service = new ChapterService;
 
@@ -27,8 +26,8 @@ class ChapterServiceTest extends TestCase
 
     public function testItCanGetChapterBySlug()
     {
-        $chapter = factory('App\Models\Chapter')->create();
-        
+        $chapter = factory(Chapter::class)->create();
+
         $service = new ChapterService;
 
         $expected = $chapter->toArray();
@@ -40,7 +39,7 @@ class ChapterServiceTest extends TestCase
 
     public function testItCanGetChaptersByCategoryId()
     {
-        $chapter = factory('App\Models\Chapter')->create();
+        $chapter = factory(Chapter::class)->create();
 
         $service = new ChapterService;
 
@@ -53,22 +52,13 @@ class ChapterServiceTest extends TestCase
 
     public function testItCanGetAllChapters()
     {
-        $chapter = factory('App\Models\Chapter')->create(['title' => 'AAA']);
+        $chapter = factory(Chapter::class)->create(['title' => 'AAA']);
 
         $service = new ChapterService;
 
         $expected = [
             $chapter->toArray(),
-            [
-                'id' => 1,
-                'category_id' => 1,
-                'title' => "Sample",
-                'description' => "Sample pages go here.",
-                'order' => 1,
-                'slug' => "sample",
-                'created_at' => "2017-03-30 13:30:52",
-                'updated_at' => "2017-03-30 13:30:52",
-            ],
+            Chapter::find(1)->toArray(),
         ];
 
         $actual = $service->getAll()->toArray();
@@ -103,7 +93,7 @@ class ChapterServiceTest extends TestCase
 
     public function testItCanUpdateNewChapter()
     {
-        $chapter = factory('App\Models\Chapter')->create();
+        $chapter = factory(Chapter::class)->create();
 
         $service = new ChapterService;
 
@@ -114,6 +104,7 @@ class ChapterServiceTest extends TestCase
             'description' => 'An emergency category!',
             'slug' => 'category-999',
             'order' => $chapter->order,
+            'projects_chapter' => 0,
             'created_at' => $chapter->created_at->format('Y-m-d H:i:s'),
             'updated_at' => $chapter->updated_at->format('Y-m-d H:i:s'),
         ];

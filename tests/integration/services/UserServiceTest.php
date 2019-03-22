@@ -3,10 +3,9 @@
 namespace Tests\Integration\Services;
 
 use TestCase;
-
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
+use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserServiceTest extends TestCase
 {
@@ -14,48 +13,29 @@ class UserServiceTest extends TestCase
 
     public function testItCanGetUserById()
     {
+        $user = factory(User::class)->create();
+
         $service = new UserService;
 
-        $expected = [
-            'id' => 1,
-            'name' => "Sarina Lowe",
-            'email' => "gia.halvorson@example.com",
-            'slug' => "sarina-lowe",
-            'default_category_id' => 0,
-            'curator' => 0,
-            'remember_token' => "NCJfVdP5og",
-            'created_at' => "2017-03-24 14:52:32",
-            'updated_at' => "2017-03-24 14:52:32",
-        ];
+        $actual = $service->getById($user->id)->toArray();
 
-        $actual = $service->getById(1)->toArray();
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($user->toArray(), $actual);
     }
 
     public function testItCanGetUserBySlug()
     {
+        $user = factory(User::class)->create();
+
         $service = new UserService;
 
-        $expected = [
-            'id' => 1,
-            'name' => "Sarina Lowe",
-            'email' => "gia.halvorson@example.com",
-            'slug' => "sarina-lowe",
-            'default_category_id' => 0,
-            'curator' => 0,
-            'remember_token' => "NCJfVdP5og",
-            'created_at' => "2017-03-24 14:52:32",
-            'updated_at' => "2017-03-24 14:52:32",
-        ];
+        $actual = $service->getBySlug($user->slug)->toArray();
 
-        $actual = $service->getBySlug('sarina-lowe')->toArray();
-
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($user->toArray(), $actual);
     }
 
     public function testItCanGetAllContributionTotals()
     {
+        $user = factory(User::class)->create();
         $page = factory('App\Models\Page')->create(['approved' => 1]);
         $edit = factory('App\Models\SuggestedEdit')->create(['approved' => 1]);
 
@@ -73,8 +53,8 @@ class UserServiceTest extends TestCase
                 'total' => 1,
             ],
             [
-                'id' => 1,
-                'name' => 'Sarina Lowe',
+                'id' => $user->id,
+                'name' => $user->name,
                 'total' => 0,
             ],
         ];

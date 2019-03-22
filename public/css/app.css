@@ -1,5 +1,6 @@
 body {
-  color: #505050; }
+  color: #505050;
+  background: #f5f7fd; }
 
 .navbar-fixed-top {
   background: #f5f7fd; }
@@ -68,9 +69,6 @@ nav .glyphicon-bookmark {
 .blank-box-skin .navbar-minimalize {
   background: #4a7f98;
   border-color: #4a7f98; }
-
-body.blank-box-skin:not(.gray-bg) {
-  background: #efefef; }
 
 .blank-box-skin .navbar-static-top {
   background: #ffffff; }

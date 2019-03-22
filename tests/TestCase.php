@@ -9,7 +9,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var Prophet
      */
     public $prophet;
-    
+
     /**
      * @var string
      */

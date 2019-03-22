@@ -3,11 +3,9 @@
 namespace Tests\Integration\Services;
 
 use TestCase;
-
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-
 use App\Models\Bookmark;
 use App\Services\BookmarkService;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BookmarkServiceTest extends TestCase
 {
@@ -15,12 +13,14 @@ class BookmarkServiceTest extends TestCase
 
     public function testItCanGetBookmarksByUserSlug()
     {
-        $bookmark1 = factory('App\Models\Bookmark')->create([
-            'user_id' => 1,
+        $user = factory('App\Models\User')->create();
+
+        $bookmark1 = factory(Bookmark::class)->create([
+            'user_id' => $user->id,
         ]);
 
-        $bookmark2 = factory('App\Models\Bookmark')->create([
-            'user_id' => 1,
+        $bookmark2 = factory(Bookmark::class)->create([
+            'user_id' => $user->id,
         ]);
 
         $service = new BookmarkService;
@@ -28,7 +28,7 @@ class BookmarkServiceTest extends TestCase
         $expected = [
             [
                 'id' => $bookmark1->id,
-                'user_id' => 1,
+                'user_id' => $user->id,
                 'category_id' => $bookmark1->category_id,
                 'chapter_id' => $bookmark1->chapter_id,
                 'page_id' => $bookmark1->page_id,
@@ -37,7 +37,7 @@ class BookmarkServiceTest extends TestCase
             ],
             [
                 'id' => $bookmark2->id,
-                'user_id' => 1,
+                'user_id' => $user->id,
                 'category_id' => $bookmark2->category_id,
                 'chapter_id' => $bookmark2->chapter_id,
                 'page_id' => $bookmark2->page_id,
@@ -46,14 +46,14 @@ class BookmarkServiceTest extends TestCase
             ]
         ];
 
-        $actual = $service->getByUserSlug('sarina-lowe')->toArray();
+        $actual = $service->getByUserSlug($user->slug)->toArray();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testItCanGetBookmarksByCategoryAndPageIds()
     {
-        $bookmark = factory('App\Models\Bookmark')->create([
+        $bookmark = factory(Bookmark::class)->create([
             'user_id' => 1,
         ]);
 
@@ -98,7 +98,7 @@ class BookmarkServiceTest extends TestCase
 
     public function testItDoesNotStoreAdditionalBookmarkWhenItAlreadyExists()
     {
-        $bookmark = factory('App\Models\Bookmark')->create([
+        $bookmark = factory(Bookmark::class)->create([
             'user_id' => 1,
         ]);
 
@@ -119,7 +119,7 @@ class BookmarkServiceTest extends TestCase
 
     public function testItCanDeleteBookmark()
     {
-        $bookmark = factory('App\Models\Bookmark')->create([
+        $bookmark = factory(Bookmark::class)->create([
             'user_id' => 1,
         ]);
 

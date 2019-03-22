@@ -19,7 +19,9 @@ $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
         'email' => $faker->safeEmail,
         'curator' => 0,
         'remember_token' => str_random(10),
-        'slug' => str_slug($name)
+        'slug' => str_slug($name),
+        'default_category_id' => 0,
+        'status' => '',
     ];
 });
 
@@ -29,7 +31,7 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
         'title' => $title,
         'description' => $faker->sentence,
         'slug' => str_slug($title),
-        'order' => $faker->randomDigit
+        'order' => $faker->randomDigit,
     ];
 });
 
@@ -40,7 +42,8 @@ $factory->define(App\Models\Chapter::class, function (Faker\Generator $faker) {
         'title' => $title,
         'description' => $faker->sentence,
         'order' => $faker->randomDigit,
-        'slug' => str_slug($title)
+        'slug' => str_slug($title),
+        'projects_chapter' => 0,
     ];
 });
 
@@ -84,7 +87,7 @@ $factory->define(App\Models\Bookmark::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\SuggestedEdit::class, function (Faker\Generator $faker) {
     $title = $faker->sentence;
     $page = factory(App\Models\Page::class)->create();
-    
+
     return [
         'chapter_id' => factory(App\Models\Chapter::class)->create()->id,
         'page_id' => $page->id,
@@ -117,7 +120,7 @@ $factory->define(App\Models\BadgeType::class, function (Faker\Generator $faker) 
 $factory->define(App\Models\Badge::class, function (Faker\Generator $faker) {
     $badgeType = factory(App\Models\BadgeType::class)->create();
     $user = factory(App\Models\User::class)->create();
-    
+
     return [
         'badge_type_id' => $badgeType->id,
         'name' => $faker->sentence(3),
@@ -130,7 +133,7 @@ $factory->define(App\Models\Badge::class, function (Faker\Generator $faker) {
 $factory->define(App\Models\UserBadge::class, function (Faker\Generator $faker) {
     $badge = factory(App\Models\Badge::class)->create();
     $user = factory(App\Models\User::class)->create();
-    
+
     return [
         'badge_id' => $badge->id,
         'user_id' => $user->id,
@@ -166,7 +169,7 @@ $factory->define(App\Models\FeedEvent::class, function (Faker\Generator $faker) 
     $user = factory(App\Models\User::class)->create();
     $type = factory(App\Models\FeedEventType::class)->create();
     $page = factory(App\Models\Page::class)->create();
-    
+
     return [
         'feed_event_type_id' => $type->id,
         'user_id' => $user->id,

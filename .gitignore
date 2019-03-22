@@ -19,4 +19,4 @@ storage/
 
 #PHPStorm project
 .idea
-
+.DS_Store
