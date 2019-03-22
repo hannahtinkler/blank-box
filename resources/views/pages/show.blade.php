@@ -6,7 +6,7 @@
 @include('partials.page_options')
 <h2>
     {{ $page->title }}
-    @if($page->approved === null)
+    @if(config('app.curation_enabled') && $page->approved === null)
         <span class="label label-warning m-l-sm"><i class="fa fa-flag"></i> Pending Curation</span>
     @elseif($page->approved === 0)
         <span class="label label-danger m-l-sm"><i class="fa fa-remove"></i> Rejected</span>

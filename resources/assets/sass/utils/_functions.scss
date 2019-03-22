@@ -1,0 +1,15 @@
+@function map-deep-get($map, $keys...) {
+    @each $key in $keys {
+        $map: map-get($map, $key);
+    }
+
+    @return $map;
+}
+
+@function color($color, $shade: default) {
+    @return map-deep-get($brand-colors, $color, $shade);
+}
+
+@function z-index($type) {
+    @return map-get($z-index-levels, $type);
+}

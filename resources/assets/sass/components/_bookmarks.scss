@@ -1,0 +1,20 @@
+.bookmark {
+  position: fixed;
+  top: 45px;
+  right: 70px;
+  font-size: 7em;
+  transform: scale(0.6, 1.0);
+  color: #734989;
+  opacity: 0.2;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+.bookmark.active,
+.bookmark:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+nav .glyphicon-bookmark {
+  position: relative;
+  top: 2px;
+}

@@ -15,6 +15,8 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'name' => env('APP_NAME', 'production'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
@@ -209,4 +211,5 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
     ],
 
+    'curation_enabled' => env('FEATURE_CURATION_ENABLED', false),
 ];
