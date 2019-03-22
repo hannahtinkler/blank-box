@@ -4,6 +4,11 @@
 
 <h1>
     {{ $user->name }}
+
+    @if(str_contains($user->name, 'Leah'))
+        <small><i class="glyphicon glyphicon-heart"></i></small>
+    @endif
+
     <div class="label label-success right"><i class="fa fa-flag"></i> Curator</div>
 </h1>
 <h2>{{ $user->email }}</h2>
