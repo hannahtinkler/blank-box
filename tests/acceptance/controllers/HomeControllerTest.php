@@ -62,7 +62,7 @@ class HomeControllerTest extends TestCase
 
         $this->get('/switchcategory/' . $category->id)
             ->assertResponseStatus(302);
-        
+
         $this->get('/')
             ->see('<span class="text-mutedblock" title="You are currently exploring the '. $category->title .' category.');
     }
@@ -70,19 +70,6 @@ class HomeControllerTest extends TestCase
     public function testItCanAccessFeed()
     {
         $this->logInAsUser();
-
-        $this->get('/')
-            ->see('Page Title')
-            ->assertResponseStatus(200);
-    }
-
-    public function testItCanAccessFeedWithDeletedResource()
-    {
-        $this->logInAsUser();
-
-        $event = factory('App\Models\Category')->create();
-
-        Page::where('id', $event->resource_id)->delete();
 
         $this->get('/')
             ->see('Page Title')

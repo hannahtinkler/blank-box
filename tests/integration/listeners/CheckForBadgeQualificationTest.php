@@ -13,6 +13,8 @@ use App\Services\TagService;
 use App\Services\UserService;
 use App\Services\PageService;
 use App\Services\BadgeService;
+use App\Services\PageResourceService;
+use App\Services\SuggestedEditService;
 
 class CheckForBadgeQualificationTest extends TestCase
 {
@@ -20,7 +22,7 @@ class CheckForBadgeQualificationTest extends TestCase
 
     public function testItCanHandleEventAndAddBadges()
     {
-        $page = factory('App\Models\Page')->create(['approved' => true]);
+        $page = factory('App\Models\Page')->create(['approved' => 1]);
 
         $event = new PageWasAdded($page);
 
@@ -29,7 +31,9 @@ class CheckForBadgeQualificationTest extends TestCase
             new UserService,
             new PageService(
                 new TagService
-            )
+            ),
+            new SuggestedEditService,
+            new PageResourceService
         );
 
         $listener->handle($event);

@@ -15,7 +15,8 @@ class RankingServiceTest extends TestCase
 
     public function testItCanGetAllRankings()
     {
-        $page = factory('App\Models\Page')->create(['approved' => true]);
+        $user = factory('App\Models\User')->create();
+        $page = factory('App\Models\Page')->create(['approved' => 1]);
 
         $service = new RankingService(new UserService);
 
@@ -25,8 +26,8 @@ class RankingServiceTest extends TestCase
                 'rank' => 1,
                 'score' => 3,
             ],
-            'Sarina Lowe' => [
-                'slug' => "sarina-lowe",
+            $user->name => [
+                'slug' => $user->slug,
                 'rank' => 2,
                 'score' => 0,
             ],

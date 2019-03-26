@@ -38,9 +38,9 @@ class ChapterTest extends TestCase
 
         $overrides = [
             'chapter_id' => $chapter->id,
-            'approved' => true
+            'approved' => 1
         ];
-        
+
         factory('App\Models\Page')->create($overrides);
         factory('App\Models\Page')->create($overrides);
 
@@ -69,9 +69,9 @@ class ChapterTest extends TestCase
     public function testApprovedPagesRelationshipReturnsApprovedPages()
     {
         $chapter = factory('App\Models\Chapter')->create();
-        
-        factory('App\Models\Page')->create(['chapter_id' => $chapter->id, 'approved' => true]);
-        factory('App\Models\Page')->create(['chapter_id' => $chapter->id, 'approved' => false]);
+
+        factory('App\Models\Page')->create(['chapter_id' => $chapter->id, 'approved' => 1]);
+        factory('App\Models\Page')->create(['chapter_id' => $chapter->id, 'approved' => 0]);
 
         $this->assertCount(1, $chapter->approvedPages);
     }

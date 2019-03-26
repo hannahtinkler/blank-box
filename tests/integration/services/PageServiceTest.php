@@ -59,7 +59,7 @@ class PageServiceTest extends TestCase
 
     public function testItCanGetApprovedPagesForUser()
     {
-        $page = factory('App\Models\Page')->create(['approved' => true]);
+        $page = factory('App\Models\Page')->create(['approved' => 1]);
 
         $service = new PageService(new TagService);
 
@@ -179,7 +179,7 @@ class PageServiceTest extends TestCase
             'approved' => 1,
         ]);
     }
-    
+
     public function testItCanRejectPage()
     {
         $page = factory('App\Models\Page')->create(['approved' => null]);

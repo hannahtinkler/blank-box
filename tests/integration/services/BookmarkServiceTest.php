@@ -32,8 +32,8 @@ class BookmarkServiceTest extends TestCase
                 'category_id' => $bookmark1->category_id,
                 'chapter_id' => $bookmark1->chapter_id,
                 'page_id' => $bookmark1->page_id,
-                'created_at' => $bookmark1->created_at,
-                'updated_at' => $bookmark1->updated_at,
+                'created_at' => $bookmark1->created_at->format('Y-m-d H:i:s'),
+                'updated_at' => $bookmark1->updated_at->format('Y-m-d H:i:s'),
             ],
             [
                 'id' => $bookmark2->id,
@@ -41,9 +41,9 @@ class BookmarkServiceTest extends TestCase
                 'category_id' => $bookmark2->category_id,
                 'chapter_id' => $bookmark2->chapter_id,
                 'page_id' => $bookmark2->page_id,
-                'created_at' => $bookmark2->created_at,
-                'updated_at' => $bookmark2->updated_at,
-            ]
+                'created_at' => $bookmark2->created_at->format('Y-m-d H:i:s'),
+                'updated_at' => $bookmark2->updated_at->format('Y-m-d H:i:s'),
+            ],
         ];
 
         $actual = $service->getByUserSlug($user->slug)->toArray();
@@ -65,8 +65,8 @@ class BookmarkServiceTest extends TestCase
             'category_id' => $bookmark->category_id,
             'chapter_id' => $bookmark->chapter_id,
             'page_id' => $bookmark->page_id,
-            'created_at' => $bookmark->created_at,
-            'updated_at' => $bookmark->updated_at,
+            'created_at' => $bookmark->created_at->format('Y-m-d H:i:s'),
+            'updated_at' => $bookmark->updated_at->format('Y-m-d H:i:s'),
         ];
 
         $actual = $service->getByIds(

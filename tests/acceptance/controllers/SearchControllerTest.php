@@ -23,14 +23,14 @@ class SearchControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory('App\Models\Page')->create();
+        $page = factory('App\Models\Page')->create(['title' => 'Hello']);
 
         $page->addToIndex();
 
         sleep(1);
 
         $this->get('/search/' . substr($page->title, 0, 10))
-            ->seeJson(["title" => $page->title])
+            ->seeJson(["title" => 'Hello'])
             ->assertResponseStatus(200);
     }
 

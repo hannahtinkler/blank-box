@@ -87,8 +87,6 @@ class PageControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $currentCount = Page::all()->count();
-
         $chapter = factory('App\Models\Chapter')->create();
 
         $data = [
@@ -127,7 +125,7 @@ class PageControllerTest extends TestCase
             '_token' => csrf_token(),
         ])
         ->assertResponseStatus(302);
-        
+
         $this->assertSessionHasErrors();
     }
 
@@ -204,7 +202,7 @@ class PageControllerTest extends TestCase
         ];
 
         $this->put('/pages/' . $page->id, $data)->assertResponseStatus(302);
-        
+
         $this->assertSessionHasErrors();
     }
 
