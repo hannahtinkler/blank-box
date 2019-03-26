@@ -3501,7 +3501,6 @@ body.body-small .footer.fixed {
 }
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
-  background-color: #F5F5F6;
   border-bottom-width: 1px;
 }
 .table-bordered > thead > tr > th,
@@ -7446,7 +7445,6 @@ table.table th {
 }
 table.table th,
 table.table td {
-  background-color: #F4F6FA ;
   border: none !important;
 }
 .table-hover > tbody > tr:not(.table-heading):hover td,
