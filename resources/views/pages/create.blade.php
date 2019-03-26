@@ -22,7 +22,7 @@
     {!! csrf_field() !!}
     <div class="col-sm-6">
         <div class="form-group">
-            <label>Category</label> 
+            <label>Category</label>
             <select id="category_id" name="category_id" class="form-control">
                 <option value="">Select a category...</option>
                 @foreach($categories as $category)
@@ -33,22 +33,22 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group">
-            <label>Chapter</label> 
+            <label>Chapter</label>
             <select name="chapter_id" disabled="true" id="chapter_id" class="form-control">
             </select>
         </div>
     </div>
-        
+
     <div class="col-sm-12">
         <div class="form-group">
-            <label>Page Title</label> 
+            <label>Page Title</label>
             <input class="form-control" value="{{ old('title') }}" name="title" id="title" />
         </div>
     </div>
-        
+
     <div class="col-sm-12">
         <div class="form-group">
-            <label>Page Description</label> 
+            <label>Page Description</label>
             <textarea class="form-control" name="description" id="description">{{ old('description') }}</textarea>
         </div>
     </div>
@@ -58,7 +58,14 @@
             <label>Content</label>
             <textarea class="form-control" name="content" id="content">{{ old('content') }}</textarea>
         </div>
-        <small class="italic help-block last-saved pull-right m-b-sm">Not yet saved</small>
+
+        <div class="m-b-xl">
+            <label>
+                <input type="checkbox" name="has_resources" value="1" {{ old('has_resources') ? 'checked="true"' : '' }}"/>
+                Enable resources for this page
+            </label>
+            <small class="italic help-block last-saved pull-right m-b-sm">Not yet saved</small>
+        </div>
     </div>
 
     <!-- <div class="col-sm-12 m-b-lg">

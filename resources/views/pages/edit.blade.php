@@ -69,6 +69,13 @@
                 </div>
             </div>
 
+            <div class="col-sm-12 m-b-xl">
+                <label>
+                    <input type="checkbox" name="has_resources" value="1" {{ $page->has_resources ? 'checked="true"' : '' }}"/>
+                    Enable resources for this page
+                </label>
+            </div>
+
             <!-- <div class="col-sm-12  m-b-lg">
                 <div class="form-group">
                     <label>Tags <span class="italic">(comma separated)</span> <i class="fa fa-question-circle pointer" title="These tags will be used to suggest help pages for Orbit tasks based on task title"></i></label>
@@ -106,7 +113,7 @@
 
 <script>
     var simpleMde = getSimpleMde(document.getElementById('content'))
-    
+
     $('#tag-select').select2({
         tags: true,
         tokenSeparators: [','],

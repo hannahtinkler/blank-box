@@ -34,7 +34,7 @@
     {!! $page->content !!}
 </div>
 
-@if($page->chapter->projects_chapter)
+@if($page->chapter->projects_chapter || $page->has_resources)
     @if(count($resources, COUNT_RECURSIVE) > 15)
         <h3 class="m-t-lg m-b-sm">Contents</h3>
         <ul class="no-bullet">

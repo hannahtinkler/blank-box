@@ -12,7 +12,7 @@ class PageService implements SearchableService
     use Sluggable;
 
     private $tags;
-    
+
     public function __construct(TagService $tags)
     {
         $this->tags = $tags;
@@ -56,7 +56,7 @@ class PageService implements SearchableService
         if (!$page) {
             $page = $this->getByForwardedSlug($slug);
         }
-            
+
         return $page;
     }
 
@@ -67,7 +67,7 @@ class PageService implements SearchableService
             ->where('old_slug', $slug)
             ->firstOrFail();
     }
-    
+
     /**
      * @param  int $userId
      * @return Page
@@ -105,7 +105,8 @@ class PageService implements SearchableService
             'created_by' => $data['user_id'],
             'slug' => $this->getSlug(Page::class, $data['title']),
             'order' => 0,
-            'approved' => $data['approved']
+            'approved' => $data['approved'],
+            'has_resources' => $data['has_resources'] ?? false,
         ]);
 
         if (isset($data['tags'])) {
@@ -129,7 +130,7 @@ class PageService implements SearchableService
             $page->slug = $this->getSlug(Page::class, $data['title']);
             $this->registerNewSlug($oldSlug, $page->slug);
         }
-        
+
         if (isset($data['approved'])) {
             $page->approved = $data['approved'];
         }
@@ -138,6 +139,7 @@ class PageService implements SearchableService
         $page->title = $data['title'];
         $page->description = $data['description'];
         $page->content = $data['content'];
+        $page->has_resources = $data['has_resources'] ?? false;
 
         $page->save();
 
