@@ -55,7 +55,7 @@ class SearchService
 
         foreach ($searchables as $searchable) {
             $searchable = trim(strtolower($searchable));
-            
+
             $class = $this->services[$searchable];
 
             $results = array_merge(

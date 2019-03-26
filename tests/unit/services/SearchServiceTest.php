@@ -16,6 +16,7 @@ use App\Models\Page;
 use App\Services\PageService;
 use App\Services\UserService;
 use App\Services\ChapterService;
+use App\Services\PageResourceService;
 
 class SearchServiceTest extends TestCase
 {
@@ -30,6 +31,7 @@ class SearchServiceTest extends TestCase
         $pageService = $this->mock(PageService::class);
         $chapterService = $this->mock(ChapterService::class);
         $userService = $this->mock(UserService::class);
+        $pageResourceService = $this->mock(PageResourceService::class);
 
         $request->ajax()->willReturn(true)->shouldBeCalled();
 
@@ -41,6 +43,7 @@ class SearchServiceTest extends TestCase
             $request->reveal(),
             $pageService->reveal(),
             $chapterService->reveal(),
+            $pageResourceService->reveal(),
             $userService->reveal()
         );
 
@@ -57,7 +60,7 @@ class SearchServiceTest extends TestCase
             ]
         ];
 
-        $actual = $service->process('hannah', ['users', 'pages', 'chapters']);
+        $actual = $service->process('hannah', ['user', 'page', 'chapter']);
 
         $this->assertEquals($expected, $actual);
     }
@@ -71,6 +74,7 @@ class SearchServiceTest extends TestCase
         $pageService = $this->mock(PageService::class);
         $chapterService = $this->mock(ChapterService::class);
         $userService = $this->mock(UserService::class);
+        $pageResourceService = $this->mock(PageResourceService::class);
 
         $request->ajax()->willReturn(true)->shouldBeCalled();
 
@@ -78,6 +82,7 @@ class SearchServiceTest extends TestCase
             $request->reveal(),
             $pageService->reveal(),
             $chapterService->reveal(),
+            $pageResourceService->reveal(),
             $userService->reveal()
         );
 
@@ -108,6 +113,7 @@ class SearchServiceTest extends TestCase
         $pageService = $this->mock(PageService::class);
         $chapterService = $this->mock(ChapterService::class);
         $userService = $this->mock(UserService::class);
+        $pageResourceService = $this->mock(PageResourceService::class);
 
         $request->ajax()->willReturn(true)->shouldBeCalled();
 
@@ -115,6 +121,7 @@ class SearchServiceTest extends TestCase
             $request->reveal(),
             $pageService->reveal(),
             $chapterService->reveal(),
+            $pageResourceService->reveal(),
             $userService->reveal()
         );
 

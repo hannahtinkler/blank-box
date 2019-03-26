@@ -39,7 +39,7 @@ class UserRepositoryTest extends TestCase
     {
         $user = factory('App\Models\User')->create(['curator' => 1]);
 
-        $expected = 'User: ' . $user->name . ' (Curator)';
+        $expected = 'User: ' . $user->name . (env('FEATURE_CURATION_ENABLED') ? ' (Curator)' : '');
 
         $actual = $user->searchResultString;
 
@@ -68,7 +68,7 @@ class UserRepositoryTest extends TestCase
             'badgeCount' => 1,
             'bestBadge' => $badge->badge->name,
         ];
-        
+
         $actual = $user->communityData;
 
         $this->assertInternalType('int', $expected['rank']);
@@ -85,7 +85,7 @@ class UserRepositoryTest extends TestCase
             'created_by' => $user->id,
             'approved' => 1,
         ]);
-        
+
         $page2 = factory('App\Models\Page')->create([
             'created_by' => $user->id,
             'approved' => 1,
@@ -96,19 +96,19 @@ class UserRepositoryTest extends TestCase
             'created_by' => $user->id,
             'approved' => 1,
         ]);
-        
+
         factory('App\Models\SuggestedEdit')->create([
             'chapter_id' => $page1->chapter->id,
             'created_by' => $user->id,
             'approved' => 1,
         ]);
-        
+
         factory('App\Models\Page')->create([
             'chapter_id' => $page2->chapter->id,
             'created_by' => $user->id,
             'approved' => 1,
         ]);
-        
+
         $row1 = new StdClass;
         $row1->title = $page1->chapter->title;
         $row1->chapterSlug = $page1->chapter->slug;
@@ -120,14 +120,14 @@ class UserRepositoryTest extends TestCase
         $row2->chapterSlug = $page2->chapter->slug;
         $row2->categorySlug = $page2->chapter->category->slug;
         $row2->total = 2;
-        
+
         $expected = [
             $row1,
             $row2,
         ];
-        
+
         $actual = $user->specialistAreas;
-        
+
         $this->assertEquals($expected, $actual);
     }
 }

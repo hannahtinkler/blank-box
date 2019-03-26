@@ -12,7 +12,7 @@ use App\Services\PageService;
 class PageServiceTest extends TestCase
 {
     use DatabaseTransactions;
-    
+
     public function testItCanTellIfPageShouldBeApprovedIfCurationIsOff()
     {
         $user = factory('App\Models\User')->create(['curator' => 0]);
@@ -26,7 +26,7 @@ class PageServiceTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testItCanTellIfPageShouldBeApprovedIfUserIsCurator()
     {
         $user = factory('App\Models\User')->create(['curator' => 1]);
@@ -63,7 +63,7 @@ class PageServiceTest extends TestCase
 
         putenv('FEATURE_CURATION_ENABLED=true');
 
-        $page = factory('App\Models\Page')->create(['approved' => true]);
+        $page = factory('App\Models\Page')->create(['approved' => 1]);
 
         $service = new PageService(new TagService);
 

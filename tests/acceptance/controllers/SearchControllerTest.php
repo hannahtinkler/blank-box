@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class SearchControllerTest extends TestCase
 {
     use DatabaseTransactions;
-    
+
     /**
      * @var User
      */
@@ -23,9 +23,7 @@ class SearchControllerTest extends TestCase
     {
         $this->logInAsUser();
 
-        $page = factory('App\Models\Page')->create([
-            'approved' => true
-        ]);
+        $page = factory('App\Models\Page')->create();
 
         $page->addToIndex();
 

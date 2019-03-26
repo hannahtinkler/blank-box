@@ -31,6 +31,6 @@
         <env name="FEATURE_CURATION_ENABLED" value="true"/>
         <env name="FEATURE_BADGES_ENABLED" value="true"/>
         <env name="ELASTICSEARCH_INDEX" value="blank_box_test"/>
-        <env name="ELASTICSEARCH_SEARCHABLES" value="users,pages,chapters"/>
+        <env name="ELASTICSEARCH_SEARCHABLES" value="user,page,chapter"/>
     </php>
 </phpunit>

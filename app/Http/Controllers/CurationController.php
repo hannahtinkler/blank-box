@@ -52,7 +52,7 @@ class CurationController extends Controller
     {
         return redirect('/curation/new');
     }
-    
+
     /**
      * @return View
      */
@@ -72,7 +72,7 @@ class CurationController extends Controller
 
         return view('curation.suggestededits', compact('edits'));
     }
-    
+
     /**
      * @param  int $id
      * @return Redirect
@@ -88,7 +88,7 @@ class CurationController extends Controller
             '<i class="fa fa-check"></i> This page has been approved'
         );
     }
-    
+
     /**
      * @param  int $id
      * @return Redirect
@@ -102,7 +102,7 @@ class CurationController extends Controller
             '<i class="fa fa-check"></i> This page has been rejected'
         );
     }
-    
+
     /**
      * @param  int $id
      * @return Redirect
@@ -110,7 +110,7 @@ class CurationController extends Controller
     public function approveEdit($id)
     {
         $edit = $this->suggestedEdits->getById($id);
-        
+
         $this->pages->update($edit->page_id, [
             'chapter_id' => $edit->chapter_id,
             'title' => $edit->title,
@@ -118,17 +118,17 @@ class CurationController extends Controller
             'content' => $edit->content,
             'approved' => 1
         ]);
-        
+
         $this->suggestedEdits->approve($edit->id);
 
-        Event::fire(new PageWasEdited($edit));
+        Event::fire(new PageWasEdited($edit->page));
 
         return redirect('/curation/edits')->with(
             'message',
             '<i class="fa fa-check"></i> This suggested edit has been approved and merged into the original page.'
         );
     }
-    
+
     /**
      * @param  int $id
      * @return Redirect
@@ -142,7 +142,7 @@ class CurationController extends Controller
             '<i class="fa fa-check"></i> This suggested edit has been rejected and will not be merged into the original page.'
         );
     }
-    
+
     /**
      * @param  Request $request
      * @param  int  $id

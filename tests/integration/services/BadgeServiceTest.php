@@ -19,9 +19,9 @@ class BadgeServiceTest extends TestCase
         $expected = [
             'id' => '1',
             'badge_type_id' => '1',
-            'name' => 'Rank 1',
+            'name' => 'Pages Added: Rank 1',
             'description' => 'Earned by submitting 1 page',
-            'image' => '/images/badges/code_bronze.png',
+            'image' => '/images/badges/workflows_bronze.png',
             'level' => '1',
             'metric_boundary' => '1',
             'created_at' => '2016-09-30 14:47:33',
@@ -32,7 +32,7 @@ class BadgeServiceTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testItCanGetBadgesByUserId()
     {
         $service = new BadgeService;
@@ -43,9 +43,9 @@ class BadgeServiceTest extends TestCase
             [
                 'id' => '1',
                 'badge_type_id' => '1',
-                'name' => 'Rank 1',
+                'name' => 'Pages Added: Rank 1',
                 'description' => 'Earned by submitting 1 page',
-                'image' => '/images/badges/code_bronze.png',
+                'image' => '/images/badges/workflows_bronze.png',
                 'level' => '1',
                 'metric_boundary' => '1',
                 'created_at' => '2016-09-30 14:47:33',
@@ -57,7 +57,7 @@ class BadgeServiceTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testItCanGetBestBadgeByUserId()
     {
         factory('App\Models\UserBadge')->create(['badge_id' => 2, 'user_id' => 1]);
@@ -69,9 +69,9 @@ class BadgeServiceTest extends TestCase
         $expected = [
             'id' => '4',
             'badge_type_id' => '1',
-            'name' => 'Rank 4',
+            'name' => 'Pages Added: Rank 4',
             'description' => 'Earned by submitting 50 pages',
-            'image' => '/images/badges/code_platinum.png',
+            'image' => '/images/badges/workflows_platinum.png',
             'level' => '4',
             'metric_boundary' => '50',
             'created_at' => '2016-09-30 14:47:33',
@@ -82,7 +82,7 @@ class BadgeServiceTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
-    
+
     public function testItCanGetNewlyEarnedBadgesByUserId()
     {
         $service = new BadgeService;
@@ -91,9 +91,9 @@ class BadgeServiceTest extends TestCase
             [
                 'id' => 1,
                 'badge_type_id' => 1,
-                'name' => "Rank 1",
+                'name' => "Pages Added: Rank 1",
                 'description' => "Earned by submitting 1 page",
-                'image' => "/images/badges/code_bronze.png",
+                'image' => "/images/badges/workflows_bronze.png",
                 'level' => 1,
                 'metric_boundary' => 1,
                 'created_at' => "2016-09-30 14:47:33",
@@ -102,9 +102,9 @@ class BadgeServiceTest extends TestCase
             [
                 'id' => 2,
                 'badge_type_id' => 1,
-                'name' => "Rank 2",
+                'name' => "Pages Added: Rank 2",
                 'description' => "Earned by submitting 10 pages",
-                'image' => "/images/badges/code_silver.png",
+                'image' => "/images/badges/workflows_silver.png",
                 'level' => 2,
                 'metric_boundary' => 10,
                 'created_at' => "2016-09-30 14:47:33",
@@ -113,9 +113,9 @@ class BadgeServiceTest extends TestCase
             [
                 'id' => 3,
                 'badge_type_id' => 1,
-                'name' => "Rank 3",
+                'name' => "Pages Added: Rank 3",
                 'description' => "Earned by submitting 30 pages",
-                'image' => "/images/badges/code_gold.png",
+                'image' => "/images/badges/workflows_gold.png",
                 'level' => 3,
                 'metric_boundary' => 30,
                 'created_at' => "2016-09-30 14:47:33",
@@ -165,7 +165,7 @@ class BadgeServiceTest extends TestCase
             'read' => 0,
         ]);
     }
-    
+
     public function testItCanMarkAllUnseenBadgesAsSeen()
     {
         $userBadge = factory('App\Models\UserBadge')->create([
@@ -181,7 +181,7 @@ class BadgeServiceTest extends TestCase
             'read' => 1,
         ]);
     }
-    
+
     public function testItCanTellIfUserHasBadge()
     {
         $userBadge = factory('App\Models\UserBadge')->create();
@@ -189,10 +189,10 @@ class BadgeServiceTest extends TestCase
         $service = new BadgeService;
 
         $hasBadge = $service->userHasBadge($userBadge->user->id, $userBadge->badge_id);
-    
+
         $this->assertTrue($hasBadge);
     }
-    
+
     public function testItCanTellIfUserDoesntHaveBadge()
     {
         $userBadge = factory('App\Models\UserBadge')->create();
@@ -200,7 +200,7 @@ class BadgeServiceTest extends TestCase
         $service = new BadgeService;
 
         $hasBadge = $service->userHasBadge(1, $userBadge->badge_id);
-    
+
         $this->assertFalse($hasBadge);
     }
 
@@ -208,99 +208,21 @@ class BadgeServiceTest extends TestCase
     {
         $service = new BadgeService;
 
-        $expected = [
-            [
-                'id' => 1,
-                'badge_type_id' => 1,
-                'name' => "Rank 1",
-                'description' => "Earned by submitting 1 page",
-                'image' => "/images/badges/code_bronze.png",
-                'level' => 1,
-                'metric_boundary' => 1,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-            [
-                'id' => 2,
-                'badge_type_id' => 1,
-                'name' => "Rank 2",
-                'description' => "Earned by submitting 10 pages",
-                'image' => "/images/badges/code_silver.png",
-                'level' => 2,
-                'metric_boundary' => 10,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-            [
-                'id' => 3,
-                'badge_type_id' => 1,
-                'name' => "Rank 3",
-                'description' => "Earned by submitting 30 pages",
-                'image' => "/images/badges/code_gold.png",
-                'level' => 3,
-                'metric_boundary' => 30,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-            [
-                'id' => 4,
-                'badge_type_id' => 1,
-                'name' => "Rank 4",
-                'description' => "Earned by submitting 50 pages",
-                'image' => "/images/badges/code_platinum.png",
-                'level' => 4,
-                'metric_boundary' => 50,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-            [
-                'id' => 5,
-                'badge_type_id' => 2,
-                'name' => "Rank 1",
-                'description' => "Earned by editing 1 page",
-                'image' => "/images/badges/code_bronze.png",
-                'level' => 1,
-                'metric_boundary' => 1,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-            [
-                'id' => 6,
-                'badge_type_id' => 2,
-                'name' => "Rank 2",
-                'description' => "Earned by editing 10 pages",
-                'image' => "/images/badges/code_silver.png",
-                'level' => 2,
-                'metric_boundary' => 10,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-            [
-                'id' => 7,
-                'badge_type_id' => 2,
-                'name' => "Rank 3",
-                'description' => "Earned by editing 30 pages",
-                'image' => "/images/badges/code_gold.png",
-                'level' => 3,
-                'metric_boundary' => 30,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-            [
-                'id' => 8,
-                'badge_type_id' => 2,
-                'name' => "Rank 4",
-                'description' => "Earned by editing 50 pages",
-                'image' => "/images/badges/code_platinum.png",
-                'level' => 4,
-                'metric_boundary' => 50,
-                'created_at' => "2016-09-30 14:47:33",
-                'updated_at' => "2016-09-30 14:47:33",
-            ],
-        ];
+        foreach ($service->getAll()->toArray() as $badge) {
+            $this->assertBadgeFormat($badge);
+        }
+    }
 
-        $actual = $service->getAll()->toArray();
-
-        $this->assertEquals($expected, $actual);
+    private function assertBadgeFormat($badge)
+    {
+        $this->assertArrayHasKey('id', $badge);
+        $this->assertArrayHasKey('badge_type_id', $badge);
+        $this->assertArrayHasKey('name', $badge);
+        $this->assertArrayHasKey('description', $badge);
+        $this->assertArrayHasKey('image', $badge);
+        $this->assertArrayHasKey('level', $badge);
+        $this->assertArrayHasKey('metric_boundary', $badge);
+        $this->assertArrayHasKey('created_at', $badge);
+        $this->assertArrayHasKey('updated_at', $badge);
     }
 }

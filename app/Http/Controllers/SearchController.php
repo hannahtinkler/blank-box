@@ -12,7 +12,7 @@ class SearchController extends Controller
      * @var SearchService
      */
     private $search;
-    
+
     public function __construct(SearchService $search)
     {
         $this->search = $search;
@@ -31,7 +31,7 @@ class SearchController extends Controller
             $this->search->process($term, $searchables)
         );
     }
-    
+
     /**
      * @param  string  $term
      * @return View
@@ -39,7 +39,7 @@ class SearchController extends Controller
     public function showSearchResults($term)
     {
         $searchables = config('elasticquent.searchables');
-        
+
         $results = $this->search->process($term, $searchables);
 
         return view('search.results', [
