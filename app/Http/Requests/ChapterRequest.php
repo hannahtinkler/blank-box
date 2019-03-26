@@ -22,7 +22,6 @@ class ChapterRequest extends FormRequest
         return [
             'category_id' => 'required|integer|exists:categories,id',
             'title' => 'required',
-            'description' => 'required|min:10'
         ];
     }
 }
