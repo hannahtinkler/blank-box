@@ -1,6 +1,8 @@
 $brand-colors: (
     primary: (
-        light: #7dabc4,
+        lighter: #f1f4f6,
+        light: #d4e2ea,
+        default: #7dabc4,
     ),
     secondary: (
         default: #734989,
@@ -10,7 +12,7 @@ $brand-colors: (
     ),
     off-white: (
         light: #fcfcfc,
-        default: #f5f7fd,
+        default: #f9f9fa,
         dark: #dfdfdf,
     ),
 );

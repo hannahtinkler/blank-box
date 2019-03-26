@@ -89,7 +89,7 @@
                                 @foreach($chapter->pages as $page)
                                     <li>
                                         <a href="/p/{{ $current['category']->slug }}/{{ $chapter->slug }}/{{ $page->slug }}">
-                                            @if($chapter->projects_chapter)
+                                            @if($chapter->projects_chapter || $page->has_resources)
                                                 <i class="fa fa-inbox"></i>
                                             @else
                                                 <i class="fa fa-file-o"></i>

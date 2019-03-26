@@ -4,10 +4,13 @@
 @import "utils/mixins";
 
 @import "layout/global";
+@import "elements/typography";
+@import "elements/icons";
 
 @import "components/nav-primary";
 @import "components/nav-secondary";
 @import "components/wrapper";
 @import "components/bookmarks";
+@import "components/timeline";
 
 @import "shame.scss";

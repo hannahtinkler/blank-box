@@ -1,16 +1,20 @@
 body {
   color: #505050;
-  background: #f5f7fd; }
+  background: #f9f9fa; }
+
+.fa-inbox {
+  font-size: 115%;
+  transform: translate3d(-12%, 0, 0); }
 
 .navbar-fixed-top {
-  background: #f5f7fd; }
+  background: #f9f9fa; }
 
 .navbar-default {
   height: 100%;
-  background: -webkit-linear-gradient(top, #7dabc4 0%, #f5f7fd 30%); }
+  background: -webkit-linear-gradient(top, #7dabc4 0%, #f9f9fa 30%); }
 
 #page-wrapper {
-  background: #f5f7fd;
+  background: #f9f9fa;
   z-index: 999;
   border-left: 1px solid #dfdfdf; }
 
@@ -32,6 +36,10 @@ body {
 nav .glyphicon-bookmark {
   position: relative;
   top: 2px; }
+
+.vertical-timeline-content {
+  border: thin solid #d4e2ea;
+  background: #f1f4f6; }
 
 /*
  *
