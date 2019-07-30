@@ -21,6 +21,14 @@ body {
   background-position: 100% 50%;
 }
 
+.table-heading td {
+  padding-bottom: 2rem !important;
+}
+
+.table-heading:hover {
+  background-color: transparent !important;
+}
+
 .navbar-fixed-top {
   background: #f9f9fa;
 }

@@ -79,7 +79,7 @@
 
             <tab name="{{ '<i class="fa fa-forge"></i>' }}">
                 <div class="m-b-xl">
-                    <h4 class="m-t-md m-b-md">
+                    <h4 class="m-t-sm m-l-xs m-b-md">
                         Forge Sites
                     </h4>
 
@@ -157,7 +157,7 @@
 
             <tab name="{{ '<i class="fa fa-plus"></i>' }}">
                 <form id="add-resource-form" action="/pageresources" method="POST">
-                    <h4 class="m-t-md p-b-xl">Add Resource</h4>
+                    <h4 class="m-t-sm m-b-md">Add Resource</h4>
 
                     {{ csrf_field() }}
                     <input type="hidden" name="id" value="{{ $page->id }}" />
