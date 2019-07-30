@@ -61,7 +61,7 @@
 
         <div class="m-b-xl">
             <label>
-                <input type="checkbox" name="has_resources" value="1" {{ old('has_resources') ? 'checked="true"' : '' }}"/>
+                <input type="checkbox" name="has_resources" value="1" {{ old('has_resources') ? 'checked="true"' : '' }}/>
                 Enable resources for this page
             </label>
             <small class="italic help-block last-saved pull-right m-b-sm">Not yet saved</small>

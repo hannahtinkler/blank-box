@@ -71,7 +71,7 @@
 
             <div class="col-sm-12 m-b-xl">
                 <label>
-                    <input type="checkbox" name="has_resources" value="1" {{ $page->has_resources ? 'checked="true"' : '' }}"/>
+                    <input type="checkbox" name="has_resources" value="1" {{ $page->has_resources ? 'checked="true"' : '' }}/>
                     Enable resources for this page
                 </label>
             </div>
