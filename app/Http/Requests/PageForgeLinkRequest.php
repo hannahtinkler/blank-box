@@ -20,9 +20,21 @@ class PageForgeLinkRequest extends FormRequest
     public function rules()
     {
         return [
-            'page_id' => 'required|integer|exists:pages,id',
-            'server_id' => 'required|integer',
-            'site_id' => 'required|integer',
+            'page_id' => [
+                'required',
+                'integer',
+                'exists:pages,id',
+            ],
+            'server_id' => [
+                'required',
+                'integer',
+                'validForgeServer',
+            ],
+            'site_id' => [
+                'required',
+                'integer',
+                'validForgeSite:' . $this->input('server_id'),
+            ],
         ];
     }
 }

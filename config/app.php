@@ -162,6 +162,7 @@ return [
         App\Providers\ViewServiceProvider::class,
         Elasticquent\ElasticquentServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        App\Providers\ValidationServiceProvider::class,
     ],
 
     /*

@@ -80,6 +80,7 @@ class PageRepository
     {
         return $this->page->forgeLinks->map(function ($link) {
             $site = app(Forge::class)->site($link->server_id, $link->site_id);
+
             $site->internalId = $link->id;
 
             $log = app(Forge::class)->siteDeploymentLog($link->server_id, $link->site_id);
