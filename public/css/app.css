@@ -48,6 +48,10 @@ body {
   }
 }
 
+.mini-navbar .navbar-static-side {
+  z-index: 0;
+}
+
 #page-wrapper {
   background: #f9f9fa;
   z-index: 999;
@@ -57,7 +61,7 @@ body {
   overflow-y: auto;
 }
 
-@media (min-width: 61.25em) {
+@media (min-width: 66.25em) {
   #page-wrapper {
     padding: 40px 80px;
   }
@@ -129,6 +133,7 @@ nav .glyphicon-bookmark {
 }
 
 .tabs-component-tab {
+  font-size: 10px;
   list-style: none;
   background: #f9f9fa;
   display: flex;
@@ -142,14 +147,24 @@ nav .glyphicon-bookmark {
   border-bottom-color: white;
 }
 
-@media (min-width: 64.375em) {
+@media (min-width: 79.375em) {
+  .tabs-component-tab {
+    font-size: 13px;
+  }
+
   .tabs-component-tab:not(:first-child) {
     border-left: 0;
   }
 }
 
 .tabs-component-tab-a {
-  padding: 1rem 1.5rem;
+  padding: 0.5rem 1rem;
+}
+
+@media (min-width: 79.375em) {
+  .tabs-component-tab-a {
+    padding: 1rem 1.5rem;
+  }
 }
 
 .tabs-component-panels {

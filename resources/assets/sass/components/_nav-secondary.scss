@@ -9,4 +9,9 @@
     @include mq(xlarge) {
         z-index: z-index(left-nav);
     }
+
+    .mini-navbar & {
+        z-index: 0;
+    }
 }
+

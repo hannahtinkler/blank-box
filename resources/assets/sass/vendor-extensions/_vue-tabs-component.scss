@@ -11,6 +11,7 @@
 }
 
 .tabs-component-tab {
+    font-size: 10px;
     list-style: none;
     background: color(off-white);
     display: flex;
@@ -23,7 +24,9 @@
         border-bottom-color: white;
     }
 
-    @include mq(1030px) {
+    @include mq(xlarge) {
+        font-size: 13px;
+
         &:not(:first-child) {
             border-left: 0;
         }
@@ -31,7 +34,11 @@
 }
 
 .tabs-component-tab-a {
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1rem;
+
+    @include mq(xlarge) {
+        padding: 1rem 1.5rem;
+    }
 }
 
 .tabs-component-panels {
