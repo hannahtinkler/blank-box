@@ -10,16 +10,23 @@
 
 <ul class="chapter-list">
     @foreach($bookmarks as $bookmark)
-        <li>
+        <li class="m-b-xl">
         @if($bookmark->page_id != null)
             <h4>
-                <i class="glyphicon glyphicon-file"></i>
                 <a target="_blank" href="/p/{{ $bookmark->category->slug }}/{{ $bookmark->chapter->slug }}/{{ $bookmark->page->slug }}">
-                    {{ $bookmark->chapter->category->title }} > {{ $bookmark->chapter->title }} > {{ $bookmark->page->title }}
+                    <i class="glyphicon glyphicon-file"></i> {{ $bookmark->page->title }}
                 </a>
-                <span>Created {{ $bookmark->created_at->format('jS F Y H:ia') }}</span>
             </h4>
-            <p>{!! substr($bookmark->page->description, 0, 500) . (strlen($bookmark->page->description) > 500 ? '...' : null)!!}</p>
+            <h5 class="m-l-md">
+                <a target="_blank" href="/p/{{ $bookmark->category->slug }}">
+                    {{ $bookmark->chapter->category->title }}
+                </a>
+                <a target="_blank" href="/p/{{ $bookmark->category->slug }}/{{ $bookmark->chapter->slug }}">
+                    > {{ $bookmark->chapter->title }}
+                </a>
+                <p class="m-t-sm">Created {{ $bookmark->created_at->format('jS F Y H:ia') }}</p>
+            </h5>
+            <p class="m-l-md">{!! substr($bookmark->page->description, 0, 500) . (strlen($bookmark->page->description) > 500 ? '...' : null)!!}</p>
         @else
             <h4>
                 <i class="fa fa-folder-open-o"></i>
