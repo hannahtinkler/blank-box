@@ -2,3 +2,11 @@
     height: 100%;
     background: -webkit-linear-gradient(top, color(primary) 0%, color(off-white) 30%);
 }
+
+.navbar-static-side {
+    z-index: 0;
+
+    @include mq(xlarge) {
+        z-index: z-index(left-nav);
+    }
+}

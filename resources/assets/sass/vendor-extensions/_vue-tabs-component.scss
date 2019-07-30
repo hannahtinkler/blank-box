@@ -4,7 +4,7 @@
     position: relative;
     top: 1px;
 
-    @include mq(large) {
+    @include mq(1030px) {
         padding-left: 1rem;
         display: flex;
     }
@@ -23,7 +23,7 @@
         border-bottom-color: white;
     }
 
-    @include mq(large) {
+    @include mq(1030px) {
         &:not(:first-child) {
             border-left: 0;
         }

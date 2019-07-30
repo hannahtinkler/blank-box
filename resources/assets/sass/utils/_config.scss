@@ -20,15 +20,16 @@ $brand-colors: (
 
 $z-index-levels: (
     wrapper: 999,
+    left-nav: 998,
 );
 
 $mq-responsive: true;
 
 $mq-breakpoints: (
-    small:  320px,
-    medium:  740px,
+    small: 320px,
+    medium: 740px,
     large: 980px,
-    xlarge:    1300px,
+    xlarge: 1270px,
 );
 
 $mq-static-breakpoint: desktop;

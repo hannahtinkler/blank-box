@@ -38,6 +38,16 @@ body {
   background: -webkit-linear-gradient(top, #7dabc4 0%, #f9f9fa 30%);
 }
 
+.navbar-static-side {
+  z-index: 0;
+}
+
+@media (min-width: 79.375em) {
+  .navbar-static-side {
+    z-index: 998;
+  }
+}
+
 #page-wrapper {
   background: #f9f9fa;
   z-index: 999;
@@ -111,7 +121,7 @@ nav .glyphicon-bookmark {
   top: 1px;
 }
 
-@media (min-width: 61.25em) {
+@media (min-width: 64.375em) {
   .tabs-component-tabs {
     padding-left: 1rem;
     display: flex;
@@ -132,7 +142,7 @@ nav .glyphicon-bookmark {
   border-bottom-color: white;
 }
 
-@media (min-width: 61.25em) {
+@media (min-width: 64.375em) {
   .tabs-component-tab:not(:first-child) {
     border-left: 0;
   }

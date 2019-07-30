@@ -36,7 +36,8 @@
 
 @if($page->chapter->projects_chapter || $page->has_resources)
     <h3 class="m-t-xl">
-        Project Resources</h3>
+        Project Resources
+    </h3>
 
     @if($resources)
          <tabs class="nav-tertiary" :options="{ useUrlFragment: false }">
