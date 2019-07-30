@@ -86,12 +86,12 @@ class PageRepository
             $dateString = explode(PHP_EOL, $log)[0];
 
             try {
-                $site->lastDeployment = Carbon::createFromFormat('D M n H:i:s e Y', $dateString);
+                $site->lastDeployment = Carbon::createFromFormat('D M j H:i:s e Y', $dateString);
             } catch(\Exception $e) {
-                $site->lastDeployment = Carbon::createFromFormat('D n M H:i:s e Y', $dateString);
+                $site->lastDeployment = Carbon::createFromFormat('D j M H:i:s e Y', $dateString);
             }
 
-            $site->lastDeployment->format('d-m-Y H:i:s');
+            $site->lastDeployment = $site->lastDeployment->format('jS F Y H:ia');
 
             return $site;
         });

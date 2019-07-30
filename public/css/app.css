@@ -85,6 +85,7 @@ nav .glyphicon-bookmark {
 }
 
 .forge-site__content {
+  background: white;
   padding: 2rem 2rem 1.25rem;
   margin: 0;
 }
