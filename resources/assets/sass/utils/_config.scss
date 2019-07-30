@@ -3,6 +3,7 @@ $brand-colors: (
         lighter: #f1f4f6,
         light: #d4e2ea,
         default: #7dabc4,
+        dark: #4a7f98,
     ),
     secondary: (
         default: #734989,
@@ -20,3 +21,14 @@ $brand-colors: (
 $z-index-levels: (
     wrapper: 999,
 );
+
+$mq-responsive: true;
+
+$mq-breakpoints: (
+    small:  320px,
+    medium:  740px,
+    large: 980px,
+    xlarge:    1300px,
+);
+
+$mq-static-breakpoint: desktop;

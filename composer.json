@@ -11,7 +11,8 @@
         "cogpowered/finediff": "0.3.*",
         "laravel/socialite": "^2.0",
         "league/commonmark": "^0.15.1",
-        "league/html-to-markdown": "^4.3"
+        "league/html-to-markdown": "^4.3",
+        "themsaid/forge-sdk": "^2.0"
     },
     "require-dev": {
         "phpspec/prophecy": "~1.0",

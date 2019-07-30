@@ -2,13 +2,8 @@
 
 namespace App\Providers;
 
+use Themsaid\Forge\Forge;
 use Illuminate\Support\ServiceProvider;
-use App\Models\Chapter;
-use App\Models\SuggestedEdit;
-use App\Models\Page;
-use App\Models\PageDraft;
-use App\Models\Category;
-use App\Models\UserBadge;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        app()->bind(Forge::class, function () {
+            return new Forge(config('services.forge.api_token'));
+        });
     }
 }

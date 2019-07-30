@@ -10,7 +10,6 @@ Route::get('/logout', 'Auth\AuthController@logout');
 Route::get('/accessdenied', 'Auth\AuthController@accessDeniedPage');
 
 Route::group(['middleware' => ['auth']], function () {
-
     Route::get('/', 'HomeController@index');
     Route::get('/random', 'HomeController@getRandomPage');
     Route::get('/switchcategory/{id}', 'HomeController@switchCategory');
@@ -23,10 +22,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/pages/edit/{id}', 'PageController@edit');
     Route::put('/pages/{id}', 'PageController@update');
 
+    Route::get('/forge-links/{link}/deploy', 'PageForgeLinkController@deploy');
+    Route::get('/forge-links/{link}/edit', 'PageForgeLinkController@edit');
+    Route::get('/forge-links/{link}/log', 'PageForgeLinkController@log');
+    Route::get('/forge-links/{link}/unlink', 'PageForgeLinkController@unlink');
+    Route::post('/forge-links', 'PageForgeLinkController@store');
+
     Route::post('/pageresources', 'PageResourceController@store');
     Route::get('/pageresources/update/{id}', 'PageResourceController@update');
     Route::get('/pageresources/delete/{id}', 'PageResourceController@destroy');
     Route::get('/pageresources/edit/{id}', 'PageResourceController@edit');
+
 
     Route::get('/chapters/create', 'ChapterController@create');
     Route::post('/chapters', 'ChapterController@store');

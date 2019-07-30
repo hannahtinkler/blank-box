@@ -99,14 +99,16 @@ class PageController extends Controller
 
         $page->content = $this->converter->convertToHtml($page->content);
 
-        $resources = $this->resources->getAllCategorisedByPageId($page->id);
-        $resourceTypes = $this->resourceTypes->getAllCategorised();
+        if ($page->chapter->projects_chapter || $page->has_resources) {
+            $resources = $this->resources->getAllCategorisedByPageId($page->id);
+            $resourceTypes = $this->resourceTypes->getAllCategorised();
+        }
 
         return view('pages.show', [
             'page' => $page,
-            'resources' => $resources,
-            'resourceTypes' => $resourceTypes,
-            'user' => $request->user()
+            'resources' => $resources ?? [],
+            'resourceTypes' => $resourceTypes ?? [],
+            'user' => $request->user(),
         ]);
     }
 

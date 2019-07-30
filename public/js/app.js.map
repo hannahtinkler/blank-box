@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.js"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"app.js","sourcesContent":["require('./bootstrap');\n\nimport {Tabs, Tab} from 'vue-tabs-component';\n\nwindow.Vue = require('vue');\n\nconst app = new Vue({\n  el: '#app',\n\n  components: [\n    Tabs,\n    Tab,\n  ],\n});\n"]}

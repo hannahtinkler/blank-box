@@ -1,0 +1,41 @@
+.tabs-component-tabs {
+    margin: 4rem 0 0 0;
+    padding: 0rem;
+    position: relative;
+    top: 1px;
+
+    @include mq(large) {
+        padding-left: 1rem;
+        display: flex;
+    }
+}
+
+.tabs-component-tab {
+    list-style: none;
+    background: color(off-white);
+    display: flex;
+    border: color(off-white, dark) thin solid;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+
+    &.is-active {
+        background: white;
+        border-bottom-color: white;
+    }
+
+    @include mq(large) {
+        &:not(:first-child) {
+            border-left: 0;
+        }
+    }
+}
+
+.tabs-component-tab-a {
+    padding: 1rem 1.5rem;
+}
+
+.tabs-component-panels {
+    background: white;
+    padding: 2.5rem 3rem;
+    border: color(off-white, dark) thin solid;
+}

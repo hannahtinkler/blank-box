@@ -41,4 +41,8 @@ return [
         'redirect' => env('APP_URL') . '/login/callback'
     ],
 
+    'forge' => [
+        'api_token' => env('API_TOKEN')
+    ],
+
 ];

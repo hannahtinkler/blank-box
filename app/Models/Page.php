@@ -42,12 +42,17 @@ class Page extends Model
 
         return parent::__get($name);
     }
-    
+
+    public function forgeLinks()
+    {
+        return $this->hasMany('App\Models\PageForgeLink');
+    }
+
     public function chapter()
     {
         return $this->belongsTo('App\Models\Chapter');
     }
-    
+
     public function bookmark()
     {
         return $this->hasOne('App\Models\Bookmark')->where('user_id', auth()->user()->id);

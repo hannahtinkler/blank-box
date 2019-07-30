@@ -1,4 +1,19 @@
+.fa {
+    .btn-primary & {
+        color: white;
+    }
+}
+
 .fa-inbox {
     font-size: 115%;
     transform: translate3d(-12%, 0, 0);
+}
+
+.fa-forge {
+    background-image: url(/images/icons/forge.png);
+    background-size: contain;
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
 }

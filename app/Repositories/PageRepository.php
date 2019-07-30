@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Page;
+use Themsaid\Forge\Forge;
 use App\Models\SuggestedEdit;
 
 class PageRepository
@@ -11,7 +13,7 @@ class PageRepository
      * @var Page
      */
     private $page;
-    
+
     /**
      * @param Page $page
      */
@@ -72,5 +74,26 @@ class PageRepository
         return SuggestedEdit::where('page_id', $this->page->id)
             ->where('approved', 1)
             ->count();
+    }
+
+    public function forgeSites()
+    {
+        return $this->page->forgeLinks->map(function ($link) {
+            $site = app(Forge::class)->site($link->server_id, $link->site_id);
+            $site->internalId = $link->id;
+
+            $log = app(Forge::class)->siteDeploymentLog($link->server_id, $link->site_id);
+            $dateString = explode(PHP_EOL, $log)[0];
+
+            try {
+                $site->lastDeployment = Carbon::createFromFormat('D M n H:i:s e Y', $dateString);
+            } catch(\Exception $e) {
+                $site->lastDeployment = Carbon::createFromFormat('D n M H:i:s e Y', $dateString);
+            }
+
+            $site->lastDeployment->format('d-m-Y H:i:s');
+
+            return $site;
+        });
     }
 }

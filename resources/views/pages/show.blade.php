@@ -35,104 +35,178 @@
 </div>
 
 @if($page->chapter->projects_chapter || $page->has_resources)
-    @if(count($resources, COUNT_RECURSIVE) > 15)
-        <h3 class="m-t-lg m-b-sm">Contents</h3>
-        <ul class="no-bullet">
-            @foreach($resources as $category => $items)
-                <li><a href="#category{{ $category }}">{{ $category }}</a></li>
-            @endforeach
-        </ul>
-    @endif
-
-    <h3 class="m-t-xl">Project Resources</h3>
+    <h3 class="m-t-xl">
+        Project Resources</h3>
 
     @if($resources)
-        <table class="table table-hover">
+         <tabs class="nav-tertiary" :options="{ useUrlFragment: false }">
             @foreach($resources as $category => $items)
-                <tr class="table-heading">
-                    <td colspan="4">
-                        <div id="category{{ $category }}" class="hidden-anchor"></div>
-                        <h4 class="m-t-md m-b--xl"">{{ $category }}:</h4>
-                    </td>
-                </tr>
+                <tab name="{{ $category }}">
+                    <table class="table table-hover m-b-sm">
+                        <tr class="table-heading">
+                            <td colspan="4">
+                                <div id="category{{ $category }}" class="hidden-anchor"></div>
+                                <h4 class="m-t-md m-b-lg">{{ $category }}:</h4>
+                            </td>
+                        </tr>
 
-                @foreach($items as $item)
-                    <tr>
-                        <td class="text-left twenty-percent">
-                            <span class="border-left" style="border-color: #{{ $item->resourceType->color }};">{{ $item->name }}</span>
-                        </td>
-                        <td class="text-left fifteen-percent"><small>({{ $item->resourceType->name }})</small></td>
-                        <td class="text-left">
-                            @if (filter_var($item->content, FILTER_VALIDATE_URL))
-                                <a target="_blank" href="{{ $item->content }}">
-                                    {{ $item->content }}
-                                </a>
-                            @elseif ($user = App\Models\User::where('name', $item->content)->first())
-                                <a target="_blank" href="/u/{{ $user->slug }}">{{ $item->content }}</a>
-                            @else
-                                {{ $item->content }}
-                            @endif
-                        </td>
-                        <td class="icon-column">
-                            <a class="hide-until-hover" href="/pageresources/edit/{{ $item->id }}"><i class="fa fa-pencil"></i></a>
-                            <a class="hide-until-hover" href="/pageresources/delete/{{ $item->id }}"><i class="fa fa-trash m-l-sm"></i></a>
-                        </td>
-                    </tr>
-                @endforeach
+                        @foreach($items as $item)
+                            <tr>
+                                <td class="text-left twenty-percent">
+                                    <span class="border-left" style="border-color: #{{ $item->resourceType->color }};">{{ $item->name }}</span>
+                                </td>
+                                <td class="text-left fifteen-percent"><small>({{ $item->resourceType->name }})</small></td>
+                                <td class="text-left">
+                                    @if (filter_var($item->content, FILTER_VALIDATE_URL))
+                                        <a target="_blank" href="{{ $item->content }}">
+                                            {{ $item->content }}
+                                        </a>
+                                    @elseif ($user = App\Models\User::where('name', $item->content)->first())
+                                        <a target="_blank" href="/u/{{ $user->slug }}">{{ $item->content }}</a>
+                                    @else
+                                        {{ $item->content }}
+                                    @endif
+                                </td>
+                                <td class="icon-column">
+                                    <a class="hide-until-hover" href="/pageresources/edit/{{ $item->id }}"><i class="fa fa-pencil"></i></a>
+                                    <a class="hide-until-hover" href="/pageresources/delete/{{ $item->id }}"><i class="fa fa-trash m-l-sm"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </tab>
             @endforeach
-        </table>
+
+            <tab name="{{ '<i class="fa fa-forge"></i>' }}">
+                <div class="m-b-xl">
+                    <h4 class="m-t-md m-b-md">
+                        Forge Sites
+                    </h4>
+
+                    <div class="row">
+                        @foreach ($page->forgeSites as $site)
+                            <div class="forge-site col-sm-12 col-md-6  m-b-md">
+                                <div class="forge-site__inner">
+                                    <h5 class="forge-site__heading">
+                                        <a target="_blank" href="https://{{ $site->name }}">
+                                            {{ $site->name }}
+                                        </a>
+                                    </h5>
+
+                                    <div class="forge-site__content">
+                                        <ul class="no-bullet">
+                                            <li><strong>Repository:</strong> {{ $site->repository }}</li>
+                                            <li><strong>Branch:</strong> {{ $site->repositoryBranch }}</li>
+                                            <li><strong>Quick deploy:</strong> <i class="fa fa-{{ $site->quickDeploy ? 'check' : 'remove' }}"></i></li>
+                                            <li><strong>Last deployment:</strong> {{ $site->lastDeployment }}</li>
+                                        </ul>
+                                        <div class="forge-site__options">
+                                            <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/deploy">
+                                                Deploy
+                                            </a>
+                                            <div>
+                                                <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/log">
+                                                    <i class="fa fa-file-text-o"></i>
+                                                </a>
+                                                <a class="btn btn-sm btn-primary disabled" href="/forge-links/{{ $site->internalId }}/edit" title="Coming soon">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/unlink" title="Remove from {{ config('app.name') }}">
+                                                    <i class="fa fa-chain-broken"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <h4 class="m-t-md m-b-md">
+                    Link project to Forge site
+                </h4>
+
+                <form id="add-resource-form" action="/forge-links" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="page_id" value="{{ $page->id }}" />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Server ID</label>
+                                <input type="text" class="form-control" name="server_id" placeholder="11156" value="{{ old('name') }}" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Site ID</label>
+                                <input type="text" class="form-control" name="site_id" placeholder="435799" value="{{ old('name') }}" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 m-t-md">
+                            <div class="btn-toolbar pull-right">
+                                <div class="btn-group"><button tabindex="-1" id="add-resource-cancel-button" class="btn btn-sm btn-default m-t-n-xs" type="button"><strong>Cancel</strong></button></div>
+                                <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Save</strong></button></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </tab>
+
+            <tab name="{{ '<i class="fa fa-plus"></i>' }}">
+                <form id="add-resource-form" action="/pageresources" method="POST">
+                    <h4 class="m-t-md p-b-xl">Add Resource</h4>
+
+                    {{ csrf_field() }}
+                    <input type="hidden" name="id" value="{{ $page->id }}" />
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Resource Name</label>
+                                <input type="text" class="form-control" name="name" placeholder="E.g. 'Designer', 'Website Progress Board', 'User Stories' etc" value="{{ old('name') }}" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Resource Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="">Select a type...</option>
+                                    @foreach ($resourceTypes as $category => $types)
+                                        <optgroup label="{{ $category }}">
+                                            @foreach ($types as $type)
+                                                <option value="{{ $type->id }}" {{ old('type') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Resource Content</label>
+                                <input placeholder="E.g. a server path, website link, document link, person name etc" type="text" class="form-control" name="content" value="{{ old('name') }}" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 m-t-md">
+                            <div class="btn-toolbar pull-right">
+                                <div class="btn-group"><button tabindex="-1" id="add-resource-cancel-button" class="btn btn-sm btn-default m-t-n-xs" type="button"><strong>Cancel</strong></button></div>
+                                <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Save</strong></button></div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </tab>
+        </tabs>
     @else
         <p>You currently have no project resources. Why not add one?</p>
     @endif
-
-    <button id="add-resource-button" class="btn btn-sm btn-primary m-t-sm {{ old('id') ? 'hide' : '' }}"><i class="fa fa-plus"></i> Add Resource</button>
-
-    <form id="add-resource-form" class="{{ old('id') ? '' : 'hide' }}" action="/pageresources" method="POST">
-        <h4 class="m-t-xl m-b-md">Add Resource</h4>
-
-        {{ csrf_field() }}
-        <input type="hidden" name="id" value="{{ $page->id }}" />
-
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label>Resource Name</label>
-                    <input type="text" class="form-control" name="name" placeholder="E.g. 'Designer', 'Website Progress Board', 'User Stories' etc" value="{{ old('name') }}" />
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label>Resource Type</label>
-                    <select class="form-control" name="type">
-                        <option value="">Select a type...</option>
-                        @foreach ($resourceTypes as $category => $types)
-                            <optgroup label="{{ $category }}">
-                                @foreach ($types as $type)
-                                    <option value="{{ $type->id }}" {{ old('type') == $type->id ? 'selected' : '' }}>{{ $type->name }}</option>
-                                @endforeach
-                            </optgroup>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <label>Resource Content</label>
-                    <input placeholder="E.g. a server path, website link, document link, person name etc" type="text" class="form-control" name="content" value="{{ old('name') }}" />
-                </div>
-            </div>
-
-            <div class="col-sm-12 m-t-md m-b-xl">
-                <div class="btn-toolbar pull-right">
-                    <div class="btn-group"><button tabindex="-1" id="add-resource-cancel-button" class="btn btn-sm btn-default m-t-n-xs" type="button"><strong>Cancel</strong></button></div>
-                    <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Save</strong></button></div>
-                </div>
-            </div>
-        </div>
-    </form>
 @endif
 
-<div class="m-t-lg green-text">
+<div class="m-t-lg green-text m-b-lg">
     <small>Written by <strong><a href="/u/{{ $page->creator->slug }}">{{ $page->creator->name }}</a></strong>
     @if($page->hasEdits)
         @set('updators', $page->updatorsString)

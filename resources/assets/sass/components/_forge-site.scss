@@ -1,0 +1,25 @@
+.forge-site {
+}
+
+.forge-site__inner {
+    border: thin solid #dfdfdf;
+    margin: 0.5rem;
+}
+
+.forge-site__heading {
+    border-bottom: thin solid #dfdfdf;
+    margin: 0;
+    padding: 1rem 2rem;
+    background: color(off-white);
+}
+
+.forge-site__content {
+    padding: 2rem 2rem 1.25rem;
+    margin: 0;
+}
+
+.forge-site__options {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem 0 0.5rem;
+}

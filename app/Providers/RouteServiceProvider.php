@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(Router $router)
     {
-        $this->mapWebRoutes($router);
+        $this->mapRoutes($router);
 
         //
     }
@@ -50,10 +50,11 @@ class RouteServiceProvider extends ServiceProvider
      * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapWebRoutes(Router $router)
+    protected function mapRoutes(Router $router)
     {
         $router->group([
-            'namespace' => $this->namespace, 'middleware' => 'web',
+            'namespace' => $this->namespace,
+            'middleware' => 'web',
         ], function ($router) {
             require app_path('Http/routes.php');
         });

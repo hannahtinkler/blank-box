@@ -7307,11 +7307,6 @@ navbar .form-control,
 .logo-space a:focus {
   color: #656B6F !important;
 }
-#page-wrapper {
-  margin: 50px 0 0 300px;
-  padding: 40px 80px;
-  overflow-y: auto;
-}
 .bigger-icon {
   font-size: 18px;
   padding-right: 0;
