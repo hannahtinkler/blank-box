@@ -78,50 +78,52 @@
             @endforeach
 
             <tab name="{{ '<i class="fa fa-forge"></i>' }}">
-                <div class="m-b-xl">
-                    <h4 class="m-t-sm m-l-xs m-b-md">
-                        Forge Sites
-                    </h4>
+                @if ($page->forgeSites->count())
+                    <div class="m-b-xl">
+                        <h4 class="m-t-sm m-l-xs m-b-md">
+                            Forge Sites
+                        </h4>
 
-                    <div class="row">
-                        @foreach ($page->forgeSites as $site)
-                            <div class="forge-site col-sm-12 col-md-6  m-b-md">
-                                <div class="forge-site__inner">
-                                    <h5 class="forge-site__heading">
-                                        <a target="_blank" href="https://{{ $site->name }}">
-                                            {{ $site->name }}
-                                        </a>
-                                    </h5>
-
-                                    <div class="forge-site__content">
-                                        <ul class="no-bullet">
-                                            <li><strong>Repository:</strong> {{ $site->repository }}</li>
-                                            <li><strong>Branch:</strong> {{ $site->repositoryBranch }}</li>
-                                            <li><strong>Quick deploy:</strong> <i class="fa fa-{{ $site->quickDeploy ? 'check' : 'remove' }}"></i></li>
-                                            <li><strong>Last deployment:</strong> {{ $site->lastDeployment }}</li>
-                                        </ul>
-                                        <div class="forge-site__options">
-                                            <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/deploy">
-                                                Deploy
+                        <div class="row">
+                            @foreach ($page->forgeSites as $site)
+                                <div class="forge-site col-sm-12 col-md-6  m-b-md">
+                                    <div class="forge-site__inner">
+                                        <h5 class="forge-site__heading">
+                                            <a target="_blank" href="https://{{ $site->name }}">
+                                                {{ $site->name }}
                                             </a>
-                                            <div>
-                                                <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/log">
-                                                    <i class="fa fa-file-text-o"></i>
+                                        </h5>
+
+                                        <div class="forge-site__content">
+                                            <ul class="no-bullet">
+                                                <li><strong>Repository:</strong> {{ $site->repository }}</li>
+                                                <li><strong>Branch:</strong> {{ $site->repositoryBranch }}</li>
+                                                <li><strong>Quick deploy:</strong> <i class="fa fa-{{ $site->quickDeploy ? 'check' : 'remove' }}"></i></li>
+                                                <li><strong>Last deployment:</strong> {{ $site->lastDeployment }}</li>
+                                            </ul>
+                                            <div class="forge-site__options">
+                                                <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/deploy">
+                                                    Deploy
                                                 </a>
-                                                <a class="btn btn-sm btn-primary disabled" href="/forge-links/{{ $site->internalId }}/edit" title="Coming soon">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/unlink" title="Remove from {{ config('app.name') }}">
-                                                    <i class="fa fa-chain-broken"></i>
-                                                </a>
+                                                <div>
+                                                    <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/log">
+                                                        <i class="fa fa-file-text-o"></i>
+                                                    </a>
+                                                    <a class="btn btn-sm btn-primary disabled" href="/forge-links/{{ $site->internalId }}/edit" title="Coming soon">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="btn btn-sm btn-primary" href="/forge-links/{{ $site->internalId }}/unlink" title="Remove from {{ config('app.name') }}">
+                                                        <i class="fa fa-chain-broken"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                </div>
+                @endif
 
                 <h4 class="m-t-md m-b-md">
                     Link project to Forge site
