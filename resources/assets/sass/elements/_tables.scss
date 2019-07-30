@@ -1,0 +1,9 @@
+.table-heading {
+    td {
+        padding-bottom: 2rem !important;
+    }
+
+    &:hover {
+        background-color: transparent !important;
+    }
+}
