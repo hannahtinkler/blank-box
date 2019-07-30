@@ -118,6 +118,11 @@ nav .glyphicon-bookmark {
   margin: 2rem 0 0.5rem;
 }
 
+.forge-site__log {
+  padding: 3rem !important;
+  font-size: 10px !important;
+}
+
 .tabs-component-tabs {
   margin: 4rem 0 0 0;
   padding: 0rem;

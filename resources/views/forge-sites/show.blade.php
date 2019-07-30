@@ -6,6 +6,6 @@
     <h2>Deployment Log</h2>
 
     <div class="m-b-xl m-t-xl">
-        <pre>{!! nl2br($log) !!}</pre>
+        <pre class="forge-site__log">{!! nl2br($log) !!}</pre>
     </div>
 @stop
