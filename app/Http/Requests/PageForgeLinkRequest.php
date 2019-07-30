@@ -28,7 +28,6 @@ class PageForgeLinkRequest extends FormRequest
             'server_id' => [
                 'required',
                 'integer',
-                'validForgeServer',
             ],
             'site_id' => [
                 'required',

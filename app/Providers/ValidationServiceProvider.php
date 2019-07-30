@@ -16,16 +16,6 @@ class ValidationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('validForgeServer', function($attribute, $value, $parameters, $validator) {
-            try {
-                $exists = app(Forge::class)->server($value);
-            } catch(NotFoundException $e) {
-                $exists = false;
-            }
-
-            return $exists;
-        }, "There are no servers with this ID");
-
         Validator::extend('validForgeSite', function($attribute, $value, $parameters, $validator) {
             try {
                 $exists = app(Forge::class)->site($parameters[0], $value);
@@ -34,7 +24,7 @@ class ValidationServiceProvider extends ServiceProvider
             }
 
             return $exists;
-        }, "There are no sites on this server with this ID");
+        }, "There is a problem with the server or site ID you entered.");
     }
 
     /**
