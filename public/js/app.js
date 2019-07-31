@@ -1930,6 +1930,9 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     pageId: {
       required: true
+    },
+    curator: {
+      required: true
     }
   },
   data: function data() {
@@ -2458,7 +2461,9 @@ var render = function() {
             ])
           : !_vm.sites.length
           ? _c("div", { staticClass: "col-sm-12 m-l-xs" }, [
-              _vm._v("\n      There are no sites linked to this project.\n    ")
+              _vm._v(
+                "\n      There are no sites linked to this project. Why not ask your local friendly sys-admin to link some for you?\n    "
+              )
             ])
           : _vm._l(_vm.sites, function(site) {
               return _c(
@@ -2559,18 +2564,22 @@ var render = function() {
                             [_c("i", { staticClass: "fa fa-pencil" })]
                           ),
                           _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              staticClass: "btn btn-sm btn-primary",
-                              attrs: {
-                                href:
-                                  "/forge-links/" + site.internalId + "/unlink",
-                                title: "Remove from project"
-                              }
-                            },
-                            [_c("i", { staticClass: "fa fa-chain-broken" })]
-                          )
+                          _vm.curator
+                            ? _c(
+                                "a",
+                                {
+                                  staticClass: "btn btn-sm btn-primary",
+                                  attrs: {
+                                    href:
+                                      "/forge-links/" +
+                                      site.internalId +
+                                      "/unlink",
+                                    title: "Remove from project"
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-chain-broken" })]
+                              )
+                            : _vm._e()
                         ])
                       ])
                     ])

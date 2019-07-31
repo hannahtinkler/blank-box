@@ -78,7 +78,7 @@
         @endforeach
 
         <tab name="{{ '<i class="fa fa-forge"></i>' }}" cache-lifetime="604800">
-            <forge-sites :page-id="{{ $page->id }}"></forge-sites>
+            <forge-sites :page-id="{{ $page->id }}" :curator="{{ $user->curator }}"></forge-sites>
 
             @if($user->curator)
                 <div class="m-l-xs">

@@ -12,7 +12,7 @@
       </div>
 
       <div class="col-sm-12 m-l-xs" v-else-if="!sites.length">
-        There are no sites linked to this project.
+        There are no sites linked to this project. Why not ask your local friendly sys-admin to link some for you?
       </div>
 
       <div class="forge-site col-sm-12 col-md-6 m-b-md" v-for="site in sites" v-else>
@@ -41,7 +41,7 @@
                           <a class="btn btn-sm btn-primary disabled" :href="`/forge-links/${ site.internalId }/edit`" title="Coming soon">
                               <i class="fa fa-pencil"></i>
                           </a>
-                          <a class="btn btn-sm btn-primary" :href="`/forge-links/${ site.internalId }/unlink`" title="Remove from project">
+                          <a class="btn btn-sm btn-primary" :href="`/forge-links/${ site.internalId }/unlink`" title="Remove from project" v-if="curator">
                               <i class="fa fa-chain-broken"></i>
                           </a>
                       </div>
@@ -57,6 +57,9 @@
   export default {
     props: {
       pageId: {
+        required: true,
+      },
+      curator: {
         required: true,
       },
     },
