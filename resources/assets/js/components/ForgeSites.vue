@@ -78,7 +78,6 @@
 
     methods: {
       loadSites() {
-        console.log('sra')
         axios.get(`/ajax/pages/${ this.pageId }/forge-sites`)
           .then(response => this.sites = response.data)
           .then(() => this.loaded = true);

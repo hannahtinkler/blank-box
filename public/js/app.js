@@ -1951,7 +1951,6 @@ __webpack_require__.r(__webpack_exports__);
     loadSites: function loadSites() {
       var _this2 = this;
 
-      console.log('sra');
       axios.get("/ajax/pages/".concat(this.pageId, "/forge-sites")).then(function (response) {
         return _this2.sites = response.data;
       }).then(function () {
