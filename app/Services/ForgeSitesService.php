@@ -40,13 +40,13 @@ class ForgeSitesService
             });
         } catch (Exception $e) {
             if (json_decode($e->getMessage())->message ?? false === 'Too Many Attempts.') {
-                return json_decode(Cache::get('forge-sites-last-request'));
+                return json_decode(Cache::get('forge-sites-last-request-' . $page->id));
             }
 
             throw $e;
         }
 
-        Cache::put('forge-sites-last-request', json_encode($sites->toArray()), 60);
+        Cache::put('forge-sites-last-request-' . $page->id, json_encode($sites->toArray()), 60);
 
         return $sites;
     }
