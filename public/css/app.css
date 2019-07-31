@@ -94,6 +94,12 @@ nav .glyphicon-bookmark {
   background: #f1f4f6;
 }
 
+@media (min-width: 93.75em) {
+  .forge-site {
+    width: 33.3333333%;
+  }
+}
+
 .forge-site__inner {
   border: thin solid #dfdfdf;
   margin: 0.5rem;

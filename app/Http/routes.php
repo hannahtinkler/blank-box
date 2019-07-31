@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/forge-links/{link}/unlink', 'PageForgeLinkController@unlink');
     Route::post('/forge-links', 'PageForgeLinkController@store');
 
+    Route::get('/ajax/pages/{page}/forge-sites', 'Api\ForgeSiteController@index');
+
     Route::post('/pageresources', 'PageResourceController@store');
     Route::get('/pageresources/update/{id}', 'PageResourceController@update');
     Route::get('/pageresources/delete/{id}', 'PageResourceController@destroy');

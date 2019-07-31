@@ -1862,6 +1862,107 @@ module.exports = function isBuffer (obj) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/ForgeSites.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/ForgeSites.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    pageId: {
+      required: true
+    }
+  },
+  data: function data() {
+    return {
+      sites: {},
+      loaded: false
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$root.$on('tab-changed', function (e) {
+      if (!_this.loaded && e.tab.name === '<i class="fa fa-forge"></i>') {
+        _this.loadSites();
+      }
+    });
+  },
+  methods: {
+    loadSites: function loadSites() {
+      var _this2 = this;
+
+      console.log('sra');
+      axios.get("/ajax/pages/".concat(this.pageId, "/forge-sites")).then(function (response) {
+        return _this2.sites = response.data;
+      }).then(function () {
+        return _this2.loaded = true;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/process/browser.js":
 /*!*****************************************!*\
   !*** ./node_modules/process/browser.js ***!
@@ -2327,6 +2428,284 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/ForgeSites.vue?vue&type=template&id=5328e9dc&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/assets/js/components/ForgeSites.vue?vue&type=template&id=5328e9dc& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        !_vm.loaded && !_vm.sites.length
+          ? _c("div", { staticClass: "col-sm-12 m-l-xs" }, [
+              _c("p", [_vm._v("Loading...")])
+            ])
+          : !_vm.sites.length
+          ? _c("div", { staticClass: "col-sm-12 m-l-xs" }, [
+              _vm._v("\n      There are no sites linked to this project.\n    ")
+            ])
+          : _vm._l(_vm.sites, function(site) {
+              return _c(
+                "div",
+                { staticClass: "forge-site col-sm-12 col-md-6 m-b-md" },
+                [
+                  _c("div", { staticClass: "forge-site__inner" }, [
+                    _c("h5", { staticClass: "forge-site__heading" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            target: "_blank",
+                            href: "https://" + site.name
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(site.name) +
+                              "\n                "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "forge-site__content" }, [
+                      _c("ul", { staticClass: "no-bullet" }, [
+                        _c("li", [
+                          _c("strong", [_vm._v("Repository:")]),
+                          _vm._v(" " + _vm._s(site.repository))
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("strong", [_vm._v("Branch:")]),
+                          _vm._v(" " + _vm._s(site.repositoryBranch))
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("strong", [_vm._v("Quick deploy:")]),
+                          _vm._v(" "),
+                          _c("i", {
+                            staticClass: "fa",
+                            class: {
+                              "fa-check": site.quickDeploy,
+                              "fa-remove": !site.quickDeploy
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("li", [
+                          _c("strong", [_vm._v("Last deployment:")]),
+                          _vm._v(" " + _vm._s(site.lastDeployment))
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "forge-site__options" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "btn btn-sm btn-primary",
+                            attrs: {
+                              href:
+                                "/forge-links/" + site.internalId + "/deploy"
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        Deploy\n                    "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-primary",
+                              attrs: {
+                                href:
+                                  "/forge-links/" + site.internalId + "/log",
+                                title: "View deployment log"
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-file-text-o" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-primary disabled",
+                              attrs: {
+                                href:
+                                  "/forge-links/" + site.internalId + "/edit",
+                                title: "Coming soon"
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-pencil" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-sm btn-primary",
+                              attrs: {
+                                href:
+                                  "/forge-links/" + site.internalId + "/unlink",
+                                title: "Remove from project"
+                              }
+                            },
+                            [_c("i", { staticClass: "fa fa-chain-broken" })]
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            })
+      ],
+      2
+    )
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "m-b-md" }, [
+      _c("h4", { staticClass: "m-t-sm m-l-xs" }, [
+        _vm._v("\n          Forge Sites\n      ")
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
 
 /***/ }),
 
@@ -15310,7 +15689,9 @@ module.exports = g;
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_tabs_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-tabs-component */ "./node_modules/vue-tabs-component/dist/index.js");
 /* harmony import */ var vue_tabs_component__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_tabs_component__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_ForgeSites__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/ForgeSites */ "./resources/assets/js/components/ForgeSites.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
+
 
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
@@ -15318,7 +15699,8 @@ var app = new Vue({
   el: '#app',
   components: {
     'tabs': vue_tabs_component__WEBPACK_IMPORTED_MODULE_0__["Tabs"],
-    'tab': vue_tabs_component__WEBPACK_IMPORTED_MODULE_0__["Tab"]
+    'tab': vue_tabs_component__WEBPACK_IMPORTED_MODULE_0__["Tab"],
+    'forge-sites': _components_ForgeSites__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -15340,6 +15722,75 @@ if (token) {
 } else {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/ForgeSites.vue":
+/*!*******************************************************!*\
+  !*** ./resources/assets/js/components/ForgeSites.vue ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ForgeSites_vue_vue_type_template_id_5328e9dc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ForgeSites.vue?vue&type=template&id=5328e9dc& */ "./resources/assets/js/components/ForgeSites.vue?vue&type=template&id=5328e9dc&");
+/* harmony import */ var _ForgeSites_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ForgeSites.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/ForgeSites.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ForgeSites_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ForgeSites_vue_vue_type_template_id_5328e9dc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ForgeSites_vue_vue_type_template_id_5328e9dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/components/ForgeSites.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/ForgeSites.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/assets/js/components/ForgeSites.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ForgeSites_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ForgeSites.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/ForgeSites.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ForgeSites_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/ForgeSites.vue?vue&type=template&id=5328e9dc&":
+/*!**************************************************************************************!*\
+  !*** ./resources/assets/js/components/ForgeSites.vue?vue&type=template&id=5328e9dc& ***!
+  \**************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ForgeSites_vue_vue_type_template_id_5328e9dc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ForgeSites.vue?vue&type=template&id=5328e9dc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/assets/js/components/ForgeSites.vue?vue&type=template&id=5328e9dc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ForgeSites_vue_vue_type_template_id_5328e9dc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ForgeSites_vue_vue_type_template_id_5328e9dc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 

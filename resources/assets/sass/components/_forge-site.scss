@@ -1,3 +1,9 @@
+.forge-site {
+    @include mq(xxlarge) {
+        width: 33.3333333%;
+    }
+}
+
 .forge-site__inner {
     border: thin solid #dfdfdf;
     margin: 0.5rem;

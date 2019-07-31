@@ -2,10 +2,9 @@
 
 namespace App\Repositories;
 
-use Carbon\Carbon;
 use App\Models\Page;
-use Themsaid\Forge\Forge;
 use App\Models\SuggestedEdit;
+use App\Services\ForgeSitesService;
 
 class PageRepository
 {
@@ -15,7 +14,7 @@ class PageRepository
     private $page;
 
     /**
-     * @param Page $page
+     * @param Page              $page
      */
     public function __construct(Page $page)
     {
@@ -50,7 +49,7 @@ class PageRepository
      */
     public function searchResultIcon()
     {
-        return $this->page->chapter->projects_chapter ? '<i class="fa fa-inbox"></i>' : '<i class="fa fa-file-o"></i>';;
+        return $this->page->chapter->projects_chapter ? '<i class="fa fa-inbox"></i>' : '<i class="fa fa-file-o"></i>';
     }
 
     public function updatorsString()
@@ -78,23 +77,7 @@ class PageRepository
 
     public function forgeSites()
     {
-        return $this->page->forgeLinks->map(function ($link) {
-            $site = app(Forge::class)->site($link->server_id, $link->site_id);
+        return app(ForgeSitesService::class)->getForPage($this->page);
 
-            $site->internalId = $link->id;
-
-            $log = app(Forge::class)->siteDeploymentLog($link->server_id, $link->site_id);
-            $dateString = explode(PHP_EOL, $log)[0];
-
-            try {
-                $site->lastDeployment = Carbon::createFromFormat('D M j H:i:s e Y', $dateString);
-            } catch(\Exception $e) {
-                $site->lastDeployment = Carbon::createFromFormat('D j M H:i:s e Y', $dateString);
-            }
-
-            $site->lastDeployment = $site->lastDeployment->format('jS F Y H:ia');
-
-            return $site;
-        });
     }
 }
