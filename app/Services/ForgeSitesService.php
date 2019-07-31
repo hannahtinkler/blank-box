@@ -66,6 +66,6 @@ class ForgeSitesService
             $lastDeployment = Carbon::createFromFormat('D j M H:i:s e Y', $dateString);
         }
 
-        return $lastDeployment->format('jS F Y H:ia');
+        return $lastDeployment->setTimezone('Europe/London')->format('jS F Y H:ia');
     }
 }
