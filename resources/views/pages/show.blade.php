@@ -80,36 +80,38 @@
         <tab name="{{ '<i class="fa fa-forge"></i>' }}" cache-lifetime="604800">
             <forge-sites :page-id="{{ $page->id }}"></forge-sites>
 
-            <h4 class="m-t-md m-b-md">
-                Link project to Forge site
-            </h4>
+            <div class="m-l-xs">
+                <h4 class="m-t-md m-b-md">
+                    Link project to Forge site
+                </h4>
 
-            <form id="add-resource-form" action="/forge-links" method="POST">
-                {{ csrf_field() }}
-                <input type="hidden" name="page_id" value="{{ $page->id }}" />
+                <form id="add-resource-form" action="/forge-links" method="POST">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="page_id" value="{{ $page->id }}" />
 
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Server ID</label>
-                            <input type="text" class="form-control" name="server_id" placeholder="11156" value="{{ old('name') }}" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Server ID</label>
+                                <input type="text" class="form-control" name="server_id" placeholder="11156" value="{{ old('name') }}" />
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Site ID</label>
+                                <input type="text" class="form-control" name="site_id" placeholder="435799" value="{{ old('name') }}" />
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 m-t-md">
+                            <div class="btn-toolbar pull-right">
+                                <div class="btn-group"><button tabindex="-1" id="add-resource-cancel-button" class="btn btn-sm btn-default m-t-n-xs" type="button"><strong>Cancel</strong></button></div>
+                                <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Save</strong></button></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label>Site ID</label>
-                            <input type="text" class="form-control" name="site_id" placeholder="435799" value="{{ old('name') }}" />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-12 m-t-md">
-                        <div class="btn-toolbar pull-right">
-                            <div class="btn-group"><button tabindex="-1" id="add-resource-cancel-button" class="btn btn-sm btn-default m-t-n-xs" type="button"><strong>Cancel</strong></button></div>
-                            <div class="btn-group"><button class="btn btn-sm btn-primary m-t-n-xs" type="submit"><strong>Save</strong></button></div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </tab>
 
         <tab name="{{ '<i class="fa fa-plus"></i>' }}">
