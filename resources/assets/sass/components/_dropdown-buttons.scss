@@ -17,6 +17,8 @@
     right: -1px;
     margin-top: 9px;
     border-radius: 4px;
+    z-index: 1;
+    box-shadow: 0 0 6px 0 rgba(0,0,0,0.3);
 
     &:before {
         content: '';
