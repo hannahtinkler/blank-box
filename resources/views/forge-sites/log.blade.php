@@ -5,7 +5,7 @@
     <h1>{{ $link->page->title }}</h1>
     <h2>{{ $site->name }}</h2>
 
-    <h4 class="m-t-xl m-b-lg">Deployment Log</h4>
+    <h3 class="m-t-xl m-b-lg">Deployment Log</h3>
 
     <hr>
 

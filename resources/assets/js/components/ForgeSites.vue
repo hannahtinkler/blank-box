@@ -60,7 +60,11 @@
                                     Edit .env
                                   </a>
                                 </li>
-
+                                <li class="dropdown-button__list-item">
+                                  <a :href="`/forge-links/${ site.internalId }/branch/edit`" class="dropdown-button__link">
+                                    Edit branch
+                                  </a>
+                                </li>
                               </ul>
                           </button>
                           <a class="btn btn-sm btn-primary" :href="`/forge-links/${ site.internalId }/unlink`" title="Remove from project" v-if="curator">

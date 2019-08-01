@@ -6,6 +6,7 @@ use Themsaid\Forge\Forge;
 use Illuminate\Http\Request;
 use App\Models\PageForgeLink;
 use App\Http\Requests\PageForgeLinkRequest;
+use App\Http\Requests\PageForgeLinkBranchRequest;
 
 class PageForgeLinkController extends Controller
 {
@@ -66,6 +67,52 @@ class PageForgeLinkController extends Controller
         );
 
         $message = "This .env file has been saved!";
+
+        return redirect($link->page->searchResultUrl)->with(
+            'message',
+            sprintf('<i class="fa fa-check"></i> %s', $message)
+        );
+    }
+
+    /**
+     * @return Redirect
+     */
+    public function editBranch(Request $request, PageForgeLink $link)
+    {
+        return view('forge-sites.branch', [
+            'link' => $link,
+            'site' => app(Forge::class)->site($link->server_id, $link->site_id),
+            'env' => app(Forge::class)->siteEnvironmentFile($link->server_id, $link->site_id),
+        ]);
+    }
+
+    /**
+     * @return Redirect
+     */
+    public function updateBranch(PageForgeLinkBranchRequest $request, PageForgeLink $link)
+    {
+        exit(var_dump('gds'));
+        $site = app(Forge::class)->site($link->server_id, $link->site_id);
+
+        $script = str_replace(
+            $site->repositoryBranch,
+            $request->input('branch'),
+            app(Forge::class)->siteDeploymentScript($link->server_id, $link->site_id)
+        );
+
+        app(Forge::class)->updateSiteGitRepository(
+            $link->server_id,
+            $link->site_id,
+            ['branch' => $request->input('branch')]
+        );
+
+        app(Forge::class)->updateSiteDeploymentScript(
+            $link->server_id,
+            $link->site_id,
+            $script
+        );
+
+        $message = sprintf("This site has been switched to the %s branch!", $request->input('branch'));
 
         return redirect($link->page->searchResultUrl)->with(
             'message',

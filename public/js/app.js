@@ -1948,6 +1948,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     pageId: {
@@ -2672,6 +2676,32 @@ var render = function() {
                                         [
                                           _vm._v(
                                             "\n                                  Edit .env\n                                "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "li",
+                                    {
+                                      staticClass: "dropdown-button__list-item"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-button__link",
+                                          attrs: {
+                                            href:
+                                              "/forge-links/" +
+                                              site.internalId +
+                                              "/branch/edit"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                  Edit branch\n                                "
                                           )
                                         ]
                                       )

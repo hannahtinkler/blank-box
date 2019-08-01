@@ -179,6 +179,13 @@ nav .glyphicon-bookmark {
   border-radius: 20px;
 }
 
+.warn {
+  border: thin solid #ffdb98;
+  background: #ffedcb;
+  padding: 2rem;
+  border-radius: 5px;
+}
+
 .tabs-component-tabs {
   margin: 4rem 0 0 0;
   padding: 0rem;

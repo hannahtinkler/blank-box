@@ -25,6 +25,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/forge-links/{link}/deploy', 'PageForgeLinkController@deploy');
     Route::get('/forge-links/{link}/env/edit', 'PageForgeLinkController@editEnv');
     Route::patch('/forge-links/{link}/env', 'PageForgeLinkController@updateEnv');
+    Route::get('/forge-links/{link}/branch/edit', 'PageForgeLinkController@editBranch');
+    Route::patch('/forge-links/{link}/branch', 'PageForgeLinkController@updateBranch');
     Route::get('/forge-links/{link}/log', 'PageForgeLinkController@log');
     Route::get('/forge-links/{link}/script', 'PageForgeLinkController@script');
     Route::get('/forge-links/{link}/unlink', 'PageForgeLinkController@unlink');
