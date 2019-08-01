@@ -2,8 +2,12 @@
 
 @section('content')
 
-    <h1>{{ $site->name}}</h1>
-    <h2>Deployment Log</h2>
+    <h1>{{ $link->page->title }}</h1>
+    <h2>{{ $site->name }}</h2>
+
+    <h4 class="m-t-xl m-b-lg">Deployment Log</h4>
+
+    <hr>
 
     <div class="m-b-xl m-t-xl">
         <pre class="forge-site__log">{!! nl2br($log) !!}</pre>

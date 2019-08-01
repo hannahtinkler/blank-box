@@ -38,27 +38,38 @@ class PageForgeLinkController extends Controller
 
         return redirect($link->page->searchResultUrl)->with(
             'message',
-            sprintf('<i class="fa fa-check"></i>%s', $message)
+            sprintf('<i class="fa fa-check"></i> %s', $message)
         );
     }
 
     /**
      * @return Redirect
      */
-    public function edit(Request $request, PageForgeLink $link)
+    public function editEnv(Request $request, PageForgeLink $link)
     {
-        $link = PageForgeLink::create(
-            array_merge(
-                ['created_by' => $request->user()->id],
-                $request->only('server_id', 'page_id', 'site_id')
-            )
+        return view('forge-sites.env', [
+            'link' => $link,
+            'site' => app(Forge::class)->site($link->server_id, $link->site_id),
+            'env' => app(Forge::class)->siteEnvironmentFile($link->server_id, $link->site_id),
+        ]);
+    }
+
+    /**
+     * @return Redirect
+     */
+    public function updateEnv(Request $request, PageForgeLink $link)
+    {
+        app(Forge::class)->updateSiteEnvironmentFile(
+            $link->server_id,
+            $link->site_id,
+            $request->input('env')
         );
 
-        $message = "This forge link has been saved!";
+        $message = "This .env file has been saved!";
 
         return redirect($link->page->searchResultUrl)->with(
             'message',
-            sprintf('<i class="fa fa-check"></i>%s', $message)
+            sprintf('<i class="fa fa-check"></i> %s', $message)
         );
     }
 
@@ -67,9 +78,22 @@ class PageForgeLinkController extends Controller
      */
     public function log(Request $request, PageForgeLink $link)
     {
-        return view('forge-sites.show', [
+        return view('forge-sites.log', [
+            'link' => $link,
             'site' => app(Forge::class)->site($link->server_id, $link->site_id),
             'log' => app(Forge::class)->siteDeploymentLog($link->server_id, $link->site_id),
+        ]);
+    }
+
+    /**
+     * @return Redirect
+     */
+    public function script(Request $request, PageForgeLink $link)
+    {
+        return view('forge-sites.script', [
+            'link' => $link,
+            'site' => app(Forge::class)->site($link->server_id, $link->site_id),
+            'script' => app(Forge::class)->siteDeploymentScript($link->server_id, $link->site_id),
         ]);
     }
 

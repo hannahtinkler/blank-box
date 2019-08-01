@@ -1926,6 +1926,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     pageId: {
@@ -2539,29 +2561,125 @@ var render = function() {
                         _vm._v(" "),
                         _c("div", [
                           _c(
-                            "a",
+                            "button",
                             {
-                              staticClass: "btn btn-sm btn-primary",
-                              attrs: {
-                                href:
-                                  "/forge-links/" + site.internalId + "/log",
-                                title: "View deployment log"
-                              }
+                              staticClass:
+                                "btn btn-sm btn-primary dropdown-button",
+                              attrs: { title: "Viewing options" }
                             },
-                            [_c("i", { staticClass: "fa fa-file-text-o" })]
+                            [
+                              _c("i", { staticClass: "fa fa-search" }),
+                              _vm._v(" "),
+                              _c(
+                                "ul",
+                                {
+                                  staticClass: "no-bullet dropdown-button__list"
+                                },
+                                [
+                                  _c(
+                                    "li",
+                                    {
+                                      staticClass: "dropdown-button__list-item"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-button__link",
+                                          attrs: {
+                                            href:
+                                              "/forge-links/" +
+                                              site.internalId +
+                                              "/log"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                  View deployment log\n                                "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "li",
+                                    {
+                                      staticClass: "dropdown-button__list-item"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-button__link",
+                                          attrs: {
+                                            href:
+                                              "/forge-links/" +
+                                              site.internalId +
+                                              "/script"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                  View deploy script\n                                "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _c(
-                            "a",
+                            "button",
                             {
-                              staticClass: "btn btn-sm btn-primary disabled",
+                              staticClass:
+                                "btn btn-sm btn-primary dropdown-button",
                               attrs: {
                                 href:
                                   "/forge-links/" + site.internalId + "/edit",
-                                title: "Coming soon"
+                                title: "Editing options"
                               }
                             },
-                            [_c("i", { staticClass: "fa fa-pencil" })]
+                            [
+                              _c("i", { staticClass: "fa fa-pencil" }),
+                              _vm._v(" "),
+                              _c(
+                                "ul",
+                                {
+                                  staticClass: "no-bullet dropdown-button__list"
+                                },
+                                [
+                                  _c(
+                                    "li",
+                                    {
+                                      staticClass: "dropdown-button__list-item"
+                                    },
+                                    [
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass: "dropdown-button__link",
+                                          attrs: {
+                                            href:
+                                              "/forge-links/" +
+                                              site.internalId +
+                                              "/env/edit"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                  Edit .env\n                                "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
                           ),
                           _vm._v(" "),
                           _vm.curator

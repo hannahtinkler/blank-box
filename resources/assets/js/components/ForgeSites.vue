@@ -35,12 +35,34 @@
                           Deploy
                       </a>
                       <div>
-                          <a class="btn btn-sm btn-primary" :href="`/forge-links/${ site.internalId }/log`" title="View deployment log">
-                              <i class="fa fa-file-text-o"></i>
-                          </a>
-                          <a class="btn btn-sm btn-primary disabled" :href="`/forge-links/${ site.internalId }/edit`" title="Coming soon">
+                          <button class="btn btn-sm btn-primary dropdown-button" title="Viewing options">
+                              <i class="fa fa-search"></i>
+
+                              <ul class="no-bullet dropdown-button__list">
+                                <li class="dropdown-button__list-item">
+                                  <a :href="`/forge-links/${ site.internalId }/log`" class="dropdown-button__link">
+                                    View deployment log
+                                  </a>
+                                </li>
+                                <li class="dropdown-button__list-item">
+                                  <a :href="`/forge-links/${ site.internalId }/script`" class="dropdown-button__link">
+                                    View deploy script
+                                  </a>
+                                </li>
+                              </ul>
+                          </button>
+                          <button class="btn btn-sm btn-primary dropdown-button" :href="`/forge-links/${ site.internalId }/edit`" title="Editing options">
                               <i class="fa fa-pencil"></i>
-                          </a>
+
+                              <ul class="no-bullet dropdown-button__list">
+                                <li class="dropdown-button__list-item">
+                                  <a :href="`/forge-links/${ site.internalId }/env/edit`" class="dropdown-button__link">
+                                    Edit .env
+                                  </a>
+                                </li>
+
+                              </ul>
+                          </button>
                           <a class="btn btn-sm btn-primary" :href="`/forge-links/${ site.internalId }/unlink`" title="Remove from project" v-if="curator">
                               <i class="fa fa-chain-broken"></i>
                           </a>

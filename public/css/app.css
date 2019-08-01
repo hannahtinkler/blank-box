@@ -29,6 +29,12 @@ body {
   background-color: transparent !important;
 }
 
+textarea {
+  width: 100%;
+  padding: 1.5rem;
+  border: #e5e6e7 thin solid;
+}
+
 .navbar-fixed-top {
   background: #f9f9fa;
 }
@@ -90,8 +96,13 @@ nav .glyphicon-bookmark {
 }
 
 .vertical-timeline-content {
-  border: thin solid #d4e2ea;
-  background: #f1f4f6;
+  border: thin solid #505050;
+  background: #fff;
+}
+
+.vertical-timeline__heading {
+  line-height: 1.75;
+  margin: 0;
 }
 
 @media (min-width: 93.75em) {
@@ -127,6 +138,48 @@ nav .glyphicon-bookmark {
 .forge-site__log {
   padding: 3rem !important;
   font-size: 10px !important;
+}
+
+.dropdown-button {
+  position: relative;
+}
+
+.dropdown-button:hover .dropdown-button__list {
+  display: block;
+}
+
+.dropdown-button__list {
+  text-align: right;
+  display: none;
+  padding: 0.5rem 1rem !important;
+  position: absolute;
+  background: #45768e;
+  right: -1px;
+  margin-top: 9px;
+  border-radius: 4px;
+}
+
+.dropdown-button__list:before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 0px;
+  height: 9px;
+  width: 33px;
+}
+
+.dropdown-button__list-item {
+  margin: 5px 0 !important;
+}
+
+.dropdown-button__link {
+  padding: 3px 1rem !important;
+  color: white !important;
+}
+
+.dropdown-button__link:hover {
+  background: #528da9;
+  border-radius: 20px;
 }
 
 .tabs-component-tabs {

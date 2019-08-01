@@ -23,8 +23,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/pages/{id}', 'PageController@update');
 
     Route::get('/forge-links/{link}/deploy', 'PageForgeLinkController@deploy');
-    Route::get('/forge-links/{link}/edit', 'PageForgeLinkController@edit');
+    Route::get('/forge-links/{link}/env/edit', 'PageForgeLinkController@editEnv');
+    Route::patch('/forge-links/{link}/env', 'PageForgeLinkController@updateEnv');
     Route::get('/forge-links/{link}/log', 'PageForgeLinkController@log');
+    Route::get('/forge-links/{link}/script', 'PageForgeLinkController@script');
     Route::get('/forge-links/{link}/unlink', 'PageForgeLinkController@unlink');
     Route::post('/forge-links', 'PageForgeLinkController@store');
 
@@ -34,7 +36,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/pageresources/update/{id}', 'PageResourceController@update');
     Route::get('/pageresources/delete/{id}', 'PageResourceController@destroy');
     Route::get('/pageresources/edit/{id}', 'PageResourceController@edit');
-
 
     Route::get('/chapters/create', 'ChapterController@create');
     Route::post('/chapters', 'ChapterController@store');
