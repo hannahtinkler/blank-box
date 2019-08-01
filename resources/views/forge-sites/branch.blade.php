@@ -9,9 +9,13 @@
 
     <hr>
 
-    <p class="warn m-t-xl">
-        Editing the branch this way assumes that the branch specified in the deployment script matches the quick deploy branch. If it doesn't, this will need to be done through Forge.
-    </p>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <p class="warn m-t-xl">
+                Editing the branch this way assumes that the branch specified in the deployment script matches the quick deploy branch. If it doesn't, this will need to be done through Forge.
+            </p>
+        </div>
+    </div>
 
     @if(count($errors) > 0)
         <div class="bg-danger error-message m-b-xl m-t-xl">

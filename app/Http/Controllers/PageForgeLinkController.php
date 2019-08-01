@@ -91,7 +91,6 @@ class PageForgeLinkController extends Controller
      */
     public function updateBranch(PageForgeLinkBranchRequest $request, PageForgeLink $link)
     {
-        exit(var_dump('gds'));
         $site = app(Forge::class)->site($link->server_id, $link->site_id);
 
         $script = str_replace(
