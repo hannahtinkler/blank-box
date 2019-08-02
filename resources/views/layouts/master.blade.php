@@ -39,7 +39,7 @@
                 'drafts'
             ))
 
-            <div id="page-wrapper" class="gray-bg">
+            <div id="page-wrapper" class="main-content">
                 <div class="row">
                     <nav class="navbar navbar-fixed-top fixed-nav" role="navigation" style="margin-bottom: 0">
                         <div class="navbar-header">
