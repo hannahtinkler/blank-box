@@ -39,7 +39,7 @@
         Project Resources
     </h3>
 
-    <tabs class="nav-tertiary" :options="{ useUrlFragment: false }" @changed="e => $root.$emit('tab-changed', e)">
+    <tabs class="nav-tertiary" :options="{ useUrlFragment: true }" cache-lifetime="9999999" @changed="e => $root.$emit('tab-changed', e)">
         @foreach($resources as $category => $items)
             <tab name="{{ $category }}">
                 <table class="table table-hover m-b-sm">
