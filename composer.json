@@ -10,7 +10,7 @@
         "elasticquent/elasticquent": "dev-master",
         "cogpowered/finediff": "0.3.*",
         "laravel/socialite": "^2.0",
-        "league/commonmark": "^0.15.1",
+        "league/commonmark": "^0.18.3",
         "league/html-to-markdown": "^4.3",
         "themsaid/forge-sdk": "^2.0"
     },
